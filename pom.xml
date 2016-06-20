@@ -9,5 +9,6 @@
     <name>poo-library</name>
     <modules>
         <module>poo-library-modelo</module>
+        <module>poo-library-app</module>
     </modules>
 </project>
