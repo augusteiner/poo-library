@@ -23,40 +23,59 @@
  */
 package poo.library.modelo;
 
+import poo.library.comum.IItemAcervo;
+import poo.library.comum.IUsuario;
+
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Usuario {
+public class Usuario implements IUsuario {
 
-    private int id;
+    private int codigo;
 
     private String nome;
     private String endereco;
     private String cpf;
 
-    public int getId() {
+    @Override
+    public IItemAcervo escolherItemAcervo() {
 
-        return id;
+        return null;
     }
 
-    public void setId(int id) {
+    @Override
+    public int getCodigo() {
 
-        this.id = id;
+        return this.codigo;
     }
 
+    @Override
+    public String getCpf() {
+
+        return cpf;
+    }
+
+    @Override
+    public String getEndereco() {
+
+        return endereco;
+    }
+
+    @Override
     public String getNome() {
 
         return nome;
     }
 
-    public void setNome(String nome) {
+    @Override
+    public void pagar() {
 
-        this.nome = nome;
+        //
     }
 
-    public String getEndereco() {
+    public void setCpf(String cpf) {
 
-        return endereco;
+        this.cpf = cpf;
     }
 
     public void setEndereco(String endereco) {
@@ -64,13 +83,8 @@ public class Usuario {
         this.endereco = endereco;
     }
 
-    public String getCpf() {
+    public void setNome(String nome) {
 
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-
-        this.cpf = cpf;
+        this.nome = nome;
     }
 }
