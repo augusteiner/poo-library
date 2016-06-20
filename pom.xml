@@ -10,5 +10,6 @@
     <modules>
         <module>poo-library-modelo</module>
         <module>poo-library-app</module>
+        <module>poo-library-comum</module>
     </modules>
 </project>
