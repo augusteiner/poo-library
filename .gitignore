@@ -1,0 +1,12 @@
+**.project
+**.classpath
+
+**/.settings/
+**/.externalToolBuilders/
+**/target/
+
+**.class
+**.jar
+
+**.orig
+
