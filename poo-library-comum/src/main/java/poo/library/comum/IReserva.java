@@ -23,17 +23,16 @@
  */
 package poo.library.comum;
 
+import java.util.Date;
+
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IBiblioteca extends IIdentificavel {
+public interface IReserva {
 
-    IItemAcervo buscar(int itemId);
+    Date getData();
 
-    IAcervo getAcervo();
+    Date getExpiracao();
 
-    String getNome();
-
-    // double calcularValorMultas(Date dia);
-    // double valorDiarioMulta(IItemAcervo item);
+    IUsuario getUsuario();
 }

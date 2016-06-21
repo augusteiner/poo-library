@@ -26,9 +26,9 @@ package poo.library.comum;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IUsuario extends IPessoaFisica, IIdentificavel {
+public interface IUsuario extends IPessoaFisica {
 
-    IItemAcervo escolherItemAcervo();
+    // IItemAcervo escolherItemAcervo();
 
-    void pagar();
+    // void pagar();
 }

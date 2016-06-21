@@ -26,14 +26,9 @@ package poo.library.comum;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IBiblioteca extends IIdentificavel {
+public interface IEndereco {
 
-    IItemAcervo buscar(int itemId);
+    String getLogradouro();
 
-    IAcervo getAcervo();
-
-    String getNome();
-
-    // double calcularValorMultas(Date dia);
-    // double valorDiarioMulta(IItemAcervo item);
+    String getNumero();
 }

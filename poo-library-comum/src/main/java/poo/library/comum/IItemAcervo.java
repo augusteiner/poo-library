@@ -28,13 +28,13 @@ import java.util.Date;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IItemAcervo {
-
-    void alugar();
+public interface IItemAcervo extends IIdentificavel {
 
     double devolver();
 
-    boolean estaPago();
+    void emprestar(IUsuario usuario);
+
+    // boolean estaPago();
 
     int getCodigo();
 
@@ -44,7 +44,7 @@ public interface IItemAcervo {
 
     Date getDataDevolucao();
 
-    boolean getPago();
+    // boolean getPago();
 
     void reservar(IUsuario usuario);
 }

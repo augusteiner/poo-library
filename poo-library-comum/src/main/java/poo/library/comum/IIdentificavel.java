@@ -28,5 +28,5 @@ package poo.library.comum;
  */
 public interface IIdentificavel {
 
-    int getCodigo();
+    int getId();
 }

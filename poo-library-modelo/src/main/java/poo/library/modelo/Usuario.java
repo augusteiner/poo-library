@@ -23,7 +23,7 @@
  */
 package poo.library.modelo;
 
-import poo.library.comum.IItemAcervo;
+import poo.library.comum.IEndereco;
 import poo.library.comum.IUsuario;
 
 /**
@@ -31,22 +31,18 @@ import poo.library.comum.IUsuario;
  */
 public class Usuario implements IUsuario {
 
-    private int codigo;
+    private int id;
 
     private String nome;
-    private String endereco;
     private String cpf;
 
-    @Override
-    public IItemAcervo escolherItemAcervo() {
+    public Usuario() { }
 
-        return null;
-    }
+    public Usuario(int id, String nome, String cpf) {
 
-    @Override
-    public int getCodigo() {
-
-        return this.codigo;
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
     }
 
     @Override
@@ -56,21 +52,21 @@ public class Usuario implements IUsuario {
     }
 
     @Override
-    public String getEndereco() {
+    public IEndereco getEndereco() {
 
-        return endereco;
+        return null;
+    }
+
+    @Override
+    public int getId() {
+
+        return id;
     }
 
     @Override
     public String getNome() {
 
         return nome;
-    }
-
-    @Override
-    public void pagar() {
-
-        //
     }
 
     public void setCpf(String cpf) {
@@ -80,11 +76,26 @@ public class Usuario implements IUsuario {
 
     public void setEndereco(String endereco) {
 
-        this.endereco = endereco;
+        //
+    }
+
+    public void setId(int id) {
+
+        this.id = id;
     }
 
     public void setNome(String nome) {
 
         this.nome = nome;
+    }
+
+    @Override
+    public String toString() {
+
+        return String.format(
+            "#%s - %s (%s)",
+            this.getId(),
+            this.getNome(),
+            this.getCpf());
     }
 }
