@@ -17,5 +17,10 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
+    <dependency>
+      <groupId>poo.library.comum</groupId>
+      <artifactId>poo-library-comum</artifactId>
+      <version>0.1.0-RELEASE</version>
+    </dependency>
   </dependencies>
 </project>

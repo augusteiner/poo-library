@@ -21,24 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.comum;
+package poo.library.comum;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IDAO<T> {
+public interface IConvertible<T> {
 
-    void delete(
-        String condition,
-        Object... params);
-
-    void delete(T obj);
-
-    Iterable<T> findAll();
-
-    Iterable<T> findAll(
-        String condition,
-        Object... params);
-
-    void save(T obj);
+    T convert();
 }

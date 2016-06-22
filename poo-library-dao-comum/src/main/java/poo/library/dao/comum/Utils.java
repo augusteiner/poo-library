@@ -23,22 +23,41 @@
  */
 package poo.library.dao.comum;
 
+import java.util.Iterator;
+
+import poo.library.comum.IConvertible;
+
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IDAO<T> {
+public class Utils {
 
-    void delete(
-        String condition,
-        Object... params);
+    public static <M extends IConvertible<T>, T> Iterable<T> mapIterable(final Iterable<M> iterable) {
 
-    void delete(T obj);
+        return new Iterable<T>() {
 
-    Iterable<T> findAll();
+            @Override
+            public Iterator<T> iterator() {
 
-    Iterable<T> findAll(
-        String condition,
-        Object... params);
+                final Iterator<M> iter = iterable.iterator();
 
-    void save(T obj);
+                return new Iterator<T>() {
+
+                    @Override
+                    public boolean hasNext() {
+
+                        return iter.hasNext();
+                    }
+
+                    @Override
+                    public T next() {
+
+                        M from = iter.next();
+
+                        return from.convert();
+                    }
+                };
+            }
+        };
+    }
 }

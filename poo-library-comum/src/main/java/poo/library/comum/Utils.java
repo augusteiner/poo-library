@@ -21,24 +21,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.comum;
+package poo.library.comum;
+
+import java.text.ParseException;
+
+import javax.swing.text.MaskFormatter;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IDAO<T> {
+public class Utils {
 
-    void delete(
-        String condition,
-        Object... params);
+    static class CpfFormatter extends MaskFormatter {
 
-    void delete(T obj);
+        private static final long serialVersionUID = -5181943190057841460L;
 
-    Iterable<T> findAll();
+        public CpfFormatter() {
 
-    Iterable<T> findAll(
-        String condition,
-        Object... params);
+            this.setValueContainsLiteralCharacters(false);
 
-    void save(T obj);
+            try {
+
+                this.setMask(CPF_MASK);
+
+            } catch (ParseException e) {
+
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static final String CPF_MASK = "###.###.###-##";
+
+    private static final MaskFormatter CPF_FORMATTER = new CpfFormatter();
+
+    public static String formatarCpf(String cpf) throws ParseException {
+
+        return CPF_FORMATTER.valueToString(cpf);
+    }
 }
