@@ -21,9 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.activejdbc;
+package poo.library.dao.activejdbc.impl;
 
 import poo.library.comum.IUsuario;
+import poo.library.dao.activejdbc.GenericDAO;
 import poo.library.dao.activejdbc.model.UsuarioModel;
 import poo.library.dao.comum.IDAO;
 

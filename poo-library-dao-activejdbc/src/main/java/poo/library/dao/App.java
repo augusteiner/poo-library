@@ -26,7 +26,7 @@ package poo.library.dao;
 import org.javalite.activejdbc.Base;
 
 import poo.library.comum.IUsuario;
-import poo.library.dao.activejdbc.UsuarioDAO;
+import poo.library.dao.activejdbc.impl.UsuarioDAO;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Usuario;
 
