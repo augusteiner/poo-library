@@ -30,18 +30,16 @@ import org.javalite.activejdbc.Model;
 
 import poo.library.comum.IConvertible;
 import poo.library.comum.IIdentificavel;
-import poo.library.dao.comum.IDAO;
 import poo.library.dao.comum.Utils;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public abstract class GenericDAO<T extends IIdentificavel, M extends Model & IConvertible<T>> implements IDAO<T> {
+public abstract class GenericDAO<T extends IIdentificavel, M extends Model & IConvertible<T>> {
 
     protected BiConsumer<String, Object[]> delete;
     protected BiFunction<String, Object[], Iterable<M>> find;
 
-    @Override
     public void delete(
         String condition,
         Object... params) {
@@ -51,7 +49,6 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends Model & ICo
             params);
     }
 
-    @Override
     public void delete(T obj) {
 
         this.delete.accept(
@@ -59,13 +56,11 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends Model & ICo
             new Object[]{ obj.getId() });
     }
 
-    @Override
     public Iterable<T> findAll() {
 
         return Utils.mapIterable(this.find.apply("1", null));
     }
 
-    @Override
     public Iterable<T> findAll(
         String condition,
         Object... params) {
@@ -77,7 +72,6 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends Model & ICo
 
     protected abstract M from(T obj);
 
-    @Override
     public void save(T obj) {
 
         M model = this.from(obj);

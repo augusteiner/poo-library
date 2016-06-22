@@ -23,10 +23,16 @@
  */
 package poo.library.dao;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.Hashtable;
+import java.util.Map;
+
 import org.javalite.activejdbc.Base;
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
 
 import poo.library.comum.IUsuario;
-import poo.library.dao.activejdbc.impl.UsuarioDAO;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Usuario;
 
@@ -35,7 +41,61 @@ import poo.library.modelo.Usuario;
  */
 public class App {
 
+    private static class DAOFactory {
+
+        private Map<Type, Class<?>> registry = new Hashtable<>();
+
+        private void discoverAllDAO(Package pkg) {
+
+            Reflections ref = new Reflections(
+                pkg.getName(),
+                new SubTypesScanner(false));
+
+            Iterable<? extends Class<?>> iter = ref.getSubTypesOf(IDAO.class);
+
+            for (Class<?> o : iter) {
+
+                Class<?> cls = o;
+                ParameterizedType inter = ((ParameterizedType)cls.getGenericInterfaces()[0]);
+
+                //System.out.println(cls);
+                //System.out.println(inter.getActualTypeArguments()[0]);
+
+                registry.put(inter.getActualTypeArguments()[0], cls);
+            }
+        }
+
+        @SuppressWarnings("unchecked")
+        public <T> IDAO<T> makeNew(Class<T> clazz) {
+
+            Class<?> key = registry.get(clazz);
+            IDAO<T> r = null;
+
+            if (key != null) {
+
+                try {
+
+                    r = (IDAO<T>) key.newInstance();
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+            }
+
+            return r;
+        }
+    }
+
+    private static DAOFactory factory = new DAOFactory();
+
     public static void main(String[] args) {
+
+        factory.discoverAllDAO(App.class.getPackage());
+
+        seed();
+    }
+
+    private static void seed() {
 
         Base.open(
             "com.mysql.cj.jdbc.Driver",
@@ -43,11 +103,11 @@ public class App {
             "biblioteca",
             "123456");
 
-        IDAO<IUsuario> dao = new UsuarioDAO();
+        IDAO<IUsuario> dao = factory.makeNew(IUsuario.class);
 
         dao.delete("1 = 1");
 
-        printCentro("Inserindo usuários de teste", 45);
+        sysoutCentro("Inserindo usuários de teste", 45);
 
         Usuario[] seed = new Usuario[] {
             new Usuario("José", "11111111111"),
@@ -66,7 +126,7 @@ public class App {
             "LOCATE(?, nome) > 0",
             "José");
 
-        printCentro("Usuários com José no nome", 45);
+        sysoutCentro("Usuários com José no nome", 45);
 
         for (IUsuario u : usuarios) {
 
@@ -78,7 +138,7 @@ public class App {
         }
     }
 
-    public static void printCentro(String texto, int size) {
+    private static void sysoutCentro(String texto, int size) {
 
         texto = texto.trim();
         StringBuilder header = new StringBuilder(size);
