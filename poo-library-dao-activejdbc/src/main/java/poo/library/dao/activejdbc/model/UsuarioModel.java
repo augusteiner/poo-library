@@ -21,24 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.activejdbc;
+package poo.library.dao.activejdbc.model;
 
 import org.javalite.activejdbc.Model;
+import org.javalite.activejdbc.annotations.Table;
+
+import poo.library.comum.IConvertible;
+import poo.library.modelo.Usuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IAdapter<T> {
+@Table("usuario")
+public class UsuarioModel extends Model implements IConvertible<Usuario> {
 
-    void _delete(T obj);
+    public static Model from(Usuario usuario) {
 
-    Iterable<T> _findAll();
+        Model model = new UsuarioModel();
 
-    void _save(T obj);
+        model.set("id", usuario.getId());
+        model.set("nome", usuario.getNome());
+        model.set("cpf", usuario.getCpf());
 
-    Iterable<T> _where(
-        String subquery,
-        Object... params);
+        return model;
+    }
 
-    T map(Model from);
+    @Override
+    public Usuario convert() {
+
+         return new Usuario(
+             this.getInteger("id"),
+             this.getString("nome"),
+             this.getString("cpf"));
+    }
 }

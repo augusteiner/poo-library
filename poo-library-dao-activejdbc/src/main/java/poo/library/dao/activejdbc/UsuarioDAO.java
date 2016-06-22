@@ -23,50 +23,64 @@
  */
 package poo.library.dao.activejdbc;
 
-import java.util.Iterator;
-
 import org.javalite.activejdbc.Model;
+
+import poo.library.dao.activejdbc.model.UsuarioModel;
+import poo.library.dao.comum.IDAO;
+import poo.library.dao.comum.Utils;
+import poo.library.modelo.Usuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Utils {
+public class UsuarioDAO implements IDAO<Usuario> {
 
-    public static <TFrom extends Model & IAdapter<TTo>, TTo> Iterable<TTo> mapIterable(
-        final Iterable<TFrom> iterable,
-        final Class<TTo> toType) {
+    @Override
+    public void delete(
+        String condition,
+        Object... params) {
 
-        return new Iterable<TTo>() {
-
-            @Override
-            public Iterator<TTo> iterator() {
-
-                final Iterator<TFrom> iter = iterable.iterator();
-
-                return new Iterator<TTo>() {
-
-                    @Override
-                    public boolean hasNext() {
-
-                        return iter.hasNext();
-                    }
-
-                    @Override
-                    public TTo next() {
-
-                        TFrom from = iter.next();
-
-                        TTo to = from.map(from);
-
-                        // TODO utilizar model mapper
-                        // usuario.setId(user.getInteger("id"));
-                        // usuario.setNome(user.getString("nome"));
-
-                        return to;
-                    }
-                };
-            }
-        };
+        UsuarioModel.delete(
+            condition,
+            params);
     }
 
+    @Override
+    public void delete(Usuario obj) {
+
+        UsuarioModel.delete(
+            "id = ?",
+            obj.getId());
+    }
+
+    @Override
+    public Iterable<Usuario> findAll() {
+
+        Iterable<UsuarioModel> iter = UsuarioModel.findAll();
+
+        return Utils.mapIterable(iter);
+    }
+
+    @Override
+    public Iterable<Usuario> findAll(
+        String condition,
+        Object... params) {
+
+        Iterable<UsuarioModel> iter = UsuarioModel.where(
+            condition,
+            params);
+
+        return Utils.mapIterable(iter);
+    }
+
+    @Override
+    public void save(Usuario obj) {
+
+        Model model = UsuarioModel.from(obj);
+
+        if (obj.getId() == 0)
+            model.insert();
+        else
+            model.save();
+    }
 }

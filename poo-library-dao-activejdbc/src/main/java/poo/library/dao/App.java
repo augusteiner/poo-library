@@ -25,9 +25,7 @@ package poo.library.dao;
 
 import org.javalite.activejdbc.Base;
 
-import poo.library.dao.activejdbc.DAOImpl;
-import poo.library.dao.activejdbc.IAdapter;
-import poo.library.dao.activejdbc.UsuarioAR;
+import poo.library.dao.activejdbc.UsuarioDAO;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Usuario;
 
@@ -44,17 +42,63 @@ public class App {
             "biblioteca",
             "123456");
 
-        IAdapter<Usuario> adapter = new UsuarioAR();
+        IDAO<Usuario> dao = new UsuarioDAO();
 
-        IDAO<Usuario> dao = new DAOImpl<Usuario>(adapter);
+        dao.delete("1 = 1");
 
-        Iterable<Usuario> usuarios = dao.where(
-            "nome = ?",
-            "jose");
+        printCentro("Inserindo usuários de teste", 45);
+
+        Usuario[] seed = new Usuario[] {
+            new Usuario("José", "11111111111"),
+            new Usuario("João", "22222222222"),
+            new Usuario("Maria", "33333333333")
+        };
+
+        for (Usuario u : seed) {
+
+            dao.save(u);
+
+            System.out.println(String.format("Inserido %s", u));
+        }
+
+        Iterable<Usuario> usuarios = dao.findAll(
+            "LOCATE(?, nome) > 0",
+            "José");
+
+        printCentro("Listando usuários com José no nome", 45);
 
         for (Usuario u : usuarios) {
 
             System.out.println(u);
+
+            u.setNome(u.getNome() + " II");
+            dao.save(u);
         }
+    }
+
+    public static void printCentro(String texto, int size) {
+
+        texto = texto.trim();
+        StringBuilder header = new StringBuilder(size);
+        StringBuilder body = new StringBuilder(Math.max(size, texto.length()));
+
+        for (int i = 0; i < size; i++)
+            header.append("-");
+
+        for (int i = 0; i < (size - texto.length()) / 2; i++) {
+
+            body.append(" ");
+        }
+
+        for (int i = 0; i < texto.length(); i++) {
+
+            body.append(texto.charAt(i));
+        }
+
+        System.out.println(header);
+
+        System.out.println(body);
+
+        System.out.println(header);
     }
 }
