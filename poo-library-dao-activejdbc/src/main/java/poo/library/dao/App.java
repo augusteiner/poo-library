@@ -25,6 +25,7 @@ package poo.library.dao;
 
 import org.javalite.activejdbc.Base;
 
+import poo.library.comum.IUsuario;
 import poo.library.dao.activejdbc.UsuarioDAO;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Usuario;
@@ -42,7 +43,7 @@ public class App {
             "biblioteca",
             "123456");
 
-        IDAO<Usuario> dao = new UsuarioDAO();
+        IDAO<IUsuario> dao = new UsuarioDAO();
 
         dao.delete("1 = 1");
 
@@ -61,17 +62,18 @@ public class App {
             System.out.println(String.format("Inserido %s", u));
         }
 
-        Iterable<Usuario> usuarios = dao.findAll(
+        Iterable<IUsuario> usuarios = dao.findAll(
             "LOCATE(?, nome) > 0",
             "José");
 
-        printCentro("Listando usuários com José no nome", 45);
+        printCentro("Usuários com José no nome", 45);
 
-        for (Usuario u : usuarios) {
+        for (IUsuario u : usuarios) {
 
             System.out.println(u);
 
             u.setNome(u.getNome() + " II");
+
             dao.save(u);
         }
     }

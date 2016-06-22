@@ -21,38 +21,70 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.activejdbc.model;
+package poo.library.dao.activejdbc;
+
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 
 import org.javalite.activejdbc.Model;
-import org.javalite.activejdbc.annotations.Table;
 
 import poo.library.comum.IConvertible;
-import poo.library.comum.IUsuario;
-import poo.library.modelo.Usuario;
+import poo.library.comum.IIdentificavel;
+import poo.library.dao.comum.IDAO;
+import poo.library.dao.comum.Utils;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Table("usuario")
-public class UsuarioModel extends Model implements IConvertible<IUsuario> {
+public abstract class GenericDAO<T extends IIdentificavel, M extends Model & IConvertible<T>> implements IDAO<T> {
 
-    public static UsuarioModel from(IUsuario usuario) {
+    protected BiConsumer<String, Object[]> delete;
+    protected BiFunction<String, Object[], Iterable<M>> find;
 
-        UsuarioModel model = new UsuarioModel();
+    @Override
+    public void delete(
+        String condition,
+        Object... params) {
 
-        model.set("id", usuario.getId());
-        model.set("nome", usuario.getNome());
-        model.set("cpf", usuario.getCpf());
-
-        return model;
+        this.delete.accept(
+            condition,
+            params);
     }
 
     @Override
-    public IUsuario convert() {
+    public void delete(T obj) {
 
-         return new Usuario(
-             this.getInteger("id"),
-             this.getString("nome"),
-             this.getString("cpf"));
+        this.delete.accept(
+            "id = ?",
+            new Object[]{ obj.getId() });
+    }
+
+    @Override
+    public Iterable<T> findAll() {
+
+        return Utils.mapIterable(this.find.apply("1", null));
+    }
+
+    @Override
+    public Iterable<T> findAll(
+        String condition,
+        Object... params) {
+
+        Iterable<M> iter = this.find.apply(condition, params);
+
+        return Utils.mapIterable(iter);
+    }
+
+    protected abstract M from(T obj);
+
+    @Override
+    public void save(T obj) {
+
+        M model = this.from(obj);
+
+        if (obj.getId() == 0)
+            model.insert();
+        else
+            model.save();
     }
 }

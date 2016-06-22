@@ -31,4 +31,6 @@ public interface IPessoa extends IIdentificavel {
     IEndereco getEndereco();
 
     String getNome();
+
+    void setNome(String nome);
 }

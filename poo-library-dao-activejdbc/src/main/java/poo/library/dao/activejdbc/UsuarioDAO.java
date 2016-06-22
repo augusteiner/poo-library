@@ -23,64 +23,27 @@
  */
 package poo.library.dao.activejdbc;
 
-import org.javalite.activejdbc.Model;
-
+import poo.library.comum.IUsuario;
 import poo.library.dao.activejdbc.model.UsuarioModel;
 import poo.library.dao.comum.IDAO;
-import poo.library.dao.comum.Utils;
-import poo.library.modelo.Usuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class UsuarioDAO implements IDAO<Usuario> {
+public class UsuarioDAO extends GenericDAO<IUsuario, UsuarioModel> implements IDAO<IUsuario> {
 
-    @Override
-    public void delete(
-        String condition,
-        Object... params) {
+    public UsuarioDAO() {
 
-        UsuarioModel.delete(
-            condition,
-            params);
+        this.delete = (String subquery, Object... params) ->
+            UsuarioModel.delete(subquery, params);
+
+        this.find = (String subquery, Object... params) ->
+            UsuarioModel.find(subquery, params);
     }
 
     @Override
-    public void delete(Usuario obj) {
+    protected UsuarioModel from(IUsuario obj) {
 
-        UsuarioModel.delete(
-            "id = ?",
-            obj.getId());
-    }
-
-    @Override
-    public Iterable<Usuario> findAll() {
-
-        Iterable<UsuarioModel> iter = UsuarioModel.findAll();
-
-        return Utils.mapIterable(iter);
-    }
-
-    @Override
-    public Iterable<Usuario> findAll(
-        String condition,
-        Object... params) {
-
-        Iterable<UsuarioModel> iter = UsuarioModel.where(
-            condition,
-            params);
-
-        return Utils.mapIterable(iter);
-    }
-
-    @Override
-    public void save(Usuario obj) {
-
-        Model model = UsuarioModel.from(obj);
-
-        if (obj.getId() == 0)
-            model.insert();
-        else
-            model.save();
+        return UsuarioModel.from(obj);
     }
 }
