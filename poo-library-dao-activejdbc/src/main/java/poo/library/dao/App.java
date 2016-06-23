@@ -23,16 +23,10 @@
  */
 package poo.library.dao;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.Hashtable;
-import java.util.Map;
-
 import org.javalite.activejdbc.Base;
-import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
 
 import poo.library.comum.IUsuario;
+import poo.library.dao.activejdbc.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Usuario;
 
@@ -41,56 +35,11 @@ import poo.library.modelo.Usuario;
  */
 public class App {
 
-    private static class DAOFactory {
-
-        private Map<Type, Class<?>> registry = new Hashtable<>();
-
-        private void discoverAllDAO(Package pkg) {
-
-            Reflections ref = new Reflections(
-                pkg.getName(),
-                new SubTypesScanner(false));
-
-            Iterable<? extends Class<?>> iter = ref.getSubTypesOf(IDAO.class);
-
-            for (Class<?> o : iter) {
-
-                Class<?> cls = o;
-                ParameterizedType inter = ((ParameterizedType)cls.getGenericInterfaces()[0]);
-
-                //System.out.println(cls);
-                //System.out.println(inter.getActualTypeArguments()[0]);
-
-                registry.put(inter.getActualTypeArguments()[0], cls);
-            }
-        }
-
-        @SuppressWarnings("unchecked")
-        public <T> IDAO<T> makeNew(Class<T> clazz) {
-
-            Class<?> key = registry.get(clazz);
-            IDAO<T> r = null;
-
-            if (key != null) {
-
-                try {
-
-                    r = (IDAO<T>) key.newInstance();
-                } catch (Exception e) {
-
-                    e.printStackTrace();
-                }
-            }
-
-            return r;
-        }
-    }
-
-    private static DAOFactory factory = new DAOFactory();
+    private static final DAOFactory factory = new DAOFactory();
 
     public static void main(String[] args) {
 
-        factory.discoverAllDAO(App.class.getPackage());
+        DAOFactory.discoverImpls(App.class.getPackage());
 
         seed();
     }
@@ -99,7 +48,7 @@ public class App {
 
         Base.open(
             "com.mysql.cj.jdbc.Driver",
-            "jdbc:mysql://localhost:4040/biblioteca?serverTimezone=UTC&nullNamePatternMatchesAll=true",
+            "jdbc:mysql://localhost:4040/biblioteca?serverTimezone=America/Fortaleza&nullNamePatternMatchesAll=true&useUnicode=true&characterEncoding=UTF-8",
             "biblioteca",
             "123456");
 
@@ -109,13 +58,13 @@ public class App {
 
         sysoutCentro("Inserindo usuários de teste", 45);
 
-        Usuario[] seed = new Usuario[] {
+        IUsuario[] seed = new IUsuario[] {
             new Usuario("José", "11111111111"),
             new Usuario("João", "22222222222"),
             new Usuario("Maria", "33333333333")
         };
 
-        for (Usuario u : seed) {
+        for (IUsuario u : seed) {
 
             dao.save(u);
 

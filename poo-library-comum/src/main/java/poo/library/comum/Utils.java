@@ -24,6 +24,7 @@
 package poo.library.comum;
 
 import java.text.ParseException;
+import java.util.Iterator;
 
 import javax.swing.text.MaskFormatter;
 
@@ -58,5 +59,34 @@ public class Utils {
     public static String formatarCpf(String cpf) throws ParseException {
 
         return CPF_FORMATTER.valueToString(cpf);
+    }
+
+    public static <M extends IConvertible<T>, T> Iterable<T> mapIterable(final Iterable<M> iterable) {
+
+        return new Iterable<T>() {
+
+            @Override
+            public Iterator<T> iterator() {
+
+                final Iterator<M> iter = iterable.iterator();
+
+                return new Iterator<T>() {
+
+                    @Override
+                    public boolean hasNext() {
+
+                        return iter.hasNext();
+                    }
+
+                    @Override
+                    public T next() {
+
+                        M from = iter.next();
+
+                        return from.convert();
+                    }
+                };
+            }
+        };
     }
 }

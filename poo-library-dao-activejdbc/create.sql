@@ -32,4 +32,18 @@ CREATE TABLE `usuario` (
 )
 COMMENT '';
 
+DROP TABLE IF EXISTS `item_acervo`;
+
+CREATE TABLE `item_acervo` (
+
+    `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `data_aluguel` DATE NOT NULL,
+    `data_devolucao` DATE NOT NULL,
+    `custo` DECIMAL(12, 4) NOT NULL,
+
+    PRIMARY KEY (`id`)
+
+)
+COMMENT '';
+
 
