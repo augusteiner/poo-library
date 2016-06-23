@@ -40,8 +40,8 @@ public class App {
 
             poo.library.Configuration.configure(new String[]{
                 "--factories.dao",
-                //"poo.library.dao.memory.DAOFactory"
-                "poo.library.dao.activejdbc.DAOFactory"
+                "poo.library.dao.memory.DAOFactory"
+                //"poo.library.dao.activejdbc.DAOFactory"
             });
         } catch (ConfiguracaoException e) {
 

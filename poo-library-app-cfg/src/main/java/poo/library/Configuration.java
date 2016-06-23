@@ -37,8 +37,17 @@ public class Configuration {
         try {
 
             Class<?> cls = Class.forName(args[1]);
+            IDAOFactory instance = null;
 
-            IDAOFactory instance = (IDAOFactory) cls.newInstance();
+            if (IDAOFactory.class.isAssignableFrom(cls)) {
+
+                instance = (IDAOFactory) cls.newInstance();
+            } else {
+
+                throw new ConfiguracaoException(String.format(
+                    "Factory '%s' inválida",
+                    cls.getName()));
+            }
 
             DAOFactory.register(instance);
 
