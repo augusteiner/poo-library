@@ -36,8 +36,6 @@ public interface IItemAcervo extends IIdentificavel {
 
     // boolean estaPago();
 
-    int getCodigo();
-
     double getCusto();
 
     Date getDataAluguel();
