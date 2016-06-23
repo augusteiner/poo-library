@@ -8,18 +8,18 @@
     <artifactId>poo-library</artifactId>
     <version>0.1.0-RELEASE</version>
   </parent>
-  <groupId>poo.library.app</groupId>
-  <artifactId>poo-library-app</artifactId>
+  <groupId>poo.library.app.cfg</groupId>
+  <artifactId>poo-library-app-cfg</artifactId>
   <version>0.1.0-RELEASE</version>
-  <name>poo-library-app</name>
+  <name>poo-library-app-cfg</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
     <dependency>
-      <groupId>poo.library.app.cfg</groupId>
-      <artifactId>poo-library-app-cfg</artifactId>
+      <groupId>poo.library.dao.comum</groupId>
+      <artifactId>poo-library-dao-comum</artifactId>
       <version>0.1.0-RELEASE</version>
     </dependency>
     <dependency>
@@ -28,14 +28,16 @@
       <version>0.1.0-RELEASE</version>
     </dependency>
     <dependency>
-      <groupId>poo.library.modelo</groupId>
-      <artifactId>poo-library-modelo</artifactId>
+      <groupId>poo.library.dao.activejdbc</groupId>
+      <artifactId>poo-library-dao-activejdbc</artifactId>
       <version>0.1.0-RELEASE</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>poo.library.dao.comum</groupId>
-      <artifactId>poo-library-dao-comum</artifactId>
+      <groupId>poo.library.dao.memory</groupId>
+      <artifactId>poo-library-dao-memory</artifactId>
       <version>0.1.0-RELEASE</version>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
 </project>

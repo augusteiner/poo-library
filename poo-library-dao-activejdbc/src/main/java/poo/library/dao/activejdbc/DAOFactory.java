@@ -28,19 +28,33 @@ import java.lang.reflect.Type;
 import java.util.Hashtable;
 import java.util.Map;
 
+import org.javalite.activejdbc.Base;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
 import poo.library.dao.comum.IDAO;
+import poo.library.dao.comum.IDAOFactory;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class DAOFactory {
+public class DAOFactory implements IDAOFactory {
 
     private static final Map<Type, Class<?>> registry = new Hashtable<>();
 
-    public static void discoverImpls(Package pkg) {
+    static {
+
+        discoverImpls(DAOFactory.class.getPackage());
+
+        // TODO Refatorar para classe?
+        Base.open(
+            "com.mysql.cj.jdbc.Driver",
+            "jdbc:mysql://localhost:4040/biblioteca?serverTimezone=America/Fortaleza&nullNamePatternMatchesAll=true&useUnicode=true&characterEncoding=UTF-8",
+            "biblioteca",
+            "123456");
+    }
+
+    private static void discoverImpls(Package pkg) {
 
         Reflections ref = new Reflections(
             pkg.getName(),
@@ -69,10 +83,11 @@ public class DAOFactory {
         }
     }
 
+    @Override
     @SuppressWarnings("unchecked")
-    public <T> IDAO<T> makeNew(Class<T> clazz) {
+    public <T> IDAO<T> createNew(Class<T> cls) {
 
-        Class<?> key = registry.get(clazz);
+        Class<?> key = registry.get(cls);
         IDAO<T> r = null;
 
         if (key != null) {
