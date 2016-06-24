@@ -9,15 +9,15 @@ USE `biblioteca`;
 SET storage_engine=InnoDB;
 ALTER DATABASE CHARACTER SET utf8 COLLATE 'utf8_general_ci';
 
-/* CREATE USER 'biblioteca'@'localhost' IDENTIFIED BY '123456';
+/* CREATE USER 'biblioteca'@'%' IDENTIFIED BY '123456';
 
-GRANT USAGE ON *.* TO 'biblioteca'@'localhost';
+GRANT USAGE ON *.* TO 'biblioteca'@'%';
 
 GRANT
     SELECT, EXECUTE, SHOW VIEW, ALTER, ALTER ROUTINE, CREATE, CREATE ROUTINE,
     CREATE TEMPORARY TABLES, CREATE VIEW, DELETE, DROP, EVENT, INDEX, INSERT,
     REFERENCES, TRIGGER, UPDATE, LOCK TABLES
-ON `biblioteca`.* TO 'biblioteca'@'localhost' WITH GRANT OPTION; */
+ON `biblioteca`.* TO 'biblioteca'@'%' WITH GRANT OPTION; */
 
 DROP TABLE IF EXISTS `usuario`;
 
