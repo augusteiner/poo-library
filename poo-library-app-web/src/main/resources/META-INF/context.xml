@@ -1,0 +1,7 @@
+<Context>
+  <!-- jdbc:mysql://localhost:4040/biblioteca?serverTimezone=America/Fortaleza&amp;nullNamePatternMatchesAll=true&amp;useUnicode=true&amp;characterEncoding=UTF-8 -->
+  <Resource name="jdbc/default" auth="Container" type="javax.sql.DataSource"
+    factory="com.mchange.v2.c3p0.ComboPooledDataSource" maxActive="100" maxIdle="30"
+    maxWait="10000" username="biblioteca" password="123456" driverClassName="com.mysql.cj.jdbc.Driver"
+    url="jdbc:mysql://localhost:4040/biblioteca?serverTimezone=America/Fortaleza&amp;nullNamePatternMatchesAll=true&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
+</Context>

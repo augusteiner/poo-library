@@ -37,7 +37,7 @@ class MemoryDAO<T> implements IDAO<T> {
 
     public MemoryDAO() {
 
-        this.storage = new ArrayList<>();
+        this.storage = new ArrayList<T>();
     }
 
     @Override

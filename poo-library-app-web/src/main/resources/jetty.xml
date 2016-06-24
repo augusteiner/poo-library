@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+  <New id="default" class="org.eclipse.jetty.plus.jndi.Resource">
+    <Arg></Arg>
+    <Arg>jdbc/default</Arg>
+    <Arg>
+      <!-- <New class="com.mysql.cj.jdbc.MysqlConnectionPoolDataSource"> -->
+      <!-- <Set name="Url" value="jdbc:mysql://localhost/biblioteca" /> -->
+      <!-- <Set name="User">biblioteca</Set> -->
+      <!-- <Set name="Password">123456</Set> -->
+      <!-- </New> -->
+      <New class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <Set name="driverClass">com.mysql.cj.jdbc.Driver</Set>
+        <Set name="jdbcUrl">
+          jdbc:mysql://localhost:4040/biblioteca?serverTimezone=America/Fortaleza&amp;nullNamePatternMatchesAll=true&amp;useUnicode=true&amp;characterEncoding=UTF-8
+        </Set>
+        <!-- serverTimezone=America/Fortaleza;nullNamePatternMatchesAll=true;useUnicode=true;characterEncoding=UTF-8 -->
+        <Set name="user">biblioteca</Set>
+        <Set name="password">123456</Set>
+        <!-- <Get name="property"> <Put name="serverTimezone">America/Fortaleza</Put> 
+          <Put name="nullNamePatternMatchesAll">true</Put> <Put name="useUnicode">true</Put> 
+          <Put name="useSSL">false</Put> </Get> -->
+      </New>
+    </Arg>
+  </New>
+</Configure>

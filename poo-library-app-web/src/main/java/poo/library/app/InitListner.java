@@ -21,29 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.app;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+
+import poo.library.comum.ConfiguracaoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class ConfiguracaoException extends Exception {
+public class InitListner extends HttpServlet {
 
-    private static final long serialVersionUID = -2241030444612911418L;
+    private static final long serialVersionUID = -4501094295876764303L;
 
-    public static void raise(Throwable e) throws ConfiguracaoException {
+    @Override
+    public void init() throws ServletException {
 
-        throw new ConfiguracaoException(
-            "Erro ao configurar a aplicação",
-            e);
-    }
+        try {
 
-    public ConfiguracaoException(String message) {
+            poo.library.Configuration.configure(new String[]{
+                "--factories.dao",
+                //"poo.library.dao.memory.DAOFactory"
+                "poo.library.dao.activejdbc.DAOFactory"
+            });
+        } catch (ConfiguracaoException e) {
 
-        super(message);
-    }
+            e.printStackTrace();
 
-    public ConfiguracaoException(String message, Throwable cause) {
+            System.exit(1);
 
-        super(message, cause);
+            return;
+        }
     }
 }

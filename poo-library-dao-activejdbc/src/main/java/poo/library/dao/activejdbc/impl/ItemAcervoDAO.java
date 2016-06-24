@@ -36,11 +36,11 @@ public class ItemAcervoDAO extends GenericDAO<IItemAcervo, ItemAcervoModel>
 
     public ItemAcervoDAO() {
 
-        this.delete = (String subquery, Object... params) ->
+        /* this.delete = (String subquery, Object... params) ->
             ItemAcervoModel.delete(subquery, params);
 
         this.find = (String subquery, Object... params) ->
-            ItemAcervoModel.find(subquery, params);
+            ItemAcervoModel.find(subquery, params); */
     }
 
     @Override

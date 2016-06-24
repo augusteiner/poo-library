@@ -40,18 +40,21 @@ import poo.library.dao.comum.IDAOFactory;
  */
 public class DAOFactory implements IDAOFactory {
 
-    private static final Map<Type, Class<?>> registry = new Hashtable<>();
+    private static final Map<Type, Class<?>> registry = new Hashtable<Type, Class<?>>();
 
     static {
 
         discoverImpls(DAOFactory.class.getPackage());
 
-        // TODO Refatorar para classe?
-        Base.open(
-            "com.mysql.cj.jdbc.Driver",
-            "jdbc:mysql://localhost:4040/biblioteca?serverTimezone=America/Fortaleza&nullNamePatternMatchesAll=true&useUnicode=true&characterEncoding=UTF-8",
-            "biblioteca",
-            "123456");
+        //if (!Base.hasConnection()) {
+        //
+        //    // TODO Refatorar para classe?
+        //    Base.open(
+        //        "com.mysql.cj.jdbc.Driver",
+        //        "jdbc:mysql://localhost:4040/biblioteca?serverTimezone=America/Fortaleza&nullNamePatternMatchesAll=true&useUnicode=true&characterEncoding=UTF-8",
+        //        "biblioteca",
+        //        "123456");
+        //}
     }
 
     private static void discoverImpls(Package pkg) {
@@ -86,6 +89,11 @@ public class DAOFactory implements IDAOFactory {
     @Override
     @SuppressWarnings("unchecked")
     public <T> IDAO<T> createNew(Class<T> cls) {
+
+        if (!Base.hasConnection()) {
+
+            Base.open("java:comp/env/jdbc/default");
+        }
 
         Class<?> key = registry.get(cls);
         IDAO<T> r = null;

@@ -42,6 +42,10 @@ public class Configuration {
             if (IDAOFactory.class.isAssignableFrom(cls)) {
 
                 instance = (IDAOFactory) cls.newInstance();
+
+                System.out.println("----------------");
+                System.out.println("CONFIGURATION STEP 1 " + cls.getName());
+                System.out.println("----------------");
             } else {
 
                 throw new ConfiguracaoException(String.format(
@@ -51,11 +55,16 @@ public class Configuration {
 
             DAOFactory.register(instance);
 
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+        } catch ( InstantiationException e) {
 
-            throw new ConfiguracaoException(
-                "Erro ao configurar a aplicação",
-                e);
+            ConfiguracaoException.raise(e);
+
+        } catch (IllegalAccessException e) {
+
+            ConfiguracaoException.raise(e);
+        } catch (ClassNotFoundException e) {
+
+            ConfiguracaoException.raise(e);
         }
     }
 }

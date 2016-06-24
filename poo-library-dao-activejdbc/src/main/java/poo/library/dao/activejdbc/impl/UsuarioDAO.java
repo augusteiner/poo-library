@@ -23,6 +23,9 @@
  */
 package poo.library.dao.activejdbc.impl;
 
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+
 import poo.library.comum.IUsuario;
 import poo.library.dao.activejdbc.GenericDAO;
 import poo.library.dao.activejdbc.model.UsuarioModel;
@@ -35,11 +38,23 @@ public class UsuarioDAO extends GenericDAO<IUsuario, UsuarioModel> implements ID
 
     public UsuarioDAO() {
 
-        this.delete = (String subquery, Object... params) ->
-            UsuarioModel.delete(subquery, params);
+        this.delete = new BiConsumer<String, Object[]>() {
 
-        this.find = (String subquery, Object... params) ->
-            UsuarioModel.find(subquery, params);
+            @Override
+            public void accept(String subquery, Object[] params) {
+
+                UsuarioModel.delete(subquery, params);
+            }
+        };
+
+        this.find = new BiFunction<String, Object[], Iterable<UsuarioModel>>(){
+
+            @Override
+            public Iterable<UsuarioModel> apply(String subquery, Object[] params) {
+
+                return UsuarioModel.find(subquery, params);
+            }
+        };
     }
 
     @Override

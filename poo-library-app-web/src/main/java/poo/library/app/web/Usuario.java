@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2016 José Augusto & Juscelino Messias
+ * Copyright (c) 2016 José Nascimento & Juscelino Messias
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,29 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.app.web;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import poo.library.comum.IUsuario;
+import poo.library.dao.comum.DAOFactory;
+import poo.library.dao.comum.IDAO;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class ConfiguracaoException extends Exception {
+@Path("usuario")
+public class Usuario {
 
-    private static final long serialVersionUID = -2241030444612911418L;
+    private IDAO<IUsuario> dao = DAOFactory.createNew(IUsuario.class);
 
-    public static void raise(Throwable e) throws ConfiguracaoException {
+    /**
+     * Method handling HTTP GET requests. The returned object will be sent to
+     * the client as "text/plain" media type.
+     *
+     * @return String that will be returned as a text/plain response.
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Iterable<IUsuario> get() {
 
-        throw new ConfiguracaoException(
-            "Erro ao configurar a aplicação",
-            e);
-    }
-
-    public ConfiguracaoException(String message) {
-
-        super(message);
-    }
-
-    public ConfiguracaoException(String message, Throwable cause) {
-
-        super(message, cause);
+        return dao.findAll();
     }
 }
