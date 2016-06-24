@@ -15,7 +15,7 @@
   </servlet>
   <servlet>
     <servlet-name>Web App Configurator</servlet-name>
-    <servlet-class>poo.library.app.InitListner</servlet-class>
+    <servlet-class>poo.library.app.InitListener</servlet-class>
     <init-param>
       <param-name>jersey.config.server.provider.packages</param-name>
       <param-value>poo.library.app.web</param-value>

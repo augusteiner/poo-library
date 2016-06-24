@@ -31,7 +31,7 @@ import poo.library.comum.ConfiguracaoException;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class InitListner extends HttpServlet {
+public class InitListener extends HttpServlet {
 
     private static final long serialVersionUID = -4501094295876764303L;
 
