@@ -20,6 +20,8 @@
     <jetty.version>9.3.9.M0</jetty.version>
     <jetty.http.port>9090</jetty.http.port>
     <resources.path>${project.basedir}/src/main/resources</resources.path>
+
+    <mysql.driver.version>6.0.2</mysql.driver.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -33,18 +35,6 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
-    <dependency>
-      <groupId>com.mchange</groupId>
-      <artifactId>c3p0</artifactId>
-      <version>0.9.5.2</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>6.0.2</version>
-      <scope>runtime</scope>
-    </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-servlets</artifactId>
@@ -76,11 +66,6 @@
       <version>${jersey.version}</version>
     </dependency>
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>2.5</version>
-    </dependency>
-    <dependency>
       <groupId>poo.library.app.cfg</groupId>
       <artifactId>poo-library-app-cfg</artifactId>
       <version>0.1.0-RELEASE</version>
@@ -99,6 +84,18 @@
       <groupId>poo.library.dao.comum</groupId>
       <artifactId>poo-library-dao-comum</artifactId>
       <version>0.1.0-RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>com.mchange</groupId>
+      <artifactId>c3p0</artifactId>
+      <version>0.9.5.2</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql.driver.version}</version>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
   <build>
@@ -140,11 +137,13 @@
             <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
             <version>0.9.5.2</version>
+            <scope>runtime</scope>
           </dependency>
           <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>6.0.2</version>
+            <version>${mysql.driver.version}</version>
+            <scope>runtime</scope>
           </dependency>
         </dependencies>
       </plugin>
