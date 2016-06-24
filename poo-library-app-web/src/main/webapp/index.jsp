@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script src="assets/jquery/dist/jquery.min.js"></script>
     <script>
         $(function() {
 

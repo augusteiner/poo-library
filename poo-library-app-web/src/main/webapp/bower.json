@@ -1,0 +1,32 @@
+{
+  "name": "poo-library-app-web",
+  "description": "",
+  "main": [
+  ],
+  "dependencies": {
+    "jquery": "~3.0.0"
+  },
+  "devDependencies": {
+    "qunit": "~1.16.0"
+  },
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+  ],
+  "authors": [
+    "José Nascimento <joseaugustodearaujonascimento@gmail.com>",
+    "Juscelino Messias"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "private": true
+}
