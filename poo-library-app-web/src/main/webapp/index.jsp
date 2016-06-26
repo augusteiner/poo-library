@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <script src="assets/jquery/dist/jquery.min.js"></script>
-    <script>
-        $(function() {
+<meta charset="UTF-8">
+<script src="assets/jquery/dist/jquery.min.js"></script>
+<script>
+  $(function() {
 
-            $.get(
-                'api/usuario',
-                function(r) {
-                    console.log(r);
-                });
-        });
-    </script>
+    $.get('api/usuario', function(r) {
+      console.log(r);
+    });
+  });
+</script>
 </head>
 <body>
-    <h2>RESTful Web Apí</h2>
-    <p><a href="api/usuario">Lista de Usuários</a>
+  <h2>RESTful Web Api</h2>
+  <p>
+    <a href="api/usuario">
+      Lista de Usu�rios</a>
 </body>
 </html>
