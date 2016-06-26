@@ -23,20 +23,28 @@
  */
 package poo.library.app.web;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import poo.library.comum.IUsuario;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
+import poo.library.modelo.Usuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Path("usuario")
-public class Usuario {
+public class UsuarioResource {
 
     private IDAO<IUsuario> dao = DAOFactory.createNew(IUsuario.class);
 
@@ -50,6 +58,48 @@ public class Usuario {
     @Produces(MediaType.APPLICATION_JSON)
     public Iterable<IUsuario> get() {
 
-        return dao.findAll();
+        return this.dao.findAll();
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getById(@PathParam("id") int id) {
+
+        for (IUsuario u : this.dao.findAll("Id = ?", id)) {
+
+            return Response.ok(u).build();
+        }
+
+        throw new NotFoundException(String.format(
+            "Usuário #%s não encontrado",
+            id));
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public void delete(@PathParam("id") int id) {
+
+        this.dao.delete(
+            "Id = ?",
+            id);
+    }
+
+    @POST
+    public void post(
+        Usuario usuario) {
+
+        this.dao.save(usuario);
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Consumes({ MediaType.APPLICATION_JSON })
+    public void put(
+        @PathParam("id") int id,
+        Usuario usuario) {
+
+        // System.out.println(usuario);
+        this.dao.save(usuario);
     }
 }
