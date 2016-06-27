@@ -9,7 +9,7 @@
 
     var app = angular.module('app', []);
 
-    app.controller('UserCtrlr', function($scope, $element, $http) {
+    app.controller('UserCtrlr', function($scope, $http) {
       var self = this;
 
       $scope.data = {};
@@ -18,6 +18,18 @@
         nome : 'augusteiner',
         cpf : '01122244497'
       } ];
+
+      $scope.delete = function(id) {
+
+        $http({
+          method : 'DELETE',
+          url : 'api/usuario/' + id,
+          data : {}
+        }).then(function() {
+
+          $scope.load();
+        });
+      };
 
       $scope.save = function() {
 
@@ -69,14 +81,18 @@
         <tr>
           <th>Nome</th>
           <th>CPF</th>
+          <th>Ações</th>
         </tr>
       </thead>
       <tfoot>
       </tfoot>
       <tbody>
         <tr ng-repeat="user in users">
-          <td>{{user.nome}}</td>
+          <td>\#{{user.id}}-{{user.nome}}</td>
           <td>{{user.cpf}}</td>
+          <td>
+            <button ng-click="delete(user.id)">delete</button>
+          </td>
         </tr>
       </tbody>
     </table>
