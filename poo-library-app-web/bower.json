@@ -3,8 +3,6 @@
   "description": "",
   "main": [],
   "dependencies": {
-    "jquery": "~3.0.0",
-    "jquery-serialize-object" : "~2.5.0",
     "angular" : "~1.5.7"
   },
   "devDependencies": {

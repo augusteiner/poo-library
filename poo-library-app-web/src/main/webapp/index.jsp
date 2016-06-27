@@ -2,60 +2,52 @@
 <html ng-app="app">
 <head>
 <meta charset="UTF-8">
-<script src="assets/jquery/dist/jquery.min.js" type="text/javascript"></script>
-<script
-  src="assets/jquery-serialize-object/dist/jquery.serialize-object.min.js"
-  type="text/javascript"></script>
 <script src="assets/angular/angular.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-  'use strict';
+  var __f = function() {
+    'use strict';
 
-  $(function() {
-    $('.usuario-create-form').submit(function(e) {
+    var app = angular.module('app', []);
 
-      e.preventDefault();
-    });
-  });
+    app.controller('UserCtrlr', function($scope, $element, $http) {
+      var self = this;
 
-  var app = angular.module('app', []);
+      $scope.data = {};
 
-  app.controller('UserCtrlr', function($scope, $element, $http) {
-    var self = this;
+      $scope.users = [ {
+        nome : 'augusteiner',
+        cpf : '01122244497'
+      } ];
 
-    $scope.data = {};
+      $scope.save = function() {
 
-    $scope.users = [ {
-      nome : 'augusteiner',
-      cpf : '01122244497'
-    } ];
+        $http({
+          method : 'POST',
+          url : 'api/usuario',
+          data : $scope.data
+        }).then(function(r) {
 
-    $scope.save = function() {
+          $scope.data = {};
+        });
 
-      $http({
-        method : 'POST',
-        url : 'api/usuario',
-        data : $scope.data
-      }).then(function(r) {
+        $scope.load();
+      };
 
-        $scope.data = {};
-      });
+      $scope.load = function(r) {
+
+        $http({
+          method : 'GET',
+          url : 'api/usuario'
+        }).then(function(r) {
+
+          $scope.users = r.data;
+        });
+      };
 
       $scope.load();
-    };
+    });
 
-    $scope.load = function(r) {
-
-      $http({
-        method : 'GET',
-        url : 'api/usuario'
-      }).then(function(r) {
-
-        $scope.users = r.data;
-      });
-    };
-
-    $scope.load();
-  });
+  }();
 </script>
 <style>
 .data-table {
@@ -89,8 +81,8 @@
     </table>
     <p>
       <a href="api/usuario"> Lista de Usuários</a>
-    <form class="usuario-create-form" action="api/usuario" method="post"
-      ng-submit="save()">
+    <form class="usuario-create-form" action="javascript:void(0);"
+      method="post" ng-submit="save()">
       <div>
         <label> Nome: <input name="nome" type="text"
           ng-model="data.nome">

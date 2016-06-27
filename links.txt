@@ -1,3 +1,5 @@
+
 https://wiki.eclipse.org/Jetty/Howto/Configure_JNDI_Datasource#MySQL
 https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-configuration-properties.html
 http://www.codingpedia.org/ama/run-java-web-apps-in-embedded-containers-with-maven-jetty-and-tomcat/
+http://www.restapitutorial.com/lessons/httpmethods.html
