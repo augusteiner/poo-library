@@ -23,6 +23,8 @@
  */
 package poo.library.app.web;
 
+import java.net.URI;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -86,20 +88,27 @@ public class UsuarioResource {
     }
 
     @POST
-    public void post(
-        Usuario usuario) {
+    public Response post(Usuario usuario) {
 
         this.dao.save(usuario);
+
+        URI createdUri = URI.create(String.format(
+            "usuario/%d",
+            usuario.getId()));
+
+        return Response.created(createdUri).build();
     }
 
     @PUT
     @Path("/{id}")
     @Consumes({ MediaType.APPLICATION_JSON })
-    public void put(
+    public Response put(
         @PathParam("id") int id,
         Usuario usuario) {
 
         // System.out.println(usuario);
         this.dao.save(usuario);
+
+        return Response.ok().build();
     }
 }

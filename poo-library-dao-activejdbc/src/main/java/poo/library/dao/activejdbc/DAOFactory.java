@@ -90,6 +90,7 @@ public class DAOFactory implements IDAOFactory {
     @SuppressWarnings("unchecked")
     public <T> IDAO<T> createNew(Class<T> cls) {
 
+        // TODO Mover conexão para outro lugar, qual?
         if (!Base.hasConnection()) {
 
             Base.open("java:comp/env/jdbc/default");

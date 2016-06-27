@@ -78,6 +78,7 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends Model & ICo
 
     public void save(T obj) {
 
+        // TODO Update obj.id
         M model = this.from(obj);
 
         if (obj.getId() == 0) {
