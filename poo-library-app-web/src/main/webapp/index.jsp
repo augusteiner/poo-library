@@ -28,9 +28,10 @@
         }).then(function(r) {
 
           $scope.data = {};
-        });
+        }).then(function() {
 
-        $scope.load();
+          $scope.load();
+        });
       };
 
       $scope.load = function(r) {

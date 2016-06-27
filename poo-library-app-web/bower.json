@@ -5,9 +5,6 @@
   "dependencies": {
     "angular" : "~1.5.7"
   },
-  "devDependencies": {
-    "qunit": "~1.16.0"
-  },
   "moduleType": [
     "amd",
     "globals",
