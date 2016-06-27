@@ -1,33 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
 <head>
 <meta charset="UTF-8">
-<script src="assets/jquery/dist/jquery.min.js"></script>
-<script src="assets/jquery-serialize-object/dist/jquery.serialize-object.min.js"></script>
-<script>
-  $(function() {
+<script src="assets/jquery/dist/jquery.min.js" type="text/javascript"></script>
+<script src="assets/jquery-serialize-object/dist/jquery.serialize-object.min.js" type="text/javascript"></script>
+<script src="assets/angular/angular.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+  'use strict';
 
-    $('.usuario-create-form').submit(function(e) {
+//     $('.usuario-create-form').submit(function(e) {
 
-      e.preventDefault();
+//       e.preventDefault();
 
-      $.ajax({
-        url: 'api/usuario',
-        method: 'post',
-        data: JSON.stringify($(this).serializeObject()),
-        contentType: 'application/json'
-      });
-    });
-
-//     $.get('api/usuario', function(r) {
-
-//       console.log(r);
+//       $.ajax({
+//         url: 'api/usuario',
+//         method: 'post',
+//         data: JSON.stringify($(this).serializeObject()),
+//         contentType: 'application/json'
+//       });
 //     });
-  });
+
+    var app = angular.module('app', []);
+
+    app.controller('UserCtrlr', function($scope) {
+      var self = this;
+
+      $scope.users = [{nome: "augusteiner"}];
+
+      $scope.log = function(r) {
+
+        console.log(r);
+      };
+    });
 </script>
+<style>
+.data-table {
+  width: 100%;
+}
+.data-table th {
+  background-color: lightgray;
+}
+</style>
 </head>
 <body>
-  <h2>RESTful Web Api</h2>
+  <h2>RESTful Web {{'Api' + '!'}}</h2>
+  <section class="user-mgmt" ng-controller="UserCtrlr" >
+    <table class="data-table">
+      <caption>Usuários</caption>
+      <thead>
+        <tr>
+          <th>
+              Nome
+          </th>
+        </tr>
+      </thead>
+      <tfoot>
+      </tfoot>
+      <tbody>
+        <tr ng-repeat="user in users">
+          <td>{{user.nome}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
   <p>
     <a href="api/usuario">
       Lista de Usuários</a>

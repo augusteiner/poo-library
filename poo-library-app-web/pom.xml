@@ -23,18 +23,8 @@
 
     <mysql.driver.version>6.0.2</mysql.driver.version>
   </properties>
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.glassfish.jersey</groupId>
-        <artifactId>jersey-bom</artifactId>
-        <version>${version.jersey}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
   <dependencies>
+
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-servlets</artifactId>
@@ -50,6 +40,7 @@
       <artifactId>jetty-jndi</artifactId>
       <version>${jetty.version}</version>
     </dependency>
+
     <dependency>
       <groupId>org.glassfish.jersey.connectors</groupId>
       <artifactId>jersey-jetty-connector</artifactId>
@@ -60,12 +51,12 @@
       <artifactId>jersey-container-servlet-core</artifactId>
       <version>${version.jersey}</version>
     </dependency>
+
     <dependency>
       <groupId>org.glassfish.jersey.media</groupId>
       <artifactId>jersey-media-json-jackson</artifactId>
       <version>${version.jersey}</version>
     </dependency>
-
     <dependency>
       <groupId>org.glassfish.jersey.media</groupId>
       <artifactId>jersey-media-json-processing</artifactId>
@@ -102,6 +93,7 @@
       <artifactId>poo-library-dao-comum</artifactId>
       <version>0.1.0-RELEASE</version>
     </dependency>
+
     <dependency>
       <groupId>com.mchange</groupId>
       <artifactId>c3p0</artifactId>
