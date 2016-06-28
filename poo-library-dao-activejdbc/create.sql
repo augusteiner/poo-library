@@ -6,10 +6,10 @@ CREATE DATABASE IF NOT EXISTS `biblioteca`;
 
 USE `biblioteca`;
 
-SET storage_engine=InnoDB;
+SET default_storage_engine=InnoDB;
 ALTER DATABASE CHARACTER SET utf8 COLLATE 'utf8_general_ci';
 
-/* CREATE USER 'biblioteca'@'%' IDENTIFIED BY '123456';
+/* CREATE USER IF NOT EXISTS 'biblioteca'@'%' IDENTIFIED BY '123456'; */
 
 GRANT USAGE ON *.* TO 'biblioteca'@'%';
 
@@ -19,7 +19,7 @@ GRANT
     REFERENCES, TRIGGER, UPDATE, LOCK TABLES
 ON `biblioteca`.* TO 'biblioteca'@'%' WITH GRANT OPTION;
 
-FLUSH PRIVILEGES; */
+FLUSH PRIVILEGES;
 
 DROP TABLE IF EXISTS `usuario`;
 
