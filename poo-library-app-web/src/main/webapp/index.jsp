@@ -19,6 +19,11 @@
 
       $scope.users = [];
 
+      $scope.cancel = function() {
+
+        $scope.data = {};
+      };
+
       $scope.edit = function(id) {
 
         $http({
@@ -117,20 +122,22 @@ input {
     </table>
     <p>
       <a href="api/usuario"> Lista de Usuários</a>
-    <form class="usuario-create-form" action="javascript:void(0);"
-      method="post" ng-submit="save()">
+    <form action="javascript:void(0);" method="post" ng-submit="save()">
       <input type="hidden" name="id" ng-model="data.id">
       <div>
-        <label> Nome: <input name="nome" type="text"
-          ng-model="data.nome" required>
+        <label>
+          Nome:
+          <input name="nome" type="text" ng-model="data.nome" required>
         </label>
       </div>
       <div>
-        <label> CPF: <input name="cpf" type="text"
-          maxlength="11" ng-model="data.cpf" required>
+        <label>
+          CPF:
+          <input name="cpf" type="text" maxlength="11" ng-model="data.cpf" required>
         </label>
       </div>
-      <button class="usuario-create" type="submit">Salvar</button>
+      <button type="submit">Salvar</button>
+      <button type="reset" ng-click="cancel()">Limpar</button>
     </form>
   </section>
 </body>
