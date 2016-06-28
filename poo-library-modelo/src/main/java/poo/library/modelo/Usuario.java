@@ -36,6 +36,8 @@ public class Usuario implements IUsuario {
     private String nome;
     private String cpf;
 
+    private IEndereco endereco;
+
     public Usuario() { }
 
     public Usuario(
@@ -57,25 +59,25 @@ public class Usuario implements IUsuario {
     @Override
     public String getCpf() {
 
-        return cpf;
+        return this.cpf;
     }
 
     @Override
     public IEndereco getEndereco() {
 
-        return null;
+        return this.endereco;
     }
 
     @Override
     public int getId() {
 
-        return id;
+        return this.id;
     }
 
     @Override
     public String getNome() {
 
-        return nome;
+        return this.nome;
     }
 
     public void setCpf(String cpf) {
@@ -83,9 +85,9 @@ public class Usuario implements IUsuario {
         this.cpf = cpf;
     }
 
-    public void setEndereco(String endereco) {
+    public void setEndereco(Endereco endereco) {
 
-        //
+        this.endereco = endereco;
     }
 
     public void setId(int id) {
