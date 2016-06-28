@@ -27,20 +27,29 @@
       <artifactId>poo-library-modelo</artifactId>
       <version>0.1.0-RELEASE</version>
     </dependency>
+
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>6.0.2</version>
     </dependency>
+
     <dependency>
       <groupId>org.javalite</groupId>
       <artifactId>activejdbc</artifactId>
       <version>1.4.11</version>
     </dependency>
+
     <dependency>
       <groupId>org.reflections</groupId>
       <artifactId>reflections</artifactId>
       <version>0.9.10</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.modelmapper</groupId>
+      <artifactId>modelmapper</artifactId>
+      <version>0.7.5</version>
     </dependency>
   </dependencies>
   <build>

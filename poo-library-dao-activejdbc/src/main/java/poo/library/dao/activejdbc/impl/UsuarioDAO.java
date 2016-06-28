@@ -58,8 +58,8 @@ public class UsuarioDAO extends GenericDAO<IUsuario, UsuarioModel> implements ID
     }
 
     @Override
-    protected UsuarioModel from(IUsuario obj) {
+    protected UsuarioModel makeNew() {
 
-        return UsuarioModel.from(obj);
+        return new UsuarioModel();
     }
 }

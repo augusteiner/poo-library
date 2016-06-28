@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="José Nascimento &lt;joseaugustodearaujonascimento@gmail.com&gt;">
+<meta name="author"
+  content="José Nascimento &lt;joseaugustodearaujonascimento@gmail.com&gt;">
 <script src="assets/angular/angular.min.js" type="text/javascript"></script>
 <script type="text/javascript">
   var __f = function() {
@@ -69,14 +70,15 @@
 </script>
 <style>
 .data-table {
-  width: 100%;
+	width: 100%;
 }
 
 .data-table th {
-  background-color: lightgray;
+	background-color: lightgray;
 }
+
 input {
-    width: 100%;
+	width: 100%;
 }
 </style>
 </head>
@@ -96,10 +98,8 @@ input {
       </tfoot>
       <tbody>
         <tr ng-repeat="user in users">
-          <td>
-            \#{{user.id}}-{{user.nome}}</td>
-          <td>
-            {{user.cpf}}</td>
+          <td>\#{{user.id}}-{{user.nome}}</td>
+          <td>{{user.cpf}}</td>
           <td>
             <button ng-click="delete(user.id)">delete</button>
           </td>
@@ -112,12 +112,12 @@ input {
       method="post" ng-submit="save()">
       <div>
         <label> Nome: <input name="nome" type="text"
-          ng-model="data.nome" minlength="10" required>
+          ng-model="data.nome" required>
         </label>
       </div>
       <div>
-        <label> CPF: <input name="cpf" type="number"
-          ng-model="data.cpf" maxlength="11" minlength="11" required>
+        <label> CPF: <input name="cpf" type="text"
+          maxlength="11" ng-model="data.cpf" required>
         </label>
       </div>
       <button class="usuario-create" type="submit">Salvar</button>

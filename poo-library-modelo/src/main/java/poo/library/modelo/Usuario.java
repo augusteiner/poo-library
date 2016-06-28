@@ -38,7 +38,10 @@ public class Usuario implements IUsuario {
 
     public Usuario() { }
 
-    public Usuario(int id, String nome, String cpf) {
+    public Usuario(
+        int id,
+        String nome,
+        String cpf) {
 
         this(nome, cpf);
 
@@ -90,6 +93,7 @@ public class Usuario implements IUsuario {
         this.id = id;
     }
 
+    @Override
     public void setNome(String nome) {
 
         this.nome = nome;

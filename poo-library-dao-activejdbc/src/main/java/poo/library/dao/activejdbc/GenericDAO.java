@@ -27,6 +27,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
 import org.javalite.activejdbc.Model;
+import org.modelmapper.ModelMapper;
 
 import poo.library.comum.IConvertible;
 import poo.library.comum.IIdentificavel;
@@ -36,6 +37,8 @@ import poo.library.comum.Utils;
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 public abstract class GenericDAO<T extends IIdentificavel, M extends Model & IConvertible<T>> {
+
+    private static ModelMapper MAPPER = new ModelMapper();
 
     protected BiFunction<String, Object[], Iterable<M>> find;
     protected BiConsumer<String, Object[]> delete;
@@ -74,17 +77,27 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends Model & ICo
         return Utils.mapIterable(iter);
     }
 
-    protected abstract M from(T obj);
+    protected abstract M makeNew();
 
     public void save(T obj) {
 
         // TODO Update obj.id
-        M model = this.from(obj);
+        M model = this.makeNew();
+
+        T target = model.convert();
+
+        MAPPER.map(obj, target);
 
         if (obj.getId() == 0) {
-            model.insert();
-        } else {
-            model.save();
+
+            model.setId(null);
         }
+
+        model.saveIt();
+
+        //System.out.println(target);
+        //System.out.println(model);
+
+        MAPPER.map(target, obj);
     }
 }

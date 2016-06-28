@@ -44,8 +44,8 @@ public class ItemAcervoDAO extends GenericDAO<IItemAcervo, ItemAcervoModel>
     }
 
     @Override
-    protected ItemAcervoModel from(IItemAcervo obj) {
+    protected ItemAcervoModel makeNew() {
 
-        return ItemAcervoModel.from(obj);
+        return new ItemAcervoModel();
     }
 }

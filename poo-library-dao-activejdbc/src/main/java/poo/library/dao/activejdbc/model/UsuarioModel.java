@@ -27,8 +27,8 @@ import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.annotations.Table;
 
 import poo.library.comum.IConvertible;
+import poo.library.comum.IEndereco;
 import poo.library.comum.IUsuario;
-import poo.library.modelo.Usuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -36,23 +36,71 @@ import poo.library.modelo.Usuario;
 @Table("usuario")
 public class UsuarioModel extends Model implements IConvertible<IUsuario> {
 
-    public static UsuarioModel from(IUsuario usuario) {
+    class Usuario implements IUsuario {
 
-        UsuarioModel model = new UsuarioModel();
+        private UsuarioModel self = UsuarioModel.this;
 
-        model.set("id", usuario.getId());
-        model.set("nome", usuario.getNome());
-        model.set("cpf", usuario.getCpf());
+        public Usuario() { }
 
-        return model;
+        @Override
+        public String getCpf() {
+
+            return self.getString("cpf");
+        }
+
+        @Override
+        public IEndereco getEndereco() {
+
+            return null;
+        }
+
+        @Override
+        public int getId() {
+
+            return self.getInteger("id");
+        }
+
+        @Override
+        public String getNome() {
+
+            return self.getString("nome");
+        }
+
+        public void setCpf(String cpf) {
+
+            self.set("cpf", cpf);
+        }
+
+        public void setEndereco(IEndereco endereco) {
+
+            //
+        }
+
+        public void setId(int id) {
+
+            self.set("id", id);
+        }
+
+        @Override
+        public void setNome(String nome) {
+
+            self.setString("nome", nome);
+        }
+
+        @Override
+        public String toString() {
+
+            return String.format(
+                "%s - %s (%s)",
+                this.getId(),
+                this.getNome(),
+                this.getCpf());
+        }
     }
 
     @Override
     public IUsuario convert() {
 
-         return new Usuario(
-             this.getInteger("id"),
-             this.getString("nome"),
-             this.getString("cpf"));
+        return new Usuario();
     }
 }
