@@ -17,10 +17,18 @@
 
       $scope.data = {};
 
-      $scope.users = [ {
-        nome : 'augusteiner',
-        cpf : '01122244497'
-      } ];
+      $scope.users = [];
+
+      $scope.edit = function(id) {
+
+        $http({
+          method: 'GET',
+          url: 'api/usuario/' + id
+        }).then(function(r){
+
+          $scope.data = r.data;
+        });
+      };
 
       $scope.delete = function(id) {
 
@@ -102,6 +110,7 @@ input {
           <td>{{user.cpf}}</td>
           <td>
             <button ng-click="delete(user.id)">delete</button>
+            <button ng-click="edit(user.id)">edit</button>
           </td>
         </tr>
       </tbody>
@@ -110,6 +119,7 @@ input {
       <a href="api/usuario"> Lista de Usuários</a>
     <form class="usuario-create-form" action="javascript:void(0);"
       method="post" ng-submit="save()">
+      <input type="hidden" name="id" ng-model="data.id">
       <div>
         <label> Nome: <input name="nome" type="text"
           ng-model="data.nome" required>
