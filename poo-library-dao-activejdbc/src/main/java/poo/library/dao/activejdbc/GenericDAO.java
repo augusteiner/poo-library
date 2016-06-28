@@ -23,12 +23,11 @@
  */
 package poo.library.dao.activejdbc;
 
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
-
 import org.javalite.activejdbc.Model;
 import org.modelmapper.ModelMapper;
 
+import poo.library.comum.BiConsumer;
+import poo.library.comum.BiFunction;
 import poo.library.comum.IConvertible;
 import poo.library.comum.IIdentificavel;
 import poo.library.comum.Utils;

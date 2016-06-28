@@ -5,6 +5,6 @@
     factory="org.apache.naming.factory.BeanFactory"
     user="biblioteca"
     password="123456"
-    driverClass="com.mysql.cj.jdbc.Driver"
-    jdbcUrl="jdbc:mysql://576d3fda7628e17ade00000c-augusteiner.rhcloud.com:41386/biblioteca?serverTimezone=America/Fortaleza&amp;nullNamePatternMatchesAll=true&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
+    driverClass="com.mysql.jdbc.Driver"
+    jdbcUrl="jdbc:mysql://5772a0b22d52715031000071-augusteiner.rhcloud.com:48236/biblioteca?serverTimezone=America/Fortaleza&amp;nullNamePatternMatchesAll=true&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
 </Context>

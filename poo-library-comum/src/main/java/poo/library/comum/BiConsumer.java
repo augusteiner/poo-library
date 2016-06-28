@@ -21,44 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.activejdbc.impl;
-
-import poo.library.comum.BiConsumer;
-import poo.library.comum.BiFunction;
-import poo.library.comum.IUsuario;
-import poo.library.dao.activejdbc.GenericDAO;
-import poo.library.dao.activejdbc.model.UsuarioModel;
-import poo.library.dao.comum.IDAO;
+package poo.library.comum;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class UsuarioDAO extends GenericDAO<IUsuario, UsuarioModel> implements IDAO<IUsuario> {
+public interface BiConsumer<T, U> {
 
-    public UsuarioDAO() {
-
-        this.delete = new BiConsumer<String, Object[]>() {
-
-            @Override
-            public void accept(String subquery, Object[] params) {
-
-                UsuarioModel.delete(subquery, params);
-            }
-        };
-
-        this.find = new BiFunction<String, Object[], Iterable<UsuarioModel>>(){
-
-            @Override
-            public Iterable<UsuarioModel> apply(String subquery, Object[] params) {
-
-                return UsuarioModel.find(subquery, params);
-            }
-        };
-    }
-
-    @Override
-    protected UsuarioModel makeNew() {
-
-        return new UsuarioModel();
-    }
+    void accept(T t, U u);
 }
