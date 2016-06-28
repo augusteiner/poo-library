@@ -7,7 +7,7 @@ CREATE DATABASE IF NOT EXISTS `biblioteca`;
 USE `biblioteca`;
 
 SET default_storage_engine=InnoDB;
-ALTER DATABASE CHARACTER SET utf8 COLLATE 'utf8_general_ci';
+ALTER DATABASE CHARACTER SET utf8mb4 COLLATE 'utf8mb4_unicode_ci';
 
 /* CREATE USER IF NOT EXISTS 'biblioteca'@'%' IDENTIFIED BY '123456'; */
 
