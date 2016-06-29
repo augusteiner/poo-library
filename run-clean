@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+
+mvn clean
+
+./build
+
+mvn jetty:run -pl *-web
+
