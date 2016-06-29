@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+root_dir=$(cd $(dirname $0); echo $(pwd))
+
+cd *-web
+bower install
+
+cd "$root_dir"
+mvn clean install eclipse:eclipse
+
+rm -rf */.settings/
+
