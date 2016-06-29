@@ -132,7 +132,7 @@ input {
       </tfoot>
       <tbody>
         <tr ng-repeat="user in users">
-          <td>\#{{user.id}}-{{user.nome}}</td>
+          <td>\#{{user.id}} - {{user.nome}}</td>
           <td>{{user.cpf}}</td>
           <td>
             <button ng-click="delete(user.id)">delete</button>
