@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author"
   content="José Nascimento &lt;joseaugustodearaujonascimento@gmail.com&gt;">
+<title>RESTful Web Api!</title>
 <script src="assets/angular/angular.min.js" type="text/javascript"></script>
 <script type="text/javascript">
   var __f = function() {
@@ -14,6 +15,8 @@
 
     app.controller('UserCtrlr', function($scope, $http) {
       var self = this;
+
+      $scope.PATH = 'api/usuario';
 
       $scope.data = {};
 
@@ -28,7 +31,7 @@
 
         $http({
           method: 'GET',
-          url: 'api/usuario/' + id
+          url: $scope.PATH + '/' + id
         }).then(function(r){
 
           $scope.data = r.data;
@@ -42,7 +45,7 @@
 
         $http({
           method : 'DELETE',
-          url : 'api/usuario/' + id,
+          url : $scope.PATH + '/' + id,
           data : {}
         }).then(function() {
 
@@ -52,10 +55,20 @@
 
       $scope.save = function() {
 
+        var path = $scope.PATH;
+        var method = 'POST';
+        var data = $scope.data;
+
+        if (data.id != null) {
+
+          method = 'PUT';
+          path = path + '/' + data.id;
+        }
+
         $http({
-          method : 'POST',
-          url : 'api/usuario',
-          data : $scope.data
+          method : method,
+          url : path,
+          data : data
         }).then(function(r) {
 
           $scope.data = {};
@@ -69,7 +82,7 @@
 
         $http({
           method : 'GET',
-          url : 'api/usuario'
+          url : $scope.PATH
         }).then(function(r) {
 
           $scope.users = r.data;
@@ -83,15 +96,23 @@
 </script>
 <style>
 .data-table {
-	width: 100%;
+  width: 100%;
+}
+
+.data-table tbody tr:hover {
+  background-color: rgba(220, 220, 220, 0.5) !important;
+}
+
+.data-table tbody tr:nth-child(even) {
+  background-color: #dcdcdc;
 }
 
 .data-table th {
-	background-color: lightgray;
+  background-color: lightgray;
 }
 
 input {
-	width: 100%;
+  width: 100%;
 }
 </style>
 </head>
