@@ -28,8 +28,8 @@ import org.modelmapper.ModelMapper;
 
 import poo.library.comum.IConvertible;
 import poo.library.comum.IIdentificavel;
-import poo.library.comum.ObjetoNaoEncontradoException;
-import poo.library.comum.Utils;
+import poo.library.util.ObjetoNaoEncontradoException;
+import poo.library.util.Utils;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>

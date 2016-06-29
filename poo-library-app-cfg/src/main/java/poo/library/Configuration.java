@@ -23,9 +23,9 @@
  */
 package poo.library;
 
-import poo.library.comum.ConfiguracaoException;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAOFactory;
+import poo.library.util.ConfiguracaoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>

@@ -23,11 +23,11 @@
  */
 package poo.library.app;
 
-import poo.library.comum.ConfiguracaoException;
 import poo.library.comum.IUsuario;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Usuario;
+import poo.library.util.ConfiguracaoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>

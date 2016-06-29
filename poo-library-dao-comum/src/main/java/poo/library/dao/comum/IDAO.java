@@ -23,7 +23,7 @@
  */
 package poo.library.dao.comum;
 
-import poo.library.comum.ObjetoNaoEncontradoException;
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>

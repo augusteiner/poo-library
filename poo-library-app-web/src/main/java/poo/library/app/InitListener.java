@@ -26,7 +26,7 @@ package poo.library.app;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
-import poo.library.comum.ConfiguracaoException;
+import poo.library.util.ConfiguracaoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>

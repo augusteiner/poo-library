@@ -38,8 +38,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import poo.library.comum.IIdentificavel;
-import poo.library.comum.ObjetoNaoEncontradoException;
 import poo.library.dao.comum.IDAO;
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>

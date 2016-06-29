@@ -26,8 +26,8 @@ package poo.library.dao.memory;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import poo.library.comum.ObjetoNaoEncontradoException;
 import poo.library.dao.comum.IDAO;
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>

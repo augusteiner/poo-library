@@ -21,12 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.util;
 
 import java.text.ParseException;
 import java.util.Iterator;
 
 import javax.swing.text.MaskFormatter;
+
+import poo.library.comum.IConvertible;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
