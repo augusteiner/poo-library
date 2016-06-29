@@ -23,22 +23,9 @@
  */
 package poo.library.app.web;
 
-import java.net.URI;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import poo.library.comum.IUsuario;
-import poo.library.comum.ObjetoNaoEncontradoException;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Usuario;
@@ -46,66 +33,22 @@ import poo.library.modelo.Usuario;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Path("usuario")
-public class UsuarioResource {
+@Path(UsuarioResource.PATH)
+public class UsuarioResource extends GenericResource<Usuario> {
 
-    private IDAO<IUsuario> dao = DAOFactory.createNew(IUsuario.class);
+    public static final String PATH = "usuario";
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Iterable<IUsuario> get() {
+    private static final IDAO<IUsuario> DAO = DAOFactory.createNew(IUsuario.class);
 
-        return this.dao.all();
+    @Override
+    protected IDAO<? super IUsuario> getDao() {
+
+        return DAO;
     }
 
-    @GET
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response get(@PathParam("id") int id) {
+    @Override
+    public String getPath() {
 
-        IUsuario user;
-
-        try {
-
-            user = this.dao.first("Id = ?", id);
-
-        } catch (ObjetoNaoEncontradoException e) {
-
-            throw new NotFoundException(
-                String.format("Usuário #%s não encontrado", id), e);
-        }
-
-        return Response.ok(user).build();
-    }
-
-    @DELETE
-    @Path("/{id}")
-    public void delete(@PathParam("id") int id) {
-
-        this.dao.delete("Id = ?", id);
-    }
-
-    @POST
-    public Response post(Usuario usuario) {
-
-        this.dao.save(usuario);
-
-        URI createdUri = URI.create(String.format(
-            "usuario/%d",
-            usuario.getId()));
-
-        return Response.created(createdUri).build();
-    }
-
-    @PUT
-    @Path("/{id}")
-    @Consumes({ MediaType.APPLICATION_JSON })
-    public Response put(
-        @PathParam("id") int id,
-        Usuario usuario) {
-
-        this.dao.save(usuario);
-
-        return Response.ok().build();
+        return PATH;
     }
 }
