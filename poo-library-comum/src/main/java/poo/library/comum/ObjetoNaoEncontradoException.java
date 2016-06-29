@@ -21,49 +21,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.activejdbc.impl;
-
-import java.util.Collection;
-
-import poo.library.comum.BiConsumer;
-import poo.library.comum.BiFunction;
-import poo.library.comum.IUsuario;
-import poo.library.dao.activejdbc.GenericDAO;
-import poo.library.dao.activejdbc.model.UsuarioModel;
-import poo.library.dao.comum.IDAO;
+package poo.library.comum;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class UsuarioDAO extends GenericDAO<IUsuario, UsuarioModel>
-    implements IDAO<IUsuario> {
+public class ObjetoNaoEncontradoException extends Exception {
 
-    public UsuarioDAO() {
+    private static final long serialVersionUID = -6215838190339301973L;
 
-        this.delete = new BiConsumer<String, Object[]>() {
+    public static void raise(String condition)
+        throws ObjetoNaoEncontradoException {
 
-            @Override
-            public void accept(String subquery, Object[] params) {
-
-                UsuarioModel.delete(subquery, params);
-            }
-        };
-
-        this.find = new BiFunction<String, Object[], Collection<UsuarioModel>>() {
-
-            @Override
-            public Collection<UsuarioModel> apply(
-                String subquery,
-                Object[] params) {
-
-                return UsuarioModel.find(subquery, params);
-            }
-        };
+        throw new ObjetoNaoEncontradoException(String.format(
+            "Objeto não encontrado para a expressão: '%s'",
+            condition));
     }
 
-    @Override
-    protected UsuarioModel makeNew() {
+    public ObjetoNaoEncontradoException(String message) {
 
-        return new UsuarioModel();
+        super(message);
     }
 }

@@ -38,6 +38,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import poo.library.comum.IUsuario;
+import poo.library.comum.ObjetoNaoEncontradoException;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Usuario;
@@ -50,41 +51,38 @@ public class UsuarioResource {
 
     private IDAO<IUsuario> dao = DAOFactory.createNew(IUsuario.class);
 
-    /**
-     * Method handling HTTP GET requests. The returned object will be sent to
-     * the client as "text/plain" media type.
-     *
-     * @return String that will be returned as a text/plain response.
-     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Iterable<IUsuario> get() {
 
-        return this.dao.findAll();
+        return this.dao.all();
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getById(@PathParam("id") int id) {
+    public Response get(@PathParam("id") int id) {
 
-        for (IUsuario u : this.dao.findAll("Id = ?", id)) {
+        IUsuario user;
 
-            return Response.ok(u).build();
+        try {
+
+            user = this.dao.first("Id = ?", id);
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            throw new NotFoundException(
+                String.format("Usuário #%s não encontrado", id), e);
         }
 
-        throw new NotFoundException(String.format(
-            "Usuário #%s não encontrado",
-            id));
+        return Response.ok(user).build();
     }
 
     @DELETE
     @Path("/{id}")
     public void delete(@PathParam("id") int id) {
 
-        this.dao.delete(
-            "Id = ?",
-            id);
+        this.dao.delete("Id = ?", id);
     }
 
     @POST
@@ -106,7 +104,6 @@ public class UsuarioResource {
         @PathParam("id") int id,
         Usuario usuario) {
 
-        // System.out.println(usuario);
         this.dao.save(usuario);
 
         return Response.ok().build();

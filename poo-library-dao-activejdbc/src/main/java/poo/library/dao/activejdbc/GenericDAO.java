@@ -23,6 +23,8 @@
  */
 package poo.library.dao.activejdbc;
 
+import java.util.Collection;
+
 import org.javalite.activejdbc.Model;
 import org.modelmapper.ModelMapper;
 
@@ -30,6 +32,7 @@ import poo.library.comum.BiConsumer;
 import poo.library.comum.BiFunction;
 import poo.library.comum.IConvertible;
 import poo.library.comum.IIdentificavel;
+import poo.library.comum.ObjetoNaoEncontradoException;
 import poo.library.comum.Utils;
 
 /**
@@ -39,8 +42,26 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends Model & ICo
 
     private static ModelMapper MAPPER = new ModelMapper();
 
-    protected BiFunction<String, Object[], Iterable<M>> find;
+    protected BiFunction<String, Object[], Collection<M>> find;
     protected BiConsumer<String, Object[]> delete;
+
+    public Iterable<T> all() {
+
+        return Utils.convertIterable(this.find.apply(
+            "1 = 1",
+            null));
+    }
+
+    public Iterable<T> all(
+        String condition,
+        Object... params) {
+
+        Iterable<M> iter = this.find.apply(
+            condition,
+            params);
+
+        return Utils.convertIterable(iter);
+    }
 
     public void delete(
         String condition,
@@ -58,22 +79,36 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends Model & ICo
             new Object[]{ obj.getId() });
     }
 
-    public Iterable<T> findAll() {
-
-        return Utils.mapIterable(this.find.apply(
-            "1 = 1",
-            null));
-    }
-
-    public Iterable<T> findAll(
+    public T first(
         String condition,
-        Object... params) {
+        Object... params) throws ObjetoNaoEncontradoException {
 
-        Iterable<M> iter = this.find.apply(
+        T item = this.firstOrDefault(
             condition,
             params);
 
-        return Utils.mapIterable(iter);
+        if (item == null) {
+
+            ObjetoNaoEncontradoException.raise(condition);
+        }
+
+        return item;
+    }
+
+    public T firstOrDefault(
+        String condition,
+        Object... params) {
+
+        Iterable<T> iter = this.all(
+            condition,
+            params);
+
+        for (T item : iter) {
+
+            return item;
+        }
+
+        return null;
     }
 
     protected abstract M makeNew();

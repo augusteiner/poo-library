@@ -61,7 +61,7 @@ public class Utils {
         return CPF_FORMATTER.valueToString(cpf);
     }
 
-    public static <M extends IConvertible<T>, T> Iterable<T> mapIterable(final Iterable<M> iterable) {
+    public static <M extends IConvertible<T>, T> Iterable<T> convertIterable(final Iterable<M> iterable) {
 
         return new Iterable<T>() {
 

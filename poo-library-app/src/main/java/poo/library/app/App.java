@@ -76,7 +76,7 @@ public class App {
             System.out.println(String.format("Inserido %s", u));
         }
 
-        Iterable<IUsuario> usuarios = dao.findAll(
+        Iterable<IUsuario> usuarios = dao.all(
             "LOCATE(?, nome) > 0",
             "José");
 

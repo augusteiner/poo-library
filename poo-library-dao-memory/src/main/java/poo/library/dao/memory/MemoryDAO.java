@@ -26,6 +26,7 @@ package poo.library.dao.memory;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import poo.library.comum.ObjetoNaoEncontradoException;
 import poo.library.dao.comum.IDAO;
 
 /**
@@ -41,9 +42,19 @@ class MemoryDAO<T> implements IDAO<T> {
     }
 
     @Override
-    public void delete(
-        String condition,
-        Object... params) {
+    public Iterable<T> all() {
+
+        return this.storage;
+    }
+
+    @Override
+    public Iterable<T> all(String condition, Object... params) {
+
+        return this.all();
+    }
+
+    @Override
+    public void delete(String condition, Object... params) {
 
         this.storage.clear();
     }
@@ -55,17 +66,30 @@ class MemoryDAO<T> implements IDAO<T> {
     }
 
     @Override
-    public Iterable<T> findAll() {
+    public T first(String condition, Object... params)
+        throws ObjetoNaoEncontradoException {
 
-        return this.storage;
+        T item = this.firstOrDefault(condition, params);
+
+        if (item == null) {
+
+            ObjetoNaoEncontradoException.raise(condition);
+        }
+
+        return item;
     }
 
     @Override
-    public Iterable<T> findAll(
-        String condition,
-        Object... params) {
+    public T firstOrDefault(String condition, Object... params) {
 
-        return this.findAll();
+        Iterable<T> iter = this.all(condition, params);
+
+        for (T item : iter) {
+
+            return item;
+        }
+
+        return null;
     }
 
     @Override

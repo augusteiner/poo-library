@@ -23,22 +23,25 @@
  */
 package poo.library.dao.comum;
 
+import poo.library.comum.ObjetoNaoEncontradoException;
+
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 public interface IDAO<T> {
 
-    void delete(
-        String condition,
-        Object... params);
+    Iterable<T> all();
+
+    Iterable<T> all(String condition, Object... params);
+
+    void delete(String condition, Object... params);
 
     void delete(T obj);
 
-    Iterable<T> findAll();
+    T first(String condition, Object... params)
+        throws ObjetoNaoEncontradoException;
 
-    Iterable<T> findAll(
-        String condition,
-        Object... params);
+    T firstOrDefault(String condition, Object... params);
 
     void save(T obj);
 }
