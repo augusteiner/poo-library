@@ -91,6 +91,7 @@ public class DAOFactory implements IDAOFactory {
     public <T> IDAO<T> createNew(Class<T> cls) {
 
         // TODO Mover conexão para outro lugar, qual?
+        // TODO Realizar conexão de maneira Lazy
         if (!Base.hasConnection()) {
 
             Base.open("java:comp/env/jdbc/default");

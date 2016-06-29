@@ -10,7 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 /**
- * {@link from http://stackoverflow.com/questions/138948/how-to-get-utf-8-working-in-java-webapps#answer-138950}
+ * Retirado de: {@link from http://stackoverflow.com/questions/138948/how-to-get-utf-8-working-in-java-webapps#answer-138950}
  */
 public class CharsetFilter implements Filter {
 
