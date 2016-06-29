@@ -27,28 +27,20 @@ import javax.ws.rs.Path;
 
 import poo.library.comum.IUsuario;
 import poo.library.dao.comum.DAOFactory;
-import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Usuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Path(UsuarioResource.PATH)
-public class UsuarioResource extends GenericResource<Usuario> {
+public class UsuarioResource extends GenericResource<IUsuario, Usuario> {
 
     public static final String PATH = "usuario";
 
-    private final IDAO<IUsuario> dao = DAOFactory.createNew(IUsuario.class);
+    public UsuarioResource() {
 
-    @Override
-    protected IDAO<? super IUsuario> getDao() {
-
-        return this.dao;
-    }
-
-    @Override
-    public String getPath() {
-
-        return PATH;
+        super(
+            PATH,
+            DAOFactory.createNew(IUsuario.class));
     }
 }

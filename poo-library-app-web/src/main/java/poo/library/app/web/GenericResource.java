@@ -44,20 +44,42 @@ import poo.library.dao.comum.IDAO;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public abstract class GenericResource<T extends IIdentificavel> {
+public abstract class GenericResource<I extends IIdentificavel, T extends I> {
+
+    private final String path;
+    private final IDAO<I> dao;
+
+    protected GenericResource(
+        String path,
+        IDAO<I> dao) {
+
+        if (path == null ||
+            path.length() == 0) {
+
+            throw new IllegalArgumentException("Argumento path deve ser válido");
+        }
+
+        if (dao == null) {
+
+            throw new IllegalArgumentException("Argumento dao deve ser válido");
+        }
+
+        this.path = path;
+        this.dao = dao;
+    }
 
     @DELETE
     @Path("/{id}")
     public void delete(@PathParam("id") int id) {
 
-        this.getDao().delete("Id = ?", id);
+        this.dao.delete("id = ?", id);
     }
 
     @GET
     @Produces({ MediaType.APPLICATION_JSON })
-    public Iterable<? super T> get() {
+    public Iterable<I> get() {
 
-        return this.getDao().all();
+        return this.dao.all();
     }
 
     @GET
@@ -65,34 +87,33 @@ public abstract class GenericResource<T extends IIdentificavel> {
     @Produces({ MediaType.APPLICATION_JSON })
     public Response get(@PathParam("id") int id) {
 
-        Object user;
+        I user;
 
         try {
 
-            user = this.getDao().first("Id = ?", id);
+            user = this.dao.first(
+                "id = ?",
+                id);
 
         } catch (ObjetoNaoEncontradoException e) {
 
             throw new NotFoundException(
-                String.format("Usuário #%s não encontrado", id), e);
+                e.getMessage(),
+                e);
         }
 
         return Response.ok(user).build();
     }
 
-    protected abstract IDAO<? super T> getDao();
-
-    protected abstract String getPath();
-
     @POST
-    public Response post(T usuario) {
+    public Response post(T obj) {
 
-        this.getDao().save(usuario);
+        this.dao.save(obj);
 
         URI createdUri = URI.create(String.format(
             "%s/%d",
-            this.getPath(),
-            usuario.getId()));
+            this.path,
+            obj.getId()));
 
         return Response.created(createdUri).build();
     }
@@ -102,9 +123,9 @@ public abstract class GenericResource<T extends IIdentificavel> {
     @Consumes({ MediaType.APPLICATION_JSON })
     public Response put(
         @PathParam("id") int id,
-        T usuario) {
+        T obj) {
 
-        this.getDao().save(usuario);
+        this.dao.save(obj);
 
         return Response.ok().build();
     }
