@@ -30,6 +30,9 @@ CREATE TABLE `usuario` (
     `cpf` CHAR(11) NOT NULL,
     `tipo` ENUM('COMUM', 'ADMIN') NOT NULL DEFAULT 'COMUM',
 
+    `criado_em` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `atualizado_em` TIMESTAMP NULL,
+
     PRIMARY KEY (`id`)
 
 )
