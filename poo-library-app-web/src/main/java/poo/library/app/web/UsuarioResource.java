@@ -38,12 +38,12 @@ public class UsuarioResource extends GenericResource<Usuario> {
 
     public static final String PATH = "usuario";
 
-    private static final IDAO<IUsuario> DAO = DAOFactory.createNew(IUsuario.class);
+    private final IDAO<IUsuario> dao = DAOFactory.createNew(IUsuario.class);
 
     @Override
     protected IDAO<? super IUsuario> getDao() {
 
-        return DAO;
+        return this.dao;
     }
 
     @Override

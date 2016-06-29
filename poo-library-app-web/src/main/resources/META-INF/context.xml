@@ -2,9 +2,10 @@
   <Resource name="jdbc/default"
     auth="Container"
     type="com.mchange.v2.c3p0.ComboPooledDataSource"
+    preferredTestQuery="SELECT 1"
     factory="org.apache.naming.factory.BeanFactory"
     user="biblioteca"
     password="123456"
     driverClass="com.mysql.jdbc.Driver"
-    jdbcUrl="jdbc:mysql://5772a0b22d52715031000071-augusteiner.rhcloud.com:48236/biblioteca?serverTimezone=America/Fortaleza&amp;nullNamePatternMatchesAll=true&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
+    jdbcUrl="jdbc:mysql://5772a0b22d52715031000071-augusteiner.rhcloud.com:48236/biblioteca?serverTimezone=America/Fortaleza&amp;nullNamePatternMatchesAll=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true" />
 </Context>
