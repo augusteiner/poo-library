@@ -8,7 +8,7 @@ cd *-web
 bower install
 
 cd "$root_dir"
-mvn clean install eclipse:eclipse
+mvn install eclipse:eclipse
 
 rm -rf */.settings/
 
