@@ -2,9 +2,7 @@
 
 set -e
 
-./clean
-
 ./build
 
-./run
+mvn jetty:run -pl *-web
 

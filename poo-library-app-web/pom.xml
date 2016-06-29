@@ -140,6 +140,7 @@
           </httpConnector>
           <scanIntervalSeconds>1</scanIntervalSeconds>
           <jettyXml>${resources.path}/jetty.xml</jettyXml>
+          <webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory>
         </configuration>
         <dependencies>
           <dependency>
