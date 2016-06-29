@@ -34,17 +34,30 @@ import poo.library.dao.comum.IDAO;
 public class ItemAcervoDAO extends GenericDAO<IItemAcervo, ItemAcervoModel>
     implements IDAO<IItemAcervo> {
 
-    public ItemAcervoDAO() {
+    public ItemAcervoDAO() { }
 
-        /* this.delete = (String subquery, Object... params) ->
-            ItemAcervoModel.delete(subquery, params);
+    @Override
+    protected void deleteAll(
+        String condition,
+        Object... params) {
 
-        this.find = (String subquery, Object... params) ->
-            ItemAcervoModel.find(subquery, params); */
+        ItemAcervoModel.delete(
+            condition,
+            params);
     }
 
     @Override
-    protected ItemAcervoModel makeNew() {
+    protected Iterable<ItemAcervoModel> findAll(
+        String condition,
+        Object... params) {
+
+        return ItemAcervoModel.find(
+            condition,
+            params);
+    }
+
+    @Override
+    protected ItemAcervoModel novo() {
 
         return new ItemAcervoModel();
     }

@@ -23,10 +23,6 @@
  */
 package poo.library.dao.activejdbc.impl;
 
-import java.util.Collection;
-
-import poo.library.comum.BiConsumer;
-import poo.library.comum.BiFunction;
 import poo.library.comum.IUsuario;
 import poo.library.dao.activejdbc.GenericDAO;
 import poo.library.dao.activejdbc.model.UsuarioModel;
@@ -38,31 +34,30 @@ import poo.library.dao.comum.IDAO;
 public class UsuarioDAO extends GenericDAO<IUsuario, UsuarioModel>
     implements IDAO<IUsuario> {
 
-    public UsuarioDAO() {
+    public UsuarioDAO() { }
 
-        this.delete = new BiConsumer<String, Object[]>() {
+    @Override
+    protected void deleteAll(
+        String condition,
+        Object... params) {
 
-            @Override
-            public void accept(String subquery, Object[] params) {
-
-                UsuarioModel.delete(subquery, params);
-            }
-        };
-
-        this.find = new BiFunction<String, Object[], Collection<UsuarioModel>>() {
-
-            @Override
-            public Collection<UsuarioModel> apply(
-                String subquery,
-                Object[] params) {
-
-                return UsuarioModel.find(subquery, params);
-            }
-        };
+        UsuarioModel.delete(
+            condition,
+            params);
     }
 
     @Override
-    protected UsuarioModel makeNew() {
+    protected Iterable<UsuarioModel> findAll(
+        String condition,
+        Object... params) {
+
+        return UsuarioModel.find(
+            condition,
+            params);
+    }
+
+    @Override
+    protected UsuarioModel novo() {
 
         return new UsuarioModel();
     }

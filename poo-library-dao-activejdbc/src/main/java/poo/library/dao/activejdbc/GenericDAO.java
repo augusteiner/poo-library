@@ -23,13 +23,9 @@
  */
 package poo.library.dao.activejdbc;
 
-import java.util.Collection;
-
 import org.javalite.activejdbc.Model;
 import org.modelmapper.ModelMapper;
 
-import poo.library.comum.BiConsumer;
-import poo.library.comum.BiFunction;
 import poo.library.comum.IConvertible;
 import poo.library.comum.IIdentificavel;
 import poo.library.comum.ObjetoNaoEncontradoException;
@@ -42,21 +38,16 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends Model & ICo
 
     private static ModelMapper MAPPER = new ModelMapper();
 
-    protected BiFunction<String, Object[], Collection<M>> find;
-    protected BiConsumer<String, Object[]> delete;
-
     public Iterable<T> all() {
 
-        return Utils.convertIterable(this.find.apply(
-            "1 = 1",
-            null));
+        return Utils.convertIterable(this.findAll("1 = 1"));
     }
 
     public Iterable<T> all(
         String condition,
         Object... params) {
 
-        Iterable<M> iter = this.find.apply(
+        Iterable<M> iter = this.findAll(
             condition,
             params);
 
@@ -67,17 +58,25 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends Model & ICo
         String condition,
         Object... params) {
 
-        this.delete.accept(
+        this.deleteAll(
             condition,
             params);
     }
 
     public void delete(T obj) {
 
-        this.delete.accept(
+        this.deleteAll(
             "id = ?",
             new Object[]{ obj.getId() });
     }
+
+    protected abstract void deleteAll(
+        String string,
+        Object... objects);
+
+    protected abstract Iterable<M> findAll(
+        String condition,
+        Object... params);
 
     public T first(
         String condition,
@@ -111,12 +110,11 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends Model & ICo
         return null;
     }
 
-    protected abstract M makeNew();
+    protected abstract M novo();
 
     public void save(T obj) {
 
-        // TODO Update obj.id
-        M model = this.makeNew();
+        M model = this.novo();
 
         T target = model.convert();
 
