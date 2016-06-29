@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2016 José Nascimento & Juscelino Messias
+ * Copyright (c) 2016 José Augusto & Juscelino Messias
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,13 +26,14 @@ package poo.library.comum;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IUsuario extends IPessoaFisica {
+public enum ETipoUsuario {
 
-    ETipoUsuario getTipo();
-
-    void setTipo(ETipoUsuario tipo);
-
-    // IItemAcervo escolherItemAcervo();
-
-    // void pagar();
+    /**
+     * Administradores
+     */
+    ADMIN,
+    /**
+     * Usuários normais
+     */
+    COMUM
 }

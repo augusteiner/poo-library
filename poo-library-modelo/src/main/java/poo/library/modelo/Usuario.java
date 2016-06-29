@@ -23,6 +23,7 @@
  */
 package poo.library.modelo;
 
+import poo.library.comum.ETipoUsuario;
 import poo.library.comum.IEndereco;
 import poo.library.comum.IUsuario;
 
@@ -38,7 +39,12 @@ public class Usuario implements IUsuario {
 
     private IEndereco endereco;
 
-    public Usuario() { }
+    private ETipoUsuario tipo;
+
+    public Usuario() {
+
+        this.tipo = ETipoUsuario.COMUM;
+    }
 
     public Usuario(
         int id,
@@ -80,6 +86,12 @@ public class Usuario implements IUsuario {
         return this.nome;
     }
 
+    @Override
+    public ETipoUsuario getTipo() {
+
+        return this.tipo;
+    }
+
     public void setCpf(String cpf) {
 
         this.cpf = cpf;
@@ -99,6 +111,12 @@ public class Usuario implements IUsuario {
     public void setNome(String nome) {
 
         this.nome = nome;
+    }
+
+    @Override
+    public void setTipo(ETipoUsuario tipo) {
+
+        this.tipo = tipo;
     }
 
     @Override

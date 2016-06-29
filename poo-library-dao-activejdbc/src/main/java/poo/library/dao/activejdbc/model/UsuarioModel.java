@@ -26,6 +26,7 @@ package poo.library.dao.activejdbc.model;
 import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.annotations.Table;
 
+import poo.library.comum.ETipoUsuario;
 import poo.library.comum.IConvertible;
 import poo.library.comum.IEndereco;
 import poo.library.comum.IUsuario;
@@ -66,6 +67,12 @@ public class UsuarioModel extends Model implements IConvertible<IUsuario> {
             return self.getString("nome");
         }
 
+        @Override
+        public ETipoUsuario getTipo() {
+
+            return ETipoUsuario.valueOf(self.getString("tipo"));
+        }
+
         public void setCpf(String cpf) {
 
             self.set("cpf", cpf);
@@ -85,6 +92,11 @@ public class UsuarioModel extends Model implements IConvertible<IUsuario> {
         public void setNome(String nome) {
 
             self.setString("nome", nome);
+        }
+
+        public void setTipo(ETipoUsuario tipo) {
+
+            self.set("tipo", tipo.name());
         }
 
         @Override

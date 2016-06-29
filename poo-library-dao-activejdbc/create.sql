@@ -28,6 +28,7 @@ CREATE TABLE `usuario` (
     `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
     `nome` VARCHAR(100) NOT NULL,
     `cpf` CHAR(11) NOT NULL,
+    `tipo` ENUM('COMUM', 'ADMIN') NOT NULL DEFAULT 'COMUM',
 
     PRIMARY KEY (`id`)
 
