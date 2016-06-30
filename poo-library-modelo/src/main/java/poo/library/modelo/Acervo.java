@@ -23,64 +23,27 @@
  */
 package poo.library.modelo;
 
-import java.util.Date;
+import java.util.Collection;
 
-import poo.library.comum.IReserva;
-import poo.library.comum.IUsuario;
+import poo.library.comum.IAcervo;
+import poo.library.comum.IItemAcervo;
+import poo.library.util.Iterables;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Reserva implements IReserva {
+public class Acervo implements IAcervo {
 
-    private int id;
+    private Collection<ItemAcervo> itens;
 
-    private Date validaAte;
-    private Date realizadaEm;
+    public void addItem(ItemAcervo item) {
 
-    private Usuario usuario;
-
-    @Override
-    public int getId() {
-
-        return this.id;
+        this.itens.add(item);
     }
 
     @Override
-    public Date getRealizadaEm() {
+    public Iterable<IItemAcervo> getItens() {
 
-        return this.realizadaEm;
-    }
-
-    @Override
-    public IUsuario getUsuario() {
-
-        return this.usuario;
-    }
-
-    @Override
-    public Date getValidaAte() {
-
-        return this.validaAte;
-    }
-
-    public void setId(int id) {
-
-        this.id = id;
-    }
-
-    public void setRealizadaEm(Date realizadaEm) {
-
-        this.realizadaEm = realizadaEm;
-    }
-
-    public void setUsuario(Usuario usuario) {
-
-        this.usuario = usuario;
-    }
-
-    public void setValidaAte(Date validaAte) {
-
-        this.validaAte = validaAte;
+        return Iterables.castIterable(this.itens);
     }
 }

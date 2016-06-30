@@ -23,22 +23,30 @@
  */
 package poo.library.modelo;
 
-import java.util.Date;
-
-import poo.library.comum.IReserva;
-import poo.library.comum.IUsuario;
+import poo.library.comum.IBiblioteca;
+import poo.library.comum.IItemAcervo;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Reserva implements IReserva {
+public class Biblioteca implements IBiblioteca {
 
     private int id;
+    private String nome;
 
-    private Date validaAte;
-    private Date realizadaEm;
+    private Acervo acervo;
 
-    private Usuario usuario;
+    @Override
+    public IItemAcervo buscar(int itemId) {
+
+        return null;
+    }
+
+    @Override
+    public Acervo getAcervo() {
+
+        return this.acervo;
+    }
 
     @Override
     public int getId() {
@@ -47,21 +55,14 @@ public class Reserva implements IReserva {
     }
 
     @Override
-    public Date getRealizadaEm() {
+    public String getNome() {
 
-        return this.realizadaEm;
+        return this.nome;
     }
 
-    @Override
-    public IUsuario getUsuario() {
+    public void setAcervo(Acervo acervo) {
 
-        return this.usuario;
-    }
-
-    @Override
-    public Date getValidaAte() {
-
-        return this.validaAte;
+        this.acervo = acervo;
     }
 
     public void setId(int id) {
@@ -69,18 +70,8 @@ public class Reserva implements IReserva {
         this.id = id;
     }
 
-    public void setRealizadaEm(Date realizadaEm) {
+    public void setNome(String nome) {
 
-        this.realizadaEm = realizadaEm;
-    }
-
-    public void setUsuario(Usuario usuario) {
-
-        this.usuario = usuario;
-    }
-
-    public void setValidaAte(Date validaAte) {
-
-        this.validaAte = validaAte;
+        this.nome = nome;
     }
 }
