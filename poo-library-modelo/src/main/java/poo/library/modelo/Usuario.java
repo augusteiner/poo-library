@@ -41,7 +41,7 @@ public class Usuario implements IUsuario {
 
     private ETipoUsuario tipo;
 
-    public Usuario() {
+    private Usuario() {
 
         this.tipo = ETipoUsuario.COMUM;
     }
@@ -57,6 +57,8 @@ public class Usuario implements IUsuario {
     }
 
     public Usuario(String nome, String cpf) {
+
+        this();
 
         this.nome = nome;
         this.cpf = cpf;
