@@ -23,26 +23,23 @@
  */
 package poo.library.comum;
 
-import poo.library.util.IIdentificavel;
-
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IItemAcervo extends IIdentificavel {
+public enum ECategoriaItem {
 
-    double devolver();
+    /**
+     *
+     */
+    LIVRO,
+    /**
+     *
+     */
+    APOSTILA,
+    /**
+     *
+     */
+    TEXTO;
 
-    void emprestar(IUsuario usuario);
-
-    // boolean estaPago();
-
-    double getCustoEmprestimo();
-
-    ECategoriaItem getCategoria();
-
-    // boolean getPago();
-
-    IEmprestimo getUltimoEmprestimo();
-
-    void reservar(IUsuario usuario);
+    public static final ECategoriaItem DEFAULT = ECategoriaItem.LIVRO;
 }

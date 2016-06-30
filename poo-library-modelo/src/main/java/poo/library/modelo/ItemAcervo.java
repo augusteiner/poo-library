@@ -23,16 +23,18 @@
  */
 package poo.library.modelo;
 
+import poo.library.comum.ECategoriaItem;
 import poo.library.comum.IItemAcervo;
 import poo.library.comum.IUsuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class ItemAcervo implements IItemAcervo {
+public abstract class ItemAcervo implements IItemAcervo {
 
-    private int id;
+    private ECategoriaItem categoria;
     private double custoEmprestimo;
+    private int id;
     private Emprestimo ultimoEmprestimo;
 
     @Override
@@ -45,6 +47,12 @@ public class ItemAcervo implements IItemAcervo {
     public void emprestar(IUsuario usuario) {
 
         //
+    }
+
+    @Override
+    public ECategoriaItem getCategoria() {
+
+        return this.categoria;
     }
 
     @Override
@@ -69,6 +77,11 @@ public class ItemAcervo implements IItemAcervo {
     public void reservar(IUsuario usuario) {
 
         //
+    }
+
+    public void setCategoria(ECategoriaItem categoria) {
+
+        this.categoria = categoria;
     }
 
     public void setCustoEmprestimo(double custoEmprestimo) {

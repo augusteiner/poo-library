@@ -21,28 +21,73 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.modelo;
 
-import poo.library.util.IIdentificavel;
+import poo.library.comum.ILivro;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IItemAcervo extends IIdentificavel {
+public class Livro extends ItemAcervo implements ILivro {
 
-    double devolver();
+    private String autor;
+    private Integer edicao;
+    private String isbn;
+    private int quantidade;
+    private String titulo;
 
-    void emprestar(IUsuario usuario);
+    @Override
+    public String getAutor() {
 
-    // boolean estaPago();
+        return this.autor;
+    }
 
-    double getCustoEmprestimo();
+    @Override
+    public Integer getEdicao() {
 
-    ECategoriaItem getCategoria();
+        return this.edicao;
+    }
 
-    // boolean getPago();
+    @Override
+    public String getISBN() {
 
-    IEmprestimo getUltimoEmprestimo();
+        return this.isbn;
+    }
 
-    void reservar(IUsuario usuario);
+    @Override
+    public int getQuantidade() {
+
+        return this.quantidade;
+    }
+
+    @Override
+    public String getTitulo() {
+
+        return this.titulo;
+    }
+
+    public void setAutor(String autor) {
+
+        this.autor = autor;
+    }
+
+    public void setEdicao(Integer edicao) {
+
+        this.edicao = edicao;
+    }
+
+    public void setISBN(String isbn) {
+
+        this.isbn = isbn;
+    }
+
+    public void setQuantidade(int quantidade) {
+
+        this.quantidade = quantidade;
+    }
+
+    public void setTitulo(String titulo) {
+
+        this.titulo = titulo;
+    }
 }

@@ -21,28 +21,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.modelo;
 
-import poo.library.util.IIdentificavel;
+import poo.library.comum.ITexto;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IItemAcervo extends IIdentificavel {
+public class Texto extends ItemAcervo implements ITexto {
 
-    double devolver();
+    private String autor;
 
-    void emprestar(IUsuario usuario);
+    @Override
+    public String getAutor() {
 
-    // boolean estaPago();
+        return this.autor;
+    }
 
-    double getCustoEmprestimo();
+    public void setAutor(String autor) {
 
-    ECategoriaItem getCategoria();
-
-    // boolean getPago();
-
-    IEmprestimo getUltimoEmprestimo();
-
-    void reservar(IUsuario usuario);
+        this.autor = autor;
+    }
 }
