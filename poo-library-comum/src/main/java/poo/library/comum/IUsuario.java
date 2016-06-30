@@ -28,11 +28,15 @@ package poo.library.comum;
  */
 public interface IUsuario extends IPessoaFisica {
 
-    ETipoUsuario getTipo();
+    Iterable<IEmprestimo> getEmprestimos();
 
-    void setTipo(ETipoUsuario tipo);
+    Iterable<IReserva> getReservas();
 
     // IItemAcervo escolherItemAcervo();
 
     // void pagar();
+
+    ETipoUsuario getTipo();
+
+    void setTipo(ETipoUsuario tipo);
 }

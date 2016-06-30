@@ -21,24 +21,53 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.modelo;
+
+import java.util.Date;
+
+import poo.library.comum.IReserva;
+import poo.library.comum.IUsuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IItemAcervo extends IIdentificavel {
+public class Reserva implements IReserva {
 
-    double devolver();
+    private Date validaAte;
+    private Date realizadaEm;
 
-    void emprestar(IUsuario usuario);
+    private Usuario usuario;
 
-    // boolean estaPago();
+    @Override
+    public Date getRealizadaEm() {
 
-    double getCustoEmprestimo();
+        return this.realizadaEm;
+    }
 
-    IEmprestimo getUltimoEmprestimo();
+    @Override
+    public IUsuario getUsuario() {
 
-    // boolean getPago();
+        return this.usuario;
+    }
 
-    void reservar(IUsuario usuario);
+    @Override
+    public Date getValidaAte() {
+
+        return this.validaAte;
+    }
+
+    public void setRealizadaEm(Date realizadaEm) {
+
+        this.realizadaEm = realizadaEm;
+    }
+
+    public void setUsuario(Usuario usuario) {
+
+        this.usuario = usuario;
+    }
+
+    public void setValidaAte(Date validaAte) {
+
+        this.validaAte = validaAte;
+    }
 }

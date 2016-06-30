@@ -23,9 +23,13 @@
  */
 package poo.library.modelo;
 
+import java.util.Collection;
+
 import poo.library.comum.ETipoUsuario;
-import poo.library.comum.IEndereco;
+import poo.library.comum.IEmprestimo;
+import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
+import poo.library.util.Iterables;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -37,9 +41,13 @@ public class Usuario implements IUsuario {
     private String nome;
     private String cpf;
 
-    private IEndereco endereco;
+    private Endereco endereco;
 
     private ETipoUsuario tipo;
+
+    private Collection<Reserva> reservas;
+
+    private Collection<Emprestimo> emprestimos;
 
     public Usuario() {
 
@@ -79,7 +87,13 @@ public class Usuario implements IUsuario {
     }
 
     @Override
-    public IEndereco getEndereco() {
+    public Iterable<IEmprestimo> getEmprestimos() {
+
+        return Iterables.castIterable(this.emprestimos);
+    }
+
+    @Override
+    public Endereco getEndereco() {
 
         return this.endereco;
     }
@@ -94,6 +108,12 @@ public class Usuario implements IUsuario {
     public String getNome() {
 
         return this.nome;
+    }
+
+    @Override
+    public Iterable<IReserva> getReservas() {
+
+        return Iterables.castIterable(this.reservas);
     }
 
     @Override

@@ -30,9 +30,9 @@ import java.util.Date;
  */
 public interface IReserva {
 
-    Date getData();
+    Date getValidaAte();
 
-    Date getExpiracao();
+    Date getRealizadaEm();
 
     IUsuario getUsuario();
 }

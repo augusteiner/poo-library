@@ -21,24 +21,68 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.modelo;
+
+import poo.library.comum.IItemAcervo;
+import poo.library.comum.IUsuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IItemAcervo extends IIdentificavel {
+public class ItemAcervo implements IItemAcervo {
 
-    double devolver();
+    private int id;
+    private double custoEmprestimo;
+    private Emprestimo ultimoEmprestimo;
 
-    void emprestar(IUsuario usuario);
+    @Override
+    public double devolver() {
 
-    // boolean estaPago();
+        return 0;
+    }
 
-    double getCustoEmprestimo();
+    @Override
+    public void emprestar(IUsuario usuario) {
 
-    IEmprestimo getUltimoEmprestimo();
+        //
+    }
 
-    // boolean getPago();
+    @Override
+    public double getCustoEmprestimo() {
 
-    void reservar(IUsuario usuario);
+        return this.custoEmprestimo;
+    }
+
+    @Override
+    public int getId() {
+
+        return this.id;
+    }
+
+    @Override
+    public Emprestimo getUltimoEmprestimo() {
+
+        return this.ultimoEmprestimo;
+    }
+
+    @Override
+    public void reservar(IUsuario usuario) {
+
+        //
+    }
+
+    public void setCustoEmprestimo(double custoEmprestimo) {
+
+        this.custoEmprestimo = custoEmprestimo;
+    }
+
+    public void setId(int id) {
+
+        this.id = id;
+    }
+
+    public void setUltimoEmprestimo(Emprestimo ultimoEmprestimo) {
+
+        this.ultimoEmprestimo = ultimoEmprestimo;
+    }
 }

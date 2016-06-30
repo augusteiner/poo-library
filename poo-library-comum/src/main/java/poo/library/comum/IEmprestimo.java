@@ -30,9 +30,15 @@ import java.util.Date;
  */
 public interface IEmprestimo extends IIdentificavel {
 
-    Date getData();
+    Date getDevolverAte();
 
-    Date getDevolucao();
+    Date getDevolvidoEm();
 
-    Date getDevolucaoPrevista();
+    IItemAcervo getItem();
+
+    Date getRealizadoEm();
+
+    IUsuario getUsuario();
+
+    double getValorEmprestimo();
 }
