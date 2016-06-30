@@ -55,20 +55,20 @@ public class DAOFactory implements IDAOFactory {
 
         Iterable<? extends Class<?>> iter = ref.getSubTypesOf(IDAO.class);
 
-        for (Class<?> o : iter) {
+        for (Class<?> cls : iter) {
 
-            Class<?> cls = o;
             Type[] genericInterfaces = cls.getGenericInterfaces();
 
-            if (genericInterfaces.length > 0) {
+            if (genericInterfaces.length == 1 &&
+                genericInterfaces[0] instanceof ParameterizedType) {
 
-                ParameterizedType inter = ((ParameterizedType)genericInterfaces[0]);
+                ParameterizedType inter = ((ParameterizedType) genericInterfaces[0]);
                 Type[] actualTypeArgs = inter.getActualTypeArguments();
 
                 if (actualTypeArgs.length > 0) {
 
-                    System.out.println(cls);
-                    System.out.println(actualTypeArgs[0]);
+                    System.out.print(inter.getTypeName());
+                    System.out.println(": " + cls.getName());
 
                     registry.put(actualTypeArgs[0], cls);
                 }

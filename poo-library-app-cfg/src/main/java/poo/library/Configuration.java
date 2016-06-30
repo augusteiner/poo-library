@@ -68,7 +68,7 @@ public class Configuration {
             }
 
             System.out.println("----------------");
-            System.out.println("CONFIGURATION STEP 1 " + cls.getName());
+            System.out.println("Configurada Factory de DAOs: " + cls.getName());
             System.out.println("----------------");
 
         } else {
