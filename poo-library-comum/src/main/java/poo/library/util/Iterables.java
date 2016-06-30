@@ -65,12 +65,12 @@ public class Iterables {
 
     public static <M extends IConvertible<T>, T> Iterable<T> convertIterable(final Iterable<M> iterable) {
 
+        final Iterator<M> iter = iterable.iterator();
+
         return new Iterable<T>() {
 
             @Override
             public Iterator<T> iterator() {
-
-                final Iterator<M> iter = iterable.iterator();
 
                 return new Iterator<T>() {
 
@@ -86,6 +86,33 @@ public class Iterables {
                         M from = iter.next();
 
                         return from.convert();
+                    }
+                };
+            }
+        };
+    }
+
+    public static <T extends C, C> Iterable<C> castIterable(Iterable<T> iterable) {
+
+        final Iterator<T> iter = iterable.iterator();
+
+        return new Iterable<C>() {
+
+            @Override
+            public Iterator<C> iterator() {
+
+                return new Iterator<C>() {
+
+                    @Override
+                    public boolean hasNext() {
+
+                        return iter.hasNext();
+                    }
+
+                    @Override
+                    public C next() {
+
+                        return iter.next();
                     }
                 };
             }
