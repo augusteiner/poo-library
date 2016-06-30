@@ -33,7 +33,7 @@ import poo.library.comum.IConvertible;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Utils {
+public class Iterables {
 
     static class CpfFormatter extends MaskFormatter {
 

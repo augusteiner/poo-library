@@ -29,7 +29,7 @@ import org.modelmapper.ModelMapper;
 import poo.library.comum.IConvertible;
 import poo.library.comum.IIdentificavel;
 import poo.library.util.ObjetoNaoEncontradoException;
-import poo.library.util.Utils;
+import poo.library.util.Iterables;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -42,7 +42,7 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends Model & ICo
 
         Iterable<M> iter = this.findAll("1 = 1");
 
-        return Utils.convertIterable(iter);
+        return Iterables.convertIterable(iter);
     }
 
     public Iterable<T> all(
@@ -53,7 +53,7 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends Model & ICo
             condition,
             params);
 
-        return Utils.convertIterable(iter);
+        return Iterables.convertIterable(iter);
     }
 
     public void delete(
