@@ -21,44 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.activejdbc.impl;
+package poo.library.dao.activejdbc.mapping;
 
-import poo.library.comum.IUsuario;
-import poo.library.dao.activejdbc.GenericDAO;
-import poo.library.dao.activejdbc.mapping.UsuarioModel;
-import poo.library.dao.comum.IDAO;
+import org.javalite.activejdbc.Model;
+import org.javalite.activejdbc.annotations.Table;
+
+import poo.library.comum.IConvertible;
+import poo.library.comum.IItemAcervo;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class UsuarioDAO extends GenericDAO<IUsuario, UsuarioModel>
-    implements IDAO<IUsuario> {
+@Table("item_acervo")
+public class ItemAcervoModel extends Model implements IConvertible<IItemAcervo> {
 
-    public UsuarioDAO() { }
+    public static ItemAcervoModel from(IItemAcervo obj) {
 
-    @Override
-    protected void deleteAll(
-        String condition,
-        Object... params) {
-
-        UsuarioModel.delete(
-            condition,
-            params);
+        return null;
     }
 
     @Override
-    protected Iterable<UsuarioModel> findAll(
-        String condition,
-        Object... params) {
+    public IItemAcervo convert() {
 
-        return UsuarioModel.find(
-            condition,
-            params);
-    }
-
-    @Override
-    protected UsuarioModel novo() {
-
-        return new UsuarioModel();
+        return null;
     }
 }

@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.activejdbc.model;
+package poo.library.dao.activejdbc.mapping;
 
 import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.annotations.Table;
@@ -36,6 +36,12 @@ import poo.library.comum.IUsuario;
  */
 @Table("usuario")
 public class UsuarioModel extends Model implements IConvertible<IUsuario> {
+
+
+    class Administrador extends Usuario {
+
+        //
+    }
 
     class Usuario implements IUsuario {
 
@@ -94,6 +100,7 @@ public class UsuarioModel extends Model implements IConvertible<IUsuario> {
             self.setString("nome", nome);
         }
 
+        @Override
         public void setTipo(ETipoUsuario tipo) {
 
             self.set("tipo", tipo.name());
@@ -113,6 +120,16 @@ public class UsuarioModel extends Model implements IConvertible<IUsuario> {
     @Override
     public IUsuario convert() {
 
-        return new Usuario();
+        switch (ETipoUsuario.valueOf(this.getString("tipo"))) {
+
+            case COMUM:
+                return new Usuario();
+
+            case ADMIN:
+                return new Administrador();
+
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 }

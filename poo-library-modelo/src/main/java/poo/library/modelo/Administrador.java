@@ -21,28 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.activejdbc.model;
+package poo.library.modelo;
 
-import org.javalite.activejdbc.Model;
-import org.javalite.activejdbc.annotations.Table;
-
-import poo.library.comum.IConvertible;
-import poo.library.comum.IItemAcervo;
+import poo.library.comum.ETipoUsuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Table("item_acervo")
-public class ItemAcervoModel extends Model implements IConvertible<IItemAcervo> {
+public class Administrador extends Usuario {
 
-    public static ItemAcervoModel from(IItemAcervo obj) {
+    public Administrador() {
 
-        return null;
+        super(ETipoUsuario.ADMIN);
     }
 
-    @Override
-    public IItemAcervo convert() {
+    public Administrador(
+        String nome,
+        String cpf) {
 
-        return null;
+        super(nome, cpf);
     }
 }

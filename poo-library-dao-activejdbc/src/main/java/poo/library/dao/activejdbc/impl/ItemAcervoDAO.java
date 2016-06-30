@@ -25,7 +25,7 @@ package poo.library.dao.activejdbc.impl;
 
 import poo.library.comum.IItemAcervo;
 import poo.library.dao.activejdbc.GenericDAO;
-import poo.library.dao.activejdbc.model.ItemAcervoModel;
+import poo.library.dao.activejdbc.mapping.ItemAcervoModel;
 import poo.library.dao.comum.IDAO;
 
 /**
