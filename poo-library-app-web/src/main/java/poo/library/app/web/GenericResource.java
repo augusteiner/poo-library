@@ -37,8 +37,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import poo.library.comum.IIdentificavel;
 import poo.library.dao.comum.IDAO;
+import poo.library.util.IIdentificavel;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**

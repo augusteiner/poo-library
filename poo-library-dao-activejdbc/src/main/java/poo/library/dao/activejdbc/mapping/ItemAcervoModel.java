@@ -26,8 +26,8 @@ package poo.library.dao.activejdbc.mapping;
 import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.annotations.Table;
 
-import poo.library.comum.IConvertible;
 import poo.library.comum.IItemAcervo;
+import poo.library.util.IConvertible;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>

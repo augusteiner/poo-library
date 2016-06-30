@@ -28,8 +28,6 @@ import java.util.Iterator;
 
 import javax.swing.text.MaskFormatter;
 
-import poo.library.comum.IConvertible;
-
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */

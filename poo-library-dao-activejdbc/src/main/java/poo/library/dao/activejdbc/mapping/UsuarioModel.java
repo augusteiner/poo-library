@@ -27,11 +27,11 @@ import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.annotations.Table;
 
 import poo.library.comum.ETipoUsuario;
-import poo.library.comum.IConvertible;
 import poo.library.comum.IEmprestimo;
 import poo.library.comum.IEndereco;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
+import poo.library.util.IConvertible;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>

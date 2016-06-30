@@ -26,9 +26,9 @@ package poo.library.dao.activejdbc;
 import org.javalite.activejdbc.Model;
 import org.modelmapper.ModelMapper;
 
-import poo.library.comum.IConvertible;
-import poo.library.comum.IIdentificavel;
 import poo.library.util.ObjetoNaoEncontradoException;
+import poo.library.util.IConvertible;
+import poo.library.util.IIdentificavel;
 import poo.library.util.Iterables;
 
 /**
