@@ -45,16 +45,6 @@ public class DAOFactory implements IDAOFactory {
     static {
 
         discoverImpls(DAOFactory.class.getPackage());
-
-        //if (!Base.hasConnection()) {
-        //
-        //    // TODO Refatorar para classe?
-        //    Base.open(
-        //        "com.mysql.cj.jdbc.Driver",
-        //        "jdbc:mysql://localhost:4040/biblioteca?serverTimezone=America/Fortaleza&nullNamePatternMatchesAll=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true",
-        //        "biblioteca",
-        //        "123456");
-        //}
     }
 
     private static void discoverImpls(Package pkg) {
@@ -87,8 +77,21 @@ public class DAOFactory implements IDAOFactory {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <T> IDAO<T> createNew(Class<T> cls) {
+    public void connect() {
+
+        if (!Base.hasConnection()) {
+
+            // TODO Refatorar para classe?
+            Base.open(
+                "com.mysql.cj.jdbc.Driver",
+                "jdbc:mysql://localhost:4040/biblioteca?serverTimezone=America/Fortaleza&nullNamePatternMatchesAll=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true",
+                "biblioteca",
+                "123456");
+        }
+    }
+
+    @Override
+    public void connectPooled() {
 
         // TODO Mover conexão para outro lugar, qual?
         // TODO Realizar conexão de maneira Lazy
@@ -96,6 +99,13 @@ public class DAOFactory implements IDAOFactory {
 
             Base.open("java:comp/env/jdbc/default");
         }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T> IDAO<T> createNew(Class<T> cls) {
+
+        this.connectPooled();
 
         Class<?> key = registry.get(cls);
         IDAO<T> r = null;

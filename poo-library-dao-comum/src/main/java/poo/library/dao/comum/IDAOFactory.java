@@ -28,5 +28,9 @@ package poo.library.dao.comum;
  */
 public interface IDAOFactory {
 
-    public <T> IDAO<T> createNew(Class<T> cls);
+    void connect();
+
+    void connectPooled();
+
+    <T> IDAO<T> createNew(Class<T> cls);
 }

@@ -25,11 +25,12 @@ package poo.library.dao.memory;
 
 import poo.library.dao.comum.IDAO;
 import poo.library.dao.comum.IDAOFactory;
+import poo.library.dao.comum.NullDAOFactory;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class DAOFactory implements IDAOFactory {
+public class DAOFactory extends NullDAOFactory implements IDAOFactory {
 
     @Override
     public <T> IDAO<T> createNew(Class<T> cls) {

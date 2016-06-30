@@ -26,7 +26,13 @@ package poo.library.dao.comum;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-class NullDAOFactory implements IDAOFactory {
+public class NullDAOFactory implements IDAOFactory {
+
+    @Override
+    public void connect() { }
+
+    @Override
+    public void connectPooled() { }
 
     @Override
     public <T> IDAO<T> createNew(Class<T> cls) {

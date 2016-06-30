@@ -30,14 +30,29 @@ public class DAOFactory {
 
     private static final DAOFactory INSTANCE = new DAOFactory();
 
+    public static void connect() {
+
+        getSingleton().impl.connect();
+    }
+
+    public static void connectPooled() {
+
+        getSingleton().impl.connectPooled();
+    }
+
     public static <T> IDAO<T> createNew(Class<T> cls) {
 
         return INSTANCE.impl.createNew(cls);
     }
 
+    private static DAOFactory getSingleton() {
+
+        return INSTANCE;
+    }
+
     public static void register(IDAOFactory factory) {
 
-        INSTANCE.impl = factory;
+        getSingleton().impl = factory;
     }
 
     private IDAOFactory impl = new NullDAOFactory();
