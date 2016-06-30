@@ -39,6 +39,9 @@ public class Administrador extends Usuario {
         String nome,
         String cpf) {
 
-        super(nome, cpf);
+        super(
+            nome,
+            cpf,
+            ETipoUsuario.ADMIN);
     }
 }

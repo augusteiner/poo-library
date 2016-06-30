@@ -41,14 +41,32 @@ public class Usuario implements IUsuario {
 
     private ETipoUsuario tipo;
 
+    public Usuario() {
+
+        this(ETipoUsuario.PADRAO);
+    }
+
     protected Usuario(ETipoUsuario tipo) {
 
         this.tipo = tipo;
     }
 
-    public Usuario(String nome, String cpf) {
+    public Usuario(
+        String nome,
+        String cpf) {
 
-        this(ETipoUsuario.COMUM);
+        this(
+            nome,
+            cpf,
+            ETipoUsuario.PADRAO);
+    }
+
+    protected Usuario(
+        String nome,
+        String cpf,
+        ETipoUsuario tipo) {
+
+        this(tipo);
 
         this.nome = nome;
         this.cpf = cpf;

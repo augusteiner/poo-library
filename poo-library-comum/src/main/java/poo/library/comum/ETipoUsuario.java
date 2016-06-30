@@ -35,5 +35,7 @@ public enum ETipoUsuario {
     /**
      * Usuários normais
      */
-    COMUM
+    COMUM;
+
+    public static final ETipoUsuario PADRAO = COMUM;
 }

@@ -120,7 +120,18 @@ public class UsuarioModel extends Model implements IConvertible<IUsuario> {
     @Override
     public IUsuario convert() {
 
-        switch (ETipoUsuario.valueOf(this.getString("tipo"))) {
+        //System.out.println(this);
+
+        ETipoUsuario tipo = ETipoUsuario.PADRAO;
+
+        String tipoValue = this.getString("tipo");
+
+        if (tipoValue != null) {
+
+            tipo = ETipoUsuario.valueOf(tipoValue);
+        }
+
+        switch (tipo) {
 
             case COMUM:
                 return new Usuario();
