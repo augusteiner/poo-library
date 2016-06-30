@@ -87,11 +87,11 @@ public abstract class GenericResource<I extends IIdentificavel, T extends I> {
     @Produces({ MediaType.APPLICATION_JSON })
     public Response get(@PathParam("id") int id) {
 
-        I user;
+        I obj;
 
         try {
 
-            user = this.dao.first(
+            obj = this.dao.first(
                 "id = ?",
                 id);
 
@@ -102,7 +102,7 @@ public abstract class GenericResource<I extends IIdentificavel, T extends I> {
                 e);
         }
 
-        return Response.ok(user).build();
+        return Response.ok(obj).build();
     }
 
     @POST

@@ -76,14 +76,18 @@ public class App {
 
             dao.save(u);
 
-            System.out.println(String.format("Inserido %s", u));
+            System.out.println(String.format(
+                "Inserido %s",
+                u));
         }
 
         Iterable<IUsuario> usuarios = dao.all(
             "LOCATE(?, nome) > 0",
             "José");
 
-        sysoutCentro("Usuários com José no nome", 45);
+        sysoutCentro(
+            "Usuários com José no nome",
+            45);
 
         for (IUsuario u : usuarios) {
 

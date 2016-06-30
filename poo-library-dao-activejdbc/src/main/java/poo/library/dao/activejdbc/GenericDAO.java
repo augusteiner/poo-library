@@ -40,7 +40,9 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends Model & ICo
 
     public Iterable<T> all() {
 
-        return Utils.convertIterable(this.findAll("1 = 1"));
+        Iterable<M> iter = this.findAll("1 = 1");
+
+        return Utils.convertIterable(iter);
     }
 
     public Iterable<T> all(

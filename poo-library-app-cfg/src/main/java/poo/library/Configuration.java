@@ -34,37 +34,50 @@ public class Configuration {
 
     public static void configure(String[] args) throws ConfiguracaoException {
 
+        configureDAOFactory(args[1]);
+    }
+
+    private static void configureDAOFactory(String className)
+        throws ConfiguracaoException {
+
+        IDAOFactory instance = null;
+        Class<?> cls = null;
+
         try {
 
-            Class<?> cls = Class.forName(args[1]);
-            IDAOFactory instance = null;
+            cls = Class.forName(className);
 
-            if (IDAOFactory.class.isAssignableFrom(cls)) {
-
-                instance = (IDAOFactory) cls.newInstance();
-
-                System.out.println("----------------");
-                System.out.println("CONFIGURATION STEP 1 " + cls.getName());
-                System.out.println("----------------");
-            } else {
-
-                throw new ConfiguracaoException(String.format(
-                    "Factory '%s' inválida",
-                    cls.getName()));
-            }
-
-            DAOFactory.register(instance);
-
-        } catch ( InstantiationException e) {
-
-            ConfiguracaoException.raise(e);
-
-        } catch (IllegalAccessException e) {
-
-            ConfiguracaoException.raise(e);
         } catch (ClassNotFoundException e) {
 
             ConfiguracaoException.raise(e);
         }
+
+        if (IDAOFactory.class.isAssignableFrom(cls)) {
+
+            try {
+
+                instance = (IDAOFactory) cls.newInstance();
+
+            } catch (InstantiationException e) {
+
+                ConfiguracaoException.raise(e);
+
+            } catch (IllegalAccessException e) {
+
+                ConfiguracaoException.raise(e);
+            }
+
+            System.out.println("----------------");
+            System.out.println("CONFIGURATION STEP 1 " + cls.getName());
+            System.out.println("----------------");
+
+        } else {
+
+            throw new ConfiguracaoException(String.format(
+                "DAOFactory '%s' inválida",
+                cls.getName()));
+        }
+
+        DAOFactory.register(instance);
     }
 }
