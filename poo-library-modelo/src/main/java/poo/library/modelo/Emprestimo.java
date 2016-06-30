@@ -32,8 +32,8 @@ import poo.library.comum.IEmprestimo;
  */
 public class Emprestimo implements IEmprestimo {
 
-    private Date devolverAte;
-    private Date devolvidoEm;
+    private Date devolucaoAte;
+    private Date devolucaoEm;
 
     private int id;
 
@@ -46,15 +46,15 @@ public class Emprestimo implements IEmprestimo {
     private double valorEmprestimo;
 
     @Override
-    public Date getDevolverAte() {
+    public Date getDevolucaoAte() {
 
-        return this.devolverAte;
+        return this.devolucaoAte;
     }
 
     @Override
-    public Date getDevolvidoEm() {
+    public Date getDevolucaoEm() {
 
-        return this.devolvidoEm;
+        return this.devolucaoEm;
     }
 
     @Override
@@ -87,14 +87,14 @@ public class Emprestimo implements IEmprestimo {
         return this.valorEmprestimo;
     }
 
-    public void setDevolverEm(Date devolverAte) {
+    public void setDevolverEm(Date devolucaoAte) {
 
-        this.devolverAte = devolverAte;
+        this.devolucaoAte = devolucaoAte;
     }
 
-    public void setDevolvidoEm(Date devolvidoEm) {
+    public void setDevolvidoEm(Date devolucaoEm) {
 
-        this.devolvidoEm = devolvidoEm;
+        this.devolucaoEm = devolucaoEm;
     }
 
     public void setId(int id) {

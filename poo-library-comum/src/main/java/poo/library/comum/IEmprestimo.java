@@ -32,9 +32,9 @@ import poo.library.util.IIdentificavel;
  */
 public interface IEmprestimo extends IIdentificavel {
 
-    Date getDevolverAte();
+    Date getDevolucaoAte();
 
-    Date getDevolvidoEm();
+    Date getDevolucaoEm();
 
     IItemAcervo getItem();
 
