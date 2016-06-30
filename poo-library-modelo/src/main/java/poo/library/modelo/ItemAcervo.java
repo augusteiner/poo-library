@@ -32,9 +32,12 @@ import poo.library.comum.IUsuario;
  */
 public abstract class ItemAcervo implements IItemAcervo {
 
-    private ECategoriaItem categoria;
-    private double custoEmprestimo;
     private int id;
+
+    private double custoEmprestimo;
+
+    private ECategoriaItem categoria;
+
     private Emprestimo ultimoEmprestimo;
 
     @Override

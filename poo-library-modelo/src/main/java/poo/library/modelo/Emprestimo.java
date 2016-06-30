@@ -32,18 +32,17 @@ import poo.library.comum.IEmprestimo;
  */
 public class Emprestimo implements IEmprestimo {
 
+    private int id;
+
+    private double valorEmprestimo;
+
     private Date devolucaoAte;
     private Date devolucaoEm;
-
-    private int id;
+    private Date realizadoEm;
 
     private ItemAcervo item;
 
-    private Date realizadoEm;
-
     private Usuario usuario;
-
-    private double valorEmprestimo;
 
     @Override
     public Date getDevolucaoAte() {

@@ -30,11 +30,12 @@ import poo.library.comum.ILivro;
  */
 public class Livro extends ItemAcervo implements ILivro {
 
-    private String autor;
-    private Integer edicao;
-    private String isbn;
-    private int quantidade;
     private String titulo;
+    private String autor;
+    private String isbn;
+    private Integer edicao;
+
+    private int quantidade;
 
     @Override
     public String getAutor() {

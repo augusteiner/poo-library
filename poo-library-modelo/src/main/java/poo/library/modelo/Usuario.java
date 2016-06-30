@@ -41,9 +41,9 @@ public class Usuario implements IUsuario {
     private String nome;
     private String cpf;
 
-    private Endereco endereco;
-
     private ETipoUsuario tipo;
+
+    private Endereco endereco;
 
     private Collection<Reserva> reservas;
 

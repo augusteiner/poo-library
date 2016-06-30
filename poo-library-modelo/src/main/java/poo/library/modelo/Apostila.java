@@ -30,9 +30,10 @@ import poo.library.comum.IApostila;
  */
 public class Apostila extends ItemAcervo implements IApostila {
 
-    private String autor;
-    private int quantidade;
     private String titulo;
+    private String autor;
+
+    private int quantidade;
 
     @Override
     public String getAutor() {
