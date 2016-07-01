@@ -11,17 +11,18 @@ USE `biblioteca`;
 SET default_storage_engine=InnoDB;
 ALTER DATABASE CHARACTER SET utf8mb4 COLLATE 'utf8mb4_unicode_ci';
 
-/* CREATE USER IF NOT EXISTS 'biblioteca'@'%' IDENTIFIED BY '123456'; */
+/*!50700 CREATE USER IF NOT EXISTS 'biblioteca'@'%', 'biblioteca'@'localhost' IDENTIFIED BY '123456'; */
 
-GRANT USAGE ON *.* TO 'biblioteca'@'%';
+GRANT USAGE ON *.* TO 'biblioteca'@'%', 'biblioteca'@'localhost';
 
 GRANT
-    SELECT, EXECUTE, SHOW VIEW, ALTER, ALTER ROUTINE, CREATE, CREATE ROUTINE,
-    CREATE TEMPORARY TABLES, CREATE VIEW, DELETE, DROP, EVENT, INDEX, INSERT,
-    REFERENCES, TRIGGER, UPDATE, LOCK TABLES
-ON `biblioteca`.* TO 'biblioteca'@'%' WITH GRANT OPTION;
+    SELECT, DELETE, INSERT, UPDATE, LOCK TABLES
+ON `biblioteca`.* TO 'biblioteca'@'%', 'biblioteca'@'localhost';
 
 FLUSH PRIVILEGES;
+
+SET PASSWORD FOR 'biblioteca'@'%' = PASSWORD('123456');
+SET PASSWORD FOR 'biblioteca'@'localhost' = PASSWORD('123456');
 
 DROP TABLE IF EXISTS `usuario`;
 
@@ -37,7 +38,7 @@ CREATE TABLE `usuario` (
     `enderecoNumero` VARCHAR(10) NULL,
 
     `criadoEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `atualizadoEm` TIMESTAMP NULL,
+    `atualizadoEm` TIMESTAMP NULL /*!100000 DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP */,
 
     PRIMARY KEY (`id`)
 
