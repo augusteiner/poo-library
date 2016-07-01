@@ -2,6 +2,8 @@
 # Arquivo de criação da base de dados
 # ---------------------------------------------------------------------
 
+SET @@FOREIGN_KEY_CHECKS=0;
+
 CREATE DATABASE IF NOT EXISTS `biblioteca`;
 
 USE `biblioteca`;
@@ -42,11 +44,13 @@ CREATE TABLE `usuario` (
 )
 COMMENT '';
 
+
 DROP TABLE IF EXISTS `item_acervo`;
 
 CREATE TABLE `item_acervo` (
 
-    `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+
     `data_aluguel` DATE NOT NULL,
     `data_devolucao` DATE NOT NULL,
     `custo` DECIMAL(12, 4) NOT NULL,
@@ -55,5 +59,70 @@ CREATE TABLE `item_acervo` (
 
 )
 COMMENT '';
+
+
+DROP TABLE IF EXISTS `emprestimo`;
+
+CREATE TABLE `emprestimo` (
+
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+
+    `usuarioId` INT UNSIGNED NOT NULL,
+    `itemAcervoId` INT UNSIGNED NOT NULL,
+
+    `valorEmprestimo` DECIMAL(10, 4) NOT NULL DEFAULT 0.0,
+
+    `devolverAte` DATE NOT NULL,
+    `devolvidoEm` TIMESTAMP NULL DEFAULT NULL,
+    `realizadoEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`id`),
+
+    CONSTRAINT `fk_emprestimo_usuario`
+        FOREIGN KEY (`usuarioId`)
+        REFERENCES `usuario` (`id`)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT `fk_emprestimo_item_acervo`
+        FOREIGN KEY (`itemAcervoId`)
+        REFERENCES `item_acervo` (`id`)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+
+)
+COMMENT '';
+
+
+DROP TABLE IF EXISTS `reserva`;
+
+CREATE TABLE `reserva` (
+
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+
+    `usuarioId` INT UNSIGNED NOT NULL,
+    `itemAcervoId` INT UNSIGNED NOT NULL,
+
+    `validaAte` DATETIME NOT NULL,
+    `realizadaEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`id`),
+
+    CONSTRAINT `fk_reserva_usuario`
+        FOREIGN KEY (`usuarioId`)
+        REFERENCES `usuario` (`id`)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT `fk_reserva_item_acervo`
+        FOREIGN KEY (`itemAcervoId`)
+        REFERENCES `item_acervo` (`id`)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+
+)
+COMMENT '';
+
+SET @@FOREIGN_KEY_CHECKS=1;
 
 
