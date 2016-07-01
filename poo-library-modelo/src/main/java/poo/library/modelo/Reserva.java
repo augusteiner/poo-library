@@ -26,57 +26,18 @@ package poo.library.modelo;
 import java.util.Date;
 
 import poo.library.comum.IReserva;
-import poo.library.comum.IUsuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Reserva implements IReserva {
-
-    private int id;
+public class Reserva extends Requisicao implements IReserva {
 
     private Date validaAte;
-    private Date realizadaEm;
-
-    private Usuario usuario;
-
-    @Override
-    public int getId() {
-
-        return this.id;
-    }
-
-    @Override
-    public Date getRealizadaEm() {
-
-        return this.realizadaEm;
-    }
-
-    @Override
-    public IUsuario getUsuario() {
-
-        return this.usuario;
-    }
 
     @Override
     public Date getValidaAte() {
 
         return this.validaAte;
-    }
-
-    public void setId(int id) {
-
-        this.id = id;
-    }
-
-    public void setRealizadaEm(Date realizadaEm) {
-
-        this.realizadaEm = realizadaEm;
-    }
-
-    public void setUsuario(Usuario usuario) {
-
-        this.usuario = usuario;
     }
 
     public void setValidaAte(Date validaAte) {

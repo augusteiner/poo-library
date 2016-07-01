@@ -16,7 +16,7 @@ ALTER DATABASE CHARACTER SET utf8mb4 COLLATE 'utf8mb4_unicode_ci';
 GRANT USAGE ON *.* TO 'biblioteca'@'%', 'biblioteca'@'localhost';
 
 GRANT
-    SELECT, DELETE, INSERT, UPDATE, LOCK TABLES
+  SELECT, DELETE, INSERT, UPDATE, LOCK TABLES
 ON `biblioteca`.* TO 'biblioteca'@'%', 'biblioteca'@'localhost';
 
 FLUSH PRIVILEGES;
@@ -28,68 +28,93 @@ DROP TABLE IF EXISTS `usuario`;
 
 CREATE TABLE `usuario` (
 
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    `nome` VARCHAR(100) NOT NULL,
-    `cpf` CHAR(11) NOT NULL,
-    `tipo` ENUM('COMUM', 'ADMIN') NOT NULL DEFAULT 'COMUM',
+  `nome` VARCHAR(100) NOT NULL,
+  `cpf` CHAR(11) NOT NULL,
+  `tipo` ENUM('COMUM', 'ADMIN') NOT NULL DEFAULT 'COMUM',
 
-    `enderecoLogradouro` VARCHAR(100) NULL,
-    `enderecoNumero` VARCHAR(10) NULL,
+  `enderecoLogradouro` VARCHAR(100) NULL,
+  `enderecoNumero` VARCHAR(10) NULL,
 
-    `criadoEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `atualizadoEm` TIMESTAMP NULL /*!100000 DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP */,
+  `criadoEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `atualizadoEm` TIMESTAMP NULL /*!100000 DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP */,
 
-    PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`)
 
 )
 COMMENT '';
 
+DROP TABLE IF EXISTS `biblioteca`;
+
+CREATE TABLE `biblioteca` (
+
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+
+  `nome` VARCHAR(100) NOT NULL,
+  `multaDiaria` DECIMAL(12, 4) NOT NULL DEFAULT 0,
+
+  PRIMARY KEY (`id`)
+)
+COMMENT '';
 
 DROP TABLE IF EXISTS `item_acervo`;
 
 CREATE TABLE `item_acervo` (
 
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    `data_aluguel` DATE NOT NULL,
-    `data_devolucao` DATE NOT NULL,
-    `custo` DECIMAL(12, 4) NOT NULL,
+  `bibliotecaId` INT UNSIGNED NOT NULL,
+  `aluguelId` INT UNSIGNED NULL DEFAULT NULL,
 
-    PRIMARY KEY (`id`)
+  `custo` DECIMAL(12, 4) NOT NULL,
+
+  PRIMARY KEY (`id`),
+
+  CONSTRAINT `fk_item_acervo_biblioteca`
+    FOREIGN KEY (`bibliotecaId`)
+    REFERENCES `biblioteca` (`id`)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT,
+
+  CONSTRAINT `fk_item_acervo_aluguel`
+    FOREIGN KEY (`aluguelId`)
+    REFERENCES `aluguel` (`id`)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT
 
 )
 COMMENT '';
 
 
-DROP TABLE IF EXISTS `emprestimo`;
+DROP TABLE IF EXISTS `aluguel`;
 
-CREATE TABLE `emprestimo` (
+CREATE TABLE `aluguel` (
 
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    `usuarioId` INT UNSIGNED NOT NULL,
-    `itemAcervoId` INT UNSIGNED NOT NULL,
+  `usuarioId` INT UNSIGNED NOT NULL,
+  `itemAcervoId` INT UNSIGNED NOT NULL,
 
-    `valorEmprestimo` DECIMAL(10, 4) NOT NULL DEFAULT 0.0,
+  `precoCobrado` DECIMAL(12, 4) NOT NULL DEFAULT 0.0,
 
-    `devolverAte` DATE NOT NULL,
-    `devolvidoEm` TIMESTAMP NULL DEFAULT NULL,
-    `realizadoEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `devolverAte` DATE NOT NULL,
+  `devolvidoEm` TIMESTAMP NULL DEFAULT NULL,
+  `realizadaEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`),
 
-    CONSTRAINT `fk_emprestimo_usuario`
-        FOREIGN KEY (`usuarioId`)
-        REFERENCES `usuario` (`id`)
-        ON UPDATE CASCADE
-        ON DELETE RESTRICT,
+  CONSTRAINT `fk_aluguel_usuario`
+    FOREIGN KEY (`usuarioId`)
+    REFERENCES `usuario` (`id`)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT,
 
-    CONSTRAINT `fk_emprestimo_item_acervo`
-        FOREIGN KEY (`itemAcervoId`)
-        REFERENCES `item_acervo` (`id`)
-        ON UPDATE CASCADE
-        ON DELETE RESTRICT
+  CONSTRAINT `fk_aluguel_item_acervo`
+    FOREIGN KEY (`itemAcervoId`)
+    REFERENCES `item_acervo` (`id`)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT
 
 )
 COMMENT '';
@@ -99,27 +124,27 @@ DROP TABLE IF EXISTS `reserva`;
 
 CREATE TABLE `reserva` (
 
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    `usuarioId` INT UNSIGNED NOT NULL,
-    `itemAcervoId` INT UNSIGNED NOT NULL,
+  `usuarioId` INT UNSIGNED NOT NULL,
+  `itemAcervoId` INT UNSIGNED NOT NULL,
 
-    `validaAte` DATETIME NOT NULL,
-    `realizadaEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `validaAte` DATETIME NOT NULL,
+  `realizadaEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`),
 
-    CONSTRAINT `fk_reserva_usuario`
-        FOREIGN KEY (`usuarioId`)
-        REFERENCES `usuario` (`id`)
-        ON UPDATE CASCADE
-        ON DELETE RESTRICT,
+  CONSTRAINT `fk_reserva_usuario`
+    FOREIGN KEY (`usuarioId`)
+    REFERENCES `usuario` (`id`)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT,
 
-    CONSTRAINT `fk_reserva_item_acervo`
-        FOREIGN KEY (`itemAcervoId`)
-        REFERENCES `item_acervo` (`id`)
-        ON UPDATE CASCADE
-        ON DELETE RESTRICT
+  CONSTRAINT `fk_reserva_item_acervo`
+    FOREIGN KEY (`itemAcervoId`)
+    REFERENCES `item_acervo` (`id`)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT
 
 )
 COMMENT '';

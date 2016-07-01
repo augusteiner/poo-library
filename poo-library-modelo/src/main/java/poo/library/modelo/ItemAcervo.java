@@ -38,7 +38,17 @@ public abstract class ItemAcervo implements IItemAcervo {
 
     private ECategoriaItem categoria;
 
-    private Emprestimo ultimoEmprestimo;
+    private Aluguel aluguel;
+    private int aluguelId;
+
+    private Biblioteca biblioteca;
+    private int bibliotecaId;
+
+    @Override
+    public void alugar(IUsuario usuario) {
+
+        //
+    }
 
     @Override
     public double devolver() {
@@ -47,9 +57,27 @@ public abstract class ItemAcervo implements IItemAcervo {
     }
 
     @Override
-    public void emprestar(IUsuario usuario) {
+    public Aluguel getAluguel() {
 
-        //
+        return this.aluguel;
+    }
+
+    @Override
+    public int getAluguelId() {
+
+        return this.aluguelId;
+    }
+
+    @Override
+    public Biblioteca getBiblioteca() {
+
+        return this.biblioteca;
+    }
+
+    @Override
+    public int getBibliotecaId() {
+
+        return this.bibliotecaId;
     }
 
     @Override
@@ -71,15 +99,31 @@ public abstract class ItemAcervo implements IItemAcervo {
     }
 
     @Override
-    public Emprestimo getUltimoEmprestimo() {
-
-        return this.ultimoEmprestimo;
-    }
-
-    @Override
     public void reservar(IUsuario usuario) {
 
         //
+    }
+
+    public void setAluguel(Aluguel aluguel) {
+
+        this.aluguel = aluguel;
+    }
+
+    @Override
+    public void setAluguelId(int aluguelId) {
+
+        this.aluguelId = aluguelId;
+    }
+
+    public void setBiblioteca(Biblioteca biblioteca) {
+
+        this.biblioteca = biblioteca;
+    }
+
+    @Override
+    public void setBibliotecaId(int bibliotecaId) {
+
+        this.bibliotecaId = bibliotecaId;
     }
 
     public void setCategoria(ECategoriaItem categoria) {
@@ -97,8 +141,8 @@ public abstract class ItemAcervo implements IItemAcervo {
         this.id = id;
     }
 
-    public void setUltimoEmprestimo(Emprestimo ultimoEmprestimo) {
+    public void setUltimoEmprestimo(Aluguel ultimoEmprestimo) {
 
-        this.ultimoEmprestimo = ultimoEmprestimo;
+        this.aluguel = ultimoEmprestimo;
     }
 }

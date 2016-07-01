@@ -23,24 +23,14 @@
  */
 package poo.library.comum;
 
-import java.util.Date;
-
-import poo.library.util.IIdentificavel;
-
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IEmprestimo extends IIdentificavel {
+public interface ILocalizado {
 
-    Date getDevolverAte();
+    IBiblioteca getBiblioteca();
 
-    Date getDevolvidoEm();
+    int getBibliotecaId();
 
-    IItemAcervo getItem();
-
-    Date getRealizadoEm();
-
-    IUsuario getUsuario();
-
-    double getValorEmprestimo();
+    void setBibliotecaId(int bibliotecaId);
 }

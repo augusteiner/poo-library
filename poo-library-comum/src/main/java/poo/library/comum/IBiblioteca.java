@@ -30,11 +30,13 @@ import poo.library.util.IIdentificavel;
  */
 public interface IBiblioteca extends IIdentificavel {
 
-    IItemAcervo buscar(int itemId);
-
     IAcervo getAcervo();
 
+    double getMultaDiaria();
+
     String getNome();
+
+    IItemAcervo buscar(int itemId);
 
     // double calcularValorMultas(Date dia);
     // double valorDiarioMulta(IItemAcervo item);

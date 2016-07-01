@@ -27,7 +27,7 @@ import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.annotations.Table;
 
 import poo.library.comum.ETipoUsuario;
-import poo.library.comum.IEmprestimo;
+import poo.library.comum.IAluguel;
 import poo.library.comum.IEndereco;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
@@ -93,7 +93,7 @@ public class UsuarioModel extends Model implements IConvertible<IUsuario> {
         }
 
         @Override
-        public Iterable<IEmprestimo> getEmprestimos() {
+        public Iterable<IAluguel> getAlugueis() {
 
             return null;
         }

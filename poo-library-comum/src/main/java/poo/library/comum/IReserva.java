@@ -25,16 +25,10 @@ package poo.library.comum;
 
 import java.util.Date;
 
-import poo.library.util.IIdentificavel;
-
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IReserva extends IIdentificavel {
+public interface IReserva extends IRequisicao {
 
     Date getValidaAte();
-
-    Date getRealizadaEm();
-
-    IUsuario getUsuario();
 }

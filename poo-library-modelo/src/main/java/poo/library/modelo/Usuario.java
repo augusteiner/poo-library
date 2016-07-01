@@ -26,7 +26,7 @@ package poo.library.modelo;
 import java.util.Collection;
 
 import poo.library.comum.ETipoUsuario;
-import poo.library.comum.IEmprestimo;
+import poo.library.comum.IAluguel;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
 import poo.library.util.Iterables;
@@ -48,7 +48,7 @@ public class Usuario implements IUsuario {
 
     private Collection<Reserva> reservas;
 
-    private Collection<Emprestimo> emprestimos;
+    private Collection<Aluguel> emprestimos;
 
     public Usuario() {
 
@@ -90,7 +90,7 @@ public class Usuario implements IUsuario {
     }
 
     @Override
-    public Iterable<IEmprestimo> getEmprestimos() {
+    public Iterable<IAluguel> getAlugueis() {
 
         return Iterables.castIterable(this.emprestimos);
     }

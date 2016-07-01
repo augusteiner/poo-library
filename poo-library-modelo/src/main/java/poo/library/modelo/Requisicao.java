@@ -25,35 +25,36 @@ package poo.library.modelo;
 
 import java.util.Date;
 
-import poo.library.comum.IEmprestimo;
+import poo.library.comum.IRequisicao;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Emprestimo implements IEmprestimo {
+public abstract class Requisicao implements IRequisicao {
 
     private int id;
 
-    private double valorEmprestimo;
+    private Date realizadaEm;
 
-    private Date devolverAte;
-    private Date devolvidoEm;
-    private Date realizadoEm;
-
-    private ItemAcervo item;
+    private ItemAcervo itemAcervo;
+    private int itemAcervoId;
 
     private Usuario usuario;
+    private int usuarioId;
+
+    private Biblioteca biblioteca;
+    private int bibliotecaId;
 
     @Override
-    public Date getDevolverAte() {
+    public Biblioteca getBiblioteca() {
 
-        return this.devolverAte;
+        return this.biblioteca;
     }
 
     @Override
-    public Date getDevolvidoEm() {
+    public int getBibliotecaId() {
 
-        return this.devolvidoEm;
+        return this.bibliotecaId;
     }
 
     @Override
@@ -63,15 +64,21 @@ public class Emprestimo implements IEmprestimo {
     }
 
     @Override
-    public ItemAcervo getItem() {
+    public ItemAcervo getItemAcervo() {
 
-        return this.item;
+        return this.itemAcervo;
     }
 
     @Override
-    public Date getRealizadoEm() {
+    public int getItemAcervoId() {
 
-        return this.realizadoEm;
+        return this.itemAcervoId;
+    }
+
+    @Override
+    public Date getRealizadaEm() {
+
+        return this.realizadaEm;
     }
 
     @Override
@@ -81,19 +88,20 @@ public class Emprestimo implements IEmprestimo {
     }
 
     @Override
-    public double getValorEmprestimo() {
+    public int getUsuarioId() {
 
-        return this.valorEmprestimo;
+        return this.usuarioId;
     }
 
-    public void setDevolverAte(Date devolverAte) {
+    public void setBiblioteca(Biblioteca biblioteca) {
 
-        this.devolverAte = devolverAte;
+        this.biblioteca = biblioteca;
     }
 
-    public void setDevolvidoEm(Date devolvidoEm) {
+    @Override
+    public void setBibliotecaId(int bibliotecaId) {
 
-        this.devolvidoEm = devolvidoEm;
+        this.bibliotecaId = bibliotecaId;
     }
 
     public void setId(int id) {
@@ -101,14 +109,20 @@ public class Emprestimo implements IEmprestimo {
         this.id = id;
     }
 
-    public void setItem(ItemAcervo item) {
+    public void setItemAcervo(ItemAcervo itemAcervo) {
 
-        this.item = item;
+        this.itemAcervo = itemAcervo;
     }
 
-    public void setRealizadoEm(Date realizadoEm) {
+    @Override
+    public void setItemAcervoId(int itemAcervoId) {
 
-        this.realizadoEm = realizadoEm;
+        this.itemAcervoId = itemAcervoId;
+    }
+
+    public void setRealizadaEm(Date realizadaEm) {
+
+        this.realizadaEm = realizadaEm;
     }
 
     public void setUsuario(Usuario usuario) {
@@ -116,8 +130,9 @@ public class Emprestimo implements IEmprestimo {
         this.usuario = usuario;
     }
 
-    public void setValorEmprestimo(double valorEmprestimo) {
+    @Override
+    public void setUsuarioId(int usuarioId) {
 
-        this.valorEmprestimo = valorEmprestimo;
+        this.usuarioId = usuarioId;
     }
 }

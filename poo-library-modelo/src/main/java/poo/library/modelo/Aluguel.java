@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2016 José Nascimento & Juscelino Messias
+ * Copyright (c) 2016 José Augusto & Juscelino Messias
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,20 +21,55 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.modelo;
+
+import java.util.Date;
+
+import poo.library.comum.IAluguel;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IUsuario extends IPessoaFisica {
+public class Aluguel extends Requisicao implements IAluguel {
 
-    ETipoUsuario getTipo();
+    private double precoCobrado;
 
-    Iterable<IAluguel> getAlugueis();
+    private Date devolverAte;
+    private Date devolvidoEm;
 
-    Iterable<IReserva> getReservas();
+    @Override
+    public Date getDevolverAte() {
 
-    // IItemAcervo escolherItemAcervo();
+        return this.devolverAte;
+    }
 
-    // void pagar();
+    @Override
+    public Date getDevolvidoEm() {
+
+        return this.devolvidoEm;
+    }
+
+    @Override
+    public double getPrecoCobrado() {
+
+        return this.precoCobrado;
+    }
+
+    @Override
+    public void setDevolverAte(Date devolverAte) {
+
+        this.devolverAte = devolverAte;
+    }
+
+    @Override
+    public void setDevolvidoEm(Date devolvidoEm) {
+
+        this.devolvidoEm = devolvidoEm;
+    }
+
+    @Override
+    public void setPrecoCobrado(double precoCobrado) {
+
+        this.precoCobrado = precoCobrado;
+    }
 }

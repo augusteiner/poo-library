@@ -28,21 +28,25 @@ import poo.library.util.IIdentificavel;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IItemAcervo extends IIdentificavel {
+public interface IItemAcervo extends IIdentificavel, ILocalizado {
 
-    double devolver();
+    IAluguel getAluguel();
 
-    void emprestar(IUsuario usuario);
-
-    // boolean estaPago();
-
-    double getCustoEmprestimo();
+    int getAluguelId();
 
     ECategoriaItem getCategoria();
 
+    // boolean estaPago();
+
     // boolean getPago();
 
-    IEmprestimo getUltimoEmprestimo();
+    double getCustoEmprestimo();
+
+    void setAluguelId(int aluguelId);
+
+    void alugar(IUsuario usuario);
+
+    double devolver();
 
     void reservar(IUsuario usuario);
 }

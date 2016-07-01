@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2016 José Nascimento & Juscelino Messias
+ * Copyright (c) 2016 José Augusto & Juscelino Messias
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,18 +23,22 @@
  */
 package poo.library.comum;
 
+import java.util.Date;
+
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IUsuario extends IPessoaFisica {
+public interface IAluguel extends IRequisicao {
 
-    ETipoUsuario getTipo();
+    Date getDevolverAte();
 
-    Iterable<IAluguel> getAlugueis();
+    Date getDevolvidoEm();
 
-    Iterable<IReserva> getReservas();
+    double getPrecoCobrado();
 
-    // IItemAcervo escolherItemAcervo();
+    void setDevolverAte(Date devolverAte);
 
-    // void pagar();
+    void setDevolvidoEm(Date devolvidoEm);
+
+    void setPrecoCobrado(double preco);
 }

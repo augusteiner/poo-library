@@ -32,7 +32,9 @@ import poo.library.comum.IItemAcervo;
 public class Biblioteca implements IBiblioteca {
 
     private int id;
+
     private String nome;
+    private double multaDiaria;
 
     private Acervo acervo;
 
@@ -55,6 +57,12 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
+    public double getMultaDiaria() {
+
+        return this.multaDiaria;
+    }
+
+    @Override
     public String getNome() {
 
         return this.nome;
@@ -68,6 +76,11 @@ public class Biblioteca implements IBiblioteca {
     public void setId(int id) {
 
         this.id = id;
+    }
+
+    public void setMultaDiaria(double multaDiaria) {
+
+        this.multaDiaria = multaDiaria;
     }
 
     public void setNome(String nome) {
