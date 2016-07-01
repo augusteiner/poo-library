@@ -154,7 +154,6 @@ public class UsuarioModel extends Model implements IConvertible<IUsuario> {
             self.setString("nome", nome);
         }
 
-        @Override
         public void setTipo(ETipoUsuario tipo) {
 
             self.set("tipo", tipo.name());

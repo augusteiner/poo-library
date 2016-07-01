@@ -37,6 +37,4 @@ public interface IUsuario extends IPessoaFisica {
     // void pagar();
 
     ETipoUsuario getTipo();
-
-    void setTipo(ETipoUsuario tipo);
 }

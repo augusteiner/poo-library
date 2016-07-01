@@ -36,8 +36,8 @@ public class Emprestimo implements IEmprestimo {
 
     private double valorEmprestimo;
 
-    private Date devolucaoAte;
-    private Date devolucaoEm;
+    private Date devolverAte;
+    private Date devolvidoEm;
     private Date realizadoEm;
 
     private ItemAcervo item;
@@ -45,15 +45,15 @@ public class Emprestimo implements IEmprestimo {
     private Usuario usuario;
 
     @Override
-    public Date getDevolucaoAte() {
+    public Date getDevolverAte() {
 
-        return this.devolucaoAte;
+        return this.devolverAte;
     }
 
     @Override
-    public Date getDevolucaoEm() {
+    public Date getDevolvidoEm() {
 
-        return this.devolucaoEm;
+        return this.devolvidoEm;
     }
 
     @Override
@@ -86,14 +86,14 @@ public class Emprestimo implements IEmprestimo {
         return this.valorEmprestimo;
     }
 
-    public void setDevolverEm(Date devolucaoAte) {
+    public void setDevolverAte(Date devolverAte) {
 
-        this.devolucaoAte = devolucaoAte;
+        this.devolverAte = devolverAte;
     }
 
-    public void setDevolvidoEm(Date devolucaoEm) {
+    public void setDevolvidoEm(Date devolvidoEm) {
 
-        this.devolucaoEm = devolucaoEm;
+        this.devolvidoEm = devolvidoEm;
     }
 
     public void setId(int id) {

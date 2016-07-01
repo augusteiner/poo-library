@@ -146,7 +146,6 @@ public class Usuario implements IUsuario {
         this.nome = nome;
     }
 
-    @Override
     public void setTipo(ETipoUsuario tipo) {
 
         this.tipo = tipo;
