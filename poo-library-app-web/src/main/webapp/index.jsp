@@ -95,6 +95,10 @@
   }();
 </script>
 <style>
+body * {
+  font-family: monospace;
+}
+
 .data-table {
   width: 100%;
 }
@@ -111,8 +115,21 @@
   background-color: lightgray;
 }
 
-input {
+input, select {
   width: 100%;
+  margin: 5px 0;
+}
+
+fieldset legend {
+  text-transform: uppercase;
+}
+
+fieldset fieldset {
+  border: none;
+  border-top: dashed 1px gray;
+  padding: 0;
+  margin: 5px 0;
+  padding: 5px 0;
 }
 </style>
 </head>
@@ -125,6 +142,7 @@ input {
         <tr>
           <th>Nome</th>
           <th>CPF</th>
+          <th>Endereço</th>
           <th>Ações</th>
         </tr>
       </thead>
@@ -134,6 +152,8 @@ input {
         <tr ng-repeat="user in users">
           <td>\#{{user.id}} - {{user.nome}}</td>
           <td>{{user.cpf}}</td>
+          <td>{{user.endereco.logradouro}},
+            {{user.endereco.numero}}</td>
           <td>
             <button ng-click="delete(user.id)">delete</button>
             <button ng-click="edit(user.id)">edit</button>
@@ -144,21 +164,46 @@ input {
     <p>
       <a href="api/usuario"> Lista de Usuários</a>
     <form action="javascript:void(0);" method="post" ng-submit="save()">
-      <input type="hidden" name="id" ng-model="data.id">
-      <div>
-        <label>
-          Nome:
-          <input name="nome" type="text" ng-model="data.nome" required>
-        </label>
-      </div>
-      <div>
-        <label>
-          CPF:
-          <input name="cpf" type="text" maxlength="11" ng-model="data.cpf" required>
-        </label>
-      </div>
-      <button type="submit">Salvar</button>
-      <button type="reset" ng-click="cancel()">Limpar</button>
+      <fieldset>
+        <legend>Cadastro de Usuário</legend>
+        <input type="hidden" name="id" ng-model="data.id">
+        <div>
+          <label> Nome: <input name="nome" type="text"
+            ng-model="data.nome" required>
+          </label>
+        </div>
+        <div>
+          <label> CPF: <input name="cpf" type="text"
+            maxlength="11" ng-model="data.cpf" required>
+          </label>
+        </div>
+        <div>
+          <label> Tipo:<select ng-model="data.tipo">
+              <option value="" selected disabled hidden>--
+                SELECIONE O TIPO --</option>
+              <option value="COMUM">Usuário Comum</option>
+              <option value="ADMIN">Administrador</option>
+          </select>
+          </label>
+        </div>
+        <fieldset>
+          <legend>Endereço</legend>
+          <div>
+            <label> Logradouro: <input
+              ng-model="data.endereco.logradouro">
+            </label>
+          </div>
+          <div>
+            <label> Número: <input
+              ng-model="data.endereco.numero">
+            </label>
+          </div>
+        </fieldset>
+        <div>
+          <button type="submit">Salvar</button>
+          <button type="reset" ng-click="cancel()">Limpar</button>
+        </div>
+      </fieldset>
     </form>
   </section>
 </body>

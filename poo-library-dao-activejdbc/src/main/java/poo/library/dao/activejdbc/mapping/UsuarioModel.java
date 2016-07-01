@@ -31,7 +31,9 @@ import poo.library.comum.IEmprestimo;
 import poo.library.comum.IEndereco;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
+import poo.library.util.Enderecos;
 import poo.library.util.IConvertible;
+import poo.library.util.Usuarios;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -39,17 +41,50 @@ import poo.library.util.IConvertible;
 @Table("usuario")
 public class UsuarioModel extends Model implements IConvertible<IUsuario> {
 
-
     class Administrador extends Usuario {
 
         //
     }
 
+    class Endereco implements IEndereco {
+
+        @Override
+        public String getLogradouro() {
+
+            return self.getString("enderecoLogradouro");
+        }
+
+        @Override
+        public String getNumero() {
+
+            return self.getString("enderecoNumero");
+        }
+
+        public void setLogradouro(String logradouro) {
+
+            self.set("enderecoLogradouro", logradouro);
+        }
+
+        public void setNumero(String numero) {
+
+            self.set("enderecoNumero", numero);
+        }
+
+        @Override
+        public String toString() {
+
+            return Enderecos.toString(this);
+        }
+    }
+
     class Usuario implements IUsuario {
 
-        private UsuarioModel self = UsuarioModel.this;
+        private Endereco endereco;
 
-        public Usuario() { }
+        public Usuario() {
+
+            this.endereco = new Endereco();
+        }
 
         @Override
         public String getCpf() {
@@ -58,9 +93,15 @@ public class UsuarioModel extends Model implements IConvertible<IUsuario> {
         }
 
         @Override
-        public IEndereco getEndereco() {
+        public Iterable<IEmprestimo> getEmprestimos() {
 
             return null;
+        }
+
+        @Override
+        public IEndereco getEndereco() {
+
+            return this.endereco;
         }
 
         @Override
@@ -76,6 +117,12 @@ public class UsuarioModel extends Model implements IConvertible<IUsuario> {
         }
 
         @Override
+        public Iterable<IReserva> getReservas() {
+
+            return null;
+        }
+
+        @Override
         public ETipoUsuario getTipo() {
 
             return ETipoUsuario.valueOf(self.getString("tipo"));
@@ -86,9 +133,14 @@ public class UsuarioModel extends Model implements IConvertible<IUsuario> {
             self.set("cpf", cpf);
         }
 
-        public void setEndereco(IEndereco endereco) {
+        public void setEnderecoLogradouro(String logradouro) {
 
-            //
+            this.endereco.setLogradouro(logradouro);
+        }
+
+        public void setEnderecoNumero(String numero) {
+
+            this.endereco.setNumero(numero);
         }
 
         public void setId(int id) {
@@ -111,25 +163,11 @@ public class UsuarioModel extends Model implements IConvertible<IUsuario> {
         @Override
         public String toString() {
 
-            return String.format(
-                "%s - %s (%s)",
-                this.getId(),
-                this.getNome(),
-                this.getCpf());
-        }
-
-        @Override
-        public Iterable<IEmprestimo> getEmprestimos() {
-
-            return null;
-        }
-
-        @Override
-        public Iterable<IReserva> getReservas() {
-
-            return null;
+            return Usuarios.toString(this);
         }
     }
+
+    private UsuarioModel self = UsuarioModel.this;
 
     @Override
     public IUsuario convert() {

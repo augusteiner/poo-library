@@ -21,52 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.modelo;
+package poo.library.util;
 
 import poo.library.comum.IEndereco;
-import poo.library.util.Enderecos;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Endereco implements IEndereco {
+public class Enderecos {
 
-    private String logradouro;
-    private String numero;
+    public static String toString(IEndereco endereco) {
 
-    public Endereco() { }
-
-    public Endereco(String logradouro, String numero) {
-
-        this.logradouro = logradouro;
-        this.numero = numero;
-    }
-
-    @Override
-    public String getLogradouro() {
-
-        return logradouro;
-    }
-
-    @Override
-    public String getNumero() {
-
-        return numero;
-    }
-
-    public void setLogradouro(String logradouro) {
-
-        this.logradouro = logradouro;
-    }
-
-    public void setNumero(String numero) {
-
-        this.numero = numero;
-    }
-
-    @Override
-    public String toString() {
-
-        return Enderecos.toString(this);
+        return String.format(
+            "%s, %s",
+            endereco.getLogradouro(),
+            endereco.getNumero());
     }
 }

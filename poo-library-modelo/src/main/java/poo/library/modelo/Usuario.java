@@ -30,6 +30,7 @@ import poo.library.comum.IEmprestimo;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
 import poo.library.util.Iterables;
+import poo.library.util.Usuarios;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -52,6 +53,8 @@ public class Usuario implements IUsuario {
     public Usuario() {
 
         this(ETipoUsuario.PADRAO);
+
+        this.endereco = new Endereco();
     }
 
     protected Usuario(ETipoUsuario tipo) {
@@ -152,10 +155,6 @@ public class Usuario implements IUsuario {
     @Override
     public String toString() {
 
-        return String.format(
-            "#%s - %s (%s)",
-            this.getId(),
-            this.getNome(),
-            this.getCpf());
+        return Usuarios.toString(this);
     }
 }

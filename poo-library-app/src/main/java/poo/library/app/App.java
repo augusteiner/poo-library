@@ -27,6 +27,7 @@ import poo.library.comum.IUsuario;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Administrador;
+import poo.library.modelo.Endereco;
 import poo.library.modelo.Usuario;
 import poo.library.util.ConfiguracaoException;
 
@@ -67,11 +68,17 @@ public class App {
 
         sysoutCentro("Inserindo usuários de teste", 45);
 
+        Administrador admin;
+
         IUsuario[] seed = new IUsuario[] {
-            new Administrador("José", "11111111111"),
+            admin = new Administrador("José", "11111111111"),
             new Usuario("João", "22222222222"),
             new Usuario("Maria", "33333333333")
         };
+
+        admin.setEndereco(new Endereco(
+            "R. das Acácias",
+            "211"));
 
         for (IUsuario u : seed) {
 

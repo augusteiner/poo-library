@@ -25,13 +25,17 @@ DROP TABLE IF EXISTS `usuario`;
 
 CREATE TABLE `usuario` (
 
-    `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+
     `nome` VARCHAR(100) NOT NULL,
     `cpf` CHAR(11) NOT NULL,
     `tipo` ENUM('COMUM', 'ADMIN') NOT NULL DEFAULT 'COMUM',
 
-    `criado_em` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `atualizado_em` TIMESTAMP NULL,
+    `enderecoLogradouro` VARCHAR(100) NULL,
+    `enderecoNumero` VARCHAR(10) NULL,
+
+    `criadoEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `atualizadoEm` TIMESTAMP NULL,
 
     PRIMARY KEY (`id`)
 
