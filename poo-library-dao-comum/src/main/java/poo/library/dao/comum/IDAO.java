@@ -38,8 +38,12 @@ public interface IDAO<T> {
 
     void delete(T obj);
 
+    T first() throws ObjetoNaoEncontradoException;
+
     T first(String condition, Object... params)
         throws ObjetoNaoEncontradoException;
+
+    T firstOrDefault();
 
     T firstOrDefault(String condition, Object... params);
 

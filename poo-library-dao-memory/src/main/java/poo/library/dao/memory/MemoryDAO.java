@@ -66,6 +66,12 @@ class MemoryDAO<T> implements IDAO<T> {
     }
 
     @Override
+    public T first() throws ObjetoNaoEncontradoException {
+
+        return this.first("");
+    }
+
+    @Override
     public T first(String condition, Object... params)
         throws ObjetoNaoEncontradoException {
 
@@ -77,6 +83,12 @@ class MemoryDAO<T> implements IDAO<T> {
         }
 
         return item;
+    }
+
+    @Override
+    public T firstOrDefault() {
+
+        return this.firstOrDefault("");
     }
 
     @Override

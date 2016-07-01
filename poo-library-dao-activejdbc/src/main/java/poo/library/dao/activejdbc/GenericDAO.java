@@ -80,6 +80,11 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends Model & ICo
         String condition,
         Object... params);
 
+    public T first() throws ObjetoNaoEncontradoException {
+
+        return this.first("1 = 1");
+    }
+
     public T first(
         String condition,
         Object... params) throws ObjetoNaoEncontradoException {
@@ -94,6 +99,11 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends Model & ICo
         }
 
         return item;
+    }
+
+    public T firstOrDefault() {
+
+        return this.firstOrDefault("1 = 1");
     }
 
     public T firstOrDefault(
