@@ -27,6 +27,7 @@ import java.util.Collection;
 
 import poo.library.comum.ETipoUsuario;
 import poo.library.comum.IAluguel;
+import poo.library.comum.IEndereco;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
 import poo.library.util.Iterables;
@@ -44,7 +45,7 @@ public class Usuario implements IUsuario {
 
     private ETipoUsuario tipo;
 
-    private Endereco endereco;
+    private IEndereco endereco;
 
     private Collection<Reserva> reservas;
 
@@ -84,19 +85,19 @@ public class Usuario implements IUsuario {
     }
 
     @Override
-    public String getCpf() {
-
-        return this.cpf;
-    }
-
-    @Override
     public Iterable<IAluguel> getAlugueis() {
 
         return Iterables.castIterable(this.emprestimos);
     }
 
     @Override
-    public Endereco getEndereco() {
+    public String getCpf() {
+
+        return this.cpf;
+    }
+
+    @Override
+    public IEndereco getEndereco() {
 
         return this.endereco;
     }
@@ -130,7 +131,8 @@ public class Usuario implements IUsuario {
         this.cpf = cpf;
     }
 
-    public void setEndereco(Endereco endereco) {
+    @Override
+    public void setEndereco(IEndereco endereco) {
 
         this.endereco = endereco;
     }

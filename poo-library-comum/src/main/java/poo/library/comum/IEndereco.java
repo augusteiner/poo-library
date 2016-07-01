@@ -31,4 +31,8 @@ public interface IEndereco {
     String getLogradouro();
 
     String getNumero();
+
+    void setLogradouro(String logradouro);
+
+    void setNumero(String numero);
 }

@@ -29,4 +29,6 @@ package poo.library.comum;
 public interface IPessoaFisica extends IPessoa {
 
     String getCpf();
+
+    void setCpf(String cpf);
 }

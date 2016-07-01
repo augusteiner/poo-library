@@ -60,11 +60,13 @@ public class UsuarioModel extends Model implements IModel<IUsuario> {
             return self.getString("enderecoNumero");
         }
 
+        @Override
         public void setLogradouro(String logradouro) {
 
             self.set("enderecoLogradouro", logradouro);
         }
 
+        @Override
         public void setNumero(String numero) {
 
             self.set("enderecoNumero", numero);
@@ -163,6 +165,13 @@ public class UsuarioModel extends Model implements IModel<IUsuario> {
         public String toString() {
 
             return Usuarios.toString(this);
+        }
+
+        @Override
+        public void setEndereco(IEndereco endereco) {
+
+            // TODO Auto-generated method stub
+
         }
     }
 
