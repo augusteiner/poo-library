@@ -26,7 +26,7 @@ package poo.library.util;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IConvertible<T> {
+public interface IConversivel<T> {
 
-    T convert();
+    T converter();
 }

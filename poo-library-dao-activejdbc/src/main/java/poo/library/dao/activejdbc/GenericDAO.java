@@ -23,18 +23,17 @@
  */
 package poo.library.dao.activejdbc;
 
-import org.javalite.activejdbc.Model;
 import org.modelmapper.ModelMapper;
 
-import poo.library.util.ObjetoNaoEncontradoException;
-import poo.library.util.IConvertible;
+import poo.library.dao.activejdbc.util.IModel;
 import poo.library.util.IIdentificavel;
 import poo.library.util.Iterables;
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public abstract class GenericDAO<T extends IIdentificavel, M extends Model & IConvertible<T>> {
+public abstract class GenericDAO<T extends IIdentificavel, M extends IModel<T>> {
 
     private static ModelMapper MAPPER = new ModelMapper();
 
@@ -128,7 +127,7 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends Model & ICo
 
         M model = this.novo();
 
-        T target = model.convert();
+        T target = model.converter();
 
         MAPPER.map(obj, target);
 

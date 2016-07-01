@@ -61,7 +61,7 @@ public class Iterables {
         return CPF_FORMATTER.valueToString(cpf);
     }
 
-    public static <M extends IConvertible<T>, T> Iterable<T> convertIterable(final Iterable<M> iterable) {
+    public static <T, M extends IConversivel<T>> Iterable<T> convertIterable(final Iterable<M> iterable) {
 
         final Iterator<M> iter = iterable.iterator();
 
@@ -83,14 +83,14 @@ public class Iterables {
 
                         M from = iter.next();
 
-                        return from.convert();
+                        return from.converter();
                     }
                 };
             }
         };
     }
 
-    public static <T extends C, C> Iterable<C> castIterable(Iterable<T> iterable) {
+    public static <C, T extends C> Iterable<C> castIterable(Iterable<T> iterable) {
 
         final Iterator<T> iter = iterable.iterator();
 

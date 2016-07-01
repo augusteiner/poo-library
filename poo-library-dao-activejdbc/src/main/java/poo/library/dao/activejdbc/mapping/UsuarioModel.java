@@ -31,15 +31,15 @@ import poo.library.comum.IAluguel;
 import poo.library.comum.IEndereco;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
+import poo.library.dao.activejdbc.util.IModel;
 import poo.library.util.Enderecos;
-import poo.library.util.IConvertible;
 import poo.library.util.Usuarios;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Table("usuario")
-public class UsuarioModel extends Model implements IConvertible<IUsuario> {
+public class UsuarioModel extends Model implements IModel<IUsuario> {
 
     class Administrador extends Usuario {
 
@@ -169,7 +169,7 @@ public class UsuarioModel extends Model implements IConvertible<IUsuario> {
     private UsuarioModel self = UsuarioModel.this;
 
     @Override
-    public IUsuario convert() {
+    public IUsuario converter() {
 
         //System.out.println(this);
 

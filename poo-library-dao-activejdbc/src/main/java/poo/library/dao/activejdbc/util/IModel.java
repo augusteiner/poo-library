@@ -21,28 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.activejdbc.mapping;
+package poo.library.dao.activejdbc.util;
 
 import org.javalite.activejdbc.Model;
-import org.javalite.activejdbc.annotations.Table;
 
-import poo.library.comum.IItemAcervo;
-import poo.library.dao.activejdbc.util.IModel;
+import poo.library.util.IConversivel;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Table("item_acervo")
-public class ItemAcervoModel extends Model implements IModel<IItemAcervo> {
+public interface IModel<T> extends IConversivel<T> {
 
-    public static ItemAcervoModel from(IItemAcervo obj) {
+    <M extends Model> M setId(Object id);
 
-        return null;
-    }
-
-    @Override
-    public IItemAcervo converter() {
-
-        return null;
-    }
+    boolean saveIt();
 }
