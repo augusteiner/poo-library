@@ -27,32 +27,27 @@ import org.modelmapper.ModelMapper;
 
 import poo.library.dao.activejdbc.util.IModel;
 import poo.library.util.IIdentificavel;
-import poo.library.util.Iterables;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public abstract class GenericDAO<T extends IIdentificavel, M extends IModel<T>> {
+public abstract class GenericDAO<T extends IIdentificavel & IModel<T>> {
 
     private static ModelMapper MAPPER = new ModelMapper();
 
     public Iterable<T> all() {
 
-        Iterable<M> iter = this.findAll("1 = 1");
-
-        return Iterables.convertIterable(iter);
+        return this.findAll("1 = 1");
     }
 
     public Iterable<T> all(
         String condition,
         Object... params) {
 
-        Iterable<M> iter = this.findAll(
+        return this.findAll(
             condition,
             params);
-
-        return Iterables.convertIterable(iter);
     }
 
     public void delete(
@@ -75,7 +70,7 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends IModel<T>> 
         String string,
         Object... objects);
 
-    protected abstract Iterable<M> findAll(
+    protected abstract Iterable<T> findAll(
         String condition,
         Object... params);
 
@@ -121,22 +116,22 @@ public abstract class GenericDAO<T extends IIdentificavel, M extends IModel<T>> 
         return null;
     }
 
-    protected abstract M novo();
+    protected abstract T novo();
 
     public void save(T obj) {
 
-        M model = this.novo();
+        final T target = this.novo();
 
-        T target = model.converter();
+        // T target = model.converter();
 
         MAPPER.map(obj, target);
 
         if (obj.getId() == 0) {
 
-            model.setId(null);
+            target.setId(null);
         }
 
-        model.saveIt();
+        target.saveIt();
 
         //System.out.println(target);
         //System.out.println(model);

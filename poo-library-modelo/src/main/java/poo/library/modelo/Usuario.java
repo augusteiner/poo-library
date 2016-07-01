@@ -45,7 +45,7 @@ public class Usuario implements IUsuario {
 
     private ETipoUsuario tipo;
 
-    private IEndereco endereco;
+    private Endereco endereco;
 
     private Collection<Reserva> reservas;
 
@@ -97,7 +97,7 @@ public class Usuario implements IUsuario {
     }
 
     @Override
-    public IEndereco getEndereco() {
+    public Endereco getEndereco() {
 
         return this.endereco;
     }
@@ -126,6 +126,7 @@ public class Usuario implements IUsuario {
         return this.tipo;
     }
 
+    @Override
     public void setCpf(String cpf) {
 
         this.cpf = cpf;
@@ -134,7 +135,7 @@ public class Usuario implements IUsuario {
     @Override
     public void setEndereco(IEndereco endereco) {
 
-        this.endereco = endereco;
+        // this.endereco = endereco;
     }
 
     public void setId(int id) {

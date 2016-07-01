@@ -33,7 +33,9 @@ import poo.library.dao.activejdbc.util.IModel;
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Table("item_acervo")
-public class ItemAcervoModel extends Model implements IModel<IItemAcervo> {
+public class ItemAcervoModel extends Model implements IModel<ItemAcervoModel.IItemAcervoProxy> {
+
+    public interface IItemAcervoProxy extends IItemAcervo, IModel<IItemAcervoProxy> { }
 
     public static ItemAcervoModel from(IItemAcervo obj) {
 
@@ -41,7 +43,7 @@ public class ItemAcervoModel extends Model implements IModel<IItemAcervo> {
     }
 
     @Override
-    public IItemAcervo converter() {
+    public IItemAcervoProxy converter() {
 
         return null;
     }

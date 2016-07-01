@@ -23,16 +23,17 @@
  */
 package poo.library.dao.activejdbc.impl;
 
-import poo.library.comum.IItemAcervo;
 import poo.library.dao.activejdbc.GenericDAO;
 import poo.library.dao.activejdbc.mapping.ItemAcervoModel;
+import poo.library.dao.activejdbc.mapping.ItemAcervoModel.IItemAcervoProxy;
 import poo.library.dao.comum.IDAO;
+import poo.library.util.Iterables;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class ItemAcervoDAO extends GenericDAO<IItemAcervo, ItemAcervoModel>
-    implements IDAO<IItemAcervo> {
+public class ItemAcervoDAO extends GenericDAO<IItemAcervoProxy>
+    implements IDAO<IItemAcervoProxy> {
 
     public ItemAcervoDAO() { }
 
@@ -47,18 +48,20 @@ public class ItemAcervoDAO extends GenericDAO<IItemAcervo, ItemAcervoModel>
     }
 
     @Override
-    protected Iterable<ItemAcervoModel> findAll(
+    protected Iterable<IItemAcervoProxy> findAll(
         String condition,
         Object... params) {
 
-        return ItemAcervoModel.find(
+        Iterable<ItemAcervoModel> iter = ItemAcervoModel.find(
             condition,
             params);
+
+        return Iterables.convertIterable(iter);
     }
 
     @Override
-    protected ItemAcervoModel novo() {
+    protected IItemAcervoProxy novo() {
 
-        return new ItemAcervoModel();
+        return null;
     }
 }

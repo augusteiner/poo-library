@@ -23,16 +23,17 @@
  */
 package poo.library.dao.activejdbc.impl;
 
-import poo.library.comum.IUsuario;
 import poo.library.dao.activejdbc.GenericDAO;
 import poo.library.dao.activejdbc.mapping.UsuarioModel;
+import poo.library.dao.activejdbc.mapping.UsuarioModel.IUsuarioProxy;
 import poo.library.dao.comum.IDAO;
+import poo.library.util.Iterables;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class UsuarioDAO extends GenericDAO<IUsuario, UsuarioModel>
-    implements IDAO<IUsuario> {
+public class UsuarioDAO extends GenericDAO<IUsuarioProxy>
+    implements IDAO<IUsuarioProxy> {
 
     public UsuarioDAO() { }
 
@@ -47,18 +48,20 @@ public class UsuarioDAO extends GenericDAO<IUsuario, UsuarioModel>
     }
 
     @Override
-    protected Iterable<UsuarioModel> findAll(
+    protected Iterable<IUsuarioProxy> findAll(
         String condition,
         Object... params) {
 
-        return UsuarioModel.find(
+        Iterable<UsuarioModel> iter = UsuarioModel.find(
             condition,
             params);
+
+        return Iterables.convertIterable(iter);
     }
 
     @Override
-    protected UsuarioModel novo() {
+    protected IUsuarioProxy novo() {
 
-        return new UsuarioModel();
+        return null;
     }
 }

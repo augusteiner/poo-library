@@ -29,8 +29,10 @@ import org.javalite.activejdbc.annotations.Table;
 import poo.library.comum.ETipoUsuario;
 import poo.library.comum.IAluguel;
 import poo.library.comum.IEndereco;
+import poo.library.comum.IItemAcervo;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
+import poo.library.dao.activejdbc.mapping.ItemAcervoModel.IItemAcervoProxy;
 import poo.library.dao.activejdbc.util.IModel;
 import poo.library.util.Enderecos;
 import poo.library.util.Usuarios;
@@ -39,7 +41,9 @@ import poo.library.util.Usuarios;
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Table("usuario")
-public class UsuarioModel extends Model implements IModel<IUsuario> {
+public class UsuarioModel extends Model implements IModel<UsuarioModel.IUsuarioProxy> {
+
+    public interface IUsuarioProxy extends IUsuario, IModel<IUsuarioProxy> { }
 
     class Administrador extends Usuario {
 
@@ -130,6 +134,7 @@ public class UsuarioModel extends Model implements IModel<IUsuario> {
             return ETipoUsuario.valueOf(self.getString("tipo"));
         }
 
+        @Override
         public void setCpf(String cpf) {
 
             self.set("cpf", cpf);
@@ -178,7 +183,7 @@ public class UsuarioModel extends Model implements IModel<IUsuario> {
     private UsuarioModel self = UsuarioModel.this;
 
     @Override
-    public IUsuario converter() {
+    public IUsuarioProxy converter() {
 
         //System.out.println(this);
 
@@ -191,16 +196,18 @@ public class UsuarioModel extends Model implements IModel<IUsuario> {
             tipo = ETipoUsuario.valueOf(tipoValue);
         }
 
-        switch (tipo) {
+        return null;
 
-            case COMUM:
-                return new Usuario();
-
-            case ADMIN:
-                return new Administrador();
-
-            default:
-                throw new IllegalArgumentException();
-        }
+        //switch (tipo) {
+        //
+        //    case COMUM:
+        //        return new Usuario();
+        //
+        //    case ADMIN:
+        //        return new Administrador();
+        //
+        //    default:
+        //        throw new IllegalArgumentException();
+        //}
     }
 }
