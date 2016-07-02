@@ -63,7 +63,7 @@ public abstract class GenericDAO<T extends IIdentificavel & IModel<T>> {
 
         this.deleteAll(
             "id = ?",
-            new Object[]{ obj.getId() });
+            obj.getId());
     }
 
     protected abstract void deleteAll(
