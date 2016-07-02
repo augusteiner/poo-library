@@ -21,23 +21,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.util;
+package poo.library.dao.activejdbc.util;
 
-import poo.library.comum.IUsuario;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+
+import org.javalite.activejdbc.Model;
 
 /**
- * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public class Usuarios {
+public class ModelInvocationHandler implements InvocationHandler {
 
-    public static String toString(IUsuario usuario) {
+    private Model self;
 
-        return String.format(
-            "%s - %s (%s) : (%s)",
-            usuario.getId(),
-            usuario.getNome(),
-            usuario.getCpf(),
+    public ModelInvocationHandler(Model self) {
 
-            Enderecos.toString(usuario.getEndereco()));
+        this.self = self;
+    }
+
+    private String attributeName(String methodName) {
+
+        String attr = methodName.substring(3);
+
+        return attr.substring(0, 1).toLowerCase() + attr.substring(1);
+    }
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+
+        String attr = this.attributeName(method.getName());
+
+        if (method.getName().startsWith("get")) {
+
+            return self.get(attr);
+
+        } else if (method.getName().startsWith("set") &&
+            args.length == 1) {
+
+            self.set(attr, args[0]);
+        }
+
+        return null;
     }
 }

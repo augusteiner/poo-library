@@ -132,7 +132,6 @@ public class Usuario implements IUsuario {
         this.cpf = cpf;
     }
 
-    @Override
     public void setEndereco(IEndereco endereco) {
 
         // this.endereco = endereco;

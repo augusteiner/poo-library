@@ -23,14 +23,13 @@
  */
 package poo.library.app;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 import java.util.Hashtable;
 import java.util.Map;
 
+import poo.library.comum.IAdministrador;
+import poo.library.comum.IEndereco;
 import poo.library.comum.IUsuario;
-import poo.library.modelo.Endereco;
+import poo.library.util.Enderecos;
 import poo.library.util.Usuarios;
 
 /**
@@ -38,57 +37,40 @@ import poo.library.util.Usuarios;
  */
 public class ProxyTests {
 
-    public static String attributeName(String method) {
+    interface IEnderecoProxy extends IEndereco { }
 
-        String attr = method.substring(3);
+    interface IUsuarioProxy extends IUsuario, IAdministrador {
 
-        return attr.substring(0, 1).toLowerCase() + attr.substring(1);
+        void setEndereco(IEndereco endereco);
     }
 
     public static void main(String[] args) {
 
-        Class<IUsuario> cls = IUsuario.class;
-        final Map<String, Object> _values = new Hashtable<String, Object>();
+        Map<String, Object> values = new Hashtable<String, Object>();
 
-        IUsuario usuario = (IUsuario) Proxy.newProxyInstance(
-            cls.getClassLoader(),
-            new Class<?>[] { cls },
-            new InvocationHandler() {
+        IEndereco endereco = (IEndereco) ProxyGenerator.makeNew(IEndereco.class);
+        IUsuarioProxy usuario = (IUsuarioProxy) ProxyGenerator.makeNew(
+            IUsuarioProxy.class,
+            values);
 
-                final Map<String, Object> values = _values;
-
-                @Override
-                public Object invoke(Object proxy, Method method, Object[] args)
-                    throws Throwable {
-
-                    if (method.getName().startsWith("get")) {
-
-                        return values.get(attributeName(method.getName()));
-
-                    } else if (method.getName().startsWith("set")
-                        && args.length == 1) {
-
-                        values.put(attributeName(method.getName()), args[0]);
-                    }
-
-                    return null;
-                }
-            });
-
-        _values.put("id", 1);
+        values.put("id", 1);
 
         usuario.setCpf("07134269426");
         usuario.setNome("José Augusto");
-        usuario.setEndereco(new Endereco("R. José", "146"));
 
-        System.out.println(usuario.getEndereco().toString());
+        endereco.setLogradouro("R. Maria da Silva");
+        endereco.setNumero("988");
+
+        usuario.setEndereco(endereco);
+
+        System.out.println(Enderecos.toString((((IUsuario) usuario).getEndereco())));
         // p.getEndereco().setLogradouro("teste");
 
-        for (String key : _values.keySet()) {
+        for (String key : values.keySet()) {
 
             System.out.println(String.format(
                 "Key: %s, Value: %s",
-                key, _values.get(key)));
+                key, values.get(key)));
         }
 
         System.out.println(Usuarios.toString(usuario));

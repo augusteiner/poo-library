@@ -21,23 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.util;
+package poo.library.dao.activejdbc.util;
 
-import poo.library.comum.IUsuario;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
 
 /**
- * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public class Usuarios {
+public class ProxyFactory {
 
-    public static String toString(IUsuario usuario) {
+    public static Object makeNew(
+        Class<?> cls,
+        InvocationHandler handler) {
 
-        return String.format(
-            "%s - %s (%s) : (%s)",
-            usuario.getId(),
-            usuario.getNome(),
-            usuario.getCpf(),
-
-            Enderecos.toString(usuario.getEndereco()));
+        return Proxy.newProxyInstance(
+            cls.getClassLoader(),
+            new Class<?>[] { cls },
+            handler);
     }
 }

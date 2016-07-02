@@ -172,7 +172,6 @@ public class UsuarioModel extends Model implements IModel<UsuarioModel.IUsuarioP
             return Usuarios.toString(this);
         }
 
-        @Override
         public void setEndereco(IEndereco endereco) {
 
             // TODO Auto-generated method stub
