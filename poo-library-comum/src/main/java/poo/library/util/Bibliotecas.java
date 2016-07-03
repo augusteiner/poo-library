@@ -21,11 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.util;
+
+import poo.library.comum.IBiblioteca;
 
 /**
- * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public interface ITexto extends IItemAcervo {
+public class Bibliotecas {
 
+    public static String toString(IBiblioteca biblioteca) {
+
+        return String.format(
+            "%s (R$ %s)",
+            biblioteca.getNome(),
+            biblioteca.getMultaDiaria());
+    }
 }

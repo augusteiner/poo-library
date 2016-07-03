@@ -24,6 +24,7 @@
 package poo.library.modelo;
 
 import poo.library.comum.ECategoriaItem;
+import poo.library.comum.IBiblioteca;
 import poo.library.comum.IItemAcervo;
 import poo.library.comum.IUsuario;
 
@@ -34,15 +35,51 @@ public abstract class ItemAcervo implements IItemAcervo {
 
     private int id;
 
-    private double custoEmprestimo;
+    private String autor;
+
+    private double precoAluguel;
+
+    private int qteDisponivel;
+    private int qteTotal;
 
     private ECategoriaItem categoria;
 
-    private Aluguel aluguel;
-    private int aluguelId;
-
     private Biblioteca biblioteca;
     private int bibliotecaId;
+
+    public ItemAcervo() { }
+
+    protected ItemAcervo(
+        String autor,
+        double precoAluguel,
+        ECategoriaItem categoria,
+        int bibliotecaId) {
+
+        this(
+            autor,
+            precoAluguel,
+            0,
+            0,
+            bibliotecaId);
+
+        this.categoria = categoria;
+    }
+
+    public ItemAcervo(
+        String autor,
+        double precoAluguel,
+        int qteDisponivel,
+        int qteTotal,
+        // ECategoriaItem categoria,
+        int bibliotecaId) {
+
+        this.autor = autor;
+        this.precoAluguel = precoAluguel;
+        this.qteDisponivel = qteDisponivel;
+        this.qteTotal = qteTotal;
+
+        this.bibliotecaId = bibliotecaId;
+    }
 
     @Override
     public void alugar(IUsuario usuario) {
@@ -57,19 +94,13 @@ public abstract class ItemAcervo implements IItemAcervo {
     }
 
     @Override
-    public Aluguel getAluguel() {
+    public String getAutor() {
 
-        return this.aluguel;
+        return this.autor;
     }
 
     @Override
-    public int getAluguelId() {
-
-        return this.aluguelId;
-    }
-
-    @Override
-    public Biblioteca getBiblioteca() {
+    public IBiblioteca getBiblioteca() {
 
         return this.biblioteca;
     }
@@ -87,15 +118,26 @@ public abstract class ItemAcervo implements IItemAcervo {
     }
 
     @Override
-    public double getCustoEmprestimo() {
-
-        return this.custoEmprestimo;
-    }
-
-    @Override
     public int getId() {
 
         return this.id;
+    }
+    @Override
+    public double getPrecoAluguel() {
+
+        return this.precoAluguel;
+    }
+
+    @Override
+    public int getQteDisponivel() {
+
+        return this.qteDisponivel;
+    }
+
+    @Override
+    public int getQteTotal() {
+
+        return this.qteTotal;
     }
 
     @Override
@@ -104,15 +146,10 @@ public abstract class ItemAcervo implements IItemAcervo {
         //
     }
 
-    public void setAluguel(Aluguel aluguel) {
-
-        this.aluguel = aluguel;
-    }
-
     @Override
-    public void setAluguelId(int aluguelId) {
+    public void setAutor(String autor) {
 
-        this.aluguelId = aluguelId;
+        this.autor = autor;
     }
 
     public void setBiblioteca(Biblioteca biblioteca) {
@@ -131,18 +168,26 @@ public abstract class ItemAcervo implements IItemAcervo {
         this.categoria = categoria;
     }
 
-    public void setCustoEmprestimo(double custoEmprestimo) {
-
-        this.custoEmprestimo = custoEmprestimo;
-    }
-
     public void setId(int id) {
 
         this.id = id;
     }
 
-    public void setUltimoEmprestimo(Aluguel ultimoEmprestimo) {
+    @Override
+    public void setPrecoAluguel(double precoAluguel) {
 
-        this.aluguel = ultimoEmprestimo;
+        this.precoAluguel = precoAluguel;
+    }
+
+    @Override
+    public void setQteDisponivel(int qteDisponivel) {
+
+        this.qteDisponivel = qteDisponivel;
+    }
+
+    @Override
+    public void setQteTotal(int qteTotal) {
+
+        this.qteTotal = qteTotal;
     }
 }

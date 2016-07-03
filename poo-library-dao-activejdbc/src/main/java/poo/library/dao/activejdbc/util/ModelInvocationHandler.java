@@ -82,6 +82,8 @@ public class ModelInvocationHandler implements InvocationHandler {
 
             if (method.getName().startsWith("get")) {
 
+                //System.out.println("Getting " + attr);
+
                 if (method.getReturnType().isEnum()) {
 
                     return extractEnum(method, attr);
@@ -91,6 +93,11 @@ public class ModelInvocationHandler implements InvocationHandler {
 
                     return self.getInteger(attr);
 
+                } else if (method.getReturnType().equals(Double.TYPE) ||
+                    method.getReturnType().equals(Double.class)) {
+
+                    return self.getDouble(attr);
+
                 } else {
 
                     return self.get(attr);
@@ -99,6 +106,8 @@ public class ModelInvocationHandler implements InvocationHandler {
 
             } else if (method.getName().startsWith("set") &&
                 args.length == 1) {
+
+                //System.out.println("Setting " + attr);
 
                 self.set(attr, args[0]);
             }

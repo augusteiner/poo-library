@@ -30,23 +30,27 @@ import poo.library.util.IIdentificavel;
  */
 public interface IItemAcervo extends IIdentificavel, ILocalizado {
 
-    IAluguel getAluguel();
-
-    int getAluguelId();
+    String getAutor();
 
     ECategoriaItem getCategoria();
 
-    // boolean estaPago();
+    double getPrecoAluguel();
 
-    // boolean getPago();
+    int getQteDisponivel();
 
-    double getCustoEmprestimo();
-
-    void setAluguelId(int aluguelId);
+    int getQteTotal();
 
     void alugar(IUsuario usuario);
 
     double devolver();
 
     void reservar(IUsuario usuario);
+
+    void setAutor(String autor);
+
+    void setPrecoAluguel(double custoEmprestimo);
+
+    void setQteDisponivel(int qteDisponivel);
+
+    void setQteTotal(int qteTotal);
 }

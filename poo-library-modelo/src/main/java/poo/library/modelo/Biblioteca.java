@@ -23,8 +23,12 @@
  */
 package poo.library.modelo;
 
+import java.util.Collection;
+
 import poo.library.comum.IBiblioteca;
 import poo.library.comum.IItemAcervo;
+import poo.library.comum.IUsuario;
+import poo.library.util.Iterables;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -36,7 +40,16 @@ public class Biblioteca implements IBiblioteca {
     private String nome;
     private double multaDiaria;
 
-    private Acervo acervo;
+    private Collection<Usuario> usuarios;
+    private Collection<ItemAcervo> acervo;
+
+    public Biblioteca() { }
+
+    public Biblioteca(String nome, double multaDiaria) {
+
+        this.nome = nome;
+        this.multaDiaria = multaDiaria;
+    }
 
     @Override
     public IItemAcervo buscar(int itemId) {
@@ -45,9 +58,9 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public Acervo getAcervo() {
+    public Iterable<IItemAcervo> getAcervo() {
 
-        return this.acervo;
+        return Iterables.cast(this.acervo);
     }
 
     @Override
@@ -68,7 +81,13 @@ public class Biblioteca implements IBiblioteca {
         return this.nome;
     }
 
-    public void setAcervo(Acervo acervo) {
+    @Override
+    public Iterable<IUsuario> getUsuarios() {
+
+        return Iterables.cast(this.usuarios);
+    }
+
+    public void setAcervo(Collection<ItemAcervo> acervo) {
 
         this.acervo = acervo;
     }
@@ -86,5 +105,10 @@ public class Biblioteca implements IBiblioteca {
     public void setNome(String nome) {
 
         this.nome = nome;
+    }
+
+    public void setUsuarios(Collection<Usuario> usuarios) {
+
+        this.usuarios = usuarios;
     }
 }

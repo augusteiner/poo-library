@@ -28,13 +28,9 @@ package poo.library.comum;
  */
 public interface ILivro extends IItemAcervo {
 
-    String getAutor();
-
     Integer getEdicao();
 
-    String getISBN();
-
-    int getQuantidade();
+    String getIsbn();
 
     String getTitulo();
 }

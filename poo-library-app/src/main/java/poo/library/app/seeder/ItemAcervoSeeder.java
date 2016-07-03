@@ -21,11 +21,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.app.seeder;
+
+import poo.library.app.util.ISeeder;
+import poo.library.app.util.Seeder;
+import poo.library.comum.IItemAcervo;
+import poo.library.dao.comum.IDAO;
+import poo.library.modelo.Apostila;
+import poo.library.modelo.Livro;
+import poo.library.modelo.Texto;
 
 /**
- * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public interface ITexto extends IItemAcervo {
+public class ItemAcervoSeeder extends Seeder<IItemAcervo>
+    implements ISeeder<IItemAcervo> {
 
+    public ItemAcervoSeeder(IDAO<IItemAcervo> dao) {
+
+        super(dao);
+    }
+
+    @Override
+    public void seed() {
+
+        int bibliotecaId = BibliotecaSeeder.getBibliotecaId();
+
+        this.dao.delete("1 = 1");
+
+        IItemAcervo[] itens = new IItemAcervo[] {
+            new Livro("José A.", "POO - Introdução", 2.5, bibliotecaId),
+            new Texto("João M.", 1.5, bibliotecaId),
+            new Apostila("Maria J.", "Java & JBDC", 1.25, bibliotecaId) };
+
+        for (IItemAcervo item : itens) {
+
+            this.dao.save(item);
+        }
+    }
 }

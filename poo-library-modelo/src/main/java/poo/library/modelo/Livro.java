@@ -23,6 +23,7 @@
  */
 package poo.library.modelo;
 
+import poo.library.comum.ECategoriaItem;
 import poo.library.comum.ILivro;
 
 /**
@@ -31,16 +32,22 @@ import poo.library.comum.ILivro;
 public class Livro extends ItemAcervo implements ILivro {
 
     private String titulo;
-    private String autor;
     private String isbn;
     private Integer edicao;
 
-    private int quantidade;
+    public Livro(
+        String autor,
+        String titulo,
+        double precoAluguel,
+        int bibliotecaId) {
 
-    @Override
-    public String getAutor() {
+        super(
+            autor,
+            precoAluguel,
+            ECategoriaItem.LIVRO,
+            bibliotecaId);
 
-        return this.autor;
+        this.titulo = titulo;
     }
 
     @Override
@@ -50,15 +57,9 @@ public class Livro extends ItemAcervo implements ILivro {
     }
 
     @Override
-    public String getISBN() {
+    public String getIsbn() {
 
         return this.isbn;
-    }
-
-    @Override
-    public int getQuantidade() {
-
-        return this.quantidade;
     }
 
     @Override
@@ -67,24 +68,14 @@ public class Livro extends ItemAcervo implements ILivro {
         return this.titulo;
     }
 
-    public void setAutor(String autor) {
-
-        this.autor = autor;
-    }
-
     public void setEdicao(Integer edicao) {
 
         this.edicao = edicao;
     }
 
-    public void setISBN(String isbn) {
+    public void setIsbn(String isbn) {
 
         this.isbn = isbn;
-    }
-
-    public void setQuantidade(int quantidade) {
-
-        this.quantidade = quantidade;
     }
 
     public void setTitulo(String titulo) {

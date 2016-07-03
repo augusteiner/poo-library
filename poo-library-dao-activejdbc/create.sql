@@ -62,21 +62,22 @@ CREATE TABLE `item_acervo` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 
   `bibliotecaId` INT UNSIGNED NOT NULL,
-  `aluguelId` INT UNSIGNED NULL DEFAULT NULL,
 
-  `custo` DECIMAL(12, 4) NOT NULL,
+  `titulo` VARCHAR(100) NULL,
+  `autor` VARCHAR(100) NOT NULL,
+  `edicao` INT NOT NULL DEFAULT 1,
+  `isbn` VARCHAR(30) NULL DEFAULT '',
+
+  `qteTotal` INT UNSIGNED NOT NULL DEFAULT 0,
+  `qteDisponivel` INT UNSIGNED NOT NULL DEFAULT 0,
+
+  `precoAluguel` DECIMAL(12, 4) NOT NULL,
 
   PRIMARY KEY (`id`),
 
   CONSTRAINT `fk_item_acervo_biblioteca`
     FOREIGN KEY (`bibliotecaId`)
     REFERENCES `biblioteca` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE RESTRICT,
-
-  CONSTRAINT `fk_item_acervo_aluguel`
-    FOREIGN KEY (`aluguelId`)
-    REFERENCES `aluguel` (`id`)
     ON UPDATE CASCADE
     ON DELETE RESTRICT
 

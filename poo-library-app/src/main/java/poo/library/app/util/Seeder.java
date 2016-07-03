@@ -21,11 +21,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.app.util;
+
+import poo.library.dao.comum.IDAO;
 
 /**
- * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public interface ITexto extends IItemAcervo {
+public abstract class Seeder<T> {
 
+    protected final IDAO<T> dao;
+
+    public Seeder(IDAO<T> dao) {
+
+        this.dao = dao;
+    }
 }

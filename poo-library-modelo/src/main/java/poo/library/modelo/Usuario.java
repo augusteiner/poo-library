@@ -27,6 +27,7 @@ import java.util.Collection;
 
 import poo.library.comum.ETipoUsuario;
 import poo.library.comum.IAluguel;
+import poo.library.comum.IItemAcervo;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
 import poo.library.util.Iterables;
@@ -80,6 +81,12 @@ public class Usuario implements IUsuario {
     }
 
     @Override
+    public void alugar(IItemAcervo item) {
+
+        //
+    }
+
+    @Override
     public Iterable<IAluguel> getAlugueis() {
 
         return Iterables.cast(this.alugueis);
@@ -122,6 +129,17 @@ public class Usuario implements IUsuario {
     }
 
     @Override
+    public void quitar() {
+
+        //
+    }
+
+    public void setAlugueis(Collection<Aluguel> alugueis) {
+
+        this.alugueis = alugueis;
+    }
+
+    @Override
     public void setCpf(String cpf) {
 
         this.cpf = cpf;
@@ -142,6 +160,16 @@ public class Usuario implements IUsuario {
     public void setNome(String nome) {
 
         this.nome = nome;
+    }
+
+    public void setReservas(Collection<Reserva> reservas) {
+
+        this.reservas = reservas;
+    }
+
+    public void setTipo(ETipoUsuario tipo) {
+
+        this.tipo = tipo;
     }
 
     @Override

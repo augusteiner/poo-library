@@ -28,7 +28,7 @@ package poo.library.comum;
  */
 public interface IUsuario extends IPessoaFisica {
 
-    ETipoUsuario getTipo();
+    void alugar(IItemAcervo item);
 
     Iterable<IAluguel> getAlugueis();
 
@@ -36,5 +36,7 @@ public interface IUsuario extends IPessoaFisica {
 
     // IItemAcervo escolherItemAcervo();
 
-    // void pagar();
+    ETipoUsuario getTipo();
+
+    void quitar();
 }

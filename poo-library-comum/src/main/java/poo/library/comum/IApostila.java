@@ -28,9 +28,5 @@ package poo.library.comum;
  */
 public interface IApostila extends IItemAcervo {
 
-    String getAutor();
-
-    int getQuantidade();
-
     String getTitulo();
 }

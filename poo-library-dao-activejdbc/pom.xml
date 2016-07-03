@@ -22,11 +22,7 @@
       <artifactId>poo-library-dao-comum</artifactId>
       <version>0.1.0-RELEASE</version>
     </dependency>
-    <!-- <dependency> -->
-    <!-- <groupId>poo.library.modelo</groupId> -->
-    <!-- <artifactId>poo-library-modelo</artifactId> -->
-    <!-- <version>0.1.0-RELEASE</version> -->
-    <!-- </dependency> -->
+
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
@@ -37,11 +33,13 @@
       <artifactId>activejdbc</artifactId>
       <version>1.4.11</version>
     </dependency>
+
     <dependency>
       <groupId>org.reflections</groupId>
       <artifactId>reflections</artifactId>
       <version>0.9.10</version>
     </dependency>
+
     <dependency>
       <groupId>org.modelmapper</groupId>
       <artifactId>modelmapper</artifactId>

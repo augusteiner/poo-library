@@ -23,6 +23,7 @@
  */
 package poo.library.modelo;
 
+import poo.library.comum.ECategoriaItem;
 import poo.library.comum.IApostila;
 
 /**
@@ -31,36 +32,26 @@ import poo.library.comum.IApostila;
 public class Apostila extends ItemAcervo implements IApostila {
 
     private String titulo;
-    private String autor;
 
-    private int quantidade;
+    public Apostila(
+        String autor,
+        String titulo,
+        double precoAluguel,
+        int bibliotecaId) {
 
-    @Override
-    public String getAutor() {
+        super(
+            autor,
+            precoAluguel,
+            ECategoriaItem.LIVRO,
+            bibliotecaId);
 
-        return this.autor;
-    }
-
-    @Override
-    public int getQuantidade() {
-
-        return this.quantidade;
+        this.titulo = titulo;
     }
 
     @Override
     public String getTitulo() {
 
         return this.titulo;
-    }
-
-    public void setAutor(String autor) {
-
-        this.autor = autor;
-    }
-
-    public void setQuantidade(int quantidade) {
-
-        this.quantidade = quantidade;
     }
 
     public void setTitulo(String titulo) {

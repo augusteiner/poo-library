@@ -23,6 +23,7 @@
  */
 package poo.library.modelo;
 
+import poo.library.comum.ECategoriaItem;
 import poo.library.comum.ITexto;
 
 /**
@@ -30,16 +31,15 @@ import poo.library.comum.ITexto;
  */
 public class Texto extends ItemAcervo implements ITexto {
 
-    private String autor;
+    public Texto(
+        String autor,
+        double precoAluguel,
+        int bibliotecaId) {
 
-    @Override
-    public String getAutor() {
-
-        return this.autor;
-    }
-
-    public void setAutor(String autor) {
-
-        this.autor = autor;
+        super(
+            autor,
+            precoAluguel,
+            ECategoriaItem.TEXTO,
+            bibliotecaId);
     }
 }

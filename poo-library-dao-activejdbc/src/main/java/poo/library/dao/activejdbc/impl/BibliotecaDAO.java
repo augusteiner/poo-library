@@ -21,11 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.dao.activejdbc.impl;
+
+import org.javalite.activejdbc.Model;
+import org.javalite.activejdbc.annotations.Table;
+
+import poo.library.comum.IBiblioteca;
+import poo.library.dao.activejdbc.GenericDAO;
+import poo.library.dao.activejdbc.proxy.IBibliotecaProxy;
+import poo.library.dao.comum.IDAO;
 
 /**
- * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public interface ITexto extends IItemAcervo {
+public class BibliotecaDAO extends GenericDAO<IBiblioteca>
+    implements IDAO<IBiblioteca> {
 
+    @Table("biblioteca")
+    public static class BibliotecaModel extends Model { }
+
+    public BibliotecaDAO() {
+
+        super(BibliotecaModel.class, IBibliotecaProxy.class);
+    }
 }

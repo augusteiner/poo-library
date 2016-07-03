@@ -23,13 +23,15 @@
  */
 package poo.library.app;
 
-import poo.library.comum.IUsuario;
+import java.lang.reflect.ParameterizedType;
+
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
+
+import poo.library.app.util.ISeeder;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Administrador;
-import poo.library.modelo.Usuario;
 import poo.library.util.ConfiguracaoException;
-import poo.library.util.Usuarios;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -62,57 +64,35 @@ public class App {
 
     private static void seed() {
 
-        IDAO<IUsuario> dao = DAOFactory.createNew(IUsuario.class);
+        Reflections r = new Reflections(
+            App.class.getPackage().getName(),
+            new SubTypesScanner(false));
 
-        Iterable<IUsuario> iter = dao.all("1 = 1");
+        for (Class<?> cls : r.getSubTypesOf(ISeeder.class)) {
 
-        for (IUsuario u : iter) {
+            ParameterizedType t = ((ParameterizedType) (cls.getGenericInterfaces()[0]));
 
-            System.out.println(Usuarios.toString(u));
-        }
+            Class<?> inter = ((Class<?>) t.getActualTypeArguments()[0]);
 
-        dao.delete("1 = 1");
+            Object dao = DAOFactory.createNew(inter);
 
-        sysoutCentro("Inserindo usuários de teste", 45);
+            if (dao == null)
+                continue;
 
-        Administrador admin;
+            try {
 
-        IUsuario[] seed = new IUsuario[] {
-            admin = new Administrador("José", "11111111111"),
-            new Usuario("João", "22222222222"),
-            new Usuario("Maria", "33333333333")
-        };
+                ISeeder<?> seeder = (ISeeder<?>) cls.getConstructor(IDAO.class).newInstance(dao);
 
-        admin.setEndereco("R. das Acácias, 211");
+                seeder.seed();
 
-        for (IUsuario u : seed) {
+            } catch (Exception e) {
 
-            dao.save(u);
-
-            System.out.println(String.format(
-                "Inserido %s",
-                u));
-        }
-
-        Iterable<IUsuario> usuarios = dao.all(
-            "LOCATE(?, nome) > 0",
-            "José");
-
-        sysoutCentro(
-            "Usuários com José no nome",
-            45);
-
-        for (IUsuario u : usuarios) {
-
-            System.out.println(Usuarios.toString(u));
-
-            u.setNome(u.getNome() + " II");
-
-            dao.save(u);
+                e.printStackTrace();
+            }
         }
     }
 
-    private static void sysoutCentro(String texto, int size) {
+    public static void sysoutCentro(String texto, int size) {
 
         texto = texto.trim();
         StringBuilder header = new StringBuilder(size);
