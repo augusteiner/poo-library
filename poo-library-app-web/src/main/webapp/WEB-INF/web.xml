@@ -15,15 +15,9 @@
     <load-on-startup>1</load-on-startup>
   </servlet>
 
-  <servlet>
-    <servlet-name>Web App Configurator</servlet-name>
-    <servlet-class>poo.library.app.InitListener</servlet-class>
-    <init-param>
-      <param-name>jersey.config.server.provider.packages</param-name>
-      <param-value>poo.library.app.web</param-value>
-    </init-param>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
+  <listener>
+    <listener-class>poo.library.app.InitListener</listener-class>
+  </listener>
 
   <filter>
     <filter-name>SetCharacterEncoding</filter-name>
@@ -33,6 +27,7 @@
       <param-value>UTF-8</param-value>
     </init-param>
   </filter>
+
   <filter-mapping>
     <filter-name>SetCharacterEncoding</filter-name>
     <url-pattern>/*</url-pattern>

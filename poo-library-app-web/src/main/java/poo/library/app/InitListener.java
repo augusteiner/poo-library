@@ -23,35 +23,35 @@
  */
 package poo.library.app;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
 import poo.library.util.ConfiguracaoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class InitListener extends HttpServlet {
-
-    private static final long serialVersionUID = -4501094295876764303L;
+public class InitListener implements ServletContextListener {
 
     @Override
-    public void init() throws ServletException {
+    public void contextInitialized(ServletContextEvent sce) {
 
         try {
 
-            poo.library.Configuration.configure(new String[]{
+            poo.library.Configuration.configure(new String[] {
                 "--factories.dao",
                 //"poo.library.dao.memory.DAOFactory"
-                "poo.library.dao.activejdbc.DAOFactory"
-            });
+            "poo.library.dao.activejdbc.DAOFactory" });
+
         } catch (ConfiguracaoException e) {
 
             e.printStackTrace();
-
-            System.exit(1);
-
-            return;
         }
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+
+        //
     }
 }
