@@ -23,56 +23,69 @@
  */
 package poo.library.dao.activejdbc;
 
+import org.javalite.activejdbc.Model;
+import org.javalite.activejdbc.ModelDelegate;
 import org.modelmapper.ModelMapper;
 
-import poo.library.dao.activejdbc.util.IModel;
+import poo.library.dao.activejdbc.util.Models;
 import poo.library.util.IIdentificavel;
+import poo.library.util.Iterables;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public abstract class GenericDAO<T extends IIdentificavel & IModel<T>> {
+public abstract class GenericDAO<T extends IIdentificavel> {
+
+    protected final Class<? extends T> proxyType;
+    protected final Class<? extends Model> modelType;
 
     private static ModelMapper MAPPER = new ModelMapper();
 
+    protected GenericDAO(
+        Class<? extends Model> modelType,
+        Class<? extends T> proxyType) {
+
+        this.proxyType = proxyType;
+        this.modelType = modelType;
+    }
+
     public Iterable<T> all() {
 
-        return this.findAll("1 = 1");
+        return this.all("1 = 1");
     }
 
     public Iterable<T> all(
         String condition,
         Object... params) {
 
-        return this.findAll(
+        Iterable<? extends Model> iter = ModelDelegate.where(
+            this.modelType,
+
             condition,
             params);
+
+        return Iterables.cast(Models.proxy(
+            iter,
+            proxyType));
     }
 
     public void delete(
         String condition,
         Object... params) {
 
-        this.deleteAll(
+        ModelDelegate.delete(
+            modelType,
             condition,
             params);
     }
 
     public void delete(T obj) {
 
-        this.deleteAll(
+        this.delete(
             "id = ?",
             obj.getId());
     }
-
-    protected abstract void deleteAll(
-        String string,
-        Object... objects);
-
-    protected abstract Iterable<T> findAll(
-        String condition,
-        Object... params);
 
     public T first() throws ObjetoNaoEncontradoException {
 
@@ -116,22 +129,22 @@ public abstract class GenericDAO<T extends IIdentificavel & IModel<T>> {
         return null;
     }
 
-    protected abstract T novo();
-
     public void save(T obj) {
 
-        final T target = this.novo();
+        Model model = ModelDelegate.create(modelType);
 
-        // T target = model.converter();
+        T target = Models.proxy(
+            model,
+            proxyType);
 
         MAPPER.map(obj, target);
 
         if (obj.getId() == 0) {
 
-            target.setId(null);
+            model.setId(null);
         }
 
-        target.saveIt();
+        model.saveIt();
 
         //System.out.println(target);
         //System.out.println(model);

@@ -11,8 +11,6 @@ USE `biblioteca`;
 SET default_storage_engine=InnoDB;
 ALTER DATABASE CHARACTER SET utf8mb4 COLLATE 'utf8mb4_unicode_ci';
 
-/*!50700 CREATE USER IF NOT EXISTS 'biblioteca'@'%', 'biblioteca'@'localhost' IDENTIFIED BY '123456'; */
-
 GRANT USAGE ON *.* TO 'biblioteca'@'%', 'biblioteca'@'localhost';
 
 GRANT
@@ -34,11 +32,10 @@ CREATE TABLE `usuario` (
   `cpf` CHAR(11) NOT NULL,
   `tipo` ENUM('COMUM', 'ADMIN') NOT NULL DEFAULT 'COMUM',
 
-  `enderecoLogradouro` VARCHAR(100) NULL,
-  `enderecoNumero` VARCHAR(10) NULL,
+  `endereco` VARCHAR(100) NULL,
 
   `criadoEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `atualizadoEm` TIMESTAMP NULL /*!100000 DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP */,
+  `atualizadoEm` TIMESTAMP NULL /*!99999 DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP */,
 
   PRIMARY KEY (`id`)
 

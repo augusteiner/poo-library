@@ -41,5 +41,5 @@ public enum ECategoriaItem {
      */
     TEXTO;
 
-    public static final ECategoriaItem DEFAULT = ECategoriaItem.LIVRO;
+    public static final ECategoriaItem PADRAO = ECategoriaItem.LIVRO;
 }

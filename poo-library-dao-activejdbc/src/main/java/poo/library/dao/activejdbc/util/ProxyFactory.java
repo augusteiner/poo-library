@@ -31,13 +31,14 @@ import java.lang.reflect.Proxy;
  */
 public class ProxyFactory {
 
-    public static Object makeNew(
-        Class<?> cls,
-        InvocationHandler handler) {
+    @SuppressWarnings("unchecked")
+    public static <T> T makeNew(
+        InvocationHandler handler,
+        Class<?>... cls) {
 
-        return Proxy.newProxyInstance(
-            cls.getClassLoader(),
-            new Class<?>[] { cls },
+        return (T) Proxy.newProxyInstance(
+            ProxyFactory.class.getClassLoader(),
+            cls,
             handler);
     }
 }

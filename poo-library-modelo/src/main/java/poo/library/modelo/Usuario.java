@@ -27,7 +27,6 @@ import java.util.Collection;
 
 import poo.library.comum.ETipoUsuario;
 import poo.library.comum.IAluguel;
-import poo.library.comum.IEndereco;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
 import poo.library.util.Iterables;
@@ -42,20 +41,16 @@ public class Usuario implements IUsuario {
 
     private String nome;
     private String cpf;
+    private String endereco;
 
     private ETipoUsuario tipo;
 
-    private Endereco endereco;
-
     private Collection<Reserva> reservas;
-
-    private Collection<Aluguel> emprestimos;
+    private Collection<Aluguel> alugueis;
 
     public Usuario() {
 
         this(ETipoUsuario.PADRAO);
-
-        this.endereco = new Endereco();
     }
 
     protected Usuario(ETipoUsuario tipo) {
@@ -87,7 +82,7 @@ public class Usuario implements IUsuario {
     @Override
     public Iterable<IAluguel> getAlugueis() {
 
-        return Iterables.castIterable(this.emprestimos);
+        return Iterables.cast(this.alugueis);
     }
 
     @Override
@@ -97,7 +92,7 @@ public class Usuario implements IUsuario {
     }
 
     @Override
-    public Endereco getEndereco() {
+    public String getEndereco() {
 
         return this.endereco;
     }
@@ -117,7 +112,7 @@ public class Usuario implements IUsuario {
     @Override
     public Iterable<IReserva> getReservas() {
 
-        return Iterables.castIterable(this.reservas);
+        return Iterables.cast(this.reservas);
     }
 
     @Override
@@ -132,9 +127,10 @@ public class Usuario implements IUsuario {
         this.cpf = cpf;
     }
 
-    public void setEndereco(IEndereco endereco) {
+    @Override
+    public void setEndereco(String endereco) {
 
-        // this.endereco = endereco;
+        this.endereco = endereco;
     }
 
     public void setId(int id) {
@@ -146,11 +142,6 @@ public class Usuario implements IUsuario {
     public void setNome(String nome) {
 
         this.nome = nome;
-    }
-
-    public void setTipo(ETipoUsuario tipo) {
-
-        this.tipo = tipo;
     }
 
     @Override

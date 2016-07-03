@@ -21,30 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.activejdbc.mapping;
-
-import org.javalite.activejdbc.Model;
-import org.javalite.activejdbc.annotations.Table;
-
-import poo.library.comum.IItemAcervo;
-import poo.library.dao.activejdbc.util.IModel;
+package poo.library.util;
 
 /**
- * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-@Table("item_acervo")
-public class ItemAcervoModel extends Model implements IModel<ItemAcervoModel.IItemAcervoProxy> {
+public class DAONaoRegistradoException extends Exception {
 
-    public interface IItemAcervoProxy extends IItemAcervo, IModel<IItemAcervoProxy> { }
+    private static final long serialVersionUID = 2460385855713197467L;
 
-    public static ItemAcervoModel from(IItemAcervo obj) {
+    public DAONaoRegistradoException(String message) {
 
-        return null;
-    }
-
-    @Override
-    public IItemAcervoProxy converter() {
-
-        return null;
+        super(message);
     }
 }

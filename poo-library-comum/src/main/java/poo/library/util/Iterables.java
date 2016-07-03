@@ -23,74 +23,14 @@
  */
 package poo.library.util;
 
-import java.text.ParseException;
 import java.util.Iterator;
-
-import javax.swing.text.MaskFormatter;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 public class Iterables {
 
-    static class CpfFormatter extends MaskFormatter {
-
-        private static final long serialVersionUID = -5181943190057841460L;
-
-        public CpfFormatter() {
-
-            this.setValueContainsLiteralCharacters(false);
-
-            try {
-
-                this.setMask(CPF_MASK);
-
-            } catch (ParseException e) {
-
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static final String CPF_MASK = "###.###.###-##";
-
-    private static final MaskFormatter CPF_FORMATTER = new CpfFormatter();
-
-    public static String formatarCpf(String cpf) throws ParseException {
-
-        return CPF_FORMATTER.valueToString(cpf);
-    }
-
-    public static <T, M extends IConversivel<T>> Iterable<T> convertIterable(final Iterable<M> iterable) {
-
-        final Iterator<M> iter = iterable.iterator();
-
-        return new Iterable<T>() {
-
-            @Override
-            public Iterator<T> iterator() {
-
-                return new Iterator<T>() {
-
-                    @Override
-                    public boolean hasNext() {
-
-                        return iter.hasNext();
-                    }
-
-                    @Override
-                    public T next() {
-
-                        M from = iter.next();
-
-                        return from.converter();
-                    }
-                };
-            }
-        };
-    }
-
-    public static <C, T extends C> Iterable<C> castIterable(Iterable<T> iterable) {
+    public static <C, T extends C> Iterable<C> cast(Iterable<T> iterable) {
 
         final Iterator<T> iter = iterable.iterator();
 

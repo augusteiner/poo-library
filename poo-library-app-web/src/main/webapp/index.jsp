@@ -152,8 +152,7 @@ fieldset fieldset {
         <tr ng-repeat="user in users">
           <td>\#{{user.id}} - {{user.nome}}</td>
           <td>{{user.cpf}}</td>
-          <td>{{user.endereco.logradouro}},
-            {{user.endereco.numero}}</td>
+          <td>{{user.endereco}}</td>
           <td>
             <button ng-click="delete(user.id)">delete</button>
             <button ng-click="edit(user.id)">edit</button>
@@ -186,19 +185,10 @@ fieldset fieldset {
           </select>
           </label>
         </div>
-        <fieldset>
-          <legend>Endereço</legend>
-          <div>
-            <label> Logradouro: <input
-              ng-model="data.endereco.logradouro">
-            </label>
-          </div>
-          <div>
-            <label> Número: <input
-              ng-model="data.endereco.numero">
-            </label>
-          </div>
-        </fieldset>
+        <div>
+          <label> Endereço: <input ng-model="data.endereco">
+          </label>
+        </div>
         <div>
           <button type="submit">Salvar</button>
           <button type="reset" ng-click="cancel()">Limpar</button>

@@ -21,18 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.activejdbc.util;
-
-import org.javalite.activejdbc.Model;
-
-import poo.library.util.IConversivel;
+package poo.library.dao.activejdbc.proxy;
 
 /**
- * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public interface IModel<T> extends IConversivel<T> {
+/* public */ interface IIdentificavel {
 
-    <M extends Model> M setId(Object id);
-
-    boolean saveIt();
+    void setId(int id);
 }

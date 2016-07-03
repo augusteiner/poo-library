@@ -21,12 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.util;
+package poo.library.dao.activejdbc.proxy;
+
+import poo.library.comum.IUsuario;
 
 /**
- * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public interface IConversivel<T> {
+public interface IUsuarioProxy extends IUsuario, IIdentificavel {
 
-    T converter();
+    void setTipo(String tipo);
 }

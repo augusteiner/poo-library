@@ -27,9 +27,9 @@ import poo.library.comum.IUsuario;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Administrador;
-import poo.library.modelo.Endereco;
 import poo.library.modelo.Usuario;
 import poo.library.util.ConfiguracaoException;
+import poo.library.util.Usuarios;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -64,6 +64,13 @@ public class App {
 
         IDAO<IUsuario> dao = DAOFactory.createNew(IUsuario.class);
 
+        Iterable<IUsuario> iter = dao.all("1 = 1");
+
+        for (IUsuario u : iter) {
+
+            System.out.println(Usuarios.toString(u));
+        }
+
         dao.delete("1 = 1");
 
         sysoutCentro("Inserindo usuários de teste", 45);
@@ -76,9 +83,7 @@ public class App {
             new Usuario("Maria", "33333333333")
         };
 
-        admin.setEndereco(new Endereco(
-            "R. das Acácias",
-            "211"));
+        admin.setEndereco("R. das Acácias, 211");
 
         for (IUsuario u : seed) {
 
@@ -99,7 +104,7 @@ public class App {
 
         for (IUsuario u : usuarios) {
 
-            System.out.println(u);
+            System.out.println(Usuarios.toString(u));
 
             u.setNome(u.getNome() + " II");
 

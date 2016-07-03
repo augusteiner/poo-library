@@ -27,14 +27,12 @@ import poo.library.comum.IEndereco;
 import poo.library.util.Enderecos;
 
 /**
- * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
 public class Endereco implements IEndereco {
 
     private String logradouro;
     private String numero;
-
-    public Endereco() { }
 
     public Endereco(String logradouro, String numero) {
 
@@ -54,17 +52,18 @@ public class Endereco implements IEndereco {
         return numero;
     }
 
+    @Override
     public void setLogradouro(String logradouro) {
 
         this.logradouro = logradouro;
     }
 
+    @Override
     public void setNumero(String numero) {
 
         this.numero = numero;
     }
-
-    @Override
+    
     public String toString() {
 
         return Enderecos.toString(this);

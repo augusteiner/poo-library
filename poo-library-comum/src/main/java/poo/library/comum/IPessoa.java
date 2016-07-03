@@ -30,9 +30,11 @@ import poo.library.util.IIdentificavel;
  */
 public interface IPessoa extends IIdentificavel {
 
-    IEndereco getEndereco();
+    String getEndereco();
 
     String getNome();
+
+    void setEndereco(String endereco);
 
     void setNome(String nome);
 }

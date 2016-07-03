@@ -25,6 +25,8 @@ package poo.library.dao.activejdbc.util;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.javalite.activejdbc.Model;
 
@@ -33,34 +35,86 @@ import org.javalite.activejdbc.Model;
  */
 public class ModelInvocationHandler implements InvocationHandler {
 
+    private String prefix;
     private Model self;
+    private Set<String> validAttrs;
 
     public ModelInvocationHandler(Model self) {
 
+        this(self, new HashSet<String>());
+
+    }
+
+    public ModelInvocationHandler(
+        Model self,
+        Set<String> validAttrs) {
+
+        this(self, "", validAttrs);
+
+    }
+
+    public ModelInvocationHandler(
+        Model self,
+        String prefix,
+        Set<String> validAttrs) {
+
         this.self = self;
+        this.prefix = prefix;
+        this.validAttrs = validAttrs;
+
     }
 
     private String attributeName(String methodName) {
 
-        String attr = methodName.substring(3);
+        String attr = this.prefix + methodName.substring(3);
 
         return attr.substring(0, 1).toLowerCase() + attr.substring(1);
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args)
+
         throws Throwable {
 
         String attr = this.attributeName(method.getName());
 
-        if (method.getName().startsWith("get")) {
+        if (this.validAttrs.contains(attr)) {
 
-            return self.get(attr);
+            if (method.getName().startsWith("get")) {
 
-        } else if (method.getName().startsWith("set") &&
-            args.length == 1) {
+                if (method.getReturnType().isEnum()) {
 
-            self.set(attr, args[0]);
+                    return extractEnum(method, attr);
+
+                } else if (method.getReturnType().equals(Integer.TYPE) ||
+                    method.getReturnType().equals(Integer.class)) {
+
+                    return self.getInteger(attr);
+
+                } else {
+
+                    return self.get(attr);
+
+                }
+
+            } else if (method.getName().startsWith("set") &&
+                args.length == 1) {
+
+                self.set(attr, args[0]);
+            }
+        }
+
+        return null;
+    }
+
+    private Object extractEnum(Method method, String attr) {
+
+        for (Object v : method.getReturnType().getEnumConstants()) {
+
+            if (v.toString().equals(self.getString(attr))) {
+
+                return v;
+            }
         }
 
         return null;

@@ -23,6 +23,10 @@
  */
 package poo.library.util;
 
+import java.text.ParseException;
+
+import javax.swing.text.MaskFormatter;
+
 import poo.library.comum.IUsuario;
 
 /**
@@ -30,14 +34,50 @@ import poo.library.comum.IUsuario;
  */
 public class Usuarios {
 
+    private static class CpfFormatter extends MaskFormatter {
+
+        private static final long serialVersionUID = -5181943190057841460L;
+
+        private CpfFormatter() {
+
+            this.setValueContainsLiteralCharacters(false);
+
+            try {
+
+                this.setMask(CPF_MASK);
+
+            } catch (ParseException e) {
+
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static final String CPF_MASK = "###.###.###-##";
+
+    private static final MaskFormatter cpfFormatter = new CpfFormatter();
+
+    public static String formatarCpf(String cpf) {
+
+        try {
+
+            return cpfFormatter.valueToString(cpf);
+
+        } catch (ParseException e) {
+
+            return cpf;
+        }
+    }
+
     public static String toString(IUsuario usuario) {
 
         return String.format(
             "%s - %s (%s) : (%s)",
             usuario.getId(),
             usuario.getNome(),
-            usuario.getCpf(),
 
-            Enderecos.toString(usuario.getEndereco()));
+            formatarCpf(usuario.getCpf()),
+
+            usuario.getEndereco());
     }
 }

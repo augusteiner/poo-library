@@ -23,45 +23,24 @@
  */
 package poo.library.dao.activejdbc.impl;
 
+import org.javalite.activejdbc.Model;
+import org.javalite.activejdbc.annotations.Table;
+
+import poo.library.comum.IUsuario;
 import poo.library.dao.activejdbc.GenericDAO;
-import poo.library.dao.activejdbc.mapping.UsuarioModel;
-import poo.library.dao.activejdbc.mapping.UsuarioModel.IUsuarioProxy;
+import poo.library.dao.activejdbc.proxy.IUsuarioProxy;
 import poo.library.dao.comum.IDAO;
-import poo.library.util.Iterables;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class UsuarioDAO extends GenericDAO<IUsuarioProxy>
-    implements IDAO<IUsuarioProxy> {
+public class UsuarioDAO extends GenericDAO<IUsuario> implements IDAO<IUsuario> {
 
-    public UsuarioDAO() { }
+    @Table("usuario")
+    public static class UsuarioModel extends Model { }
 
-    @Override
-    protected void deleteAll(
-        String condition,
-        Object... params) {
+    public UsuarioDAO() {
 
-        UsuarioModel.delete(
-            condition,
-            params);
-    }
-
-    @Override
-    protected Iterable<IUsuarioProxy> findAll(
-        String condition,
-        Object... params) {
-
-        Iterable<UsuarioModel> iter = UsuarioModel.find(
-            condition,
-            params);
-
-        return Iterables.convertIterable(iter);
-    }
-
-    @Override
-    protected IUsuarioProxy novo() {
-
-        return null;
+        super(UsuarioModel.class, IUsuarioProxy.class);
     }
 }

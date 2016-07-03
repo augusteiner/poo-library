@@ -26,7 +26,7 @@ package poo.library.util;
 import poo.library.comum.IEndereco;
 
 /**
- * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
 public class Enderecos {
 

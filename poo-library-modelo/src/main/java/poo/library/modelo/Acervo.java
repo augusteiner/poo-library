@@ -44,6 +44,6 @@ public class Acervo implements IAcervo {
     @Override
     public Iterable<IItemAcervo> getItens() {
 
-        return Iterables.castIterable(this.itens);
+        return Iterables.cast(this.itens);
     }
 }

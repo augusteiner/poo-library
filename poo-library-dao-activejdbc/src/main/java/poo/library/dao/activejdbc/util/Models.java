@@ -21,27 +21,57 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.activejdbc.impl;
+package poo.library.dao.activejdbc.util;
+
+import java.util.Iterator;
 
 import org.javalite.activejdbc.Model;
-import org.javalite.activejdbc.annotations.Table;
-
-import poo.library.comum.IItemAcervo;
-import poo.library.dao.activejdbc.GenericDAO;
-import poo.library.dao.activejdbc.proxy.IItemAcervoProxy;
-import poo.library.dao.comum.IDAO;
+import org.javalite.activejdbc.ModelDelegate;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public class ItemAcervoDAO extends GenericDAO<IItemAcervo>
-    implements IDAO<IItemAcervo> {
+public class Models {
 
-    @Table("item_acervo")
-    public static class ItemAcervoModel extends Model { }
+    public static <TProxy> TProxy proxy(
+        Model model,
+        Class<TProxy> cls) {
 
-    public ItemAcervoDAO() {
+        return ProxyFactory.makeNew(
+            new ModelInvocationHandler(
+                model,
+                ModelDelegate.attributeNames(model.getClass())),
+            cls);
+    }
 
-        super(ItemAcervoModel.class, IItemAcervoProxy.class);
+    public static <TModel extends Model, TProxy> Iterable<TProxy> proxy(
+        final Iterable<TModel> modelIter,
+        final Class<TProxy> proxyCls) {
+
+        return new Iterable<TProxy>() {
+
+            @Override
+            public Iterator<TProxy> iterator() {
+
+                final Iterator<TModel> iter = modelIter.iterator();
+
+                return new Iterator<TProxy>() {
+
+                    @Override
+                    public boolean hasNext() {
+
+                        return iter.hasNext();
+                    }
+
+                    @Override
+                    public TProxy next() {
+
+                        return proxy(
+                            iter.next(),
+                            proxyCls);
+                    }
+                };
+            }
+        };
     }
 }
