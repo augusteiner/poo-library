@@ -40,7 +40,7 @@ public class App {
 
         try {
 
-            poo.library.Configuration.configure(new String[]{
+            poo.library.Configuration.configure(new String[] {
                 "--factories.dao",
                 //"poo.library.dao.memory.DAOFactory"
                 "poo.library.dao.activejdbc.DAOFactory"

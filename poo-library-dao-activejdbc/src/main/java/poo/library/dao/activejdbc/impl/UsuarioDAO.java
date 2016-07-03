@@ -34,7 +34,8 @@ import poo.library.dao.comum.IDAO;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class UsuarioDAO extends GenericDAO<IUsuario> implements IDAO<IUsuario> {
+public class UsuarioDAO extends GenericDAO<IUsuario>
+    implements IDAO<IUsuario> {
 
     @Table("usuario")
     public static class UsuarioModel extends Model { }

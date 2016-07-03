@@ -35,9 +35,9 @@ import org.javalite.activejdbc.Model;
  */
 public class ModelInvocationHandler implements InvocationHandler {
 
-    private String prefix;
+    private String prefixo;
     private Model self;
-    private Set<String> validAttrs;
+    private Set<String> attrsValidos;
 
     public ModelInvocationHandler(Model self) {
 
@@ -47,26 +47,26 @@ public class ModelInvocationHandler implements InvocationHandler {
 
     public ModelInvocationHandler(
         Model self,
-        Set<String> validAttrs) {
+        Set<String> attrsValidos) {
 
-        this(self, "", validAttrs);
+        this(self, "", attrsValidos);
 
     }
 
     public ModelInvocationHandler(
         Model self,
-        String prefix,
-        Set<String> validAttrs) {
+        String prefixo,
+        Set<String> attrsValidos) {
 
         this.self = self;
-        this.prefix = prefix;
-        this.validAttrs = validAttrs;
+        this.prefixo = prefixo;
+        this.attrsValidos = attrsValidos;
 
     }
 
     private String attributeName(String methodName) {
 
-        String attr = this.prefix + methodName.substring(3);
+        String attr = this.prefixo + methodName.substring(3);
 
         return attr.substring(0, 1).toLowerCase() + attr.substring(1);
     }
@@ -78,7 +78,7 @@ public class ModelInvocationHandler implements InvocationHandler {
 
         String attr = this.attributeName(method.getName());
 
-        if (this.validAttrs.contains(attr)) {
+        if (this.attrsValidos.contains(attr)) {
 
             if (method.getName().startsWith("get")) {
 
