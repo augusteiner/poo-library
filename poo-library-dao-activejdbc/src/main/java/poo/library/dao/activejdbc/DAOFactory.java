@@ -67,7 +67,8 @@ public class DAOFactory implements IDAOFactory {
 
                 if (actualTypeArgs.length > 0) {
 
-                    System.out.print(inter.getTypeName());
+                    // XXX ParameterizedType.getTypeName() is java 1.8 only :(
+                    System.out.print(inter);
                     System.out.println(": " + cls.getName());
 
                     registry.put(actualTypeArgs[0], cls);
