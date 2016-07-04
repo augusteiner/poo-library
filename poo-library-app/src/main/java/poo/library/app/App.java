@@ -85,8 +85,14 @@ public class App {
 
             Object dao = DAOFactory.createNew(inter);
 
-            if (dao == null)
+            if (dao == null) {
+
+                System.out.println(String.format(
+                    "DAO \'%s\' não encontrado, continuando!",
+                    inter));
+
                 continue;
+            }
 
             try {
 

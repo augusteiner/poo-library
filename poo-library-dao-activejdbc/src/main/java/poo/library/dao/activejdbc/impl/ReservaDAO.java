@@ -21,50 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.app;
+package poo.library.dao.activejdbc.impl;
 
-import static poo.library.app.App.configure;
+import org.javalite.activejdbc.Model;
+import org.javalite.activejdbc.annotations.Table;
 
-import java.util.Collection;
-
-import poo.library.comum.IBiblioteca;
-import poo.library.comum.IItemAcervo;
-import poo.library.dao.comum.DAOFactory;
+import poo.library.dao.activejdbc.GenericDAO;
 import poo.library.dao.comum.IDAO;
-import poo.library.dao.util.DAOCollectionMap;
-import poo.library.util.ICollectionMap;
-import poo.library.util.ObjetoNaoEncontradoException;
+import poo.library.modelo.Reserva;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class CollectionTests {
+public class ReservaDAO extends GenericDAO<Reserva>
+    implements IDAO<Reserva> {
 
-    public static void main(String[] args) throws ObjetoNaoEncontradoException {
+    @Table("reserva")
+    public static class ReservaModel extends Model { }
 
-        configure();
+    public ReservaDAO() {
 
-        IDAO<IBiblioteca> keys = DAOFactory.createNew(IBiblioteca.class);
-        IDAO<IItemAcervo> values = DAOFactory.createNew(IItemAcervo.class);
-
-        ICollectionMap<IBiblioteca, IItemAcervo> map = new DAOCollectionMap<IBiblioteca, IItemAcervo>(
-            keys,
-            values,
-            "biblioteca");
-
-        Collection<IItemAcervo> list = map.asList();
-
-        IBiblioteca bi = keys.first();
-        map.values(bi);
-
-        for (IItemAcervo item : list) {
-
-            System.out.println(String.format(
-                "#%d - %s (%s)",
-
-                item.getId(),
-                item.getAutor(),
-                item.getCategoria()));
-        }
+        super(ReservaModel.class, Reserva.class);
     }
 }

@@ -21,14 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.activejdbc.proxy;
+package poo.library.app;
+
+import static poo.library.app.App.*;
 
 import poo.library.comum.IUsuario;
+import poo.library.dao.util.DAOStorage;
+import poo.library.util.IBibliotecaStorage;
+import poo.library.util.Usuarios;
 
 /**
- * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IUsuarioProxy extends IUsuario, IIdentificavel {
+public class DAOStorageTests {
 
-    void setTipo(String tipo);
+    private static IBibliotecaStorage storage;
+
+    public static void main(String[] args) {
+
+        configure();
+
+        storage = new DAOStorage();
+
+        sysoutCentro("TODOS os usuários", 50);
+
+        for (IUsuario usuario : storage.usuarios()) {
+
+            System.out.println(Usuarios.toString(usuario));
+        }
+
+        sysoutCentro("Usuário por Id", 50);
+
+        System.out.println(Usuarios.toString(storage.usuarioPorId(103)));
+    }
 }

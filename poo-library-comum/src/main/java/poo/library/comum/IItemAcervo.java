@@ -53,4 +53,6 @@ public interface IItemAcervo extends IIdentificavel, ILocalizado {
     void setQteDisponivel(int qteDisponivel);
 
     void setQteTotal(int qteTotal);
+
+    boolean match(String term);
 }

@@ -33,16 +33,13 @@ import poo.library.util.IIdentificavel;
 public interface IRequisicao extends IIdentificavel, ILocalizado {
 
     IItemAcervo getItemAcervo();
-
     int getItemAcervoId();
-
     Date getRealizadaEm();
 
     IUsuario getUsuario();
-
     int getUsuarioId();
 
     void setItemAcervoId(int itemId);
-
     void setUsuarioId(int usuarioId);
+    void setRealizadaEm(Date realizadaEm);
 }

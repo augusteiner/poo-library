@@ -21,55 +21,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.modelo;
+package poo.library.util;
 
-import java.util.Date;
-
-import poo.library.comum.IAluguel;
+import poo.library.comum.ILocacao;
+import poo.library.comum.IItemAcervo;
+import poo.library.comum.IReserva;
+import poo.library.comum.IUsuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Aluguel extends Requisicao implements IAluguel {
+public interface IBibliotecaStorage {
 
-    private double precoCobrado;
+    ILocacao locacaoPorId(int locacaoId);
+    Iterable<ILocacao> locacoes();
+    Iterable<ILocacao> locacoesPorUsuario(IUsuario usuario);
+    Iterable<ILocacao> locacoesPorUsuarioId(int usuarioId);
 
-    private Date devolverAte;
-    private Date devolvidoEm;
+    IItemAcervo itemPorId(int itemId);
+    Iterable<IItemAcervo> itens();
+    Iterable<IItemAcervo> itensPorTermo(String termo);
 
-    @Override
-    public Date getDevolverAte() {
+    IReserva reservaPorId(int reservaId);
+    Iterable<IReserva> reservas();
+    Iterable<IReserva> reservasPorUsuario(IUsuario usuario);
+    Iterable<IReserva> reservasPorUsuarioId(int usuarioId);
 
-        return this.devolverAte;
-    }
-
-    @Override
-    public Date getDevolvidoEm() {
-
-        return this.devolvidoEm;
-    }
-
-    @Override
-    public double getPrecoCobrado() {
-
-        return this.precoCobrado;
-    }
-
-    @Override
-    public void setDevolverAte(Date devolverAte) {
-
-        this.devolverAte = devolverAte;
-    }
-
-    @Override
-    public void setDevolvidoEm(Date devolvidoEm) {
-
-        this.devolvidoEm = devolvidoEm;
-    }
-
-    @Override
-    public void setPrecoCobrado(double precoCobrado) {
-
-        this.precoCobrado = precoCobrado;
-    }
+    IUsuario usuarioPorId(int usuarioId);
+    Iterable<IUsuario> usuarios();
+    Iterable<IUsuario> usuariosPorTermo(String termo);
 }

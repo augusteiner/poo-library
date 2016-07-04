@@ -25,7 +25,6 @@ package poo.library.dao.activejdbc;
 
 import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.ModelDelegate;
-import org.modelmapper.ModelMapper;
 
 import poo.library.dao.activejdbc.util.Models;
 import poo.library.util.IIdentificavel;
@@ -37,19 +36,15 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 public class GenericDAO<T extends IIdentificavel> {
 
-    protected final Class<? extends T> proxyType;
+    protected final Class<? extends T> entityType;
     protected final Class<? extends Model> modelType;
-
-    private final ModelMapper mapper;
 
     protected GenericDAO(
         Class<? extends Model> modelType,
         Class<? extends T> proxyType) {
 
-        this.proxyType = proxyType;
+        this.entityType = proxyType;
         this.modelType = modelType;
-
-        this.mapper = new ModelMapper();
     }
 
     public Iterable<T> all() {
@@ -69,8 +64,7 @@ public class GenericDAO<T extends IIdentificavel> {
 
         return Iterables.cast(Models.map(
             iter,
-            proxyType,
-            this.getMapper()));
+            entityType));
     }
 
     public void delete(
@@ -139,9 +133,9 @@ public class GenericDAO<T extends IIdentificavel> {
         }
     }
 
-    private T novaInstancia() {
+    protected T novaInstancia() {
 
-        return Models.novaInstancia(proxyType);
+        return Models.novaInstancia(entityType);
     }
 
     public void save(T obj) {
@@ -162,17 +156,16 @@ public class GenericDAO<T extends IIdentificavel> {
         this.inverseMap(obj, model);
     }
 
-    private void inverseMap(T obj, Model model) {
+    protected void inverseMap(T obj, Model model) {
 
         Models.inverseMap(
             obj,
-            model,
-            getMapper());
+            model);
     }
 
-    private Model map(T obj) {
+    protected Model map(T obj) {
 
-        Model model = Models.map(obj, modelType, getMapper());
+        Model model = Models.map(obj, modelType);
 
         return model;
     }
@@ -188,10 +181,5 @@ public class GenericDAO<T extends IIdentificavel> {
             modelType,
             condition,
             params).intValue();
-    }
-
-    protected ModelMapper getMapper() {
-
-        return this.mapper;
     }
 }

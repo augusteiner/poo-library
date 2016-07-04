@@ -30,13 +30,15 @@ public interface IUsuario extends IPessoaFisica {
 
     void alugar(IItemAcervo item);
 
-    Iterable<IAluguel> getAlugueis();
+    Iterable<ILocacao> getAlugueis();
 
     Iterable<IReserva> getReservas();
 
     // IItemAcervo escolherItemAcervo();
 
     ETipoUsuario getTipo();
+
+    boolean match(String termo);
 
     void quitar();
 }

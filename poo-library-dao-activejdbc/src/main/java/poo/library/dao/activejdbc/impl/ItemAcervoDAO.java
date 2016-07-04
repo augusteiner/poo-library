@@ -24,11 +24,16 @@
 package poo.library.dao.activejdbc.impl;
 
 import org.javalite.activejdbc.Model;
+import org.javalite.activejdbc.ModelDelegate;
 import org.javalite.activejdbc.annotations.Table;
 
+import poo.library.comum.ECategoriaItem;
 import poo.library.dao.activejdbc.GenericDAO;
 import poo.library.dao.comum.IDAO;
+import poo.library.modelo.Apostila;
 import poo.library.modelo.ItemAcervo;
+import poo.library.modelo.Livro;
+import poo.library.modelo.Texto;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
@@ -43,4 +48,46 @@ public class ItemAcervoDAO extends GenericDAO<ItemAcervo>
 
         super(ItemAcervoModel.class, ItemAcervo.class);
     }
+
+    @Override
+    public ItemAcervo firstOrDefault(
+        String condition,
+        Object... params) {
+
+        Model model = ModelDelegate.findFirst(
+            modelType,
+            condition,
+            params);
+
+        if (model != null) {
+
+            ECategoriaItem categoria = ECategoriaItem.valueOf(model.getString("categoria"));
+
+            ItemAcervo obj = this.novaInstancia(categoria);
+
+            this.inverseMap(obj, model);
+
+            return obj;
+
+        } else {
+
+            return null;
+        }
+    }
+
+    protected ItemAcervo novaInstancia(ECategoriaItem categoria) {
+
+        switch (categoria) {
+
+            case APOSTILA:
+                return new Apostila();
+            case LIVRO:
+                return new Livro();
+            case TEXTO:
+                return new Texto();
+            default:
+                throw new IllegalArgumentException("categoria deve ser válida");
+        }
+    }
+
 }

@@ -23,49 +23,57 @@
  */
 package poo.library.app.seeder;
 
-import static poo.library.app.App.*;
+import static poo.library.app.App.sysoutCentro;
 
 import poo.library.app.util.ISeeder;
 import poo.library.app.util.Seeder;
 import poo.library.comum.IBiblioteca;
-import poo.library.comum.IItemAcervo;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Biblioteca;
+import poo.library.modelo.ItemAcervo;
+import poo.library.modelo.Reserva;
+import poo.library.modelo.Usuario;
 import poo.library.util.Bibliotecas;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public class BibliotecaSeeder extends Seeder<IBiblioteca>
-    implements ISeeder<IBiblioteca> {
+public class BibliotecaSeeder extends Seeder<Biblioteca>
+    implements ISeeder<Biblioteca> {
 
     private static int bibliotecaId;
-    private ISeeder<IItemAcervo> itemSeeder;
+    private final ISeeder<ItemAcervo> itemSeeder;
+    private final ISeeder<Reserva> reservaSeeder;
+    private final ISeeder<Usuario> usuarioSeeder;
 
     public static int getBibliotecaId() {
 
         return bibliotecaId;
     }
 
-    public BibliotecaSeeder(IDAO<IBiblioteca> dao) {
+    public BibliotecaSeeder(IDAO<Biblioteca> dao) {
 
         super(dao);
 
-        this.itemSeeder = new ItemAcervoSeeder(DAOFactory.createNew(IItemAcervo.class));
+        this.itemSeeder = new ItemAcervoSeeder(DAOFactory.createNew(ItemAcervo.class));
+        this.reservaSeeder = new ReservaSeeder(DAOFactory.createNew(Reserva.class));
+        this.usuarioSeeder = new UsuarioSeeder(DAOFactory.createNew(Usuario.class));
     }
 
     @Override
     public void seed() {
 
+        this.reservaSeeder.clear();
+        this.usuarioSeeder.clear();
         this.itemSeeder.clear();
         this.clear();
 
-        IBiblioteca[] libs = new IBiblioteca[]{
+        Biblioteca[] libs = new Biblioteca[] {
             new Biblioteca("Book Library", 2.5)
         };
 
-        for (IBiblioteca lib : libs) {
+        for (Biblioteca lib : libs) {
 
             this.dao.save(lib);
         }
@@ -74,11 +82,12 @@ public class BibliotecaSeeder extends Seeder<IBiblioteca>
 
         for (IBiblioteca lib : this.dao.all()) {
 
-            sysoutCentro(
-                Bibliotecas.toString(lib), 50);
+            sysoutCentro(Bibliotecas.toString(lib), 50);
         }
 
         this.itemSeeder.seed();
+        this.usuarioSeeder.seed();
+        this.reservaSeeder.seed();
     }
 
     @Override

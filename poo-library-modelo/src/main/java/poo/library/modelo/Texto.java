@@ -31,6 +31,11 @@ import poo.library.comum.ITexto;
  */
 public class Texto extends ItemAcervo implements ITexto {
 
+    public Texto() {
+
+        super(ECategoriaItem.TEXTO);
+    }
+
     public Texto(
         String autor,
         double precoAluguel,

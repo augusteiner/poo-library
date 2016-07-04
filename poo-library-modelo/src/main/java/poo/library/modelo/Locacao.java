@@ -21,13 +21,55 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.activejdbc.proxy;
+package poo.library.modelo;
 
-import poo.library.comum.IBiblioteca;
+import java.util.Date;
+
+import poo.library.comum.ILocacao;
 
 /**
- * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IBibliotecaProxy extends IBiblioteca, IIdentificavel {
+public class Locacao extends Requisicao implements ILocacao {
 
+    private double precoCobrado;
+
+    private Date devolverAte;
+    private Date devolvidoEm;
+
+    @Override
+    public Date getDevolverAte() {
+
+        return this.devolverAte;
+    }
+
+    @Override
+    public Date getDevolvidoEm() {
+
+        return this.devolvidoEm;
+    }
+
+    @Override
+    public double getPrecoCobrado() {
+
+        return this.precoCobrado;
+    }
+
+    @Override
+    public void setDevolverAte(Date devolverAte) {
+
+        this.devolverAte = devolverAte;
+    }
+
+    @Override
+    public void setDevolvidoEm(Date devolvidoEm) {
+
+        this.devolvidoEm = devolvidoEm;
+    }
+
+    @Override
+    public void setPrecoCobrado(double precoCobrado) {
+
+        this.precoCobrado = precoCobrado;
+    }
 }

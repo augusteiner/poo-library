@@ -22,5 +22,10 @@
       <artifactId>poo-library-comum</artifactId>
       <version>0.1.0-RELEASE</version>
     </dependency>
+    <dependency>
+      <groupId>poo.library.modelo</groupId>
+      <artifactId>poo-library-modelo</artifactId>
+      <version>0.1.0-RELEASE</version>
+    </dependency>
   </dependencies>
 </project>

@@ -33,6 +33,11 @@ public class Apostila extends ItemAcervo implements IApostila {
 
     private String titulo;
 
+    public Apostila() {
+
+        super(ECategoriaItem.APOSTILA);
+    }
+
     public Apostila(
         String autor,
         String titulo,
@@ -57,5 +62,12 @@ public class Apostila extends ItemAcervo implements IApostila {
     public void setTitulo(String titulo) {
 
         this.titulo = titulo;
+    }
+
+    @Override
+    public boolean match(String term) {
+
+        return this.getTitulo().contains(term) ||
+            super.match(term);
     }
 }

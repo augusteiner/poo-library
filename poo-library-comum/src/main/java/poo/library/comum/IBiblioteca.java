@@ -30,37 +30,22 @@ import poo.library.util.IIdentificavel;
  */
 public interface IBiblioteca extends IIdentificavel {
 
-    Iterable<IItemAcervo> getAcervo();
-
-    Iterable<IAluguel> getAlugueis();
-
+    String getNome();
     double getMultaDiaria();
 
-    String getNome();
-
+    Iterable<IItemAcervo> getAcervo();
+    Iterable<ILocacao> getAlugueis();
     Iterable<IReserva> getReservas();
-
     Iterable<IUsuario> getUsuarios();
 
+    void setNome(String nome);
     void setMultaDiaria(double multaDiaria);
 
-    void setNome(String nome);
-
     void alugar(IItemAcervo item, IUsuario usuario);
-
-    Iterable<IAluguel> alugueis(IUsuario usuario);
-    Iterable<IAluguel> alugueis(int usuarioId);
-
-    IItemAcervo buscar(int itemId);
-
     void devolver(IItemAcervo item);
-
     void reservar(IItemAcervo item, IUsuario usuario);
-
-    Iterable<IReserva> reservas(IUsuario usuario);
-    Iterable<IReserva> reservas(int usuarioId);
-
-    Iterable<IUsuario> usuarios(String parteNome);
+    void cancelarReserva(IItemAcervo item, IUsuario usuario);
+    void cancelarReserva(IReserva reserva);
 
     // double calcularValorMultas(Date dia);
     // double valorDiarioMulta(IItemAcervo item);

@@ -26,7 +26,7 @@ package poo.library.modelo;
 import java.util.Collection;
 
 import poo.library.comum.ETipoUsuario;
-import poo.library.comum.IAluguel;
+import poo.library.comum.ILocacao;
 import poo.library.comum.IItemAcervo;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
@@ -47,7 +47,7 @@ public class Usuario implements IUsuario {
     private ETipoUsuario tipo;
 
     private Collection<Reserva> reservas;
-    private Collection<Aluguel> alugueis;
+    private Collection<Locacao> alugueis;
 
     public Usuario() {
 
@@ -87,7 +87,7 @@ public class Usuario implements IUsuario {
     }
 
     @Override
-    public Iterable<IAluguel> getAlugueis() {
+    public Iterable<ILocacao> getAlugueis() {
 
         return Iterables.cast(this.alugueis);
     }
@@ -134,7 +134,7 @@ public class Usuario implements IUsuario {
         //
     }
 
-    public void setAlugueis(Collection<Aluguel> alugueis) {
+    public void setAlugueis(Collection<Locacao> alugueis) {
 
         this.alugueis = alugueis;
     }
@@ -176,5 +176,13 @@ public class Usuario implements IUsuario {
     public String toString() {
 
         return Usuarios.toString(this);
+    }
+
+    @Override
+    public boolean match(String termo) {
+
+        return this.getNome().contains(termo) ||
+            this.getCpf().contains(termo) ||
+            this.getEndereco().contains(termo);
     }
 }

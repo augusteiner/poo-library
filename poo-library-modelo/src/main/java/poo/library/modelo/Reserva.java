@@ -34,6 +34,20 @@ public class Reserva extends Requisicao implements IReserva {
 
     private Date validaAte;
 
+    public Reserva() { }
+
+    public Reserva(
+        Date validaAte,
+
+        int itemAcervoId,
+        int usuarioId,
+        int bibliotecaId) {
+
+        super(itemAcervoId, usuarioId, bibliotecaId);
+
+        this.validaAte = validaAte;
+    }
+
     @Override
     public Date getValidaAte() {
 

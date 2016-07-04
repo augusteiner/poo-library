@@ -35,6 +35,11 @@ public class Livro extends ItemAcervo implements ILivro {
     private String isbn;
     private Integer edicao;
 
+    public Livro() {
+
+        super(ECategoriaItem.LIVRO);
+    }
+
     public Livro(
         String autor,
         String titulo,
@@ -81,5 +86,12 @@ public class Livro extends ItemAcervo implements ILivro {
     public void setTitulo(String titulo) {
 
         this.titulo = titulo;
+    }
+
+    @Override
+    public boolean match(String term) {
+
+        return this.getTitulo().contains(term) ||
+            super.match(term);
     }
 }

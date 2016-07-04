@@ -23,13 +23,12 @@
  */
 package poo.library.modelo;
 
-import poo.library.comum.IAluguel;
 import poo.library.comum.IBiblioteca;
 import poo.library.comum.IItemAcervo;
+import poo.library.comum.ILocacao;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
-import poo.library.util.ICollectionMap;
-import poo.library.util.Iterables;
+import poo.library.util.IBibliotecaStorage;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -41,13 +40,7 @@ public class Biblioteca implements IBiblioteca {
     private String nome;
     private double multaDiaria;
 
-    private ICollectionMap<String, ItemAcervo> acervo;
-
-    private ICollectionMap<String, Usuario> usuarios;
-    private ICollectionMap<Integer, Usuario> usuariosPorId;
-
-    private ICollectionMap<Usuario, Aluguel> alugueis;
-    private ICollectionMap<Usuario, Reserva> reservas;
+    private IBibliotecaStorage storage;
 
     public Biblioteca() { }
 
@@ -60,44 +53,33 @@ public class Biblioteca implements IBiblioteca {
     @Override
     public void alugar(IItemAcervo item, IUsuario usuario) {
 
-        //
     }
 
     @Override
-    public Iterable<IAluguel> alugueis(int usuarioId) {
+    public void cancelarReserva(IItemAcervo item, IUsuario usuario) {
 
-        // TODO Auto-generated method stub
-        return null;
     }
 
     @Override
-    public Iterable<IAluguel> alugueis(IUsuario usuario) {
+    public void cancelarReserva(IReserva reserva) {
 
-        return null;
-    }
-
-    @Override
-    public IItemAcervo buscar(int itemId) {
-
-        return null;
     }
 
     @Override
     public void devolver(IItemAcervo item) {
 
-        //
     }
 
     @Override
     public Iterable<IItemAcervo> getAcervo() {
 
-        return Iterables.cast(this.acervo);
+        return null;
     }
 
     @Override
-    public Iterable<IAluguel> getAlugueis() {
+    public Iterable<ILocacao> getAlugueis() {
 
-        return Iterables.cast(this.alugueis);
+        return null;
     }
 
     @Override
@@ -121,43 +103,23 @@ public class Biblioteca implements IBiblioteca {
     @Override
     public Iterable<IReserva> getReservas() {
 
-        return Iterables.cast(this.reservas);
+        return null;
+    }
+
+    public IBibliotecaStorage getStorage() {
+
+        return this.storage;
     }
 
     @Override
     public Iterable<IUsuario> getUsuarios() {
 
-        return Iterables.cast(this.usuarios);
+        return null;
     }
 
     @Override
     public void reservar(IItemAcervo item, IUsuario usuario) {
 
-        //
-    }
-
-    @Override
-    public Iterable<IReserva> reservas(int usuarioId) {
-
-        Usuario usuario = this.usuariosPorId.first(usuarioId);
-
-        return Iterables.cast(this.reservas.values(usuario));
-    }
-
-    @Override
-    public Iterable<IReserva> reservas(IUsuario usuario) {
-
-        return this.reservas(usuario.getId());
-    }
-
-    public void setAcervo(ICollectionMap<String, ItemAcervo> acervo) {
-
-        this.acervo = acervo;
-    }
-
-    public void setAlugueis(ICollectionMap<Usuario, Aluguel> alugueis) {
-
-        this.alugueis = alugueis;
     }
 
     public void setId(int id) {
@@ -177,19 +139,8 @@ public class Biblioteca implements IBiblioteca {
         this.nome = nome;
     }
 
-    public void setReservas(ICollectionMap<Usuario, Reserva> reservas) {
+    public void setStorage(IBibliotecaStorage storage) {
 
-        this.reservas = reservas;
-    }
-
-    public void setUsuarios(ICollectionMap<String, Usuario> usuarios) {
-
-        this.usuarios = usuarios;
-    }
-
-    @Override
-    public Iterable<IUsuario> usuarios(String parteNome) {
-
-        return Iterables.cast(this.usuarios.values(parteNome));
+        this.storage = storage;
     }
 }

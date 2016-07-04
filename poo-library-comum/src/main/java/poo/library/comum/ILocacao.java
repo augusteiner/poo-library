@@ -21,24 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.activejdbc.util;
+package poo.library.comum;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Proxy;
+import java.util.Date;
 
 /**
- * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class ProxyFactory {
+public interface ILocacao extends IRequisicao {
 
-    @SuppressWarnings("unchecked")
-    public static <T> T makeNew(
-        InvocationHandler handler,
-        Class<?>... cls) {
+    Date getDevolverAte();
+    Date getDevolvidoEm();
+    double getPrecoCobrado();
 
-        return (T) Proxy.newProxyInstance(
-            ProxyFactory.class.getClassLoader(),
-            cls,
-            handler);
-    }
+    void setDevolverAte(Date devolverAte);
+    void setDevolvidoEm(Date devolvidoEm);
+    void setPrecoCobrado(double preco);
 }

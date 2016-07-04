@@ -47,7 +47,25 @@ public abstract class ItemAcervo implements IItemAcervo {
     private Biblioteca biblioteca;
     private int bibliotecaId;
 
-    public ItemAcervo() { }
+    public ItemAcervo(
+        String autor,
+        double precoAluguel,
+        int qteDisponivel,
+        int qteTotal,
+        int bibliotecaId) {
+
+        this.autor = autor;
+        this.precoAluguel = precoAluguel;
+        this.qteDisponivel = qteDisponivel;
+        this.qteTotal = qteTotal;
+
+        this.bibliotecaId = bibliotecaId;
+    }
+
+    protected ItemAcervo(ECategoriaItem categoria) {
+
+        this.categoria = categoria;
+    }
 
     protected ItemAcervo(
         String autor,
@@ -63,22 +81,6 @@ public abstract class ItemAcervo implements IItemAcervo {
             bibliotecaId);
 
         this.categoria = categoria;
-    }
-
-    public ItemAcervo(
-        String autor,
-        double precoAluguel,
-        int qteDisponivel,
-        int qteTotal,
-        // ECategoriaItem categoria,
-        int bibliotecaId) {
-
-        this.autor = autor;
-        this.precoAluguel = precoAluguel;
-        this.qteDisponivel = qteDisponivel;
-        this.qteTotal = qteTotal;
-
-        this.bibliotecaId = bibliotecaId;
     }
 
     @Override
@@ -138,6 +140,12 @@ public abstract class ItemAcervo implements IItemAcervo {
     public int getQteTotal() {
 
         return this.qteTotal;
+    }
+
+    @Override
+    public boolean match(String term) {
+
+        return this.getAutor().contains(term);
     }
 
     @Override

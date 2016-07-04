@@ -33,7 +33,8 @@ public class Bibliotecas {
     public static String toString(IBiblioteca biblioteca) {
 
         return String.format(
-            "%s (R$ %s)",
+            "#%d - %s (R$ %s)",
+            biblioteca.getId(),
             biblioteca.getNome(),
             biblioteca.getMultaDiaria());
     }

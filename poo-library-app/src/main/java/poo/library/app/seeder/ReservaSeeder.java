@@ -23,21 +23,26 @@
  */
 package poo.library.app.seeder;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
 import poo.library.app.util.ISeeder;
 import poo.library.app.util.Seeder;
+import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Apostila;
+import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
-import poo.library.modelo.Livro;
-import poo.library.modelo.Texto;
+import poo.library.modelo.Reserva;
+import poo.library.modelo.Usuario;
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
- * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-class ItemAcervoSeeder extends Seeder<ItemAcervo>
-    implements ISeeder<ItemAcervo> {
+class ReservaSeeder extends Seeder<Reserva> implements ISeeder<Reserva> {
 
-    public ItemAcervoSeeder(IDAO<ItemAcervo> dao) {
+    public ReservaSeeder(IDAO<Reserva> dao) {
 
         super(dao);
     }
@@ -45,22 +50,34 @@ class ItemAcervoSeeder extends Seeder<ItemAcervo>
     @Override
     public void seed() {
 
-        int bibliotecaId = BibliotecaSeeder.getBibliotecaId();
+        Instant instant = Instant.now().plus(3, ChronoUnit.DAYS);
 
-        ItemAcervo[] itens = new ItemAcervo[] {
-            new Livro("José A.", "POO - Introdução", 2.5, bibliotecaId),
-            new Texto("João M.", 1.5, bibliotecaId),
-            new Apostila("Maria J.", "Java & JBDC", 1.25, bibliotecaId) };
+        int bibliotecaId;
+        int usuarioId;
+        int itemAcervoId;
 
-        for (ItemAcervo item : itens) {
+        Date validaAte = Date.from(instant);
 
-            this.dao.save(item);
+        try {
+
+            bibliotecaId = DAOFactory.createNew(Biblioteca.class).first().getId();
+            usuarioId = DAOFactory.createNew(Usuario.class).first().getId();
+            itemAcervoId = DAOFactory.createNew(ItemAcervo.class).first().getId();
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            e.printStackTrace();
+
+            return;
         }
-    }
 
-    @Override
-    public void clear() {
+        Reserva[] reservas = new Reserva[] {
+            new Reserva(validaAte, itemAcervoId, usuarioId, bibliotecaId),
+        };
 
-        this.dao.delete("1 = 1");
+        for (Reserva r : reservas) {
+
+            this.dao.save(r);
+        }
     }
 }

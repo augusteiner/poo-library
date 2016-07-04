@@ -23,11 +23,10 @@
  */
 package poo.library.app.seeder;
 
-import static poo.library.app.App.*;
+import static poo.library.app.App.sysoutCentro;
 
 import poo.library.app.util.ISeeder;
 import poo.library.app.util.Seeder;
-import poo.library.comum.IUsuario;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Administrador;
 import poo.library.modelo.Usuario;
@@ -36,10 +35,10 @@ import poo.library.util.Usuarios;
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public class UsuarioSeeder extends Seeder<IUsuario>
-    implements ISeeder<IUsuario> {
+class UsuarioSeeder extends Seeder<Usuario>
+    implements ISeeder<Usuario> {
 
-    public UsuarioSeeder(IDAO<IUsuario> dao) {
+    public UsuarioSeeder(IDAO<Usuario> dao) {
 
         super(dao);
     }
@@ -53,7 +52,7 @@ public class UsuarioSeeder extends Seeder<IUsuario>
 
         Administrador admin;
 
-        IUsuario[] seed = new IUsuario[] {
+        Usuario[] seed = new Usuario[] {
             admin = new Administrador("José", "11111111111"),
             new Usuario("João", "22222222222"),
             new Usuario("Maria", "33333333333")
@@ -61,7 +60,7 @@ public class UsuarioSeeder extends Seeder<IUsuario>
 
         admin.setEndereco("R. das Acácias, 211");
 
-        for (IUsuario u : seed) {
+        for (Usuario u : seed) {
 
             dao.save(u);
 
@@ -70,7 +69,7 @@ public class UsuarioSeeder extends Seeder<IUsuario>
                 u));
         }
 
-        Iterable<IUsuario> usuarios = dao.all(
+        Iterable<Usuario> usuarios = dao.all(
             "LOCATE(?, nome) > 0",
             "José");
 
@@ -78,7 +77,7 @@ public class UsuarioSeeder extends Seeder<IUsuario>
             "Usuários com José no nome",
             45);
 
-        for (IUsuario u : usuarios) {
+        for (Usuario u : usuarios) {
 
             System.out.println(Usuarios.toString(u));
 
