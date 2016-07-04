@@ -42,7 +42,7 @@ public class Apostila extends ItemAcervo implements IApostila {
         super(
             autor,
             precoAluguel,
-            ECategoriaItem.LIVRO,
+            ECategoriaItem.APOSTILA,
             bibliotecaId);
 
         this.titulo = titulo;

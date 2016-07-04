@@ -47,7 +47,7 @@ public class UsuarioSeeder extends Seeder<IUsuario>
     @Override
     public void seed() {
 
-        dao.delete("1 = 1");
+        this.clear();
 
         sysoutCentro("Inserindo usuários de teste", 45);
 
@@ -86,5 +86,11 @@ public class UsuarioSeeder extends Seeder<IUsuario>
 
             dao.save(u);
         }
+    }
+
+    @Override
+    public void clear() {
+
+        dao.delete("1 = 1");
     }
 }

@@ -30,7 +30,7 @@ CREATE TABLE `usuario` (
 
   `nome` VARCHAR(100) NOT NULL,
   `cpf` CHAR(11) NOT NULL,
-  `tipo` ENUM('COMUM', 'ADMIN') NOT NULL DEFAULT 'COMUM',
+  `tipo` ENUM('COMUM', 'ADMIN') NOT NULL,
 
   `endereco` VARCHAR(100) NULL,
 
@@ -62,6 +62,8 @@ CREATE TABLE `item_acervo` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 
   `bibliotecaId` INT UNSIGNED NOT NULL,
+
+  `categoria` ENUM('LIVRO', 'TEXTO', 'APOSTILA') NOT NULL,
 
   `titulo` VARCHAR(100) NULL,
   `autor` VARCHAR(100) NOT NULL,

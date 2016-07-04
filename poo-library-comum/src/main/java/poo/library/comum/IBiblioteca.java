@@ -32,9 +32,13 @@ public interface IBiblioteca extends IIdentificavel {
 
     Iterable<IItemAcervo> getAcervo();
 
+    Iterable<IAluguel> getAlugueis();
+
     double getMultaDiaria();
 
     String getNome();
+
+    Iterable<IReserva> getReservas();
 
     Iterable<IUsuario> getUsuarios();
 
@@ -42,7 +46,22 @@ public interface IBiblioteca extends IIdentificavel {
 
     void setNome(String nome);
 
+    void alugar(IItemAcervo item, IUsuario usuario);
+
+    Iterable<IAluguel> alugueis(IUsuario usuario);
+    Iterable<IAluguel> alugueis(int usuarioId);
+
     IItemAcervo buscar(int itemId);
+
+    void devolver(IItemAcervo item);
+
+    void reservar(IItemAcervo item, IUsuario usuario);
+
+    Iterable<IReserva> reservas(IUsuario usuario);
+    Iterable<IReserva> reservas(int usuarioId);
+
+    Iterable<IUsuario> usuarios(String parteNome);
+
     // double calcularValorMultas(Date dia);
     // double valorDiarioMulta(IItemAcervo item);
 }

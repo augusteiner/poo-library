@@ -23,6 +23,7 @@
  */
 package poo.library.app;
 
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 
 import org.reflections.Reflections;
@@ -38,7 +39,7 @@ import poo.library.util.ConfiguracaoException;
  */
 public class App {
 
-    public static void main(String[] args) {
+    public static void configure() {
 
         try {
 
@@ -58,6 +59,11 @@ public class App {
 
             return;
         }
+    }
+
+    public static void main(String[] args) {
+
+        configure();
 
         seed();
     }
@@ -69,6 +75,9 @@ public class App {
             new SubTypesScanner(false));
 
         for (Class<?> cls : r.getSubTypesOf(ISeeder.class)) {
+
+            if (!Modifier.isPublic(cls.getModifiers()))
+                continue;
 
             ParameterizedType t = ((ParameterizedType) (cls.getGenericInterfaces()[0]));
 

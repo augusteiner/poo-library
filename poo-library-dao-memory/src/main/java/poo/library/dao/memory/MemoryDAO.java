@@ -112,4 +112,16 @@ class MemoryDAO<T> implements IDAO<T> {
             this.storage.add(obj);
         }
     }
+
+    @Override
+    public int count() {
+
+        return this.count("");
+    }
+
+    @Override
+    public int count(String condition, Object... params) {
+
+        return this.storage.size();
+    }
 }

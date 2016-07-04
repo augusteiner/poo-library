@@ -26,22 +26,21 @@ package poo.library.dao.activejdbc.impl;
 import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.annotations.Table;
 
-import poo.library.comum.IBiblioteca;
 import poo.library.dao.activejdbc.GenericDAO;
-import poo.library.dao.activejdbc.proxy.IBibliotecaProxy;
 import poo.library.dao.comum.IDAO;
+import poo.library.modelo.Biblioteca;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public class BibliotecaDAO extends GenericDAO<IBiblioteca>
-    implements IDAO<IBiblioteca> {
+public class BibliotecaDAO extends GenericDAO<Biblioteca>
+    implements IDAO<Biblioteca> {
 
     @Table("biblioteca")
     public static class BibliotecaModel extends Model { }
 
     public BibliotecaDAO() {
 
-        super(BibliotecaModel.class, IBibliotecaProxy.class);
+        super(BibliotecaModel.class, Biblioteca.class);
     }
 }

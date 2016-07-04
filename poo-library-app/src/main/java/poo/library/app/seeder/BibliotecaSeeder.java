@@ -28,6 +28,8 @@ import static poo.library.app.App.*;
 import poo.library.app.util.ISeeder;
 import poo.library.app.util.Seeder;
 import poo.library.comum.IBiblioteca;
+import poo.library.comum.IItemAcervo;
+import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Biblioteca;
 import poo.library.util.Bibliotecas;
@@ -39,6 +41,7 @@ public class BibliotecaSeeder extends Seeder<IBiblioteca>
     implements ISeeder<IBiblioteca> {
 
     private static int bibliotecaId;
+    private ISeeder<IItemAcervo> itemSeeder;
 
     public static int getBibliotecaId() {
 
@@ -48,12 +51,15 @@ public class BibliotecaSeeder extends Seeder<IBiblioteca>
     public BibliotecaSeeder(IDAO<IBiblioteca> dao) {
 
         super(dao);
+
+        this.itemSeeder = new ItemAcervoSeeder(DAOFactory.createNew(IItemAcervo.class));
     }
 
     @Override
     public void seed() {
 
-        this.dao.delete("1 = 1");
+        this.itemSeeder.clear();
+        this.clear();
 
         IBiblioteca[] libs = new IBiblioteca[]{
             new Biblioteca("Book Library", 2.5)
@@ -62,16 +68,22 @@ public class BibliotecaSeeder extends Seeder<IBiblioteca>
         for (IBiblioteca lib : libs) {
 
             this.dao.save(lib);
-
         }
 
         bibliotecaId = libs[0].getId();
 
         for (IBiblioteca lib : this.dao.all()) {
 
-
             sysoutCentro(
                 Bibliotecas.toString(lib), 50);
         }
+
+        this.itemSeeder.seed();
+    }
+
+    @Override
+    public void clear() {
+
+        this.dao.delete("1 = 1");
     }
 }

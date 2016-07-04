@@ -34,7 +34,7 @@ import poo.library.modelo.Texto;
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public class ItemAcervoSeeder extends Seeder<IItemAcervo>
+class ItemAcervoSeeder extends Seeder<IItemAcervo>
     implements ISeeder<IItemAcervo> {
 
     public ItemAcervoSeeder(IDAO<IItemAcervo> dao) {
@@ -47,8 +47,6 @@ public class ItemAcervoSeeder extends Seeder<IItemAcervo>
 
         int bibliotecaId = BibliotecaSeeder.getBibliotecaId();
 
-        this.dao.delete("1 = 1");
-
         IItemAcervo[] itens = new IItemAcervo[] {
             new Livro("José A.", "POO - Introdução", 2.5, bibliotecaId),
             new Texto("João M.", 1.5, bibliotecaId),
@@ -58,5 +56,11 @@ public class ItemAcervoSeeder extends Seeder<IItemAcervo>
 
             this.dao.save(item);
         }
+    }
+
+    @Override
+    public void clear() {
+
+        this.dao.delete("1 = 1");
     }
 }

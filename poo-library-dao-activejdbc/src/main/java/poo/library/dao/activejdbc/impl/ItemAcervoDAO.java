@@ -26,22 +26,21 @@ package poo.library.dao.activejdbc.impl;
 import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.annotations.Table;
 
-import poo.library.comum.IItemAcervo;
 import poo.library.dao.activejdbc.GenericDAO;
-import poo.library.dao.activejdbc.proxy.IItemAcervoProxy;
 import poo.library.dao.comum.IDAO;
+import poo.library.modelo.ItemAcervo;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public class ItemAcervoDAO extends GenericDAO<IItemAcervo>
-    implements IDAO<IItemAcervo> {
+public class ItemAcervoDAO extends GenericDAO<ItemAcervo>
+    implements IDAO<ItemAcervo> {
 
     @Table("item_acervo")
     public static class ItemAcervoModel extends Model { }
 
     public ItemAcervoDAO() {
 
-        super(ItemAcervoModel.class, IItemAcervoProxy.class);
+        super(ItemAcervoModel.class, ItemAcervo.class);
     }
 }

@@ -21,35 +21,50 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.comum;
+package poo.library.app;
 
+import static poo.library.app.App.configure;
+
+import java.util.Collection;
+
+import poo.library.comum.IBiblioteca;
+import poo.library.comum.IItemAcervo;
+import poo.library.dao.comum.DAOFactory;
+import poo.library.dao.comum.IDAO;
+import poo.library.dao.util.DAOCollectionMap;
+import poo.library.util.ICollectionMap;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IDAO<T> {
+public class CollectionTests {
 
-    Iterable<T> all();
+    public static void main(String[] args) throws ObjetoNaoEncontradoException {
 
-    Iterable<T> all(String condition, Object... params);
+        configure();
 
-    int count();
+        IDAO<IBiblioteca> keys = DAOFactory.createNew(IBiblioteca.class);
+        IDAO<IItemAcervo> values = DAOFactory.createNew(IItemAcervo.class);
 
-    int count(String condition, Object... params);
+        ICollectionMap<IBiblioteca, IItemAcervo> map = new DAOCollectionMap<IBiblioteca, IItemAcervo>(
+            keys,
+            values,
+            "biblioteca");
 
-    void delete(String condition, Object... params);
+        Collection<IItemAcervo> list = map.asList();
 
-    void delete(T obj);
+        IBiblioteca bi = keys.first();
+        map.values(bi);
 
-    T first() throws ObjetoNaoEncontradoException;
+        for (IItemAcervo item : list) {
 
-    T first(String condition, Object... params)
-        throws ObjetoNaoEncontradoException;
+            System.out.println(String.format(
+                "#%d - %s (%s)",
 
-    T firstOrDefault();
-
-    T firstOrDefault(String condition, Object... params);
-
-    void save(T obj);
+                item.getId(),
+                item.getAutor(),
+                item.getCategoria()));
+        }
+    }
 }

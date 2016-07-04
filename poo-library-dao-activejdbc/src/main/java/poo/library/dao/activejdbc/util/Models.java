@@ -27,35 +27,26 @@ import java.util.Iterator;
 
 import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.ModelDelegate;
+import org.modelmapper.ModelMapper;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
 public class Models {
 
-    public static <TProxy> TProxy proxy(
-        Model model,
-        Class<TProxy> cls) {
-
-        return ProxyFactory.makeNew(
-            new ModelInvocationHandler(
-                model,
-                ModelDelegate.attributeNames(model.getClass())),
-            cls);
-    }
-
-    public static <TModel extends Model, TProxy> Iterable<TProxy> proxy(
+    public static <TModel extends Model, T> Iterable<T> map(
         final Iterable<TModel> modelIter,
-        final Class<TProxy> proxyCls) {
+        final Class<T> proxyCls,
+        final ModelMapper mapper) {
 
-        return new Iterable<TProxy>() {
+        return new Iterable<T>() {
 
             @Override
-            public Iterator<TProxy> iterator() {
+            public Iterator<T> iterator() {
 
                 final Iterator<TModel> iter = modelIter.iterator();
 
-                return new Iterator<TProxy>() {
+                return new Iterator<T>(){
 
                     @Override
                     public boolean hasNext() {
@@ -64,14 +55,66 @@ public class Models {
                     }
 
                     @Override
-                    public TProxy next() {
+                    public T next() {
 
-                        return proxy(
+                        T obj  = novaInstancia(proxyCls);
+
+                        inverseMap(
+                            obj,
                             iter.next(),
-                            proxyCls);
+                            mapper);
+
+                        return obj;
                     }
                 };
             }
         };
+    }
+
+    public static <T> T novaInstancia(Class<T> cls) {
+
+        try {
+
+            return cls.newInstance();
+
+        } catch (InstantiationException e) {
+
+            e.printStackTrace();
+
+        } catch (IllegalAccessException e) {
+
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+    public static <T, M extends Model> M map(
+        T source,
+        Class<M> modelType,
+        ModelMapper mapper) {
+
+        M model = ModelDelegate.create(modelType);
+
+        map(source, model, mapper);
+
+        return model;
+    }
+
+    public static <T, M extends Model> T map(
+        T source,
+        M target,
+        ModelMapper mapper) {
+
+        return null;
+    }
+
+    public static <T, M extends Model> void inverseMap(
+        T target,
+        M source,
+        ModelMapper mapper) {
+
+        ModelDelegate.attributeNames(source.getClass());
     }
 }

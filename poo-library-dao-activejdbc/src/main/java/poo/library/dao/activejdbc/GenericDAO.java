@@ -35,12 +35,12 @@ import poo.library.util.ObjetoNaoEncontradoException;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public abstract class GenericDAO<T extends IIdentificavel> {
+public class GenericDAO<T extends IIdentificavel> {
 
     protected final Class<? extends T> proxyType;
     protected final Class<? extends Model> modelType;
 
-    private static ModelMapper MAPPER = new ModelMapper();
+    private final ModelMapper mapper;
 
     protected GenericDAO(
         Class<? extends Model> modelType,
@@ -48,6 +48,8 @@ public abstract class GenericDAO<T extends IIdentificavel> {
 
         this.proxyType = proxyType;
         this.modelType = modelType;
+
+        this.mapper = new ModelMapper();
     }
 
     public Iterable<T> all() {
@@ -65,9 +67,10 @@ public abstract class GenericDAO<T extends IIdentificavel> {
             condition,
             params);
 
-        return Iterables.cast(Models.proxy(
+        return Iterables.cast(Models.map(
             iter,
-            proxyType));
+            proxyType,
+            this.getMapper()));
     }
 
     public void delete(
@@ -117,27 +120,34 @@ public abstract class GenericDAO<T extends IIdentificavel> {
         String condition,
         Object... params) {
 
-        Iterable<T> iter = this.all(
+        Model model = ModelDelegate.findFirst(
+            modelType,
             condition,
             params);
 
-        for (T item : iter) {
+        if (model != null) {
 
-            return item;
+            T obj = this.novaInstancia();
+
+            this.inverseMap(obj, model);
+
+            return obj;
+
+        } else {
+
+            return null;
         }
+    }
 
-        return null;
+    private T novaInstancia() {
+
+        return Models.novaInstancia(proxyType);
     }
 
     public void save(T obj) {
 
-        Model model = ModelDelegate.create(modelType);
-
-        T target = Models.proxy(
-            model,
-            proxyType);
-
-        MAPPER.map(obj, target);
+        // MAPPER.map(obj, target);
+        Model model = this.map(obj);
 
         if (obj.getId() == 0) {
 
@@ -149,6 +159,39 @@ public abstract class GenericDAO<T extends IIdentificavel> {
         //System.out.println(target);
         //System.out.println(model);
 
-        MAPPER.map(target, obj);
+        this.inverseMap(obj, model);
+    }
+
+    private void inverseMap(T obj, Model model) {
+
+        Models.inverseMap(
+            obj,
+            model,
+            getMapper());
+    }
+
+    private Model map(T obj) {
+
+        Model model = Models.map(obj, modelType, getMapper());
+
+        return model;
+    }
+
+    public int count() {
+
+        return ModelDelegate.count(modelType).intValue();
+    }
+
+    public int count(String condition, Object... params) {
+
+        return ModelDelegate.count(
+            modelType,
+            condition,
+            params).intValue();
+    }
+
+    protected ModelMapper getMapper() {
+
+        return this.mapper;
     }
 }

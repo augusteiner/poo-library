@@ -21,35 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.comum;
+package poo.library.util;
 
-import poo.library.util.ObjetoNaoEncontradoException;
+import java.util.Collection;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IDAO<T> {
+public interface ICollectionMap<K, V> extends Collection<V> {
 
-    Iterable<T> all();
+    // boolean containsKey(K key);
 
-    Iterable<T> all(String condition, Object... params);
+    Collection<V> asList();
 
-    int count();
+    // Iterable<V> values();
 
-    int count(String condition, Object... params);
+    V first(K key);
 
-    void delete(String condition, Object... params);
+    Iterable<K> keys();
 
-    void delete(T obj);
-
-    T first() throws ObjetoNaoEncontradoException;
-
-    T first(String condition, Object... params)
-        throws ObjetoNaoEncontradoException;
-
-    T firstOrDefault();
-
-    T firstOrDefault(String condition, Object... params);
-
-    void save(T obj);
+    Iterable<V> values(K key);
 }

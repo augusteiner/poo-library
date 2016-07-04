@@ -29,4 +29,6 @@ package poo.library.app.util;
 public interface ISeeder<T> {
 
     void seed();
+
+    void clear();
 }

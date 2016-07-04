@@ -30,5 +30,5 @@ import poo.library.comum.IItemAcervo;
  */
 public interface IItemAcervoProxy extends IItemAcervo, IIdentificavel {
 
-
+    void setCategoria(String categoria);
 }
