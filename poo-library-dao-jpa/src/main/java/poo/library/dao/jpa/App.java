@@ -23,7 +23,10 @@
  */
 package poo.library.dao.jpa;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -32,9 +35,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import poo.library.modelo.Administrador;
 import poo.library.modelo.Apostila;
 import poo.library.modelo.Biblioteca;
 import poo.library.modelo.Livro;
+import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
 
 /**
@@ -44,25 +49,73 @@ public class App {
 
     public static void main(String[] args) {
 
-        Biblioteca bi;
+        EntityManagerFactory ef;
 
-        EntityManagerFactory ef = Persistence.createEntityManagerFactory("org.hibernate.tutorial.jpa");
+        ef = Persistence.createEntityManagerFactory("org.hibernate.tutorial.jpa");
+
+        try {
+
+            seed(ef);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            ef.close();
+        }
+    }
+
+    private static void seed(EntityManagerFactory ef) {
+
+        Biblioteca b1;
+        Livro i1;
+        Apostila i2;
+        Usuario u1;
+        Usuario u2;
+        Reserva r1;
 
         EntityManager em = ef.createEntityManager();
 
         em.getTransaction().begin();
 
-        Usuario usuario = new Usuario("José Augusto", "12345612311");
-        usuario.setEndereco("R. José Gular, 811");
+        u1 = new Usuario("Augusto", "12345612311");
+        u1.setEndereco("R. José Gular, 811");
 
-        em.persist(usuario);
+        u2 = new Administrador("José", "32135465498");
+        u2.setEndereco("R. dos Admins, 879");
 
-        em.persist(bi = new Biblioteca("Bib. São Lucas", 1.5));
+        em.persist(u1);
+        em.persist(u2);
 
-        em.persist(new Livro("José A.", "How To work with Hibernate", 2.5, bi.getId()));
-        em.persist(new Apostila("José A.", "Introd. ao word", 2.5, bi.getId()));
+        em.persist(b1 = new Biblioteca("Bib. São Lucas", 1.5));
+
+        i1 = new Livro("José A.", "How To work with Hibernate", 2.5, b1.getId());
+
+        i1.setIsbn("01231655984");
+        i1.setEdicao(1);
+
+        i2 = new Apostila("José A.", "Introd. ao word", 2.5, b1.getId());
+
+        em.persist(i1);
+        em.persist(i2);
+
+        r1 = new Reserva(
+            new Date(),
+
+            i1.getId(),
+            u1.getId());
+
+        r1.setValidaAte(Date.from(Instant.now().plus(3, ChronoUnit.DAYS)));
+
+        em.persist(r1);
 
         em.getTransaction().commit();
+
+        em.clear();
+
+        r1 = em.find(Reserva.class, r1.getId());
+
+        System.out.println(r1);
 
         CriteriaBuilder builder = em.getCriteriaBuilder();
 

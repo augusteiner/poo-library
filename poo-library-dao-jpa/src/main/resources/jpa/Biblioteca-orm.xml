@@ -9,7 +9,10 @@
         <column name="id" />
         <generated-value strategy="IDENTITY" />
       </id>
+
       <basic name="nome" />
+      <basic name="multaDiaria" />
+
       <transient name="acervo" />
       <transient name="alugueis" />
       <transient name="reservas" />
