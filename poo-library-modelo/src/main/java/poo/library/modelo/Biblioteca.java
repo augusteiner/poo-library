@@ -38,9 +38,10 @@ public class Biblioteca implements IBiblioteca {
     private int id;
 
     private String nome;
-    private double multaDiaria;
 
     private IBibliotecaStorage storage;
+
+    private double multaDiaria;
 
     public Biblioteca() { }
 

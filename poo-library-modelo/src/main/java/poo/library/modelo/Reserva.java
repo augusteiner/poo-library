@@ -40,10 +40,9 @@ public class Reserva extends Requisicao implements IReserva {
         Date validaAte,
 
         int itemAcervoId,
-        int usuarioId,
-        int bibliotecaId) {
+        int usuarioId) {
 
-        super(itemAcervoId, usuarioId, bibliotecaId);
+        super(itemAcervoId, usuarioId);
 
         this.validaAte = validaAte;
     }
@@ -57,5 +56,15 @@ public class Reserva extends Requisicao implements IReserva {
     public void setValidaAte(Date validaAte) {
 
         this.validaAte = validaAte;
+    }
+
+    @Override
+    public String toString() {
+
+        return String.format(
+            "#%d - %s (%s)",
+            this.getId(),
+            this.getUsuario(),
+            this.getItemAcervo());
     }
 }

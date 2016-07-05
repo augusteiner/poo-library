@@ -30,7 +30,7 @@ import poo.library.util.IIdentificavel;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IRequisicao extends IIdentificavel, ILocalizado {
+public interface IRequisicao extends IIdentificavel {
 
     IItemAcervo getItemAcervo();
     int getItemAcervoId();

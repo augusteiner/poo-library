@@ -31,7 +31,6 @@ import poo.library.app.util.ISeeder;
 import poo.library.app.util.Seeder;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
@@ -52,7 +51,6 @@ class ReservaSeeder extends Seeder<Reserva> implements ISeeder<Reserva> {
 
         Instant instant = Instant.now().plus(3, ChronoUnit.DAYS);
 
-        int bibliotecaId;
         int usuarioId;
         int itemAcervoId;
 
@@ -60,7 +58,6 @@ class ReservaSeeder extends Seeder<Reserva> implements ISeeder<Reserva> {
 
         try {
 
-            bibliotecaId = DAOFactory.createNew(Biblioteca.class).first().getId();
             usuarioId = DAOFactory.createNew(Usuario.class).first().getId();
             itemAcervoId = DAOFactory.createNew(ItemAcervo.class).first().getId();
 
@@ -72,8 +69,7 @@ class ReservaSeeder extends Seeder<Reserva> implements ISeeder<Reserva> {
         }
 
         Reserva[] reservas = new Reserva[] {
-            new Reserva(validaAte, itemAcervoId, usuarioId, bibliotecaId),
-        };
+            new Reserva(validaAte, itemAcervoId, usuarioId), };
 
         for (Reserva r : reservas) {
 

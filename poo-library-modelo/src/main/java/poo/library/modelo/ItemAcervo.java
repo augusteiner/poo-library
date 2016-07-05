@@ -47,6 +47,8 @@ public abstract class ItemAcervo implements IItemAcervo {
     private Biblioteca biblioteca;
     private int bibliotecaId;
 
+    public ItemAcervo() { }
+
     public ItemAcervo(
         String autor,
         double precoAluguel,
@@ -197,5 +199,15 @@ public abstract class ItemAcervo implements IItemAcervo {
     public void setQteTotal(int qteTotal) {
 
         this.qteTotal = qteTotal;
+    }
+
+    @Override
+    public String toString() {
+
+        return String.format(
+            "#%d - %s (R$ %s)",
+            this.getId(),
+            this.getAutor(),
+            this.getPrecoAluguel());
     }
 }
