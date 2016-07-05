@@ -89,9 +89,19 @@ public class Livro extends ItemAcervo implements ILivro {
     }
 
     @Override
+    public String toString() {
+
+        return String.format(
+            "#%d - %s (%s)",
+
+            this.getId(),
+            this.getTitulo(),
+            this.getAutor());
+    }
+
+    @Override
     public boolean match(String term) {
 
-        return this.getTitulo().contains(term) ||
-            super.match(term);
+        return this.getTitulo().contains(term) || super.match(term);
     }
 }
