@@ -32,24 +32,15 @@ public interface IDAO<T> {
 
     Iterable<T> all();
 
-    Iterable<T> all(String condition, Object... params);
-
     int count();
-
-    int count(String condition, Object... params);
-
-    void delete(String condition, Object... params);
 
     void delete(T obj);
 
+    void deleteById(int id) throws ObjetoNaoEncontradoException;
+
+    T find(int id) throws ObjetoNaoEncontradoException;
+
     T first() throws ObjetoNaoEncontradoException;
-
-    T first(String condition, Object... params)
-        throws ObjetoNaoEncontradoException;
-
-    T firstOrDefault();
-
-    T firstOrDefault(String condition, Object... params);
 
     void save(T obj);
 }

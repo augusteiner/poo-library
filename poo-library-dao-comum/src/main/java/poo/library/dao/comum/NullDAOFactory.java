@@ -29,6 +29,9 @@ package poo.library.dao.comum;
 public class NullDAOFactory implements IDAOFactory {
 
     @Override
+    public void close() { }
+
+    @Override
     public void connect() { }
 
     @Override

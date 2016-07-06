@@ -89,10 +89,4 @@ public class BibliotecaSeeder extends Seeder<Biblioteca>
         this.usuarioSeeder.seed();
         this.reservaSeeder.seed();
     }
-
-    @Override
-    public void clear() {
-
-        this.dao.delete("1 = 1");
-    }
 }

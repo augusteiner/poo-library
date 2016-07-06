@@ -1,7 +1,7 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
   version="2.0">
-  <persistence-unit name="org.hibernate.tutorial.jpa">
+  <persistence-unit name="poo.library.dao.jpa.default">
 
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
@@ -12,11 +12,12 @@
     <mapping-file>jpa/Livro-orm.xml</mapping-file>
     <mapping-file>jpa/Reserva-orm.xml</mapping-file>
     <mapping-file>jpa/Requisicao-orm.xml</mapping-file>
+    <mapping-file>jpa/Texto-orm.xml</mapping-file>
     <mapping-file>jpa/Usuario-orm.xml</mapping-file>
 
     <properties>
 
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
       <property name="javax.persistence.jdbc.url"
         value="jdbc:mysql://127.0.0.1:4040/biblioteca?serverTimezone=America/Fortaleza&amp;nullNamePatternMatchesAll=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true" />
       <property name="javax.persistence.jdbc.user" value="biblioteca" />

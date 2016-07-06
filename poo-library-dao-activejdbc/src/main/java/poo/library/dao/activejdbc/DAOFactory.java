@@ -129,4 +129,10 @@ public class DAOFactory implements IDAOFactory {
 
         return r;
     }
+
+    @Override
+    public void close() {
+
+        Base.close();
+    }
 }

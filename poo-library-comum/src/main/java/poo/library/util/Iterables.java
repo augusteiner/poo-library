@@ -23,6 +23,7 @@
  */
 package poo.library.util;
 
+import java.util.Collections;
 import java.util.Iterator;
 
 /**
@@ -31,6 +32,11 @@ import java.util.Iterator;
 public class Iterables {
 
     public static <C, T extends C> Iterable<C> cast(Iterable<T> iterable) {
+
+        if (iterable == null) {
+
+            return Collections.emptyList();
+        }
 
         final Iterator<T> iter = iterable.iterator();
 

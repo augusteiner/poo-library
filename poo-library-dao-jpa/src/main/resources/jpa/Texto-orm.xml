@@ -7,9 +7,6 @@
     <discriminator-value>TEXTO</discriminator-value>
 
     <attributes>
-      <basic name="titulo" />
-      <basic name="isbn" />
-      <basic name="edicao" />
     </attributes>
   </entity>
 </entity-mappings>

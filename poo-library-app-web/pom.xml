@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<project
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
@@ -29,48 +28,92 @@
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-servlets</artifactId>
       <version>${version.jetty}</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-plus</artifactId>
       <version>${version.jetty}</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-jndi</artifactId>
       <version>${version.jetty}</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- <dependency> -->
+    <!-- <groupId>javax.servlet.jsp</groupId> -->
+    <!-- <artifactId>jsp-api</artifactId> -->
+    <!-- <version>2.2</version> -->
+    <!-- <scope>compile</scope> -->
+    <!-- </dependency> -->
+
+    <dependency>
+      <groupId>org.glassfish.web</groupId>
+      <artifactId>el-impl</artifactId>
+      <version>2.2</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.2</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>2.0.1</version>
+      <scope>compile</scope>
     </dependency>
 
     <dependency>
       <groupId>org.glassfish.jersey.connectors</groupId>
       <artifactId>jersey-jetty-connector</artifactId>
       <version>${version.jersey}</version>
+      <scope>runtime</scope>
     </dependency>
+
     <dependency>
       <groupId>org.glassfish.jersey.containers</groupId>
       <artifactId>jersey-container-servlet-core</artifactId>
       <version>${version.jersey}</version>
+      <scope>runtime</scope>
     </dependency>
 
     <dependency>
       <groupId>org.glassfish.jersey.media</groupId>
       <artifactId>jersey-media-json-jackson</artifactId>
       <version>${version.jersey}</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jersey.media</groupId>
       <artifactId>jersey-media-json-processing</artifactId>
       <version>${version.jersey}</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jersey.media</groupId>
       <artifactId>jersey-media-multipart</artifactId>
       <version>${version.jersey}</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jersey.media</groupId>
       <artifactId>jersey-media-sse</artifactId>
       <version>${version.jersey}</version>
+      <scope>runtime</scope>
     </dependency>
 
     <dependency>
@@ -78,6 +121,7 @@
       <artifactId>poo-library-app-cfg</artifactId>
       <version>0.1.0-RELEASE</version>
     </dependency>
+
     <dependency>
       <groupId>poo.library.comum</groupId>
       <artifactId>poo-library-comum</artifactId>
@@ -95,11 +139,38 @@
     </dependency>
 
     <dependency>
-      <groupId>com.mchange</groupId>
-      <artifactId>c3p0</artifactId>
-      <version>0.9.5.2</version>
+      <groupId>poo.library.dao.jpa</groupId>
+      <artifactId>poo-library-dao-jpa</artifactId>
+      <version>0.1.0-RELEASE</version>
       <scope>runtime</scope>
     </dependency>
+    <dependency>
+      <groupId>poo.library.dao.activejdbc</groupId>
+      <artifactId>poo-library-dao-activejdbc</artifactId>
+      <version>0.1.0-RELEASE</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>poo.library.dao.memory</groupId>
+      <artifactId>poo-library-dao-memory</artifactId>
+      <version>0.1.0-RELEASE</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>5.2.1.Final</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-c3p0</artifactId>
+      <version>5.2.1.Final</version>
+      <scope>runtime</scope>
+    </dependency>
+
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
@@ -143,12 +214,21 @@
           <webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory>
         </configuration>
         <dependencies>
+
           <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.5.2</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.2.1.Final</version>
             <scope>runtime</scope>
           </dependency>
+
+          <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-c3p0</artifactId>
+            <version>5.2.1.Final</version>
+            <scope>runtime</scope>
+          </dependency>
+
           <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

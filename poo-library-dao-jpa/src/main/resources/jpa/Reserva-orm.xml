@@ -6,5 +6,9 @@
 
     <table name="reserva" />
 
+    <attributes>
+
+      <basic name="validaAte" />
+    </attributes>
   </entity>
 </entity-mappings>

@@ -14,11 +14,18 @@
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <version.mysql.driver>5.1.39</version.mysql.driver>
   </properties>
   <dependencies>
     <dependency>
       <groupId>poo.library.modelo</groupId>
       <artifactId>poo-library-modelo</artifactId>
+      <version>0.1.0-RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>poo.library.dao.comum</groupId>
+      <artifactId>poo-library-dao-comum</artifactId>
       <version>0.1.0-RELEASE</version>
     </dependency>
 
@@ -32,12 +39,14 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-c3p0</artifactId>
       <version>5.2.1.Final</version>
+      <scope>runtime</scope>
     </dependency>
 
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>6.0.2</version>
+      <version>${version.mysql.driver}</version>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
   <build>

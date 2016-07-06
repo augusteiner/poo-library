@@ -35,6 +35,7 @@ import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
 import poo.library.util.IBibliotecaStorage;
 import poo.library.util.Iterables;
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -91,25 +92,25 @@ public class DAOStorage implements IBibliotecaStorage {
     }
 
     @Override
-    public ILocacao locacaoPorId(int locacaoId) {
+    public ILocacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException {
 
-        return this.locacoes.firstOrDefault(
-            "id = ?",
-            locacaoId);
+        return this.locacoes.find(locacaoId);
     }
 
     @Override
     public Iterable<ILocacao> locacoesPorUsuarioId(int usuarioId) {
 
-        return Iterables.cast(this.locacoes.all(
-            "usuarioId = ?",
-            usuarioId));
+        return null;
+
+        //return Iterables.cast(this.locacoes.all(
+        //    "usuarioId = ?",
+        //    usuarioId));
     }
 
     @Override
-    public IItemAcervo itemPorId(int itemId) {
+    public IItemAcervo itemPorId(int itemId) throws ObjetoNaoEncontradoException {
 
-        return itens.firstOrDefault("id = ?", itemId);
+        return itens.find(itemId);
     }
 
     @Override
@@ -119,25 +120,25 @@ public class DAOStorage implements IBibliotecaStorage {
     }
 
     @Override
-    public IReserva reservaPorId(int reservaId) {
+    public IReserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException {
 
-        return this.reservas.firstOrDefault("id = ?", reservaId);
+        return this.reservas.find(reservaId);
     }
 
     @Override
     public Iterable<IReserva> reservasPorUsuarioId(int usuarioId) {
 
-        return Iterables.cast(this.reservas.all(
-            "usuarioId = ?",
-            usuarioId));
+        return null;
+
+        //return Iterables.cast(this.reservas.all(
+        //    "usuarioId = ?",
+        //    usuarioId));
     }
 
     @Override
-    public IUsuario usuarioPorId(int usuarioId) {
+    public IUsuario usuarioPorId(int usuarioId) throws ObjetoNaoEncontradoException {
 
-        return this.usuarios.firstOrDefault(
-            "id = ?",
-            usuarioId);
+        return this.usuarios.find(usuarioId);
     }
 
     @Override

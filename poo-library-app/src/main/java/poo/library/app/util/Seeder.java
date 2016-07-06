@@ -39,6 +39,9 @@ public abstract class Seeder<T> {
 
     public void clear() {
 
-        this.dao.delete("1 = 1");
+        for (T i : this.dao.all()) {
+
+            this.dao.delete(i);
+        }
     }
 }

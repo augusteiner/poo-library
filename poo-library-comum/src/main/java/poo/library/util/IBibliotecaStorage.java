@@ -33,21 +33,21 @@ import poo.library.comum.IUsuario;
  */
 public interface IBibliotecaStorage {
 
-    ILocacao locacaoPorId(int locacaoId);
+    ILocacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException;
     Iterable<ILocacao> locacoes();
     Iterable<ILocacao> locacoesPorUsuario(IUsuario usuario);
     Iterable<ILocacao> locacoesPorUsuarioId(int usuarioId);
 
-    IItemAcervo itemPorId(int itemId);
+    IItemAcervo itemPorId(int itemId) throws ObjetoNaoEncontradoException;
     Iterable<IItemAcervo> itens();
     Iterable<IItemAcervo> itensPorTermo(String termo);
 
-    IReserva reservaPorId(int reservaId);
+    IReserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException;
     Iterable<IReserva> reservas();
     Iterable<IReserva> reservasPorUsuario(IUsuario usuario);
     Iterable<IReserva> reservasPorUsuarioId(int usuarioId);
 
-    IUsuario usuarioPorId(int usuarioId);
+    IUsuario usuarioPorId(int usuarioId) throws ObjetoNaoEncontradoException;
     Iterable<IUsuario> usuarios();
     Iterable<IUsuario> usuariosPorTermo(String termo);
 }

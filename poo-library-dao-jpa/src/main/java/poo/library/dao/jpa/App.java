@@ -35,12 +35,15 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import poo.library.dao.comum.IDAO;
+import poo.library.dao.comum.IDAOFactory;
 import poo.library.modelo.Administrador;
 import poo.library.modelo.Apostila;
 import poo.library.modelo.Biblioteca;
 import poo.library.modelo.Livro;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
@@ -49,9 +52,41 @@ public class App {
 
     public static void main(String[] args) {
 
+        testDAO();
+
+        testEMF();
+    }
+
+    private static void testDAO() {
+
+        IDAOFactory factory = new DAOFactory();
+        factory.connect();
+
+        IDAO<Usuario> usuarios = factory.createNew(Usuario.class);
+
+        try {
+
+            System.out.println(usuarios.first());
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            e.printStackTrace();
+
+        }
+
+        //for (Usuario u : usuarios.all()) {
+        //
+        //    System.out.println(u);
+        //}
+
+        factory.close();
+    }
+
+    private static void testEMF() {
+
         EntityManagerFactory ef;
 
-        ef = Persistence.createEntityManagerFactory("org.hibernate.tutorial.jpa");
+        ef = Persistence.createEntityManagerFactory("poo.library.dao.jpa.default");
 
         try {
 

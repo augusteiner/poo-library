@@ -57,10 +57,4 @@ class ItemAcervoSeeder extends Seeder<ItemAcervo>
             this.dao.save(item);
         }
     }
-
-    @Override
-    public void clear() {
-
-        this.dao.delete("1 = 1");
-    }
 }

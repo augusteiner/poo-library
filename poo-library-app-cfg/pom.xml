@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<project
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
@@ -26,18 +25,6 @@
       <groupId>poo.library.comum</groupId>
       <artifactId>poo-library-comum</artifactId>
       <version>0.1.0-RELEASE</version>
-    </dependency>
-    <dependency>
-      <groupId>poo.library.dao.activejdbc</groupId>
-      <artifactId>poo-library-dao-activejdbc</artifactId>
-      <version>0.1.0-RELEASE</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>poo.library.dao.memory</groupId>
-      <artifactId>poo-library-dao-memory</artifactId>
-      <version>0.1.0-RELEASE</version>
-      <scope>runtime</scope>
     </dependency>
   </dependencies>
 </project>

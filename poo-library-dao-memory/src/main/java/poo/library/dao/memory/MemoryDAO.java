@@ -24,9 +24,10 @@
 package poo.library.dao.memory;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import poo.library.dao.comum.IDAO;
+import poo.library.util.IIdentificavel;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
@@ -34,7 +35,7 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 class MemoryDAO<T> implements IDAO<T> {
 
-    private Collection<T> storage;
+    private List<T> storage;
 
     public MemoryDAO() {
 
@@ -48,60 +49,9 @@ class MemoryDAO<T> implements IDAO<T> {
     }
 
     @Override
-    public Iterable<T> all(String condition, Object... params) {
-
-        return this.all();
-    }
-
-    @Override
-    public void delete(String condition, Object... params) {
-
-        this.storage.clear();
-    }
-
-    @Override
     public void delete(T obj) {
 
         this.storage.remove(obj);
-    }
-
-    @Override
-    public T first() throws ObjetoNaoEncontradoException {
-
-        return this.first("");
-    }
-
-    @Override
-    public T first(String condition, Object... params)
-        throws ObjetoNaoEncontradoException {
-
-        T item = this.firstOrDefault(condition, params);
-
-        if (item == null) {
-
-            ObjetoNaoEncontradoException.raise(condition);
-        }
-
-        return item;
-    }
-
-    @Override
-    public T firstOrDefault() {
-
-        return this.firstOrDefault("");
-    }
-
-    @Override
-    public T firstOrDefault(String condition, Object... params) {
-
-        Iterable<T> iter = this.all(condition, params);
-
-        for (T item : iter) {
-
-            return item;
-        }
-
-        return null;
     }
 
     @Override
@@ -116,12 +66,45 @@ class MemoryDAO<T> implements IDAO<T> {
     @Override
     public int count() {
 
-        return this.count("");
+        return this.storage.size();
     }
 
     @Override
-    public int count(String condition, Object... params) {
+    public T find(int id) throws ObjetoNaoEncontradoException {
 
-        return this.storage.size();
+        for (T i : this.storage) {
+
+            if (i instanceof IIdentificavel) {
+
+                if (((IIdentificavel) i).getId() == id) {
+
+                    return i;
+                }
+            }
+        }
+
+        throw new ObjetoNaoEncontradoException(String.format(
+            "Objeto de id #%d não encontrado",
+            id));
+    }
+
+    @Override
+    public void deleteById(int id) throws ObjetoNaoEncontradoException {
+
+        T obj = this.find(id);
+
+        this.storage.remove(obj);
+    }
+
+    @Override
+    public T first() throws ObjetoNaoEncontradoException {
+
+        if (this.storage.isEmpty()) {
+
+            throw new ObjetoNaoEncontradoException("");
+        } else {
+
+            return this.storage.get(0);
+        }
     }
 }

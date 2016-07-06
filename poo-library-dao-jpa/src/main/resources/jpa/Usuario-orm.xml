@@ -18,6 +18,7 @@
       </id>
 
       <transient name="tipo" />
+
       <transient name="alugueis"></transient>
       <transient name="reservas"></transient>
     </attributes>

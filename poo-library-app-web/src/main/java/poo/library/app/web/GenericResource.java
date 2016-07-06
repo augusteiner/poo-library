@@ -44,14 +44,14 @@ import poo.library.util.ObjetoNaoEncontradoException;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public abstract class GenericResource<I extends IIdentificavel, T extends I> {
+public abstract class GenericResource<T extends IIdentificavel> {
 
     private final String path;
-    private final IDAO<I> dao;
+    private final IDAO<T> dao;
 
     protected GenericResource(
         String path,
-        IDAO<I> dao) {
+        IDAO<T> dao) {
 
         if (path == null ||
             path.length() == 0) {
@@ -72,12 +72,19 @@ public abstract class GenericResource<I extends IIdentificavel, T extends I> {
     @Path("/{id}")
     public void delete(@PathParam("id") int id) {
 
-        this.dao.delete("id = ?", id);
+        try {
+
+            this.dao.deleteById(id);
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            throw new NotFoundException(e.getMessage(), e);
+        }
     }
 
     @GET
     @Produces({ MediaType.APPLICATION_JSON })
-    public Iterable<I> get() {
+    public Iterable<T> get() {
 
         return this.dao.all();
     }
@@ -87,13 +94,15 @@ public abstract class GenericResource<I extends IIdentificavel, T extends I> {
     @Produces({ MediaType.APPLICATION_JSON })
     public Response get(@PathParam("id") int id) {
 
-        I obj;
+        T obj;
 
         try {
 
-            obj = this.dao.first(
-                "id = ?",
-                id);
+            System.out.println(String.format(
+                "Buscando resource por id #%d",
+                id));
+
+            obj = this.dao.find(id);
 
         } catch (ObjetoNaoEncontradoException e) {
 
@@ -101,6 +110,10 @@ public abstract class GenericResource<I extends IIdentificavel, T extends I> {
                 e.getMessage(),
                 e);
         }
+
+        System.out.println(String.format(
+            "Retornando resource %s",
+            obj));
 
         return Response.ok(obj).build();
     }

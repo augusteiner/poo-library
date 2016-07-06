@@ -28,7 +28,14 @@ package poo.library.dao.comum;
  */
 public class DAOFactory {
 
+    private IDAOFactory impl = new NullDAOFactory();
+
     private static final DAOFactory INSTANCE = new DAOFactory();
+
+    public static void close() {
+
+        getSingleton().impl.close();
+    }
 
     public static void connect() {
 
@@ -45,15 +52,13 @@ public class DAOFactory {
         return INSTANCE.impl.createNew(cls);
     }
 
-    private static DAOFactory getSingleton() {
-
-        return INSTANCE;
-    }
-
     public static void register(IDAOFactory factory) {
 
         getSingleton().impl = factory;
     }
 
-    private IDAOFactory impl = new NullDAOFactory();
+    private static DAOFactory getSingleton() {
+
+        return INSTANCE;
+    }
 }

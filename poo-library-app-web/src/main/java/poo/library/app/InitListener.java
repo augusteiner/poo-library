@@ -26,6 +26,7 @@ package poo.library.app;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import poo.library.dao.comum.DAOFactory;
 import poo.library.util.ConfiguracaoException;
 
 /**
@@ -41,12 +42,16 @@ public class InitListener implements ServletContextListener {
             poo.library.Configuration.configure(new String[] {
                 "--factories.dao",
                 //"poo.library.dao.memory.DAOFactory"
-            "poo.library.dao.activejdbc.DAOFactory" });
+                //"poo.library.dao.activejdbc.DAOFactory"
+                "poo.library.dao.jpa.DAOFactory"
+            });
 
         } catch (ConfiguracaoException e) {
 
             e.printStackTrace();
         }
+
+        DAOFactory.connect();
     }
 
     @Override

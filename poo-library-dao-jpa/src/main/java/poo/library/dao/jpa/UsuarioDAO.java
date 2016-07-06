@@ -21,18 +21,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.dao.comum;
+package poo.library.dao.jpa;
+
+import javax.persistence.EntityManager;
+
+import poo.library.dao.comum.IDAO;
+import poo.library.modelo.Usuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IDAOFactory {
+public class UsuarioDAO extends GenericDAO<Usuario> implements IDAO<Usuario> {
 
-    void close();
+    public UsuarioDAO(EntityManager em) {
 
-    void connect();
+        super(Usuario.class, em);
+    }
 
-    void connectPooled();
+    @Override
+    public void save(Usuario obj) {
 
-    <T> IDAO<T> createNew(Class<T> cls);
+        if (!this.getEm().contains(obj)) {
+
+            this.getEm().find(Usuario.class, obj.getId());
+
+            this.getEm().merge(obj);
+        }
+
+        super.save(obj);
+    }
 }

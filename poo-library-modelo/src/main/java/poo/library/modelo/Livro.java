@@ -53,6 +53,7 @@ public class Livro extends ItemAcervo implements ILivro {
             bibliotecaId);
 
         this.titulo = titulo;
+        this.edicao = 1;
     }
 
     @Override

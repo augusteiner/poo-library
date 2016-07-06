@@ -67,8 +67,8 @@ CREATE TABLE `item_acervo` (
 
   `titulo` VARCHAR(100) NULL,
   `autor` VARCHAR(100) NOT NULL,
-  `edicao` INT NOT NULL DEFAULT 1,
-  `isbn` VARCHAR(30) NULL DEFAULT '',
+  `edicao` INT NULL DEFAULT NULL,
+  `isbn` VARCHAR(30) NULL DEFAULT NULL,
 
   `qteTotal` INT UNSIGNED NOT NULL DEFAULT 0,
   `qteDisponivel` INT UNSIGNED NOT NULL DEFAULT 0,

@@ -49,7 +49,6 @@ public class ItemAcervoDAO extends GenericDAO<ItemAcervo>
         super(ItemAcervoModel.class, ItemAcervo.class);
     }
 
-    @Override
     public ItemAcervo firstOrDefault(
         String condition,
         Object... params) {

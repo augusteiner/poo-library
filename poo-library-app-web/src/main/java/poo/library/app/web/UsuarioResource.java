@@ -25,7 +25,6 @@ package poo.library.app.web;
 
 import javax.ws.rs.Path;
 
-import poo.library.comum.IUsuario;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.modelo.Usuario;
 
@@ -33,7 +32,7 @@ import poo.library.modelo.Usuario;
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Path(UsuarioResource.PATH)
-public class UsuarioResource extends GenericResource<IUsuario, Usuario> {
+public class UsuarioResource extends GenericResource<Usuario> {
 
     public static final String PATH = "usuario";
 
@@ -41,6 +40,6 @@ public class UsuarioResource extends GenericResource<IUsuario, Usuario> {
 
         super(
             PATH,
-            DAOFactory.createNew(IUsuario.class));
+            DAOFactory.createNew(Usuario.class));
     }
 }

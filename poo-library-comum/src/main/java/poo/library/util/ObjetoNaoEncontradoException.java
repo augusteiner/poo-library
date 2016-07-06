@@ -30,14 +30,6 @@ public class ObjetoNaoEncontradoException extends Exception {
 
     private static final long serialVersionUID = -6215838190339301973L;
 
-    public static void raise(String condition)
-        throws ObjetoNaoEncontradoException {
-
-        throw new ObjetoNaoEncontradoException(String.format(
-            "Objeto não encontrado para a expressão: '%s'",
-            condition));
-    }
-
     public ObjetoNaoEncontradoException(String message) {
 
         super(message);

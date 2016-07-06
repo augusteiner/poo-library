@@ -69,12 +69,10 @@ class UsuarioSeeder extends Seeder<Usuario>
                 u));
         }
 
-        Iterable<Usuario> usuarios = dao.all(
-            "LOCATE(?, nome) > 0",
-            "José");
+        Iterable<Usuario> usuarios = dao.all();
 
         sysoutCentro(
-            "Usuários com José no nome",
+            "Alterando nomes dos usuários",
             45);
 
         for (Usuario u : usuarios) {
@@ -85,11 +83,5 @@ class UsuarioSeeder extends Seeder<Usuario>
 
             dao.save(u);
         }
-    }
-
-    @Override
-    public void clear() {
-
-        dao.delete("1 = 1");
     }
 }

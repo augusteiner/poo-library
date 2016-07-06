@@ -14,7 +14,6 @@
       <basic name="usuarioId" optional="false" />
       <basic name="itemAcervoId" optional="false" />
 
-      <basic name="validaAte" />
       <basic name="realizadaEm" />
 
       <one-to-one name="usuario" target-entity="poo.library.modelo.Usuario"

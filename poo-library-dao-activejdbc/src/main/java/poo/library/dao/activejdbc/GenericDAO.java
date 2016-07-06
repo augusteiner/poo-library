@@ -27,6 +27,7 @@ import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.ModelDelegate;
 
 import poo.library.dao.activejdbc.util.Models;
+import poo.library.dao.comum.IDAO;
 import poo.library.util.IIdentificavel;
 import poo.library.util.Iterables;
 import poo.library.util.ObjetoNaoEncontradoException;
@@ -34,7 +35,7 @@ import poo.library.util.ObjetoNaoEncontradoException;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class GenericDAO<T extends IIdentificavel> {
+public class GenericDAO<T extends IIdentificavel> implements IDAO<T> {
 
     protected final Class<? extends T> entityType;
     protected final Class<? extends Model> modelType;
@@ -47,6 +48,7 @@ public class GenericDAO<T extends IIdentificavel> {
         this.modelType = modelType;
     }
 
+    @Override
     public Iterable<T> all() {
 
         return this.all("1 = 1");
@@ -67,16 +69,17 @@ public class GenericDAO<T extends IIdentificavel> {
             entityType));
     }
 
-    public void delete(
+    public int delete(
         String condition,
         Object... params) {
 
-        ModelDelegate.delete(
+        return ModelDelegate.delete(
             modelType,
             condition,
             params);
     }
 
+    @Override
     public void delete(T obj) {
 
         this.delete(
@@ -84,60 +87,12 @@ public class GenericDAO<T extends IIdentificavel> {
             obj.getId());
     }
 
-    public T first() throws ObjetoNaoEncontradoException {
-
-        return this.first("1 = 1");
-    }
-
-    public T first(
-        String condition,
-        Object... params) throws ObjetoNaoEncontradoException {
-
-        T item = this.firstOrDefault(
-            condition,
-            params);
-
-        if (item == null) {
-
-            ObjetoNaoEncontradoException.raise(condition);
-        }
-
-        return item;
-    }
-
-    public T firstOrDefault() {
-
-        return this.firstOrDefault("1 = 1");
-    }
-
-    public T firstOrDefault(
-        String condition,
-        Object... params) {
-
-        Model model = ModelDelegate.findFirst(
-            modelType,
-            condition,
-            params);
-
-        if (model != null) {
-
-            T obj = this.novaInstancia();
-
-            this.inverseMap(obj, model);
-
-            return obj;
-
-        } else {
-
-            return null;
-        }
-    }
-
     protected T novaInstancia() {
 
         return Models.novaInstancia(entityType);
     }
 
+    @Override
     public void save(T obj) {
 
         // MAPPER.map(obj, target);
@@ -170,16 +125,44 @@ public class GenericDAO<T extends IIdentificavel> {
         return model;
     }
 
+    @Override
     public int count() {
 
         return ModelDelegate.count(modelType).intValue();
     }
 
-    public int count(String condition, Object... params) {
+    @Override
+    public T find(int id) throws ObjetoNaoEncontradoException {
 
-        return ModelDelegate.count(
-            modelType,
-            condition,
-            params).intValue();
+        return null;
+    }
+
+    @Override
+    public void deleteById(int id) throws ObjetoNaoEncontradoException {
+
+        int deleted = this.delete("id = ?", id);
+
+        if (deleted == 0) {
+
+            throw new ObjetoNaoEncontradoException("");
+        }
+    }
+
+    @Override
+    public T first() throws ObjetoNaoEncontradoException {
+
+        Model model = ModelDelegate.findFirst(modelType, "1 = 1");
+
+        if (model == null) {
+
+            throw new ObjetoNaoEncontradoException("");
+        } else {
+
+            T obj = this.novaInstancia();
+
+            this.inverseMap(obj, model);
+
+            return obj;
+        }
     }
 }
