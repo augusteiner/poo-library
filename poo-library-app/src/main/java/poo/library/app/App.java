@@ -101,6 +101,12 @@ public class App {
 
                 ISeeder<?> seeder = (ISeeder<?>) cls.getConstructor(IDAO.class).newInstance(dao);
 
+                sysoutCentro(
+                    String.format(
+                        "Executando seed em %s",
+                        seeder.getClass().getSimpleName()),
+                    50);
+
                 seeder.seed();
 
             } catch (Exception e) {
@@ -108,6 +114,8 @@ public class App {
                 e.printStackTrace();
             }
         }
+
+        DAOFactory.close();
     }
 
     public static void sysoutCentro(String texto, int size) {

@@ -24,6 +24,7 @@
 package poo.library.comum;
 
 import poo.library.util.IIdentificavel;
+import poo.library.util.ItemIndisponivelException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -32,6 +33,8 @@ public interface IBiblioteca extends IIdentificavel {
 
     String getNome();
     double getMultaDiaria();
+    int getQteDiasValidadeReserva();
+    int getQteDiasLocacao();
 
     Iterable<IItemAcervo> getAcervo();
     Iterable<ILocacao> getAlugueis();
@@ -41,7 +44,7 @@ public interface IBiblioteca extends IIdentificavel {
     void setNome(String nome);
     void setMultaDiaria(double multaDiaria);
 
-    void alugar(IItemAcervo item, IUsuario usuario);
+    void locar(IItemAcervo item, IUsuario usuario) throws ItemIndisponivelException;
     void devolver(IItemAcervo item);
     void reservar(IItemAcervo item, IUsuario usuario);
     void cancelarReserva(IItemAcervo item, IUsuario usuario);

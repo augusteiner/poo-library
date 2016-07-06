@@ -30,30 +30,26 @@ import poo.library.comum.IItemAcervo;
 import poo.library.comum.ILocacao;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
-import poo.library.modelo.ItemAcervo;
-import poo.library.modelo.Locacao;
-import poo.library.modelo.Reserva;
-import poo.library.modelo.Usuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class MemoryStorage implements IBibliotecaStorage {
+public class InMemoryArmazem implements IBibliotecaArmazem {
 
-    private final Collection<Locacao> locacoes;
-    private final Collection<Reserva> reservas;
-    private final Collection<Usuario> usuarios;
-    private final Collection<ItemAcervo> itens;
+    private final Collection<ILocacao> locacoes;
+    private final Collection<IReserva> reservas;
+    private final Collection<IUsuario> usuarios;
+    private final Collection<IItemAcervo> itens;
 
-    public MemoryStorage() {
+    public InMemoryArmazem() {
 
-        this.locacoes = newCollection();
-        this.reservas = newCollection();
-        this.usuarios = newCollection();
-        this.itens = newCollection();
+        this.locacoes = novaLista();
+        this.reservas = novaLista();
+        this.usuarios = novaLista();
+        this.itens = novaLista();
     }
 
-    private <T> Collection<T> newCollection() {
+    private <T> Collection<T> novaLista() {
 
         return new ArrayList<T>();
     }
@@ -61,7 +57,7 @@ public class MemoryStorage implements IBibliotecaStorage {
     @Override
     public ILocacao locacaoPorId(int locacaoId) {
 
-        for (Locacao l : locacoes) {
+        for (ILocacao l : locacoes) {
 
             if (l.getId() == locacaoId) {
 
@@ -75,7 +71,7 @@ public class MemoryStorage implements IBibliotecaStorage {
     @Override
     public Iterable<ILocacao> locacoes() {
 
-        return Iterables.cast(this.locacoes);
+        return this.locacoes;
     }
 
     @Override
@@ -87,9 +83,9 @@ public class MemoryStorage implements IBibliotecaStorage {
     @Override
     public Iterable<ILocacao> locacoesPorUsuarioId(int usuarioId) {
 
-        Collection<ILocacao> locacoes = newCollection();
+        Collection<ILocacao> locacoes = novaLista();
 
-        for (Locacao l : this.locacoes) {
+        for (ILocacao l : this.locacoes) {
 
             if (l.getUsuarioId() == usuarioId) {
 
@@ -103,7 +99,7 @@ public class MemoryStorage implements IBibliotecaStorage {
     @Override
     public IItemAcervo itemPorId(int itemId) {
 
-        for (ItemAcervo i : this.itens) {
+        for (IItemAcervo i : this.itens) {
 
             if (i.getId() == itemId) {
 
@@ -123,9 +119,9 @@ public class MemoryStorage implements IBibliotecaStorage {
     @Override
     public Iterable<IItemAcervo> itensPorTermo(String termo) {
 
-        Collection<IItemAcervo> itens = newCollection();
+        Collection<IItemAcervo> itens = novaLista();
 
-        for (ItemAcervo i : this.itens) {
+        for (IItemAcervo i : this.itens) {
 
             if (i.match(termo)) {
 
@@ -139,7 +135,7 @@ public class MemoryStorage implements IBibliotecaStorage {
     @Override
     public IReserva reservaPorId(int reservaId) {
 
-        for (Reserva r : this.reservas) {
+        for (IReserva r : this.reservas) {
 
             if (r.getId() == reservaId) {
 
@@ -153,7 +149,7 @@ public class MemoryStorage implements IBibliotecaStorage {
     @Override
     public Iterable<IReserva> reservas() {
 
-        return Iterables.cast(this.reservas);
+        return this.reservas;
     }
 
     @Override
@@ -165,9 +161,9 @@ public class MemoryStorage implements IBibliotecaStorage {
     @Override
     public Iterable<IReserva> reservasPorUsuarioId(int usuarioId) {
 
-        Collection<IReserva> reservas = newCollection();
+        Collection<IReserva> reservas = novaLista();
 
-        for (Reserva r : this.reservas) {
+        for (IReserva r : this.reservas) {
 
             if (r.getUsuarioId() == usuarioId) {
 
@@ -181,7 +177,7 @@ public class MemoryStorage implements IBibliotecaStorage {
     @Override
     public IUsuario usuarioPorId(int usuarioId) {
 
-        for (Usuario u : this.usuarios) {
+        for (IUsuario u : this.usuarios) {
 
             if (u.getId() == usuarioId) {
 
@@ -195,13 +191,13 @@ public class MemoryStorage implements IBibliotecaStorage {
     @Override
     public Iterable<IUsuario> usuarios() {
 
-        return Iterables.cast(this.usuarios);
+        return this.usuarios;
     }
 
     @Override
     public Iterable<IUsuario> usuariosPorTermo(String termo) {
 
-        Collection<IUsuario> usuarios = newCollection();
+        Collection<IUsuario> usuarios = novaLista();
 
         for (IUsuario u : this.usuarios) {
 
@@ -212,5 +208,29 @@ public class MemoryStorage implements IBibliotecaStorage {
         }
 
         return usuarios;
+    }
+
+    @Override
+    public void salvarItemAcervo(IItemAcervo itemAcervo) {
+
+        this.itens.add(itemAcervo);
+    }
+
+    @Override
+    public void salvarLocacao(ILocacao locacao) {
+
+        this.locacoes.add(locacao);
+    }
+
+    @Override
+    public void salvarReserva(IReserva reserva) {
+
+        this.reservas.add(reserva);
+    }
+
+    @Override
+    public void salvarUsuario(IUsuario usuario) {
+
+        this.usuarios.add(usuario);
     }
 }

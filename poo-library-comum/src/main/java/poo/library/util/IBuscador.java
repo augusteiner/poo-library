@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2016 José Nascimento & Juscelino Messias
+ * Copyright (c) 2016 José Augusto & Juscelino Messias
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,24 +21,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.util;
 
-import poo.library.util.ISearcheable;
+import poo.library.comum.ILocacao;
+import poo.library.comum.IItemAcervo;
+import poo.library.comum.IReserva;
+import poo.library.comum.IUsuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IUsuario extends IPessoaFisica, ISearcheable {
+public interface IBuscador {
 
-    void locar(IItemAcervo item);
+    ILocacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException;
+    Iterable<ILocacao> locacoes();
+    Iterable<ILocacao> locacoesPorUsuario(IUsuario usuario);
+    Iterable<ILocacao> locacoesPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;
 
-    Iterable<ILocacao> getLocacoes();
+    IItemAcervo itemPorId(int itemId) throws ObjetoNaoEncontradoException;
+    Iterable<IItemAcervo> itens();
+    Iterable<IItemAcervo> itensPorTermo(String termo);
 
-    Iterable<IReserva> getReservas();
+    IReserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException;
+    Iterable<IReserva> reservas();
+    Iterable<IReserva> reservasPorUsuario(IUsuario usuario);
+    Iterable<IReserva> reservasPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;
 
-    // IItemAcervo escolherItemAcervo();
-
-    ETipoUsuario getTipo();
-
-    void quitar();
+    IUsuario usuarioPorId(int usuarioId) throws ObjetoNaoEncontradoException;
+    Iterable<IUsuario> usuarios();
+    Iterable<IUsuario> usuariosPorTermo(String termo);
 }

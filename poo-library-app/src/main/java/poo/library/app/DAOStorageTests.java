@@ -26,8 +26,8 @@ package poo.library.app;
 import static poo.library.app.App.*;
 
 import poo.library.comum.IUsuario;
-import poo.library.dao.util.DAOStorage;
-import poo.library.util.IBibliotecaStorage;
+import poo.library.dao.util.DAOBuscador;
+import poo.library.util.IBuscador;
 import poo.library.util.ObjetoNaoEncontradoException;
 import poo.library.util.Usuarios;
 
@@ -36,13 +36,13 @@ import poo.library.util.Usuarios;
  */
 public class DAOStorageTests {
 
-    private static IBibliotecaStorage storage;
+    private static IBuscador storage;
 
     public static void main(String[] args) throws ObjetoNaoEncontradoException {
 
         configure();
 
-        storage = new DAOStorage();
+        storage = new DAOBuscador();
 
         sysoutCentro("TODOS os usuários", 50);
 

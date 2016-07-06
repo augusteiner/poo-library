@@ -50,6 +50,8 @@ public abstract class Requisicao implements IRequisicao {
 
         this.itemAcervoId = itemAcervoId;
         this.usuarioId = usuarioId;
+
+        this.realizadaEm = new Date();
     }
 
     @Override

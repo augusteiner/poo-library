@@ -120,16 +120,15 @@ public class GenericDAO<T> implements IDAO<T> {
 
         try {
 
-            if (!this.em.contains(obj)) {
-
-                this.em.merge(obj);
-
-            } else {
+//            if (!this.em.contains(obj)) {
+//
+//                this.em.merge(obj);
+//                this.em.flush();
+//
+//            } else {
 
                 this.em.persist(obj);
-            }
-
-            this.em.flush();
+//            }
 
         } catch (Exception e) {
 
@@ -143,5 +142,11 @@ public class GenericDAO<T> implements IDAO<T> {
         }
 
         this.em.getTransaction().commit();
+    }
+
+    @Override
+    public Iterable<T> search(String term) {
+
+        return null;
     }
 }

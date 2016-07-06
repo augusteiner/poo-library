@@ -33,26 +33,50 @@ import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Locacao;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
-import poo.library.util.IBibliotecaStorage;
+import poo.library.util.IBuscador;
 import poo.library.util.Iterables;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class DAOStorage implements IBibliotecaStorage {
+public class DAOBuscador implements IBuscador {
 
     private final IDAO<? extends ILocacao> locacoes;
     private final IDAO<? extends IReserva> reservas;
     private final IDAO<? extends IUsuario> usuarios;
     private final IDAO<? extends IItemAcervo> itens;
 
-    public DAOStorage() {
+    public DAOBuscador() {
 
         this.locacoes = DAOFactory.createNew(Locacao.class);
         this.reservas = DAOFactory.createNew(Reserva.class);
         this.usuarios = DAOFactory.createNew(Usuario.class);
         this.itens = DAOFactory.createNew(ItemAcervo.class);
+    }
+
+    @Override
+    public IItemAcervo itemPorId(int itemId) throws ObjetoNaoEncontradoException {
+
+        return itens.find(itemId);
+    }
+
+    @Override
+    public Iterable<IItemAcervo> itens() {
+
+        return Iterables.cast(this.itens.all());
+    }
+
+    @Override
+    public Iterable<IItemAcervo> itensPorTermo(String termo) {
+
+        return Iterables.cast(this.itens.search(termo));
+    }
+
+    @Override
+    public ILocacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException {
+
+        return this.locacoes.find(locacaoId);
     }
 
     @Override
@@ -64,13 +88,21 @@ public class DAOStorage implements IBibliotecaStorage {
     @Override
     public Iterable<ILocacao> locacoesPorUsuario(IUsuario usuario) {
 
-        return this.locacoesPorUsuarioId(usuario.getId());
+        return usuario.getLocacoes();
     }
 
     @Override
-    public Iterable<IItemAcervo> itens() {
+    public Iterable<ILocacao> locacoesPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException {
 
-        return Iterables.cast(this.itens.all());
+        IUsuario usuario = this.usuarioPorId(usuarioId);
+
+        return this.locacoesPorUsuario(usuario);
+    }
+
+    @Override
+    public IReserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException {
+
+        return this.reservas.find(reservaId);
     }
 
     @Override
@@ -82,57 +114,15 @@ public class DAOStorage implements IBibliotecaStorage {
     @Override
     public Iterable<IReserva> reservasPorUsuario(IUsuario usuario) {
 
-        return this.reservasPorUsuarioId(usuario.getId());
+        return usuario.getReservas();
     }
 
     @Override
-    public Iterable<IUsuario> usuarios() {
+    public Iterable<IReserva> reservasPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException {
 
-        return Iterables.cast(this.usuarios.all());
-    }
+        IUsuario usuario = this.usuarioPorId(usuarioId);
 
-    @Override
-    public ILocacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException {
-
-        return this.locacoes.find(locacaoId);
-    }
-
-    @Override
-    public Iterable<ILocacao> locacoesPorUsuarioId(int usuarioId) {
-
-        return null;
-
-        //return Iterables.cast(this.locacoes.all(
-        //    "usuarioId = ?",
-        //    usuarioId));
-    }
-
-    @Override
-    public IItemAcervo itemPorId(int itemId) throws ObjetoNaoEncontradoException {
-
-        return itens.find(itemId);
-    }
-
-    @Override
-    public Iterable<IItemAcervo> itensPorTermo(String termo) {
-
-        return null;
-    }
-
-    @Override
-    public IReserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException {
-
-        return this.reservas.find(reservaId);
-    }
-
-    @Override
-    public Iterable<IReserva> reservasPorUsuarioId(int usuarioId) {
-
-        return null;
-
-        //return Iterables.cast(this.reservas.all(
-        //    "usuarioId = ?",
-        //    usuarioId));
+        return this.reservasPorUsuario(usuario);
     }
 
     @Override
@@ -142,8 +132,14 @@ public class DAOStorage implements IBibliotecaStorage {
     }
 
     @Override
+    public Iterable<IUsuario> usuarios() {
+
+        return Iterables.cast(this.usuarios.all());
+    }
+
+    @Override
     public Iterable<IUsuario> usuariosPorTermo(String termo) {
 
-        return null;
+        return Iterables.cast(this.usuarios.search(termo));
     }
 }

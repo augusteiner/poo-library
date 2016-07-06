@@ -39,6 +39,15 @@ public class Reserva extends Requisicao implements IReserva {
     public Reserva(
         Date validaAte,
 
+        ItemAcervo itemAcervo,
+        Usuario usuario) {
+
+        this(validaAte, itemAcervo.getId(), usuario.getId());
+    }
+
+    public Reserva(
+        Date validaAte,
+
         int itemAcervoId,
         int usuarioId) {
 

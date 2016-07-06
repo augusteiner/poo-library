@@ -24,11 +24,12 @@
 package poo.library.comum;
 
 import poo.library.util.IIdentificavel;
+import poo.library.util.ISearcheable;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IItemAcervo extends IIdentificavel, ILocalizado {
+public interface IItemAcervo extends IIdentificavel, ILocalizado, ISearcheable {
 
     String getAutor();
 
@@ -38,9 +39,11 @@ public interface IItemAcervo extends IIdentificavel, ILocalizado {
 
     int getQteDisponivel();
 
+    //int getQteReservados();
+
     int getQteTotal();
 
-    void alugar(IUsuario usuario);
+    void locar(IUsuario usuario);
 
     double devolver();
 
@@ -53,6 +56,4 @@ public interface IItemAcervo extends IIdentificavel, ILocalizado {
     void setQteDisponivel(int qteDisponivel);
 
     void setQteTotal(int qteTotal);
-
-    boolean match(String term);
 }

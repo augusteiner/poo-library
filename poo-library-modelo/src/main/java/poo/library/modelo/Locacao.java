@@ -37,6 +37,21 @@ public class Locacao extends Requisicao implements ILocacao {
     private Date devolverAte;
     private Date devolvidoEm;
 
+    public Locacao() { }
+
+    public Locacao(
+        double precoCobrado,
+        Date devolverAte,
+
+        int itemAcervoId,
+        int usuarioId) {
+
+        super(itemAcervoId, usuarioId);
+
+        this.devolverAte = devolverAte;
+        this.precoCobrado = precoCobrado;
+    }
+
     @Override
     public Date getDevolverAte() {
 

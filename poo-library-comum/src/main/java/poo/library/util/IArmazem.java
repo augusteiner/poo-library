@@ -23,31 +23,21 @@
  */
 package poo.library.util;
 
-import poo.library.comum.ILocacao;
 import poo.library.comum.IItemAcervo;
+import poo.library.comum.ILocacao;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IBibliotecaStorage {
+public interface IArmazem {
 
-    ILocacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException;
-    Iterable<ILocacao> locacoes();
-    Iterable<ILocacao> locacoesPorUsuario(IUsuario usuario);
-    Iterable<ILocacao> locacoesPorUsuarioId(int usuarioId);
+    void salvarItemAcervo(IItemAcervo itemAcervo);
 
-    IItemAcervo itemPorId(int itemId) throws ObjetoNaoEncontradoException;
-    Iterable<IItemAcervo> itens();
-    Iterable<IItemAcervo> itensPorTermo(String termo);
+    void salvarLocacao(ILocacao locacao);
 
-    IReserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException;
-    Iterable<IReserva> reservas();
-    Iterable<IReserva> reservasPorUsuario(IUsuario usuario);
-    Iterable<IReserva> reservasPorUsuarioId(int usuarioId);
+    void salvarReserva(IReserva reserva);
 
-    IUsuario usuarioPorId(int usuarioId) throws ObjetoNaoEncontradoException;
-    Iterable<IUsuario> usuarios();
-    Iterable<IUsuario> usuariosPorTermo(String termo);
+    void salvarUsuario(IUsuario usuario);
 }

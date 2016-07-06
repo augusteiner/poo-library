@@ -149,6 +149,12 @@ public class GenericDAO<T extends IIdentificavel> implements IDAO<T> {
     }
 
     @Override
+    public Iterable<T> search(String term) {
+
+        return null;
+    }
+
+    @Override
     public T first() throws ObjetoNaoEncontradoException {
 
         Model model = ModelDelegate.findFirst(modelType, "1 = 1");

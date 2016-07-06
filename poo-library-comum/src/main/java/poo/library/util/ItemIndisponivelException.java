@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2016 José Nascimento & Juscelino Messias
+ * Copyright (c) 2016 José Augusto & Juscelino Messias
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,24 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
-
-import poo.library.util.ISearcheable;
+package poo.library.util;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IUsuario extends IPessoaFisica, ISearcheable {
+public class ItemIndisponivelException extends Exception {
 
-    void locar(IItemAcervo item);
+    private static final long serialVersionUID = 4511627156029045962L;
 
-    Iterable<ILocacao> getLocacoes();
+    public ItemIndisponivelException(String message) {
 
-    Iterable<IReserva> getReservas();
-
-    // IItemAcervo escolherItemAcervo();
-
-    ETipoUsuario getTipo();
-
-    void quitar();
+        super(message);
+    }
 }

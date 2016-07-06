@@ -2,8 +2,8 @@
 package poo.library.app;
 
 import poo.library.comum.IItemAcervo;
-import poo.library.dao.util.DAOStorage;
-import poo.library.util.IBibliotecaStorage;
+import poo.library.dao.util.DAOBuscador;
+import poo.library.util.IBuscador;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -24,7 +24,7 @@ public class ExemploMemoria {
 
         App.configure();
 
-        IBibliotecaStorage storage = new DAOStorage();
+        IBuscador storage = new DAOBuscador();
 
         Iterable<IItemAcervo> us = storage.itens();
 

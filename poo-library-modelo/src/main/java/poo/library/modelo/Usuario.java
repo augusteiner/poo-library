@@ -81,13 +81,13 @@ public class Usuario implements IUsuario {
     }
 
     @Override
-    public void alugar(IItemAcervo item) {
+    public void locar(IItemAcervo item) {
 
         //
     }
 
     @Override
-    public Iterable<ILocacao> getAlugueis() {
+    public Iterable<ILocacao> getLocacoes() {
 
         return Iterables.cast(this.alugueis);
     }

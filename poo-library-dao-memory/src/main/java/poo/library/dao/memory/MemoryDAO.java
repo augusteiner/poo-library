@@ -24,10 +24,12 @@
 package poo.library.dao.memory;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import poo.library.dao.comum.IDAO;
 import poo.library.util.IIdentificavel;
+import poo.library.util.ISearcheable;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
@@ -39,7 +41,12 @@ class MemoryDAO<T> implements IDAO<T> {
 
     public MemoryDAO() {
 
-        this.storage = new ArrayList<T>();
+        this.storage = newList();
+    }
+
+    private <C> List<C> newList() {
+
+        return new ArrayList<C>();
     }
 
     @Override
@@ -106,5 +113,22 @@ class MemoryDAO<T> implements IDAO<T> {
 
             return this.storage.get(0);
         }
+    }
+
+    @Override
+    public Iterable<T> search(String term) {
+
+        Collection<T> result = newList();
+
+        for (T i : this.storage) {
+
+            if (i instanceof ISearcheable &&
+                ((ISearcheable) i).match(term)) {
+
+                result.add(i);
+            }
+        }
+
+        return result;
     }
 }

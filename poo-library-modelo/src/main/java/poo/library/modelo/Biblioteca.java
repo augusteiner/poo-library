@@ -23,12 +23,18 @@
  */
 package poo.library.modelo;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
 import poo.library.comum.IBiblioteca;
 import poo.library.comum.IItemAcervo;
 import poo.library.comum.ILocacao;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
-import poo.library.util.IBibliotecaStorage;
+import poo.library.util.IBibliotecaArmazem;
+import poo.library.util.IBuscador;
+import poo.library.util.ItemIndisponivelException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -39,9 +45,11 @@ public class Biblioteca implements IBiblioteca {
 
     private String nome;
 
-    private IBibliotecaStorage storage;
-
     private double multaDiaria;
+    private int qteDiasValidadeReserva;
+    private int qteDiasLocacao;
+
+    private IBibliotecaArmazem armazem;
 
     public Biblioteca() { }
 
@@ -49,11 +57,6 @@ public class Biblioteca implements IBiblioteca {
 
         this.nome = nome;
         this.multaDiaria = multaDiaria;
-    }
-
-    @Override
-    public void alugar(IItemAcervo item, IUsuario usuario) {
-
     }
 
     @Override
@@ -102,20 +105,58 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
+    public int getQteDiasValidadeReserva() {
+
+        return this.qteDiasValidadeReserva;
+    }
+
+    @Override
     public Iterable<IReserva> getReservas() {
 
         return null;
     }
 
-    public IBibliotecaStorage getStorage() {
+    public IBuscador getStorage() {
 
-        return this.storage;
+        return this.armazem;
     }
 
     @Override
     public Iterable<IUsuario> getUsuarios() {
 
         return null;
+    }
+
+    @Override
+    public void locar(IItemAcervo item, IUsuario usuario) throws ItemIndisponivelException {
+
+        if (item.getQteDisponivel() > 0) {
+
+            // item.setQteDisponivel(item.getQteDisponivel() - 1);
+
+            item.locar(usuario);
+            usuario.locar(item);
+
+            Instant dias = Instant.now().plus(
+                this.getQteDiasLocacao(),
+                ChronoUnit.DAYS);
+
+            Date devolverAte = Date.from(dias);
+
+            ILocacao l = new Locacao(
+                item.getPrecoAluguel(),
+                devolverAte,
+
+                item.getId(),
+                usuario.getId());
+
+            this.armazem.salvarLocacao(l);
+
+        } else {
+
+            throw new ItemIndisponivelException(
+                "Não há item disponível para locar.");
+        }
     }
 
     @Override
@@ -140,8 +181,24 @@ public class Biblioteca implements IBiblioteca {
         this.nome = nome;
     }
 
-    public void setStorage(IBibliotecaStorage storage) {
+    public void setQteDiasValidadeReserva(int qteDiasValidadeReserva) {
 
-        this.storage = storage;
+        this.qteDiasValidadeReserva = qteDiasValidadeReserva;
+    }
+
+    public void setStorage(IBibliotecaArmazem armazem) {
+
+        this.armazem = armazem;
+    }
+
+    @Override
+    public int getQteDiasLocacao() {
+
+        return this.qteDiasLocacao;
+    }
+
+    public void setQteDiasLocacao(int qteDiasLocacao) {
+
+        this.qteDiasLocacao = qteDiasLocacao;
     }
 }

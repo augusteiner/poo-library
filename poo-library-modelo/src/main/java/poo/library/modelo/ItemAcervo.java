@@ -86,7 +86,7 @@ public abstract class ItemAcervo implements IItemAcervo {
     }
 
     @Override
-    public void alugar(IUsuario usuario) {
+    public void locar(IUsuario usuario) {
 
         //
     }
@@ -153,7 +153,7 @@ public abstract class ItemAcervo implements IItemAcervo {
     @Override
     public void reservar(IUsuario usuario) {
 
-        //
+        this.setQteDisponivel(this.getQteDisponivel() - 1);
     }
 
     @Override
