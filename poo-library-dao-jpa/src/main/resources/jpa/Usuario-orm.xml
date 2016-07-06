@@ -19,7 +19,7 @@
 
       <transient name="tipo" />
 
-      <transient name="alugueis"></transient>
+      <transient name="locacoes"></transient>
       <transient name="reservas"></transient>
     </attributes>
   </entity>

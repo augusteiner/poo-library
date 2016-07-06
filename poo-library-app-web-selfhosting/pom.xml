@@ -7,13 +7,13 @@
     <artifactId>poo-library</artifactId>
     <version>0.1.0-RELEASE</version>
   </parent>
-  <groupId>poo.library.app.web</groupId>
-  <artifactId>poo-library-app-web</artifactId>
+  <groupId>poo.library.app.web.selfhosting</groupId>
+  <artifactId>poo-library-app-web-selfhosting</artifactId>
   <version>0.1.0-RELEASE</version>
-  <!-- <packaging>war</packaging> -->
-  <packaging>jar</packaging>
-  <name>poo-library-app-web</name>
+  <name>poo-library-app-web-selfhosting</name>
+  <url>http://maven.apache.org</url>
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <version.jersey>2.23.1</version.jersey>
     <version.jetty>9.3.9.M0</version.jetty>
@@ -21,27 +21,17 @@
 
     <jetty.http.port>9090</jetty.http.port>
     <resources.path>${project.basedir}/src/main/resources</resources.path>
-
   </properties>
   <dependencies>
-
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-servlets</artifactId>
-      <version>${version.jetty}</version>
-      <scope>runtime</scope>
+      <artifactId>jetty-server</artifactId>
+      <version>9.4.0.M0</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-plus</artifactId>
-      <version>${version.jetty}</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-jndi</artifactId>
-      <version>${version.jetty}</version>
-      <scope>runtime</scope>
+      <artifactId>jetty-servlet</artifactId>
+      <version>9.4.0.M0</version>
     </dependency>
 
     <!-- <dependency> -->
@@ -69,7 +59,7 @@
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
       <version>3.1.0</version>
-      <scope>provided</scope>
+      <!-- <scope>provided</scope> -->
     </dependency>
     <dependency>
       <groupId>javax.ws.rs</groupId>
@@ -82,39 +72,33 @@
       <groupId>org.glassfish.jersey.connectors</groupId>
       <artifactId>jersey-jetty-connector</artifactId>
       <version>${version.jersey}</version>
-      <scope>runtime</scope>
     </dependency>
 
     <dependency>
       <groupId>org.glassfish.jersey.containers</groupId>
       <artifactId>jersey-container-servlet-core</artifactId>
       <version>${version.jersey}</version>
-      <scope>runtime</scope>
     </dependency>
 
     <dependency>
       <groupId>org.glassfish.jersey.media</groupId>
       <artifactId>jersey-media-json-jackson</artifactId>
       <version>${version.jersey}</version>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jersey.media</groupId>
       <artifactId>jersey-media-json-processing</artifactId>
       <version>${version.jersey}</version>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jersey.media</groupId>
       <artifactId>jersey-media-multipart</artifactId>
       <version>${version.jersey}</version>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jersey.media</groupId>
       <artifactId>jersey-media-sse</artifactId>
       <version>${version.jersey}</version>
-      <scope>runtime</scope>
     </dependency>
 
     <dependency>
@@ -136,6 +120,12 @@
     <dependency>
       <groupId>poo.library.dao.comum</groupId>
       <artifactId>poo-library-dao-comum</artifactId>
+      <version>0.1.0-RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>poo.library.app.web</groupId>
+      <artifactId>poo-library-app-web</artifactId>
       <version>0.1.0-RELEASE</version>
     </dependency>
 
@@ -178,65 +168,31 @@
       <version>${version.mysql.driver}</version>
       <scope>runtime</scope>
     </dependency>
+
   </dependencies>
+
   <build>
-    <finalName>ROOT</finalName>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>2.0</version>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
           <archive>
             <manifest>
-              <addClasspath>true</addClasspath>
-              <classpathPrefix>lib/</classpathPrefix>
+              <mainClass>poo.library.app.web.selfhosting.App</mainClass>
             </manifest>
           </archive>
-          <webResources>
-            <resource>
-              <directory>${resources.path}</directory>
-            </resource>
-          </webResources>
-          <finalName>ROOT</finalName>
-          <warName>ROOT</warName>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>${version.jetty}</version>
-        <configuration>
-          <httpConnector>
-            <port>${jetty.http.port}</port>
-          </httpConnector>
-          <scanIntervalSeconds>1</scanIntervalSeconds>
-          <jettyXml>${resources.path}/jetty.xml</jettyXml>
-          <webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory>
-        </configuration>
-        <dependencies>
-
-          <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.2.1.Final</version>
-            <scope>runtime</scope>
-          </dependency>
-
-          <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-c3p0</artifactId>
-            <version>5.2.1.Final</version>
-            <scope>runtime</scope>
-          </dependency>
-
-          <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${version.mysql.driver}</version>
-            <scope>runtime</scope>
-          </dependency>
-        </dependencies>
       </plugin>
     </plugins>
   </build>
