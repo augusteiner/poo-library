@@ -23,12 +23,14 @@
  */
 package poo.library.app.util;
 
+import poo.library.util.FalhaOperacaoException;
+
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
 public interface ISeeder<T> {
 
-    void seed();
+    void seed() throws FalhaOperacaoException;
 
     void clear();
 }

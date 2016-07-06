@@ -30,6 +30,7 @@ import poo.library.app.util.Seeder;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Administrador;
 import poo.library.modelo.Usuario;
+import poo.library.util.FalhaOperacaoException;
 import poo.library.util.Usuarios;
 
 /**
@@ -44,7 +45,7 @@ class UsuarioSeeder extends Seeder<Usuario>
     }
 
     @Override
-    public void seed() {
+    public void seed() throws FalhaOperacaoException {
 
         this.clear();
 

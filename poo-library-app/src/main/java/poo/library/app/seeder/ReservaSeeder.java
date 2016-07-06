@@ -34,6 +34,7 @@ import poo.library.dao.comum.IDAO;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
+import poo.library.util.FalhaOperacaoException;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
@@ -47,7 +48,7 @@ class ReservaSeeder extends Seeder<Reserva> implements ISeeder<Reserva> {
     }
 
     @Override
-    public void seed() {
+    public void seed() throws FalhaOperacaoException {
 
         Instant instant = Instant.now().plus(3, ChronoUnit.DAYS);
 

@@ -52,7 +52,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        testDAO();
+        //testDAO();
 
         testEMF();
     }

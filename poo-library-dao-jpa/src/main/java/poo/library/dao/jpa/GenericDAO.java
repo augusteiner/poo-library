@@ -28,6 +28,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
 import poo.library.dao.comum.IDAO;
+import poo.library.util.FalhaOperacaoException;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
@@ -113,20 +114,34 @@ public class GenericDAO<T> implements IDAO<T> {
     }
 
     @Override
-    public void save(T obj) {
+    public void save(T obj) throws FalhaOperacaoException {
 
         this.em.getTransaction().begin();
 
-        if (!this.em.contains(obj)) {
+        try {
 
-            this.em.merge(obj);
+            if (!this.em.contains(obj)) {
 
-        } else {
+                this.em.merge(obj);
 
-            this.em.persist(obj);
+            } else {
+
+                this.em.persist(obj);
+            }
+
+            this.em.flush();
+
+        } catch (Exception e) {
+
+            this.em.getTransaction().rollback();
+
+            throw new FalhaOperacaoException(
+                String.format(
+                    "Não foi possivel salvar o objeto %s",
+                    obj),
+                e);
         }
 
-        this.em.flush();
         this.em.getTransaction().commit();
     }
 }

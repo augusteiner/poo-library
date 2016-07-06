@@ -21,41 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.app.seeder;
-
-import poo.library.app.util.ISeeder;
-import poo.library.app.util.Seeder;
-import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Apostila;
-import poo.library.modelo.ItemAcervo;
-import poo.library.modelo.Livro;
-import poo.library.modelo.Texto;
-import poo.library.util.FalhaOperacaoException;
+package poo.library.util;
 
 /**
- * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-class ItemAcervoSeeder extends Seeder<ItemAcervo>
-    implements ISeeder<ItemAcervo> {
+public class FalhaOperacaoException extends Exception {
 
-    public ItemAcervoSeeder(IDAO<ItemAcervo> dao) {
+    private static final long serialVersionUID = -8055414089256933460L;
 
-        super(dao);
-    }
+    public FalhaOperacaoException(String message, Throwable cause) {
 
-    @Override
-    public void seed() throws FalhaOperacaoException {
-
-        int bibliotecaId = BibliotecaSeeder.getBibliotecaId();
-
-        ItemAcervo[] itens = new ItemAcervo[] {
-            new Livro("José A.", "POO - Introdução", 2.5, bibliotecaId),
-            new Texto("João M.", 1.5, bibliotecaId),
-            new Apostila("Maria J.", "Java & JBDC", 1.25, bibliotecaId) };
-
-        for (ItemAcervo item : itens) {
-
-            this.dao.save(item);
-        }
+        super(message, cause);
     }
 }

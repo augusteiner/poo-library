@@ -27,6 +27,7 @@ import javax.persistence.EntityManager;
 
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Usuario;
+import poo.library.util.FalhaOperacaoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -39,7 +40,7 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements IDAO<Usuario> {
     }
 
     @Override
-    public void save(Usuario obj) {
+    public void save(Usuario obj) throws FalhaOperacaoException {
 
         if (!this.getEm().contains(obj)) {
 

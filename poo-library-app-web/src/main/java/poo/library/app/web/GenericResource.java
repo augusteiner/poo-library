@@ -38,6 +38,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import poo.library.dao.comum.IDAO;
+import poo.library.util.FalhaOperacaoException;
 import poo.library.util.IIdentificavel;
 import poo.library.util.ObjetoNaoEncontradoException;
 
@@ -121,7 +122,14 @@ public abstract class GenericResource<T extends IIdentificavel> {
     @POST
     public Response post(T obj) {
 
-        this.dao.save(obj);
+        try {
+
+            this.dao.save(obj);
+
+        } catch (FalhaOperacaoException e) {
+
+            return Response.serverError().entity(e).build();
+        }
 
         URI createdUri = URI.create(String.format(
             "%s/%d",
@@ -138,7 +146,16 @@ public abstract class GenericResource<T extends IIdentificavel> {
         @PathParam("id") int id,
         T obj) {
 
-        this.dao.save(obj);
+        System.out.println("Persisting instance of: " + obj.getClass().getName());
+
+        try {
+
+            this.dao.save(obj);
+
+        } catch (FalhaOperacaoException e) {
+
+            return Response.serverError().entity(e).build();
+        }
 
         return Response.ok().build();
     }

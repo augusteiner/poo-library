@@ -35,6 +35,7 @@ import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
 import poo.library.util.Bibliotecas;
+import poo.library.util.FalhaOperacaoException;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
@@ -62,7 +63,7 @@ public class BibliotecaSeeder extends Seeder<Biblioteca>
     }
 
     @Override
-    public void seed() {
+    public void seed() throws FalhaOperacaoException {
 
         this.reservaSeeder.clear();
         this.usuarioSeeder.clear();
