@@ -142,6 +142,7 @@ fieldset fieldset {
         <tr>
           <th>Nome</th>
           <th>CPF</th>
+          <th>Tipo</th>
           <th>Endereço</th>
           <th>Ações</th>
         </tr>
@@ -152,6 +153,7 @@ fieldset fieldset {
         <tr ng-repeat="user in users">
           <td>\#{{user.id}} - {{user.nome}}</td>
           <td>{{user.cpf}}</td>
+          <td>{{user.tipo}}</td>
           <td>{{user.endereco}}</td>
           <td>
             <button ng-click="delete(user.id)">delete</button>
@@ -176,15 +178,15 @@ fieldset fieldset {
             maxlength="11" ng-model="data.cpf" required>
           </label>
         </div>
-        <div>
-          <label> Tipo:<select ng-model="data.tipo">
-              <option value="" selected disabled hidden>--
-                SELECIONE O TIPO --</option>
-              <option value="COMUM">Usuário Comum</option>
-              <option value="ADMIN">Administrador</option>
-          </select>
-          </label>
-        </div>
+        <!-- <div> -->
+        <!--   <label> Tipo:<select ng-model="data.tipo"> -->
+        <!--       <option value="" selected disabled hidden>-- -->
+        <!--         SELECIONE O TIPO --</option> -->
+        <!--       <option value="COMUM">Usuário Comum</option> -->
+        <!--       <option value="ADMIN">Administrador</option> -->
+        <!--   </select> -->
+        <!--   </label> -->
+        <!-- </div> -->
         <div>
           <label> Endereço: <input ng-model="data.endereco">
           </label>
