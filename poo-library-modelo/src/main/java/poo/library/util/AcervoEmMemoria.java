@@ -25,6 +25,7 @@ package poo.library.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import poo.library.comum.IItemAcervo;
 import poo.library.comum.ILocacao;
@@ -34,14 +35,14 @@ import poo.library.comum.IUsuario;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class InMemoryArmazem implements IBibliotecaArmazem {
+public class AcervoEmMemoria implements IAcervo {
 
     private final Collection<ILocacao> locacoes;
     private final Collection<IReserva> reservas;
     private final Collection<IUsuario> usuarios;
     private final Collection<IItemAcervo> itens;
 
-    public InMemoryArmazem() {
+    public AcervoEmMemoria() {
 
         this.locacoes = novaLista();
         this.reservas = novaLista();
@@ -49,9 +50,46 @@ public class InMemoryArmazem implements IBibliotecaArmazem {
         this.itens = novaLista();
     }
 
-    private <T> Collection<T> novaLista() {
+    @Override
+    public IItemAcervo itemPorId(int itemId) {
 
-        return new ArrayList<T>();
+        for (IItemAcervo i : this.itens) {
+
+            if (i.getId() == itemId) {
+
+                return i;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public Iterable<IItemAcervo> itens() {
+
+        return Iterables.cast(this.itens);
+    }
+
+    @Override
+    public Iterable<IItemAcervo> itensPorTermo(String termo) {
+
+        Collection<IItemAcervo> itens = novaLista();
+
+        for (IItemAcervo i : this.itens) {
+
+            if (i.match(termo)) {
+
+                itens.add(i);
+            }
+        }
+
+        return itens;
+    }
+
+    @Override
+    public Iterator<IItemAcervo> iterator() {
+
+        return this.itens().iterator();
     }
 
     @Override
@@ -97,42 +135,6 @@ public class InMemoryArmazem implements IBibliotecaArmazem {
     }
 
     @Override
-    public IItemAcervo itemPorId(int itemId) {
-
-        for (IItemAcervo i : this.itens) {
-
-            if (i.getId() == itemId) {
-
-                return i;
-            }
-        }
-
-        return null;
-    }
-
-    @Override
-    public Iterable<IItemAcervo> itens() {
-
-        return Iterables.cast(this.itens);
-    }
-
-    @Override
-    public Iterable<IItemAcervo> itensPorTermo(String termo) {
-
-        Collection<IItemAcervo> itens = novaLista();
-
-        for (IItemAcervo i : this.itens) {
-
-            if (i.match(termo)) {
-
-                itens.add(i);
-            }
-        }
-
-        return itens;
-    }
-
-    @Override
     public IReserva reservaPorId(int reservaId) {
 
         for (IReserva r : this.reservas) {
@@ -175,6 +177,30 @@ public class InMemoryArmazem implements IBibliotecaArmazem {
     }
 
     @Override
+    public void salvarItemAcervo(IItemAcervo itemAcervo) {
+
+        this.itens.add(itemAcervo);
+    }
+
+    @Override
+    public void salvarLocacao(ILocacao locacao) {
+
+        this.locacoes.add(locacao);
+    }
+
+    @Override
+    public void salvarReserva(IReserva reserva) {
+
+        this.reservas.add(reserva);
+    }
+
+    @Override
+    public void salvarUsuario(IUsuario usuario) {
+
+        this.usuarios.add(usuario);
+    }
+
+    @Override
     public IUsuario usuarioPorId(int usuarioId) {
 
         for (IUsuario u : this.usuarios) {
@@ -210,27 +236,8 @@ public class InMemoryArmazem implements IBibliotecaArmazem {
         return usuarios;
     }
 
-    @Override
-    public void salvarItemAcervo(IItemAcervo itemAcervo) {
+    private <T> Collection<T> novaLista() {
 
-        this.itens.add(itemAcervo);
-    }
-
-    @Override
-    public void salvarLocacao(ILocacao locacao) {
-
-        this.locacoes.add(locacao);
-    }
-
-    @Override
-    public void salvarReserva(IReserva reserva) {
-
-        this.reservas.add(reserva);
-    }
-
-    @Override
-    public void salvarUsuario(IUsuario usuario) {
-
-        this.usuarios.add(usuario);
+        return new ArrayList<T>();
     }
 }

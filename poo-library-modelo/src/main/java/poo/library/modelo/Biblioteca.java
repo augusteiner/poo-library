@@ -32,7 +32,7 @@ import poo.library.comum.IItemAcervo;
 import poo.library.comum.ILocacao;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
-import poo.library.util.IBibliotecaArmazem;
+import poo.library.util.IAcervo;
 import poo.library.util.IBuscador;
 import poo.library.util.ItemIndisponivelException;
 
@@ -49,7 +49,7 @@ public class Biblioteca implements IBiblioteca {
     private int qteDiasValidadeReserva;
     private int qteDiasLocacao;
 
-    private IBibliotecaArmazem armazem;
+    private IAcervo acervo;
 
     public Biblioteca() { }
 
@@ -77,7 +77,7 @@ public class Biblioteca implements IBiblioteca {
     @Override
     public Iterable<IItemAcervo> getAcervo() {
 
-        return null;
+        return this.acervo;
     }
 
     @Override
@@ -116,9 +116,9 @@ public class Biblioteca implements IBiblioteca {
         return null;
     }
 
-    public IBuscador getStorage() {
+    public IBuscador getBuscador() {
 
-        return this.armazem;
+        return this.acervo;
     }
 
     @Override
@@ -150,7 +150,7 @@ public class Biblioteca implements IBiblioteca {
                 item.getId(),
                 usuario.getId());
 
-            this.armazem.salvarLocacao(l);
+            this.acervo.salvarLocacao(l);
 
         } else {
 
@@ -186,9 +186,9 @@ public class Biblioteca implements IBiblioteca {
         this.qteDiasValidadeReserva = qteDiasValidadeReserva;
     }
 
-    public void setStorage(IBibliotecaArmazem armazem) {
+    public void setAcervo(IAcervo acervo) {
 
-        this.armazem = armazem;
+        this.acervo = acervo;
     }
 
     @Override
