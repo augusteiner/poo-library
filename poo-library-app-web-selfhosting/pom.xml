@@ -145,11 +145,11 @@
       <version>0.1.0-RELEASE</version>
     </dependency>
 
-    <dependency>
+    <!--<dependency>
       <groupId>poo.library.app.web</groupId>
       <artifactId>poo-library-app-web</artifactId>
       <version>0.1.0-RELEASE</version>
-    </dependency>
+    </dependency>-->
 
     <dependency>
       <groupId>poo.library.dao.jpa</groupId>
@@ -193,29 +193,29 @@
 
   </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>poo.library.app.web.selfhosting.App</mainClass>
-            </manifest>
-          </archive>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+  <!-- <build> -->
+  <!--   <plugins> -->
+  <!--     <plugin> -->
+  <!--       <artifactId>maven-assembly-plugin</artifactId> -->
+  <!--       <executions> -->
+  <!--         <execution> -->
+  <!--           <phase>package</phase> -->
+  <!--           <goals> -->
+  <!--             <goal>single</goal> -->
+  <!--           </goals> -->
+  <!--         </execution> -->
+  <!--       </executions> -->
+  <!--       <configuration> -->
+  <!--         <archive> -->
+  <!--           <manifest> -->
+  <!--             <mainClass>poo.library.app.web.selfhosting.App</mainClass> -->
+  <!--           </manifest> -->
+  <!--         </archive> -->
+  <!--         <descriptorRefs> -->
+  <!--           <descriptorRef>jar-with-dependencies</descriptorRef> -->
+  <!--         </descriptorRefs> -->
+  <!--       </configuration> -->
+  <!--     </plugin> -->
+  <!--   </plugins> -->
+  <!-- </build> -->
 </project>
