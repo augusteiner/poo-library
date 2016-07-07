@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This web.xml file is not required when using Servlet 3.0 container, see implementation 
+  details http://jersey.java.net/nonav/documentation/latest/jax-rs.html -->
+<web-fragment version="3.1" xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/web-fragment_3_1.xsd">
+  <name>admin</name>
+  <listener>
+    <listener-class>poo.library.app.web.pages.admin.InitListener
+    </listener-class>
+  </listener>
+  <jsp-config>
+  </jsp-config>
+</web-fragment>
