@@ -57,7 +57,7 @@ public class App {
         testEMF();
     }
 
-    private static void testDAO() {
+    public static void testDAO() {
 
         IDAOFactory factory = new DAOFactory();
         factory.connect();

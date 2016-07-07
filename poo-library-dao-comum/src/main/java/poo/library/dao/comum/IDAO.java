@@ -23,7 +23,6 @@
  */
 package poo.library.dao.comum;
 
-import poo.library.comum.IUsuario;
 import poo.library.util.FalhaOperacaoException;
 import poo.library.util.ObjetoNaoEncontradoException;
 
