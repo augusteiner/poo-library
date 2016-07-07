@@ -47,7 +47,7 @@ public class Usuario implements IUsuario {
     private ETipoUsuario tipo;
 
     private Collection<Reserva> reservas;
-    private Collection<Locacao> alugueis;
+    private Collection<Locacao> locacoes;
 
     public Usuario() {
 
@@ -89,7 +89,7 @@ public class Usuario implements IUsuario {
     @Override
     public Iterable<ILocacao> getLocacoes() {
 
-        return Iterables.cast(this.alugueis);
+        return Iterables.cast(this.locacoes);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class Usuario implements IUsuario {
 
     public void setAlugueis(Collection<Locacao> alugueis) {
 
-        this.alugueis = alugueis;
+        this.locacoes = alugueis;
     }
 
     @Override

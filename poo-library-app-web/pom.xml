@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<project
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
@@ -25,13 +24,6 @@
 
   </properties>
   <dependencies>
-    <dependency>
-      <groupId>poo.library.app.web.pages.admin</groupId>
-      <artifactId>poo-library-app-web-pages-admin</artifactId>
-      <version>0.1.0-RELEASE</version>
-      <scope>runtime</scope>
-    </dependency>
-
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-servlets</artifactId>
@@ -185,6 +177,13 @@
       <version>${version.mysql.driver}</version>
       <scope>runtime</scope>
     </dependency>
+
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>1.4.192</version>
+      <scope>runtime</scope>
+    </dependency>
   </dependencies>
   <build>
     <finalName>ROOT</finalName>
@@ -219,7 +218,7 @@
           </httpConnector>
           <scanIntervalSeconds>1</scanIntervalSeconds>
           <jettyXml>${resources.path}/jetty.xml</jettyXml>
-          <webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory>
+          <!-- <webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory> -->
         </configuration>
         <dependencies>
 
@@ -242,6 +241,61 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>${version.mysql.driver}</version>
             <scope>runtime</scope>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+      <plugin>
+        <groupId>net.sf.alchim</groupId>
+        <artifactId>winstone-maven-plugin</artifactId>
+        <version>1.2</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>embed</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <cmdLineOptions>
+            <property>
+              <name>httpPort</name>
+              <value>9090</value>
+            </property>
+
+            <property>
+              <name>ajp13Port</name>
+              <value>-1</value>
+            </property>
+            <property>
+              <name>controlPort</name>
+              <value>-1</value>
+            </property>
+            <property>
+              <name>directoryListings</name>
+              <value>false</value>
+            </property>
+            <property>
+              <name>useInvoker</name>
+              <value>false</value>
+            </property>
+
+            <property>
+              <name>useJasper</name>
+              <value>true</value>
+            </property>
+            <property>
+              <name>useSavedSessions</name>
+              <value>true</value>
+            </property>
+          </cmdLineOptions>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>net.sourceforge.winstone</groupId>
+            <artifactId>winstone</artifactId>
+            <version>0.9.9</version>
           </dependency>
         </dependencies>
       </plugin>

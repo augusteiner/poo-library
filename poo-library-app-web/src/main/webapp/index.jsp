@@ -151,7 +151,7 @@ fieldset fieldset {
       </tfoot>
       <tbody>
         <tr ng-repeat="user in users">
-          <td>\#{{user.id}} - {{user.nome}}</td>
+          <td># {{user.id}} - {{user.nome}}</td>
           <td>{{user.cpf}}</td>
           <td>{{user.tipo}}</td>
           <td>{{user.endereco}}</td>

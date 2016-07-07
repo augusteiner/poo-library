@@ -31,8 +31,6 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
-import poo.library.app.InitListener;
-
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
@@ -52,7 +50,9 @@ public class App {
          * http://stackoverflow.com/questions/28733805/jersey-how-to-add-jackson-to-servlet-holder#answer-28734049}
          */
 
-        final ResourceConfig application = new ResourceConfig().packages("poo.library.app.web").register(JacksonFeature.class);
+        final ResourceConfig application = new ResourceConfig()
+            .packages("poo.library.app.web")
+            .register(JacksonFeature.class);
 
         Server server = new Server(9090);
 
@@ -71,7 +71,7 @@ public class App {
         staticServlet.setInitParameter("resourceBase", "src/main/webapp");
         staticServlet.setInitParameter("pathInfoOnly", "true");
 
-        context.addEventListener(new InitListener());
+        //context.addEventListener(new InitListener());
 
         context.addServlet(jerseyServlet, "/api/*");
 

@@ -120,15 +120,15 @@ public class GenericDAO<T> implements IDAO<T> {
 
         try {
 
-//            if (!this.em.contains(obj)) {
-//
-//                this.em.merge(obj);
-//                this.em.flush();
-//
-//            } else {
+            if (!this.em.contains(obj)) {
+
+                this.em.merge(obj);
+                this.em.flush();
+
+            } else {
 
                 this.em.persist(obj);
-//            }
+            }
 
         } catch (Exception e) {
 
