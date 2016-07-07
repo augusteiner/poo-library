@@ -27,8 +27,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import poo.library.comum.IIdentificavel;
 import poo.library.dao.comum.IDAO;
-import poo.library.util.IIdentificavel;
 import poo.library.util.ISearcheable;
 import poo.library.util.ObjetoNaoEncontradoException;
 

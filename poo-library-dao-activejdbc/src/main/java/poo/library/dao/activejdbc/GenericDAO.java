@@ -26,9 +26,9 @@ package poo.library.dao.activejdbc;
 import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.ModelDelegate;
 
+import poo.library.comum.IIdentificavel;
 import poo.library.dao.activejdbc.util.Models;
 import poo.library.dao.comum.IDAO;
-import poo.library.util.IIdentificavel;
 import poo.library.util.Iterables;
 import poo.library.util.ObjetoNaoEncontradoException;
 

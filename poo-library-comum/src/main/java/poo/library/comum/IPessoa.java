@@ -23,8 +23,6 @@
  */
 package poo.library.comum;
 
-import poo.library.util.IIdentificavel;
-
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */

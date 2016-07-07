@@ -24,11 +24,12 @@
 package poo.library.modelo;
 
 import poo.library.comum.ETipoUsuario;
+import poo.library.comum.IAdministrador;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Administrador extends Usuario {
+public class Administrador extends Usuario implements IAdministrador {
 
     public Administrador() {
 

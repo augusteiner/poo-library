@@ -23,7 +23,6 @@
  */
 package poo.library.comum;
 
-import poo.library.util.IIdentificavel;
 import poo.library.util.ItemIndisponivelException;
 
 /**
