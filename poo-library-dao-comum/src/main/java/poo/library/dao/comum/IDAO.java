@@ -35,9 +35,9 @@ public interface IDAO<T> {
 
     int count();
 
-    void delete(T obj);
+    void delete(T obj) throws FalhaOperacaoException;
 
-    void deleteById(int id) throws ObjetoNaoEncontradoException;
+    void deleteById(int id) throws ObjetoNaoEncontradoException, FalhaOperacaoException;
 
     T find(int id) throws ObjetoNaoEncontradoException;
 

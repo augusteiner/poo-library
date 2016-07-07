@@ -24,6 +24,7 @@
 package poo.library.app.util;
 
 import poo.library.dao.comum.IDAO;
+import poo.library.util.FalhaOperacaoException;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
@@ -37,7 +38,7 @@ public abstract class Seeder<T> {
         this.dao = dao;
     }
 
-    public void clear() {
+    public void clear() throws FalhaOperacaoException {
 
         for (T i : this.dao.all()) {
 

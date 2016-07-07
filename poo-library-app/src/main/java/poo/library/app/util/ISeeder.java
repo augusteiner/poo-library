@@ -32,5 +32,5 @@ public interface ISeeder<T> {
 
     void seed() throws FalhaOperacaoException;
 
-    void clear();
+    void clear() throws FalhaOperacaoException;
 }

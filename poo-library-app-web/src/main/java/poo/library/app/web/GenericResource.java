@@ -71,7 +71,7 @@ public abstract class GenericResource<T extends IIdentificavel> {
 
     @DELETE
     @Path("/{id}")
-    public void delete(@PathParam("id") int id) {
+    public Response delete(@PathParam("id") int id) {
 
         try {
 
@@ -80,7 +80,13 @@ public abstract class GenericResource<T extends IIdentificavel> {
         } catch (ObjetoNaoEncontradoException e) {
 
             throw new NotFoundException(e.getMessage(), e);
+
+        } catch (FalhaOperacaoException e) {
+
+            return Response.serverError().entity(e).build();
         }
+
+        return Response.ok().build();
     }
 
     @GET
