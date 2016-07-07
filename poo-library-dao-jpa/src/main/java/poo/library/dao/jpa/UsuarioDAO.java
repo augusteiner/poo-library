@@ -24,6 +24,11 @@
 package poo.library.dao.jpa;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Usuario;
@@ -50,5 +55,29 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements IDAO<Usuario> {
         }
 
         super.save(obj);
+    }
+
+    @Override
+    public Iterable<Usuario> search(String term) {
+
+        CriteriaBuilder builder = this.getEm().getCriteriaBuilder();
+
+        CriteriaQuery<Usuario> query = builder.createQuery(this.cls);
+
+        Root<Usuario> root = query.from(this.cls);
+
+        Expression<String> nomePath = root.get("nome");
+        Expression<String> cpfPath = root.get("cpf");
+        Expression<String> enderecoPath = root.get("endereco");
+
+        Predicate p = builder.or(
+            builder.greaterThan(builder.locate(nomePath, term), 1),
+            builder.greaterThan(builder.locate(cpfPath, term), 1),
+            builder.greaterThan(builder.locate(enderecoPath, term), 1));
+
+        query.where(p);
+
+        return this.getEm().createQuery(query)
+            .getResultList();
     }
 }

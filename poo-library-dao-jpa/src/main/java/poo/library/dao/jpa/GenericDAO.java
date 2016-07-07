@@ -39,7 +39,7 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 public class GenericDAO<T> implements IDAO<T> {
 
-    private Class<T> cls;
+    protected final Class<T> cls;
     private EntityManager em;
 
     public GenericDAO(Class<T> cls, EntityManager em) {
