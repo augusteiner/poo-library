@@ -23,10 +23,13 @@
  */
 package poo.library.dao.jpa;
 
+import java.util.Collections;
+
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
+import poo.library.comum.IIdentificavel;
 import poo.library.dao.comum.IDAO;
 import poo.library.util.FalhaOperacaoException;
 import poo.library.util.ObjetoNaoEncontradoException;
@@ -64,15 +67,30 @@ public class GenericDAO<T> implements IDAO<T> {
     }
 
     @Override
-    public void delete(T obj) {
+    public void delete(T obj) throws FalhaOperacaoException {
 
-        this.em.remove(obj);
+        this.em.getTransaction().begin();
+
+        try {
+
+            this.em.remove(obj);
+
+        } catch (Exception e) {
+
+            this.em.getTransaction().rollback();
+
+            throw new FalhaOperacaoException(
+                String.format("Não foi possivel remover %s", obj),
+                e);
+        }
+
+        this.em.getTransaction().commit();
     }
 
     @Override
-    public void deleteById(int id) throws ObjetoNaoEncontradoException {
+    public void deleteById(int id) throws ObjetoNaoEncontradoException, FalhaOperacaoException {
 
-        T obj = this.find(id);
+        T obj = this.em.getReference(this.cls, id);
 
         this.delete(obj);
     }
@@ -120,7 +138,8 @@ public class GenericDAO<T> implements IDAO<T> {
 
         try {
 
-            if (!this.em.contains(obj)) {
+            if (obj instanceof IIdentificavel &&
+                ((IIdentificavel) obj).getId() != 0) {
 
                 this.em.merge(obj);
                 this.em.flush();
@@ -147,6 +166,6 @@ public class GenericDAO<T> implements IDAO<T> {
     @Override
     public Iterable<T> search(String term) {
 
-        return null;
+        return Collections.emptyList();
     }
 }
