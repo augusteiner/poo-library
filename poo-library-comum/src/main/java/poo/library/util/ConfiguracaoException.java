@@ -26,7 +26,7 @@ package poo.library.util;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class ConfiguracaoException extends Exception {
+public class ConfiguracaoException extends BibliotecaException {
 
     private static final long serialVersionUID = -2241030444612911418L;
 

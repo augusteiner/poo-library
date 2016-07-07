@@ -26,7 +26,7 @@ package poo.library.util;
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public class DAONaoRegistradoException extends Exception {
+public class DAONaoRegistradoException extends BibliotecaException {
 
     private static final long serialVersionUID = 2460385855713197467L;
 

@@ -26,12 +26,27 @@ package poo.library.util;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class FalhaOperacaoException extends BibliotecaException {
+public abstract class BibliotecaException extends Exception {
 
-    private static final long serialVersionUID = -8055414089256933460L;
+    private static final long serialVersionUID = 7300381610320682234L;
 
-    public FalhaOperacaoException(String message, Throwable cause) {
+    public BibliotecaException() {
+
+        super();
+    }
+
+    public BibliotecaException(String message) {
+
+        super(message);
+    }
+
+    public BibliotecaException(String message, Throwable cause) {
 
         super(message, cause);
+    }
+
+    public BibliotecaException(Throwable cause) {
+
+        super(cause);
     }
 }
