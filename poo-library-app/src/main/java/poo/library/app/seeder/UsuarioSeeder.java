@@ -47,19 +47,25 @@ class UsuarioSeeder extends Seeder<Usuario>
     @Override
     public void seed() throws FalhaOperacaoException {
 
+        Usuario u1;
+        Usuario u2;
+        Usuario u3;
+
+        IDAO<Usuario> dao = this.dao;
+
         this.clear();
 
-        sysoutCentro("Inserindo usuários de teste", 45);
-
-        Administrador admin;
+        sysoutCentro("Inserindo usuários de teste");
 
         Usuario[] seed = new Usuario[] {
-            admin = new Administrador("José", "11111111111"),
-            new Usuario("João", "22222222222"),
-            new Usuario("Maria", "33333333333")
+            u1 = new Administrador("José", "11111111111"),
+            u2 = new Usuario("João", "22222222211"),
+            u3 = new Usuario("Maria", "33333333311")
         };
 
-        admin.setEndereco("R. das Acácias, 211");
+        u1.setEndereco("R. das Acácias, 211");
+        u2.setEndereco("R. das Jabulanes, 70");
+        u3.setEndereco("R. do Boro, 10");
 
         for (Usuario u : seed) {
 
@@ -70,19 +76,19 @@ class UsuarioSeeder extends Seeder<Usuario>
                 u));
         }
 
-        Iterable<Usuario> usuarios = dao.all();
+        String termo = "Jo";
 
-        sysoutCentro(
-            "Alterando nomes dos usuários",
-            45);
+        sysoutCentro(String.format(
+            "Buscando usuários por termo: %s",
+            termo));
 
-        for (Usuario u : usuarios) {
+        for (Usuario u : dao.search(termo)) {
 
             System.out.println(Usuarios.toString(u));
 
             u.setNome(u.getNome() + " II");
 
-            dao.save(u);
+            // dao.save(u);
         }
     }
 }

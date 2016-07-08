@@ -81,15 +81,13 @@ public class BibliotecaSeeder extends Seeder<Biblioteca>
 
         bibliotecaId = libs[0].getId();
 
-        sysoutCentro(
-            String.format(
-                "ID da biblioteca principal #%d",
-                bibliotecaId),
-            50);
+        sysoutCentro(String.format(
+            "ID da biblioteca principal #%d",
+            bibliotecaId));
 
         for (IBiblioteca lib : this.dao.all()) {
 
-            sysoutCentro(Bibliotecas.toString(lib), 50);
+            sysoutCentro(Bibliotecas.toString(lib));
         }
 
         this.itemSeeder.seed();

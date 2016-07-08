@@ -44,14 +44,14 @@ public class DAOStorageTests {
 
         storage = new DAOBuscador();
 
-        sysoutCentro("TODOS os usuários", 50);
+        sysoutCentro("TODOS os usuários");
 
         for (IUsuario usuario : storage.usuarios()) {
 
             System.out.println(Usuarios.toString(usuario));
         }
 
-        sysoutCentro("Usuário por Id", 50);
+        sysoutCentro("Usuário por Id");
 
         System.out.println(Usuarios.toString(storage.usuarioPorId(103)));
     }

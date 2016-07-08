@@ -34,7 +34,10 @@ public class Configuration {
 
     public static void configure(String[] args) throws ConfiguracaoException {
 
-        configureDAOFactory(args[1]);
+        if (args.length > 1) {
+
+            configureDAOFactory(args[1]);
+        }
     }
 
     private static void configureDAOFactory(String className)

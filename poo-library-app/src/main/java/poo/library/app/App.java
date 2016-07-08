@@ -41,12 +41,15 @@ public class App {
 
     public static void configure() {
 
+        // System.err.close();
+
         try {
 
             poo.library.Configuration.configure(new String[] {
                 "--factories.dao",
                 //"poo.library.dao.memory.DAOFactory"
                 //"poo.library.dao.activejdbc.DAOFactory"
+                //"poo.library.dao.jpa.MySqlConnectionDAOFactory"
                 "poo.library.dao.jpa.DefaultConnectionDAOFactory"
             });
 
@@ -101,11 +104,9 @@ public class App {
 
                 ISeeder<?> seeder = (ISeeder<?>) cls.getConstructor(IDAO.class).newInstance(dao);
 
-                sysoutCentro(
-                    String.format(
-                        "Executando seed em %s",
-                        seeder.getClass().getSimpleName()),
-                    50);
+                sysoutCentro(String.format(
+                    "Executando seed em %s",
+                    seeder.getClass().getSimpleName()));
 
                 seeder.seed();
 
@@ -116,6 +117,11 @@ public class App {
         }
 
         DAOFactory.close();
+    }
+
+    public static void sysoutCentro(String texto) {
+
+        sysoutCentro(texto, 55);
     }
 
     public static void sysoutCentro(String texto, int size) {
