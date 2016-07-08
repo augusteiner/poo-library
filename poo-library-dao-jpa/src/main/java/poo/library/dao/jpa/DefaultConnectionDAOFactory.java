@@ -33,15 +33,21 @@ import poo.library.dao.comum.IDAOFactory;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class DAOFactory implements IDAOFactory {
+public class DefaultConnectionDAOFactory implements IDAOFactory {
+
+    public static final String PERSISTENCE_UNIT_NAME = "poo.library.dao.jpa.default";
 
     private EntityManagerFactory factory;
     private EntityManager em;
 
-    public DAOFactory() {
+    public DefaultConnectionDAOFactory(String persistenceUnitName) {
 
-        this.factory = Persistence.createEntityManagerFactory(
-            "poo.library.dao.jpa.default");
+        this.factory = Persistence.createEntityManagerFactory(persistenceUnitName);
+    }
+
+    public DefaultConnectionDAOFactory() {
+
+        this(PERSISTENCE_UNIT_NAME);
     }
 
     @Override
@@ -59,9 +65,7 @@ public class DAOFactory implements IDAOFactory {
     @Override
     public <T> IDAO<T> createNew(Class<T> cls) {
 
-        return new GenericDAO<T>(
-            cls,
-            this.em);
+        return new GenericDAO<T>(cls, this.em);
     }
 
     @Override

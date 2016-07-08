@@ -21,51 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.app;
+package poo.library.dao.jpa;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
-import poo.library.dao.comum.DAOFactory;
-import poo.library.util.ConfiguracaoException;
+import poo.library.dao.comum.IDAOFactory;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class InitListener implements ServletContextListener {
+public class MySqlConnectionDAOFactory extends DefaultConnectionDAOFactory
+    implements IDAOFactory {
 
-    @Override
-    public void contextInitialized(ServletContextEvent sce) {
+    public static final String PERSISTENCE_UNIT_NAME = "poo.library.dao.jpa.mysql";
 
-        String factory = System.getProperty("factories.dao");
+    public MySqlConnectionDAOFactory() {
 
-        if (factory == null) {
-
-            factory = "poo.library.dao.jpa.DefaultConnectionDAOFactory";
-        }
-
-        try {
-
-            poo.library.Configuration.configure(new String[] {
-                "--factories.dao",
-                //"poo.library.dao.memory.DAOFactory"
-                //"poo.library.dao.activejdbc.DAOFactory"
-                //"poo.library.dao.jpa.DefaultConnectionDAOFactory"
-                //"poo.library.dao.jpa.MySqlConnectionDAOFactory"
-                factory
-            });
-
-        } catch (ConfiguracaoException e) {
-
-            e.printStackTrace();
-        }
-
-        DAOFactory.connect();
-    }
-
-    @Override
-    public void contextDestroyed(ServletContextEvent sce) {
-
-        //
+        super(PERSISTENCE_UNIT_NAME);
     }
 }

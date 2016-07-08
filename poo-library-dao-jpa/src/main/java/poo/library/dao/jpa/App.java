@@ -59,7 +59,7 @@ public class App {
 
     public static void testDAO() {
 
-        IDAOFactory factory = new DAOFactory();
+        IDAOFactory factory = new DefaultConnectionDAOFactory();
         factory.connect();
 
         IDAO<Usuario> usuarios = factory.createNew(Usuario.class);

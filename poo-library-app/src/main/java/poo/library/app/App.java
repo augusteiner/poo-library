@@ -47,7 +47,7 @@ public class App {
                 "--factories.dao",
                 //"poo.library.dao.memory.DAOFactory"
                 //"poo.library.dao.activejdbc.DAOFactory"
-                "poo.library.dao.jpa.DAOFactory"
+                "poo.library.dao.jpa.DefaultConnectionDAOFactory"
             });
 
             DAOFactory.connect();

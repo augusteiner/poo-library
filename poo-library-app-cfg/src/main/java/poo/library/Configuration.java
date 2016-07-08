@@ -54,6 +54,10 @@ public class Configuration {
 
         if (IDAOFactory.class.isAssignableFrom(cls)) {
 
+            System.out.println("----------------");
+            System.out.println("Configurada Factory de DAOs: " + cls.getName());
+            System.out.println("----------------");
+
             try {
 
                 instance = (IDAOFactory) cls.newInstance();
@@ -66,10 +70,6 @@ public class Configuration {
 
                 ConfiguracaoException.raise(e);
             }
-
-            System.out.println("----------------");
-            System.out.println("Configurada Factory de DAOs: " + cls.getName());
-            System.out.println("----------------");
 
         } else {
 
