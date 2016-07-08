@@ -138,11 +138,13 @@ public class GenericDAO<T> implements IDAO<T> {
 
         try {
 
-            if (obj instanceof IIdentificavel &&
+            if (!this.em.contains(obj) &&
+
+                obj instanceof IIdentificavel &&
                 ((IIdentificavel) obj).getId() != 0) {
 
                 this.em.merge(obj);
-                this.em.flush();
+                //this.em.flush();
 
             } else {
 

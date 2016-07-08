@@ -23,18 +23,54 @@
  */
 package poo.library.dao.jpa;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import poo.library.dao.comum.IDAO;
 import poo.library.dao.comum.IDAOFactory;
+import poo.library.modelo.Usuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class MySqlConnectionDAOFactory extends DAOFactory
-    implements IDAOFactory {
+public abstract class DAOFactory implements IDAOFactory {
 
-    public static final String PERSISTENCE_UNIT_NAME = "poo.library.dao.jpa.mysql";
+    private EntityManagerFactory factory;
+    private EntityManager em;
 
-    public MySqlConnectionDAOFactory() {
+    public DAOFactory(String persistenceUnitName) {
 
-        super(PERSISTENCE_UNIT_NAME);
+        this.factory = Persistence.createEntityManagerFactory(persistenceUnitName);
+    }
+
+    @Override
+    public void connect() {
+
+        this.em = this.factory.createEntityManager();
+    }
+
+    @Override
+    public void connectPooled() {
+
+        this.connect();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T> IDAO<T> createNew(Class<T> cls) {
+
+        if (cls.equals(Usuario.class)) {
+
+            return (IDAO<T>) new UsuarioDAO(this.em);
+        }
+
+        return new GenericDAO<T>(cls, this.em);
+    }
+
+    @Override
+    public void close() {
+
+        this.factory.close();
     }
 }

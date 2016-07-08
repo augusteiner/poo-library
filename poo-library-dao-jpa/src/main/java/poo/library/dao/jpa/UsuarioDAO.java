@@ -47,13 +47,7 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements IDAO<Usuario> {
     @Override
     public void save(Usuario obj) throws FalhaOperacaoException {
 
-        if (!this.getEm().contains(obj)) {
-
-            this.getEm().find(Usuario.class, obj.getId());
-
-            this.getEm().merge(obj);
-        }
-
+        // TODO Detectar alteração no tipo de usuário???
         super.save(obj);
     }
 
@@ -71,9 +65,9 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements IDAO<Usuario> {
         Expression<String> enderecoPath = root.get("endereco");
 
         Predicate p = builder.or(
-            builder.greaterThan(builder.locate(nomePath, term), 1),
-            builder.greaterThan(builder.locate(cpfPath, term), 1),
-            builder.greaterThan(builder.locate(enderecoPath, term), 1));
+            builder.gt(builder.locate(nomePath, term), 0),
+            builder.gt(builder.locate(cpfPath, term), 0),
+            builder.gt(builder.locate(enderecoPath, term), 0));
 
         query.where(p);
 

@@ -23,54 +23,18 @@
  */
 package poo.library.dao.jpa;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import poo.library.dao.comum.IDAO;
 import poo.library.dao.comum.IDAOFactory;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class DefaultConnectionDAOFactory implements IDAOFactory {
+public class DefaultConnectionDAOFactory extends DAOFactory
+    implements IDAOFactory {
 
     public static final String PERSISTENCE_UNIT_NAME = "poo.library.dao.jpa.default";
 
-    private EntityManagerFactory factory;
-    private EntityManager em;
-
-    public DefaultConnectionDAOFactory(String persistenceUnitName) {
-
-        this.factory = Persistence.createEntityManagerFactory(persistenceUnitName);
-    }
-
     public DefaultConnectionDAOFactory() {
 
-        this(PERSISTENCE_UNIT_NAME);
-    }
-
-    @Override
-    public void connect() {
-
-        this.em = this.factory.createEntityManager();
-    }
-
-    @Override
-    public void connectPooled() {
-
-        this.connect();
-    }
-
-    @Override
-    public <T> IDAO<T> createNew(Class<T> cls) {
-
-        return new GenericDAO<T>(cls, this.em);
-    }
-
-    @Override
-    public void close() {
-
-        this.factory.close();
+        super(PERSISTENCE_UNIT_NAME);
     }
 }
