@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ -z "$1" ]
+then
+
+clazz="MySqlConnectionDAOFactory"
+
+else
+
+clazz=$1
+
+fi
+
+java -jar \
+  -Dfactories.dao=poo.library.dao.jpa.$clazz \
+  *-web/target/*-standalone.jar

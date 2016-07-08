@@ -4,5 +4,7 @@ set -e
 
 ./clean
 
+./build
+
 ./run
 
