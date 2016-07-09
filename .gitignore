@@ -4,6 +4,7 @@
 **/.settings/
 **/.externalToolBuilders/
 **/target/
+**/bin/
 
 **.class
 **.jar
