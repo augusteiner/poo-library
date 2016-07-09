@@ -50,6 +50,13 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 public class App {
 
+    private Biblioteca b1;
+    private Livro i1;
+    private Apostila i2;
+    private Reserva r1;
+    private Usuario u1;
+    private Usuario u2;
+
     public static void main(String[] args) {
 
         //testDAO();
@@ -90,7 +97,7 @@ public class App {
 
         try {
 
-            seed(ef);
+            new App().seed(ef);
 
         } catch (Exception e) {
 
@@ -100,27 +107,50 @@ public class App {
         }
     }
 
-    private static void seed(EntityManagerFactory ef) {
-
-        Biblioteca b1;
-        Livro i1;
-        Apostila i2;
-        Usuario u1;
-        Usuario u2;
-        Reserva r1;
+    private void seed(EntityManagerFactory ef) throws Exception {
 
         EntityManager em = ef.createEntityManager();
 
         em.getTransaction().begin();
 
-        u1 = new Usuario("Augusto", "12345612311");
-        u1.setEndereco("R. José Gular, 811");
+        try {
 
-        u2 = new Administrador("José", "32135465498");
-        u2.setEndereco("R. dos Admins, 879");
+            saveUsuarios(em);
 
-        em.persist(u1);
-        em.persist(u2);
+            saveAcervo(em);
+
+            saveReserva(em);
+
+        } catch (Exception e) {
+
+            em.getTransaction().rollback();
+
+            throw e;
+        }
+
+        em.getTransaction().commit();
+
+        em.clear();
+
+        listarLivros(em);
+
+        em.close();
+    }
+
+    private void saveReserva(EntityManager em) {
+
+        r1 = new Reserva(
+            new Date(),
+
+            i1.getId(),
+            u1.getId());
+
+        r1.setValidaAte(Date.from(Instant.now().plus(3, ChronoUnit.DAYS)));
+
+        em.persist(r1);
+    }
+
+    private void saveAcervo(EntityManager em) {
 
         em.persist(b1 = new Biblioteca("Bib. São Lucas", 1.5));
 
@@ -133,22 +163,23 @@ public class App {
 
         em.persist(i1);
         em.persist(i2);
+    }
 
-        r1 = new Reserva(
-            new Date(),
+    private void saveUsuarios(EntityManager em) {
 
-            i1.getId(),
-            u1.getId());
+        u1 = new Usuario("Augusto", "12345612311");
+        u1.setEndereco("R. José Gular, 811");
 
-        r1.setValidaAte(Date.from(Instant.now().plus(3, ChronoUnit.DAYS)));
+        u2 = new Administrador("José", "32135465498");
+        u2.setEndereco("R. dos Admins, 879");
 
-        em.persist(r1);
+        em.persist(u1);
+        em.persist(u2);
+    }
 
-        em.getTransaction().commit();
+    private static void listarLivros(EntityManager em) {
 
-        em.clear();
-
-        r1 = em.find(Reserva.class, r1.getId());
+        Reserva r1 = null;
 
         System.out.println(r1);
 
@@ -167,9 +198,5 @@ public class App {
 
             System.out.println(l);
         }
-
-        em.close();
-
-        System.exit(0);
     }
 }

@@ -49,8 +49,8 @@ public class App {
                 "--factories.dao",
                 //"poo.library.dao.memory.DAOFactory"
                 //"poo.library.dao.activejdbc.DAOFactory"
-                //"poo.library.dao.jpa.MySqlConnectionDAOFactory"
-                "poo.library.dao.jpa.DefaultConnectionDAOFactory"
+                "poo.library.dao.jpa.MySqlConnectionDAOFactory"
+                //"poo.library.dao.jpa.DefaultConnectionDAOFactory"
             });
 
             DAOFactory.connect();
@@ -119,9 +119,16 @@ public class App {
         DAOFactory.close();
     }
 
-    public static void sysoutCentro(String texto) {
+    public static void sysoutCentro(String format, Object... params) {
 
-        sysoutCentro(texto, 55);
+        sysoutCentro(String.format(
+            format,
+            params));
+    }
+
+    public static void sysoutCentro(Object texto) {
+
+        sysoutCentro(texto.toString(), 55);
     }
 
     public static void sysoutCentro(String texto, int size) {
