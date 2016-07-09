@@ -15,6 +15,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+    <version.hibernate>5.2.1.Final</version.hibernate>
     <version.mysql.driver>5.1.39</version.mysql.driver>
   </properties>
   <dependencies>
@@ -30,15 +31,23 @@
     </dependency>
 
     <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>7.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
-      <version>5.2.1.Final</version>
+      <version>${version.hibernate}</version>
+      <scope>runtime</scope>
     </dependency>
 
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-c3p0</artifactId>
-      <version>5.2.1.Final</version>
+      <version>${version.hibernate}</version>
       <scope>runtime</scope>
     </dependency>
 

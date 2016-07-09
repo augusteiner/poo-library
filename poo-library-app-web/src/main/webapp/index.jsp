@@ -134,7 +134,7 @@ fieldset fieldset {
 </style>
 </head>
 <body>
-  <h2>RESTful Web {{'Api' + '!'}}</h2>
+  <h2>RESTful Web Api!</h2>
   <section class="user-mgmt" ng-controller="UserCtrlr">
     <table class="data-table">
       <caption>Usuários</caption>
