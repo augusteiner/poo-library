@@ -51,6 +51,9 @@ CREATE TABLE `biblioteca` (
   `nome` VARCHAR(100) NOT NULL,
   `multaDiaria` DECIMAL(12, 4) NOT NULL DEFAULT 0,
 
+  `qteDiasValidadeReserva` SMALLINT UNSIGNED NOT NULL,
+  `qteDiasLocacao` SMALLINT UNSIGNED NOT NULL,
+
   PRIMARY KEY (`id`)
 )
 COMMENT '';

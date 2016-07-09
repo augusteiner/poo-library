@@ -2,7 +2,7 @@
 <entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
   version="2.0">
-  <entity class="poo.library.modelo.Biblioteca" access="FIELD">
+  <entity class="poo.library.modelo.Biblioteca" access="FIELD" metadata-complete="true">
     <table name="biblioteca" />
     <attributes>
       <id name="id">
@@ -13,11 +13,13 @@
       <basic name="nome" />
       <basic name="multaDiaria" />
 
+      <basic name="qteDiasLocacao" />
+      <basic name="qteDiasValidadeReserva" />
+
       <transient name="acervo" />
       <transient name="alugueis" />
       <transient name="reservas" />
       <transient name="usuarios" />
-      <transient name="storage" />
     </attributes>
   </entity>
 </entity-mappings>

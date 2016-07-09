@@ -23,8 +23,8 @@
 
       <basic name="bibliotecaId" />
 
-      <transient name="biblioteca" />
       <transient name="categoria" />
+      <transient name="biblioteca" />
     </attributes>
   </entity>
 </entity-mappings>

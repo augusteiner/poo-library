@@ -29,6 +29,7 @@ import javax.persistence.Persistence;
 
 import poo.library.dao.comum.IDAO;
 import poo.library.dao.comum.IDAOFactory;
+import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Usuario;
 
 /**
@@ -63,9 +64,15 @@ public abstract class DAOFactory implements IDAOFactory {
         if (cls.equals(Usuario.class)) {
 
             return (IDAO<T>) new UsuarioDAO(this.em);
-        }
 
-        return new GenericDAO<T>(cls, this.em);
+        } else if (cls.equals(ItemAcervo.class)) {
+
+            return (IDAO<T>) new ItemAcervoDAO(this.em);
+
+        } else {
+
+            return new GenericDAO<T>(cls, this.em);
+        }
     }
 
     @Override

@@ -17,8 +17,11 @@
         <generated-value strategy="IDENTITY" />
       </id>
 
-      <transient name="tipo" />
+      <basic name="nome" />
+      <basic name="cpf" />
+      <basic name="endereco" />
 
+      <transient name="tipo" />
       <transient name="locacoes"></transient>
       <transient name="reservas"></transient>
     </attributes>

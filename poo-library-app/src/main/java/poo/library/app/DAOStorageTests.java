@@ -25,7 +25,9 @@ package poo.library.app;
 
 import static poo.library.app.App.*;
 
+import poo.library.comum.IItemAcervo;
 import poo.library.comum.IUsuario;
+import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.util.DAOBuscador;
 import poo.library.util.IBuscador;
 import poo.library.util.ObjetoNaoEncontradoException;
@@ -36,13 +38,42 @@ import poo.library.util.Usuarios;
  */
 public class DAOStorageTests {
 
-    private static IBuscador storage;
+    private IBuscador storage;
 
     public static void main(String[] args) throws ObjetoNaoEncontradoException {
 
+//        System.err.close();
+
         configure();
 
-        storage = new DAOBuscador();
+        DAOStorageTests tests = new DAOStorageTests();
+
+        tests.storage = new DAOBuscador();
+
+        try {
+
+            tests.insert();
+            tests.search();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            DAOFactory.close();
+        }
+    }
+
+    private void insert() {
+
+        Iterable<IItemAcervo> itens = storage.itensPorTermo("Livro");
+
+        for (IItemAcervo item : itens) {
+
+            sysoutCentro("Item de Acervo: %s", item);
+        }
+    }
+
+    private void search() {
 
         sysoutCentro("TODOS os usuários");
 
@@ -53,6 +84,13 @@ public class DAOStorageTests {
 
         sysoutCentro("Usuário por Id");
 
-        System.out.println(Usuarios.toString(storage.usuarioPorId(103)));
+        try {
+
+            System.out.println(Usuarios.toString(storage.usuarioPorId(7)));
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            e.printStackTrace();
+        }
     }
 }
