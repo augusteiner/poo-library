@@ -37,7 +37,7 @@ public abstract class ItemAcervo implements IItemAcervo {
 
     private String autor;
 
-    private double precoAluguel;
+    private double precoLocacao;
 
     private int qteDisponivel;
     private int qteTotal;
@@ -51,13 +51,13 @@ public abstract class ItemAcervo implements IItemAcervo {
 
     public ItemAcervo(
         String autor,
-        double precoAluguel,
+        double precoLocacao,
         int qteDisponivel,
         int qteTotal,
         int bibliotecaId) {
 
         this.autor = autor;
-        this.precoAluguel = precoAluguel;
+        this.precoLocacao = precoLocacao;
         this.qteDisponivel = qteDisponivel;
         this.qteTotal = qteTotal;
 
@@ -127,9 +127,9 @@ public abstract class ItemAcervo implements IItemAcervo {
         return this.id;
     }
     @Override
-    public double getPrecoAluguel() {
+    public double getPrecoLocacao() {
 
-        return this.precoAluguel;
+        return this.precoLocacao;
     }
 
     @Override
@@ -186,7 +186,7 @@ public abstract class ItemAcervo implements IItemAcervo {
     @Override
     public void setPrecoAluguel(double precoAluguel) {
 
-        this.precoAluguel = precoAluguel;
+        this.precoLocacao = precoAluguel;
     }
 
     @Override
@@ -205,9 +205,14 @@ public abstract class ItemAcervo implements IItemAcervo {
     public String toString() {
 
         return String.format(
-            "#%d - %s (R$ %s)",
+            "%s#%d - %s (R$ %s)",
+
+            this.getCategoria(),
+
             this.getId(),
+
             this.getAutor(),
-            this.getPrecoAluguel());
+
+            this.getPrecoLocacao());
     }
 }

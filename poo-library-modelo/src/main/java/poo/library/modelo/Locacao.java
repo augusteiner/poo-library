@@ -25,7 +25,9 @@ package poo.library.modelo;
 
 import java.util.Date;
 
+import poo.library.comum.IItemAcervo;
 import poo.library.comum.ILocacao;
+import poo.library.comum.IUsuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -40,16 +42,25 @@ public class Locacao extends Requisicao implements ILocacao {
     public Locacao() { }
 
     public Locacao(
-        double precoCobrado,
         Date devolverAte,
 
-        int itemAcervoId,
-        int usuarioId) {
+        IItemAcervo item,
+        IUsuario usuario) {
 
-        super(itemAcervoId, usuarioId);
+        super(item.getId(), usuario.getId());
 
-        this.devolverAte = devolverAte;
-        this.precoCobrado = precoCobrado;
+        this.init(devolverAte, item);
+    }
+
+    public Locacao(
+        Date devolverAte,
+
+        ItemAcervo item,
+        Usuario usuario) {
+
+        super(item, usuario);
+
+        this.init(devolverAte, item);
     }
 
     @Override
@@ -70,6 +81,12 @@ public class Locacao extends Requisicao implements ILocacao {
         return this.precoCobrado;
     }
 
+    private void init(Date devolverAte, IItemAcervo item) {
+
+        this.devolverAte = devolverAte;
+        this.precoCobrado = item.getPrecoLocacao();
+    }
+
     @Override
     public void setDevolverAte(Date devolverAte) {
 
@@ -86,5 +103,16 @@ public class Locacao extends Requisicao implements ILocacao {
     public void setPrecoCobrado(double precoCobrado) {
 
         this.precoCobrado = precoCobrado;
+    }
+
+    @Override
+    public String toString() {
+
+        return String.format(
+            super.toString() + " ~ (R$ %.2f) :: %s",
+
+            this.getPrecoCobrado(),
+
+            this.getUsuario());
     }
 }

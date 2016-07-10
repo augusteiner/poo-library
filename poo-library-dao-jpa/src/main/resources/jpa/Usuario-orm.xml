@@ -21,9 +21,13 @@
       <basic name="cpf" />
       <basic name="endereco" />
 
+      <one-to-many name="reservas" access="FIELD" fetch="LAZY" mapped-by="usuarioId">
+      </one-to-many>
+
+      <one-to-many name="locacoes" access="FIELD" fetch="LAZY" mapped-by="usuarioId">
+      </one-to-many>
+
       <transient name="tipo" />
-      <transient name="locacoes"></transient>
-      <transient name="reservas"></transient>
     </attributes>
   </entity>
 </entity-mappings>

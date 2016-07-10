@@ -144,11 +144,10 @@ public class Biblioteca implements IBiblioteca {
             Date devolverAte = Date.from(dias);
 
             ILocacao l = new Locacao(
-                item.getPrecoAluguel(),
                 devolverAte,
 
-                item.getId(),
-                usuario.getId());
+                item,
+                usuario);
 
             this.acervo.salvarLocacao(l);
 

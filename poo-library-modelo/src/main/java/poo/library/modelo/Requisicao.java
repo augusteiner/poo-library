@@ -45,6 +45,13 @@ public abstract class Requisicao implements IRequisicao {
     public Requisicao() { }
 
     public Requisicao(
+        ItemAcervo itemAcervo,
+        Usuario usuario) {
+
+        this(itemAcervo.getId(), usuario.getId());
+    }
+
+    public Requisicao(
         int itemAcervoId,
         int usuarioId) {
 
@@ -121,5 +128,18 @@ public abstract class Requisicao implements IRequisicao {
     public void setUsuarioId(int usuarioId) {
 
         this.usuarioId = usuarioId;
+    }
+
+    @Override
+    public String toString() {
+
+        return String.format(
+            "#%d - %s :: %s",
+
+            this.getId(),
+
+            this.getItemAcervo(),
+
+            this.getUsuario());
     }
 }

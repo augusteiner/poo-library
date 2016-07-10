@@ -93,11 +93,16 @@ public class Livro extends ItemAcervo implements ILivro {
     public String toString() {
 
         return String.format(
-            "#%d - %s (%s)",
+            "%s#%d - %s, %s (R$ %s)",
+
+            this.getCategoria(),
 
             this.getId(),
+
             this.getTitulo(),
-            this.getAutor());
+            this.getAutor(),
+
+            this.getPrecoLocacao());
     }
 
     @Override

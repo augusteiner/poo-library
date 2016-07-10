@@ -76,7 +76,7 @@ CREATE TABLE `item_acervo` (
   `qteTotal` INT UNSIGNED NOT NULL DEFAULT 0,
   `qteDisponivel` INT UNSIGNED NOT NULL DEFAULT 0,
 
-  `precoAluguel` DECIMAL(12, 4) NOT NULL,
+  `precoLocacao` DECIMAL(12, 4) NOT NULL,
 
   PRIMARY KEY (`id`),
 
@@ -90,9 +90,9 @@ CREATE TABLE `item_acervo` (
 COMMENT '';
 
 
-DROP TABLE IF EXISTS `aluguel`;
+DROP TABLE IF EXISTS `locacao`;
 
-CREATE TABLE `aluguel` (
+CREATE TABLE `locacao` (
 
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 
@@ -107,13 +107,13 @@ CREATE TABLE `aluguel` (
 
   PRIMARY KEY (`id`),
 
-  CONSTRAINT `fk_aluguel_usuario`
+  CONSTRAINT `fk_locacao_usuario`
     FOREIGN KEY (`usuarioId`)
     REFERENCES `usuario` (`id`)
     ON UPDATE CASCADE
     ON DELETE RESTRICT,
 
-  CONSTRAINT `fk_aluguel_item_acervo`
+  CONSTRAINT `fk_locacao_item_acervo`
     FOREIGN KEY (`itemAcervoId`)
     REFERENCES `item_acervo` (`id`)
     ON UPDATE CASCADE

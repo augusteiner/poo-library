@@ -66,14 +66,4 @@ public class Reserva extends Requisicao implements IReserva {
 
         this.validaAte = validaAte;
     }
-
-    @Override
-    public String toString() {
-
-        return String.format(
-            "#%d - %s (%s)",
-            this.getId(),
-            this.getUsuario(),
-            this.getItemAcervo());
-    }
 }

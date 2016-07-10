@@ -16,14 +16,12 @@
 
       <basic name="realizadaEm" />
 
-      <one-to-one name="usuario" target-entity="poo.library.modelo.Usuario"
-        fetch="LAZY" optional="false" id="false">
+      <one-to-one name="usuario" fetch="LAZY" optional="false" id="false">
         <join-column name="usuarioId" insertable="false" updatable="false"
           unique="false" nullable="false" />
       </one-to-one>
 
-      <one-to-one name="itemAcervo" target-entity="poo.library.modelo.ItemAcervo"
-        fetch="LAZY" optional="false" id="false">
+      <one-to-one name="itemAcervo" fetch="LAZY" optional="false" id="false">
         <join-column name="itemAcervoId" insertable="false" updatable="false"
           unique="false" nullable="false" />
       </one-to-one>

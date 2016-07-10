@@ -10,6 +10,7 @@
     <mapping-file>jpa/Biblioteca-orm.xml</mapping-file>
     <mapping-file>jpa/ItemAcervo-orm.xml</mapping-file>
     <mapping-file>jpa/Livro-orm.xml</mapping-file>
+    <mapping-file>jpa/Locacao-orm.xml</mapping-file>
     <mapping-file>jpa/Reserva-orm.xml</mapping-file>
     <mapping-file>jpa/Requisicao-orm.xml</mapping-file>
     <mapping-file>jpa/Texto-orm.xml</mapping-file>

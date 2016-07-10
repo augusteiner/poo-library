@@ -34,7 +34,7 @@ public interface IItemAcervo extends IIdentificavel, ILocalizado, ISearcheable {
 
     ECategoriaItem getCategoria();
 
-    double getPrecoAluguel();
+    double getPrecoLocacao();
 
     int getQteDisponivel();
 

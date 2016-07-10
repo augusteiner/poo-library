@@ -17,7 +17,7 @@
       </id>
 
       <basic name="autor" />
-      <basic name="precoAluguel" />
+      <basic name="precoLocacao" />
       <basic name="qteDisponivel" />
       <basic name="qteTotal" />
 
