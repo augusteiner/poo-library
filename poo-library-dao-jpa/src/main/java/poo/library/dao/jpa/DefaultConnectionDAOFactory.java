@@ -28,7 +28,7 @@ import poo.library.dao.comum.IDAOFactory;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class DefaultConnectionDAOFactory extends DAOFactory
+public class DefaultConnectionDAOFactory extends JpaDAOFactory
     implements IDAOFactory {
 
     public static final String PERSISTENCE_UNIT_NAME = "poo.library.dao.jpa.default";

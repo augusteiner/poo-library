@@ -81,12 +81,10 @@ class MemoryDAO<T> implements IDAO<T> {
 
         for (T i : this.storage) {
 
-            if (i instanceof IIdentificavel) {
+            if (i instanceof IIdentificavel &&
+                ((IIdentificavel) i).getId() == id) {
 
-                if (((IIdentificavel) i).getId() == id) {
-
-                    return i;
-                }
+                return i;
             }
         }
 
@@ -109,6 +107,7 @@ class MemoryDAO<T> implements IDAO<T> {
         if (this.storage.isEmpty()) {
 
             throw new ObjetoNaoEncontradoException("");
+
         } else {
 
             return this.storage.get(0);

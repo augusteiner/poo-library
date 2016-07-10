@@ -48,8 +48,8 @@ public class InitListener implements ServletContextListener {
 
             poo.library.Configuration.configure(new String[] {
                 "--factories.dao",
-                //"poo.library.dao.memory.DAOFactory"
-                //"poo.library.dao.activejdbc.DAOFactory"
+                //"poo.library.dao.memory.MemoryDAOFactory"
+                //"poo.library.dao.activejdbc.ActiveJdbcDAOFactory"
                 //"poo.library.dao.jpa.DefaultConnectionDAOFactory"
                 //"poo.library.dao.jpa.MySqlConnectionDAOFactory"
                 factory

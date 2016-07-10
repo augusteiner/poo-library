@@ -24,7 +24,7 @@
       <property name="javax.persistence.jdbc.user" value="biblioteca" />
       <property name="javax.persistence.jdbc.password" value="123456" />
 
-      <property name="hibernate.show_sql" value="true" />
+      <property name="hibernate.show_sql" value="false" />
 
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
       <property name="hibernate.flushMode" value="FLUSH_AUTO" />
@@ -52,6 +52,7 @@
     <mapping-file>jpa/Biblioteca-orm.xml</mapping-file>
     <mapping-file>jpa/ItemAcervo-orm.xml</mapping-file>
     <mapping-file>jpa/Livro-orm.xml</mapping-file>
+    <mapping-file>jpa/Locacao-orm.xml</mapping-file>
     <mapping-file>jpa/Reserva-orm.xml</mapping-file>
     <mapping-file>jpa/Requisicao-orm.xml</mapping-file>
     <mapping-file>jpa/Texto-orm.xml</mapping-file>

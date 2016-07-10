@@ -30,7 +30,7 @@ import poo.library.dao.comum.NullDAOFactory;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class DAOFactory extends NullDAOFactory implements IDAOFactory {
+public class MemoryDAOFactory extends NullDAOFactory implements IDAOFactory {
 
     @Override
     public <T> IDAO<T> createNew(Class<T> cls) {

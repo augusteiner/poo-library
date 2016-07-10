@@ -38,13 +38,13 @@ import poo.library.dao.comum.IDAOFactory;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class DAOFactory implements IDAOFactory {
+public class ActiveJdbcDAOFactory implements IDAOFactory {
 
     private static final Map<Type, Class<?>> registry = new Hashtable<Type, Class<?>>();
 
     static {
 
-        discoverImpls(DAOFactory.class.getPackage());
+        discoverImpls(ActiveJdbcDAOFactory.class.getPackage());
     }
 
     private static void discoverImpls(Package pkg) {

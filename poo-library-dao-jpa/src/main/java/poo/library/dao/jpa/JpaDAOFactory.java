@@ -35,12 +35,12 @@ import poo.library.modelo.Usuario;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public abstract class DAOFactory implements IDAOFactory {
+public abstract class JpaDAOFactory implements IDAOFactory {
 
     private EntityManagerFactory factory;
     private EntityManager em;
 
-    public DAOFactory(String persistenceUnitName) {
+    public JpaDAOFactory(String persistenceUnitName) {
 
         this.factory = Persistence.createEntityManagerFactory(persistenceUnitName);
     }
