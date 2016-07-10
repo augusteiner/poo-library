@@ -23,19 +23,18 @@
  */
 package poo.library.app.seeder;
 
+import static poo.library.app.seeder.ItemAcervoSeeder.*;
+import static poo.library.app.seeder.UsuarioSeeder.*;
+
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import poo.library.app.util.ISeeder;
 import poo.library.app.util.Seeder;
-import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
-import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Reserva;
-import poo.library.modelo.Usuario;
 import poo.library.util.FalhaOperacaoException;
-import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -52,25 +51,11 @@ class ReservaSeeder extends Seeder<Reserva> implements ISeeder<Reserva> {
 
         Instant instant = Instant.now().plus(3, ChronoUnit.DAYS);
 
-        int usuarioId;
-        int itemAcervoId;
-
         Date validaAte = Date.from(instant);
 
-        try {
-
-            usuarioId = DAOFactory.createNew(Usuario.class).first().getId();
-            itemAcervoId = DAOFactory.createNew(ItemAcervo.class).first().getId();
-
-        } catch (ObjetoNaoEncontradoException e) {
-
-            e.printStackTrace();
-
-            return;
-        }
-
         Reserva[] reservas = new Reserva[] {
-            new Reserva(validaAte, itemAcervoId, usuarioId), };
+            new Reserva(validaAte, firstItemAcervoId, firstUsuarioId)
+        };
 
         for (Reserva r : reservas) {
 

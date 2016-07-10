@@ -23,7 +23,8 @@
  */
 package poo.library.app.seeder;
 
-import static poo.library.app.App.sysoutCentro;
+import static poo.library.app.seeder.LocacaoSeeder.*;
+import static poo.library.app.App.*;
 
 import poo.library.app.util.ISeeder;
 import poo.library.app.util.Seeder;
@@ -39,6 +40,12 @@ import poo.library.util.Usuarios;
 class UsuarioSeeder extends Seeder<Usuario>
     implements ISeeder<Usuario> {
 
+    static int firstUsuarioId;
+
+    private Usuario u1;
+    private Usuario u2;
+    private Usuario u3;
+
     public UsuarioSeeder(IDAO<Usuario> dao) {
 
         super(dao);
@@ -47,15 +54,11 @@ class UsuarioSeeder extends Seeder<Usuario>
     @Override
     public void seed() throws FalhaOperacaoException {
 
-        Usuario u1;
-        Usuario u2;
-        Usuario u3;
-
         IDAO<Usuario> dao = this.dao;
 
         this.clear();
 
-        sysoutCentro("Inserindo usuários de teste");
+        printlnCentro("Inserindo usuários de teste");
 
         Usuario[] seed = new Usuario[] {
             u1 = new Administrador("José", "11111111111"),
@@ -67,6 +70,8 @@ class UsuarioSeeder extends Seeder<Usuario>
         u2.setEndereco("R. das Jabulanes, 70");
         u3.setEndereco("R. do Boro, 10");
 
+        usuario = u1;
+
         for (Usuario u : seed) {
 
             dao.save(u);
@@ -76,9 +81,11 @@ class UsuarioSeeder extends Seeder<Usuario>
                 u));
         }
 
+        firstUsuarioId = u1.getId();
+
         String termo = "Jo";
 
-        sysoutCentro(String.format(
+        printlnCentro(String.format(
             "Buscando usuários por termo: %s",
             termo));
 

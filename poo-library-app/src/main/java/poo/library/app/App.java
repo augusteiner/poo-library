@@ -33,48 +33,45 @@ import poo.library.app.util.ISeeder;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.util.ConfiguracaoException;
+import poo.library.util.FalhaOperacaoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 public class App {
 
-    public static void configure() {
+    public static void configure() throws ConfiguracaoException {
+
+        poo.library.Configuration.configure(new String[] {
+            "--factories.dao",
+            //"poo.library.dao.memory.MemoryDAOFactory"
+            //"poo.library.dao.activejdbc.ActiveJdbcDAOFactory"
+            //"poo.library.dao.jpa.DefaultConnectionDAOFactory"
+            "poo.library.dao.jpa.MySqlConnectionDAOFactory"
+        });
+
+        DAOFactory.connect();
+    }
+
+    public static void main(String[] args) throws Exception {
 
         // System.err.close();
 
+        configure();
+
         try {
 
-            poo.library.Configuration.configure(new String[] {
-                "--factories.dao",
-                //"poo.library.dao.memory.DAOFactory"
-                //"poo.library.dao.activejdbc.DAOFactory"
-                "poo.library.dao.jpa.MySqlConnectionDAOFactory"
-                //"poo.library.dao.jpa.DefaultConnectionDAOFactory"
-            });
+            seed();
 
-            DAOFactory.connect();
+            BuscadorTests.run();
 
-        } catch (ConfiguracaoException e) {
-
-            e.printStackTrace();
+        } finally {
 
             DAOFactory.close();
-
-            System.exit(1);
-
-            return;
         }
     }
 
-    public static void main(String[] args) {
-
-        configure();
-
-        seed();
-    }
-
-    private static void seed() {
+    private static void seed() throws FalhaOperacaoException {
 
         Reflections r = new Reflections(
             App.class.getPackage().getName(),
@@ -100,38 +97,84 @@ public class App {
                 continue;
             }
 
+            ISeeder<?> seeder;
+
             try {
 
-                ISeeder<?> seeder = (ISeeder<?>) cls.getConstructor(IDAO.class).newInstance(dao);
-
-                sysoutCentro(String.format(
-                    "Executando seed em %s",
-                    seeder.getClass().getSimpleName()));
-
-                seeder.seed();
+                seeder = (ISeeder<?>) cls.getConstructor(IDAO.class).newInstance(dao);
 
             } catch (Exception e) {
 
                 e.printStackTrace();
-            }
-        }
 
-        DAOFactory.close();
+                continue;
+            }
+
+            printlnCentro(String.format(
+                "Executando seed em %s",
+                seeder.getClass().getSimpleName()));
+
+            seeder.seed();
+        }
     }
 
-    public static void sysoutCentro(String format, Object... params) {
+    public static ISeeder<?> newSeeder(Class<?> cls) {
 
-        sysoutCentro(String.format(
+        if (!Modifier.isPublic(cls.getModifiers()))
+            return null;
+
+        ParameterizedType t = ((ParameterizedType) (cls.getGenericInterfaces()[0]));
+
+        Class<?> inter = ((Class<?>) t.getActualTypeArguments()[0]);
+
+        Object dao = DAOFactory.createNew(inter);
+
+        if (dao == null) {
+
+            System.out.println(String.format(
+                "DAO \'%s\' não encontrado, continuando!",
+                inter));
+
+            return null;
+        }
+
+        try {
+
+            return (ISeeder<?>) cls.getConstructor(IDAO.class).newInstance(dao);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static void printlnCentro(String format, Object... params) {
+
+        printlnCentro(String.format(
             format,
             params));
     }
 
-    public static void sysoutCentro(Object texto) {
+    public static void printlnCentro(Object texto) {
 
-        sysoutCentro(texto.toString(), 55);
+        printlnCentro(texto.toString(), 55);
     }
 
-    public static void sysoutCentro(String texto, int size) {
+    public static void println(Object arg) {
+
+        println(arg.toString());
+    }
+
+    public static void println(String format, Object... params) {
+
+        System.out.println(String.format(
+            format,
+            params));
+    }
+
+    private static void printlnCentro(String texto, int size) {
 
         texto = texto.trim();
         StringBuilder header = new StringBuilder(size);

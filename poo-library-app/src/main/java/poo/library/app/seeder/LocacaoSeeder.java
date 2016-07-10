@@ -23,29 +23,29 @@
  */
 package poo.library.app.seeder;
 
-import static poo.library.app.seeder.LocacaoSeeder.*;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 import poo.library.app.util.ISeeder;
 import poo.library.app.util.Seeder;
 import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Apostila;
 import poo.library.modelo.ItemAcervo;
-import poo.library.modelo.Livro;
-import poo.library.modelo.Texto;
+import poo.library.modelo.Locacao;
+import poo.library.modelo.Usuario;
 import poo.library.util.FalhaOperacaoException;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-class ItemAcervoSeeder extends Seeder<ItemAcervo>
-    implements ISeeder<ItemAcervo> {
+class LocacaoSeeder extends Seeder<Locacao> implements ISeeder<Locacao> {
 
-    static int firstItemAcervoId;
+    static Usuario usuario;
 
-    private ItemAcervo i1;
-    private ItemAcervo i2;
+    static ItemAcervo item1;
+    static ItemAcervo item2;
 
-    public ItemAcervoSeeder(IDAO<ItemAcervo> dao) {
+    public LocacaoSeeder(IDAO<Locacao> dao) {
 
         super(dao);
     }
@@ -53,21 +53,17 @@ class ItemAcervoSeeder extends Seeder<ItemAcervo>
     @Override
     public void seed() throws FalhaOperacaoException {
 
-        int bibliotecaId = BibliotecaSeeder.getBibliotecaId();
+        Instant tresDias = Instant.now().plus(3, ChronoUnit.DAYS);
+        Date dataDevolucao = Date.from(tresDias);
 
-        ItemAcervo[] itens = new ItemAcervo[] {
-            i1 = new Livro("José A.", "POO - Introdução", 2.5, bibliotecaId),
-            i2 = new Texto("João M.", 1.5, bibliotecaId),
-            new Apostila("Maria J.", "Java & JBDC", 1.25, bibliotecaId) };
+        Locacao[] locacoes = new Locacao[] {
+            new Locacao(dataDevolucao, item1, usuario),
+            new Locacao(dataDevolucao, item2, usuario)
+        };
 
-        item1 = i1;
-        item2 = i2;
+        for (Locacao l : locacoes) {
 
-        for (ItemAcervo item : itens) {
-
-            this.dao.save(item);
+            this.dao.save(l);
         }
-
-        firstItemAcervoId = i1.getId();
     }
 }

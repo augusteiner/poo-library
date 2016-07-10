@@ -23,7 +23,7 @@
  */
 package poo.library.app.seeder;
 
-import static poo.library.app.App.sysoutCentro;
+import static poo.library.app.App.*;
 
 import poo.library.app.util.ISeeder;
 import poo.library.app.util.Seeder;
@@ -32,6 +32,7 @@ import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
+import poo.library.modelo.Locacao;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
 import poo.library.util.Bibliotecas;
@@ -44,9 +45,11 @@ public class BibliotecaSeeder extends Seeder<Biblioteca>
     implements ISeeder<Biblioteca> {
 
     private static int bibliotecaId;
+
     private final ISeeder<ItemAcervo> itemSeeder;
     private final ISeeder<Reserva> reservaSeeder;
     private final ISeeder<Usuario> usuarioSeeder;
+    private final ISeeder<Locacao> locacaoSeeder;
 
     public static int getBibliotecaId() {
 
@@ -58,6 +61,7 @@ public class BibliotecaSeeder extends Seeder<Biblioteca>
         super(dao);
 
         this.itemSeeder = new ItemAcervoSeeder(DAOFactory.createNew(ItemAcervo.class));
+        this.locacaoSeeder = new LocacaoSeeder(DAOFactory.createNew(Locacao.class));
         this.reservaSeeder = new ReservaSeeder(DAOFactory.createNew(Reserva.class));
         this.usuarioSeeder = new UsuarioSeeder(DAOFactory.createNew(Usuario.class));
     }
@@ -65,9 +69,11 @@ public class BibliotecaSeeder extends Seeder<Biblioteca>
     @Override
     public void seed() throws FalhaOperacaoException {
 
+        this.locacaoSeeder.clear();
         this.reservaSeeder.clear();
         this.usuarioSeeder.clear();
         this.itemSeeder.clear();
+
         this.clear();
 
         Biblioteca[] libs = new Biblioteca[] {
@@ -81,17 +87,18 @@ public class BibliotecaSeeder extends Seeder<Biblioteca>
 
         bibliotecaId = libs[0].getId();
 
-        sysoutCentro(String.format(
+        printlnCentro(String.format(
             "ID da biblioteca principal #%d",
             bibliotecaId));
 
         for (IBiblioteca lib : this.dao.all()) {
 
-            sysoutCentro(Bibliotecas.toString(lib));
+            printlnCentro(Bibliotecas.toString(lib));
         }
 
         this.itemSeeder.seed();
         this.usuarioSeeder.seed();
         this.reservaSeeder.seed();
+        this.locacaoSeeder.seed();
     }
 }
