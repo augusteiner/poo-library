@@ -31,7 +31,7 @@ import poo.library.dao.comum.IDAOFactory;
 public class MySqlConnectionDAOFactory extends JpaDAOFactory
     implements IDAOFactory {
 
-    public static final String PERSISTENCE_UNIT_NAME = "poo.library.dao.jpa.mysql";
+    public static final String PERSISTENCE_UNIT_NAME = "poo.library.dao.jpa.mysql.local";
 
     public MySqlConnectionDAOFactory() {
 

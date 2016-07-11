@@ -10,7 +10,7 @@
           controller: 'AdminCtrlr'
       }).
       when('/admin/usuario/:id', {
-          templateUrl: '/admin/usuario/edit.jsp',
+          templateUrl: '/admin/usuario/edit/',
           controller: 'AdminCtrlr'
       }).
       otherwise({
@@ -84,9 +84,7 @@
 
         $scope.data = {};
 
-        $scope.load();
-        
-        $location.path($scope.rootPath);
+        $scope.cancel();
       });
     };
 

@@ -17,6 +17,8 @@
 
     <version.jersey>2.23.1</version.jersey>
     <version.jetty>9.3.9.M0</version.jetty>
+
+    <version.hibernate>5.2.1.Final</version.hibernate>
     <version.mysql.driver>5.1.39</version.mysql.driver>
 
     <jetty.http.port>9090</jetty.http.port>
@@ -160,14 +162,14 @@
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
-      <version>5.2.1.Final</version>
+      <version>${version.hibernate}</version>
       <scope>runtime</scope>
     </dependency>
 
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-c3p0</artifactId>
-      <version>5.2.1.Final</version>
+      <version>${version.hibernate}</version>
       <scope>runtime</scope>
     </dependency>
 
@@ -225,14 +227,14 @@
           <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.2.1.Final</version>
+            <version>${version.hibernate}</version>
             <scope>runtime</scope>
           </dependency>
 
           <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-c3p0</artifactId>
-            <version>5.2.1.Final</version>
+            <version>${version.hibernate}</version>
             <scope>runtime</scope>
           </dependency>
 

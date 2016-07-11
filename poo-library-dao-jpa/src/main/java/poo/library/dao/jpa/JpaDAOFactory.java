@@ -61,6 +61,11 @@ public abstract class JpaDAOFactory implements IDAOFactory {
     @SuppressWarnings("unchecked")
     public <T> IDAO<T> createNew(Class<T> cls) {
 
+        if (this.em == null) {
+
+            this.connectPooled();
+        }
+
         if (cls.equals(Usuario.class)) {
 
             return (IDAO<T>) new UsuarioDAO(this.em);
@@ -78,6 +83,10 @@ public abstract class JpaDAOFactory implements IDAOFactory {
     @Override
     public void close() {
 
-        this.factory.close();
+        if (this.em != null) {
+
+            this.em.close();
+            this.em = null;
+        }
     }
 }

@@ -23,10 +23,6 @@
  */
 package poo.library.dao.comum;
 
-import java.lang.reflect.Type;
-import java.util.Hashtable;
-import java.util.Map;
-
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
@@ -36,36 +32,22 @@ public class DAOFactory {
 
     public static void close() {
 
-        getSingleton().cache = null;
         getSingleton().impl.close();
     }
 
     public static void connect() {
-
-        getSingleton().initCache();
 
         getSingleton().impl.connect();
     }
 
     public static void connectPooled() {
 
-        getSingleton().initCache();
-
         getSingleton().impl.connectPooled();
     }
 
     public static <T> IDAO<T> createNew(Class<T> cls) {
 
-        IDAO<T> dao = INSTANCE.getFromCache(cls);
-
-        if (dao == null) {
-
-            dao = INSTANCE.impl.createNew(cls);
-
-            INSTANCE.cache.put(cls, dao);
-        }
-
-        return dao;
+        return INSTANCE.impl.createNew(cls);
     }
 
     private static DAOFactory getSingleton() {
@@ -80,23 +62,5 @@ public class DAOFactory {
 
     private IDAOFactory impl = new NullDAOFactory();
 
-    private Map<Type, IDAO<?>> cache = null;
-
     private DAOFactory() { }
-
-    @SuppressWarnings("unchecked")
-    private <T> IDAO<T> getFromCache(Class<T> cls) {
-
-        IDAO<?> dao = this.cache.get(cls);
-
-        return (IDAO<T>) dao;
-    }
-
-    private void initCache() {
-
-        if (this.cache == null) {
-
-            this.cache = new Hashtable<Type, IDAO<?>>();
-        }
-    }
 }

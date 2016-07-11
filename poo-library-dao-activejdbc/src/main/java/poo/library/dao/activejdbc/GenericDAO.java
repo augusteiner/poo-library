@@ -28,14 +28,13 @@ import org.javalite.activejdbc.ModelDelegate;
 
 import poo.library.comum.IIdentificavel;
 import poo.library.dao.activejdbc.util.Models;
-import poo.library.dao.comum.IDAO;
 import poo.library.util.Iterables;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class GenericDAO<T extends IIdentificavel> implements IDAO<T> {
+public class GenericDAO<T extends IIdentificavel> {
 
     protected final Class<? extends T> entityType;
     protected final Class<? extends Model> modelType;
@@ -48,7 +47,6 @@ public class GenericDAO<T extends IIdentificavel> implements IDAO<T> {
         this.modelType = modelType;
     }
 
-    @Override
     public Iterable<T> all() {
 
         return this.all("1 = 1");
@@ -79,7 +77,6 @@ public class GenericDAO<T extends IIdentificavel> implements IDAO<T> {
             params);
     }
 
-    @Override
     public void delete(T obj) {
 
         this.delete(
@@ -92,7 +89,6 @@ public class GenericDAO<T extends IIdentificavel> implements IDAO<T> {
         return Models.novaInstancia(entityType);
     }
 
-    @Override
     public void save(T obj) {
 
         // MAPPER.map(obj, target);
@@ -125,19 +121,16 @@ public class GenericDAO<T extends IIdentificavel> implements IDAO<T> {
         return model;
     }
 
-    @Override
     public int count() {
 
         return ModelDelegate.count(modelType).intValue();
     }
 
-    @Override
     public T find(int id) throws ObjetoNaoEncontradoException {
 
-        return null;
+        return this.findFirst("id = ?", id);
     }
 
-    @Override
     public void deleteById(int id) throws ObjetoNaoEncontradoException {
 
         int deleted = this.delete("id = ?", id);
@@ -148,16 +141,19 @@ public class GenericDAO<T extends IIdentificavel> implements IDAO<T> {
         }
     }
 
-    @Override
     public Iterable<T> search(String term) {
 
         return null;
     }
 
-    @Override
     public T first() throws ObjetoNaoEncontradoException {
 
-        Model model = ModelDelegate.findFirst(modelType, "1 = 1");
+        return findFirst("1 = 1");
+    }
+
+    private T findFirst(String condition, Object... params) throws ObjetoNaoEncontradoException {
+
+        Model model = ModelDelegate.findFirst(modelType, condition, params);
 
         if (model == null) {
 

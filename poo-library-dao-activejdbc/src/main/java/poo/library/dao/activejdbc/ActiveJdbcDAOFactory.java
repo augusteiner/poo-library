@@ -84,7 +84,7 @@ public class ActiveJdbcDAOFactory implements IDAOFactory {
 
             // TODO Refatorar para classe?
             Base.open(
-                "com.mysql.cj.jdbc.Driver",
+                "com.mysql.jdbc.Driver",
                 "jdbc:mysql://127.0.0.1:4040/biblioteca" +
                     "?serverTimezone=America/Fortaleza" +
                     "&nullNamePatternMatchesAll=true" +

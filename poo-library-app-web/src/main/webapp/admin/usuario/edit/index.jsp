@@ -39,10 +39,14 @@
           <button class="btn btn-default" type="reset"
             ng-click="cancel()">
             <span class="glyphicon glyphicon-chevron-left"></span>
-            Limpar
+            Voltar
           </button>
+          <!-- <button class="btn btn-warning" type="reset" -->
+          <!--   ng-click="void()"> -->
+          <!--   <span class="glyphicon glyphicon-trash"></span> Limpar -->
+          <!-- </button> -->
           <button class="btn btn-primary" type="submit">
-            <span class="glyphicon glyphicon-ok"></span> Salvar
+            <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
           </button>
         </div>
       </div>
