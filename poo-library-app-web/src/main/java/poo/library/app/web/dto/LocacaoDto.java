@@ -21,37 +21,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.app.web;
+package poo.library.app.web.dto;
 
-import javax.ws.rs.Path;
-
-import poo.library.app.web.dto.LocacaoDto;
-import poo.library.dao.comum.DAOFactory;
-import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Locacao;
+import java.util.Date;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Path(LocacaoResource.PATH)
-public class LocacaoResource extends GenericResource<LocacaoDto> {
+public class LocacaoDto extends RequisicaoDto {
 
-    public static final String PATH = "locacao";
+    private double precoCobrado;
 
-    public static final Class<Locacao> MODEL_CLASS = Locacao.class;
-    public static final Class<LocacaoDto> DTO_CLASS = LocacaoDto.class;
+    private Date devolverAte;
+    private Date devolvidoEm;
 
-    private final IDAO<Locacao> dao;
+    public LocacaoDto() { }
 
-    public LocacaoResource() {
+    public Date getDevolverAte() {
 
-        this(DAOFactory.createNew(MODEL_CLASS));
+        return this.devolverAte;
     }
 
-    public LocacaoResource(IDAO<Locacao> dao) {
+    public Date getDevolvidoEm() {
 
-        super(PATH, init(dao, MODEL_CLASS, DTO_CLASS));
+        return this.devolvidoEm;
+    }
 
-        this.dao = dao;
+    public double getPrecoCobrado() {
+
+        return this.precoCobrado;
+    }
+
+    public void setDevolverAte(Date devolverAte) {
+
+        this.devolverAte = devolverAte;
+    }
+
+    public void setDevolvidoEm(Date devolvidoEm) {
+
+        this.devolvidoEm = devolvidoEm;
+    }
+
+    public void setPrecoCobrado(double precoCobrado) {
+
+        this.precoCobrado = precoCobrado;
     }
 }

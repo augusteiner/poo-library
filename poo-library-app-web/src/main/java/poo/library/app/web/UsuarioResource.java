@@ -30,27 +30,35 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import poo.library.app.web.util.ConversorUsuario;
-import poo.library.app.web.util.DAOFactory;
+import poo.library.app.web.dto.UsuarioDto;
 import poo.library.comum.IReserva;
+import poo.library.dao.comum.DAOFactory;
+import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Usuario;
-import poo.library.util.IConversor;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Path(UsuarioResource.PATH)
-public class UsuarioResource extends GenericResource<Usuario> {
+public class UsuarioResource extends GenericResource<UsuarioDto> {
 
     public static final String PATH = "usuario";
-    public static final IConversor<Usuario, Usuario> CONVERSOR = ConversorUsuario.makeNew();
+
+    public static final Class<Usuario> MODEL_CLASS = Usuario.class;
+    public static final Class<UsuarioDto> DTO_CLASS = UsuarioDto.class;
+    private final IDAO<Usuario> dao;
 
     public UsuarioResource() {
 
-        super(
-            PATH,
-            DAOFactory.createNew(Usuario.class, CONVERSOR));
+        this(DAOFactory.createNew(MODEL_CLASS));
+    }
+
+    public UsuarioResource(IDAO<Usuario> dao) {
+
+        super(PATH, init(dao, MODEL_CLASS, DTO_CLASS));
+
+        this.dao = dao;
     }
 
     @GET
@@ -62,7 +70,7 @@ public class UsuarioResource extends GenericResource<Usuario> {
 
         try {
 
-            iter = this.getById(usuarioId).getReservas();
+            iter = this.dao.find(usuarioId).getReservas();
 
         } catch (ObjetoNaoEncontradoException e) {
 

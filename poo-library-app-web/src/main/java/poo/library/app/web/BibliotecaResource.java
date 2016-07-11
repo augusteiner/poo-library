@@ -25,19 +25,33 @@ package poo.library.app.web;
 
 import javax.ws.rs.Path;
 
-import poo.library.app.web.util.DAOFactory;
+import poo.library.app.web.dto.BibliotecaDto;
+import poo.library.dao.comum.DAOFactory;
+import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Biblioteca;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Path(BibliotecaResource.PATH)
-public class BibliotecaResource extends GenericResource<Biblioteca> {
+public class BibliotecaResource extends GenericResource<BibliotecaDto> {
 
     public static final String PATH = "biblioteca";
 
+    public static final Class<Biblioteca> MODEL_CLASS = Biblioteca.class;
+    public static final Class<BibliotecaDto> DTO_CLASS = BibliotecaDto.class;
+
+    private final IDAO<Biblioteca> dao;
+
     public BibliotecaResource() {
 
-        super(PATH, DAOFactory.createNew(Biblioteca.class));
+        this(DAOFactory.createNew(MODEL_CLASS));
+    }
+
+    public BibliotecaResource(IDAO<Biblioteca> dao) {
+
+        super(PATH, init(dao, MODEL_CLASS, DTO_CLASS));
+
+        this.dao = dao;
     }
 }

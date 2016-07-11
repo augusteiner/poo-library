@@ -21,37 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.app.web;
-
-import javax.ws.rs.Path;
-
-import poo.library.app.web.dto.LocacaoDto;
-import poo.library.dao.comum.DAOFactory;
-import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Locacao;
+package poo.library.app.web.dto;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Path(LocacaoResource.PATH)
-public class LocacaoResource extends GenericResource<LocacaoDto> {
+public class AdministradorDto extends UsuarioDto {
 
-    public static final String PATH = "locacao";
-
-    public static final Class<Locacao> MODEL_CLASS = Locacao.class;
-    public static final Class<LocacaoDto> DTO_CLASS = LocacaoDto.class;
-
-    private final IDAO<Locacao> dao;
-
-    public LocacaoResource() {
-
-        this(DAOFactory.createNew(MODEL_CLASS));
-    }
-
-    public LocacaoResource(IDAO<Locacao> dao) {
-
-        super(PATH, init(dao, MODEL_CLASS, DTO_CLASS));
-
-        this.dao = dao;
-    }
 }

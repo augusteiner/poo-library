@@ -21,37 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.app.web;
+package poo.library.app.web.dto;
 
-import javax.ws.rs.Path;
-
-import poo.library.app.web.dto.LocacaoDto;
-import poo.library.dao.comum.DAOFactory;
-import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Locacao;
+import java.util.Date;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Path(LocacaoResource.PATH)
-public class LocacaoResource extends GenericResource<LocacaoDto> {
+public class ReservaDto extends RequisicaoDto {
 
-    public static final String PATH = "locacao";
+    private Date validaAte;
 
-    public static final Class<Locacao> MODEL_CLASS = Locacao.class;
-    public static final Class<LocacaoDto> DTO_CLASS = LocacaoDto.class;
+    public ReservaDto() { }
 
-    private final IDAO<Locacao> dao;
+    public Date getValidaAte() {
 
-    public LocacaoResource() {
-
-        this(DAOFactory.createNew(MODEL_CLASS));
+        return this.validaAte;
     }
 
-    public LocacaoResource(IDAO<Locacao> dao) {
+    public void setValidaAte(Date validaAte) {
 
-        super(PATH, init(dao, MODEL_CLASS, DTO_CLASS));
-
-        this.dao = dao;
+        this.validaAte = validaAte;
     }
 }

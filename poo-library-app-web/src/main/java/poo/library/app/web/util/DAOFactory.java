@@ -36,20 +36,28 @@ public class DAOFactory {
 
     private static class Conversor<I, O> implements IConversor<I, O> {
 
-        private ModelMapper mapper = new ModelMapper();
-        private Class<O> cls;
+        private Class<O> clsOut;
+        private Class<I> clsIn;
 
-        public Conversor(Class<O> cls) {
+        public Conversor(Class<I> clsIn, Class<O> clsOut) {
 
-            this.cls = cls;
+            this.clsIn = clsIn;
+            this.clsOut = clsOut;
+        }
+
+        private ModelMapper getMapper() {
+
+            ModelMapper mapper = new ModelMapper();
 
             mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+            return mapper;
         }
 
         @Override
         public O convert(I input) {
 
-            O output = mapper.map(input, this.cls);
+            O output = this.getMapper().map(input, this.clsOut);
 
             return output;
         }
@@ -57,45 +65,22 @@ public class DAOFactory {
         @Override
         public void convert(I input, O output) {
 
-            mapper.map(input, output);
+            this.getMapper().map(input, output);
+        }
+
+        public IConversor<O, I> inverse() {
+
+            return new Conversor<O, I>(clsOut, clsIn);
         }
     }
 
-    public static <I> IConversor<I, I> newConversor(Class<I> cls) {
+    public static <T, M> IDAO<T> createNew(
+        IDAO<M> dao,
+        Class<M> clsModel,
+        Class<T> clsDto) {
 
-        return new Conversor<I, I>(cls);
-    }
+        Conversor<T, M> conversor = new Conversor<T, M>(clsDto, clsModel);
 
-    public static <I> IDAO<I> createNew(
-        Class<I> cls,
-        IConversor<I, I> conversor) {
-
-        return createNew(
-            cls,
-            cls,
-            conversor,
-            conversor);
-    }
-
-    public static <I> IDAO<I> createNew(
-        Class<I> cls) {
-
-        return createNew(
-            cls,
-            new Conversor<I, I>(cls));
-    }
-
-    public static <I, O> IDAO<O> createNew(
-        Class<I> clsIn,
-        Class<O> clsOut,
-        IConversor<I, O> conversorIn,
-        IConversor<O, I> conversorOut) {
-
-        IDAO<I> dao = poo.library.dao.comum.DAOFactory.createNew(clsIn);
-
-        return new DAOConversor<I, O>(
-            dao,
-            conversorIn,
-            conversorOut);
+        return new DAOConversor<M, T>(dao, conversor.inverse(), conversor);
     }
 }

@@ -25,22 +25,27 @@ package poo.library.app.web;
 
 import javax.ws.rs.Path;
 
-import poo.library.app.web.util.ConversorReserva;
-import poo.library.app.web.util.DAOFactory;
+import poo.library.app.web.dto.ReservaDto;
+import poo.library.dao.comum.DAOFactory;
+import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Reserva;
-import poo.library.util.IConversor;
+import poo.library.modelo.Usuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Path(ReservaResource.PATH)
-public class ReservaResource extends GenericResource<Reserva> {
+public class ReservaResource extends GenericResource<ReservaDto> {
 
     public static final String PATH = "reserva";
-    public static final IConversor<Reserva, Reserva> CONVERSOR = ConversorReserva.makeNew();
+
+    public static final Class<Reserva> MODEL_CLASS = Reserva.class;
+    public static final Class<ReservaDto> DTO_CLASS = ReservaDto.class;
+
+    private final IDAO<Usuario> dao = DAOFactory.createNew(Usuario.class);
 
     public ReservaResource() {
 
-        super(PATH, DAOFactory.createNew(Reserva.class, CONVERSOR));
+        super(PATH, init(DAOFactory.createNew(MODEL_CLASS), MODEL_CLASS, DTO_CLASS));
     }
 }

@@ -21,37 +21,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.app.web;
-
-import javax.ws.rs.Path;
-
-import poo.library.app.web.dto.LocacaoDto;
-import poo.library.dao.comum.DAOFactory;
-import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Locacao;
+package poo.library.app.web.dto;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Path(LocacaoResource.PATH)
-public class LocacaoResource extends GenericResource<LocacaoDto> {
+public class LivroDto extends ItemAcervoDto {
 
-    public static final String PATH = "locacao";
+    private String titulo;
+    private String isbn;
+    private Integer edicao;
 
-    public static final Class<Locacao> MODEL_CLASS = Locacao.class;
-    public static final Class<LocacaoDto> DTO_CLASS = LocacaoDto.class;
+    public LivroDto() { }
 
-    private final IDAO<Locacao> dao;
+    public Integer getEdicao() {
 
-    public LocacaoResource() {
-
-        this(DAOFactory.createNew(MODEL_CLASS));
+        return this.edicao;
     }
 
-    public LocacaoResource(IDAO<Locacao> dao) {
+    public String getIsbn() {
 
-        super(PATH, init(dao, MODEL_CLASS, DTO_CLASS));
+        return this.isbn;
+    }
 
-        this.dao = dao;
+    public String getTitulo() {
+
+        return this.titulo;
+    }
+
+    public void setEdicao(Integer edicao) {
+
+        this.edicao = edicao;
+    }
+
+    public void setIsbn(String isbn) {
+
+        this.isbn = isbn;
+    }
+
+    public void setTitulo(String titulo) {
+
+        this.titulo = titulo;
     }
 }

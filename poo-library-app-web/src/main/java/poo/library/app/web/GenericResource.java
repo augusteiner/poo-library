@@ -23,6 +23,8 @@
  */
 package poo.library.app.web;
 
+import static poo.library.app.web.util.DAOFactory.*;
+
 import java.net.URI;
 
 import javax.ws.rs.Consumes;
@@ -44,28 +46,43 @@ import poo.library.util.ObjetoNaoEncontradoException;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public abstract class GenericResource<T extends IIdentificavel> {
+public abstract class GenericResource<T> {
 
     private final String path;
     private final IDAO<T> dao;
 
-    protected GenericResource(
-        String path,
-        IDAO<T> dao) {
+    protected GenericResource(String path, IDAO<T> dao) {
 
-        if (path == null ||
-            path.length() == 0) {
+      if (path == null ||
+          path.length() == 0) {
 
-            throw new IllegalArgumentException("Argumento path deve ser válido");
-        }
+          throw new IllegalArgumentException("Argumento path deve ser válido");
+      }
 
-        if (dao == null) {
+      if (dao == null) {
 
+          throw new IllegalArgumentException("Argumento dao deve ser válido");
+      }
+
+       this.path = path;
+       this.dao = dao;
+    }
+
+    protected static <T, M extends IIdentificavel> IDAO<T> init(
+        IDAO<M> dao,
+        Class<M> clsModel,
+        Class<T> clsDto) {
+
+        if (dao == null)
             throw new IllegalArgumentException("Argumento dao deve ser válido");
-        }
 
-        this.path = path;
-        this.dao = dao;
+        if (clsModel == null)
+            throw new IllegalArgumentException("Argumento clsModel deve ser válido");
+
+        if (clsDto == null)
+            throw new IllegalArgumentException("Argumento clsDto deve ser válido");
+
+        return createNew(dao, clsModel, clsDto);
     }
 
     @DELETE
@@ -146,7 +163,7 @@ public abstract class GenericResource<T extends IIdentificavel> {
         URI createdUri = URI.create(String.format(
             "%s/%d",
             this.path,
-            obj.getId()));
+            ((IIdentificavel) obj).getId()));
 
         return Response.created(createdUri).build();
     }

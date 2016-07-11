@@ -21,37 +21,73 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.app.web;
+package poo.library.app.web.dto;
 
-import javax.ws.rs.Path;
-
-import poo.library.app.web.dto.LocacaoDto;
-import poo.library.dao.comum.DAOFactory;
-import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Locacao;
+import poo.library.comum.IIdentificavel;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Path(LocacaoResource.PATH)
-public class LocacaoResource extends GenericResource<LocacaoDto> {
+public class BibliotecaDto implements IIdentificavel {
 
-    public static final String PATH = "locacao";
+    private int id;
 
-    public static final Class<Locacao> MODEL_CLASS = Locacao.class;
-    public static final Class<LocacaoDto> DTO_CLASS = LocacaoDto.class;
+    private String nome;
 
-    private final IDAO<Locacao> dao;
+    private double multaDiaria;
+    private int qteDiasValidadeReserva;
+    private int qteDiasLocacao;
 
-    public LocacaoResource() {
+    public BibliotecaDto() { }
 
-        this(DAOFactory.createNew(MODEL_CLASS));
+    @Override
+    public int getId() {
+
+        return this.id;
     }
 
-    public LocacaoResource(IDAO<Locacao> dao) {
+    public double getMultaDiaria() {
 
-        super(PATH, init(dao, MODEL_CLASS, DTO_CLASS));
+        return this.multaDiaria;
+    }
 
-        this.dao = dao;
+    public String getNome() {
+
+        return this.nome;
+    }
+
+    public int getQteDiasLocacao() {
+
+        return this.qteDiasLocacao;
+    }
+
+    public int getQteDiasValidadeReserva() {
+
+        return this.qteDiasValidadeReserva;
+    }
+
+    public void setId(int id) {
+
+        this.id = id;
+    }
+
+    public void setMultaDiaria(double multaDiaria) {
+
+        this.multaDiaria = multaDiaria;
+    }
+
+    public void setNome(String nome) {
+
+        this.nome = nome;
+    }
+
+    public void setQteDiasLocacao(int qteDiasLocacao) {
+
+        this.qteDiasLocacao = qteDiasLocacao;
+    }
+
+    public void setQteDiasValidadeReserva(int qteDiasValidadeReserva) {
+
+        this.qteDiasValidadeReserva = qteDiasValidadeReserva;
     }
 }

@@ -21,45 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.app.web.util;
-
-import poo.library.comum.IReserva;
-import poo.library.modelo.Reserva;
-import poo.library.util.IConversor;
+package poo.library.app.web.dto;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class ConversorReserva<I extends IReserva> implements IConversor<I, Reserva> {
+public class TextoDto extends ItemAcervoDto {
 
-    private IConversor<I, Reserva> conversor;
-
-    public ConversorReserva(IConversor<I, Reserva> conversor) {
-
-        this.conversor = conversor;
-    }
-
-    @Override
-    public Reserva convert(I input) {
-
-        Reserva reserva = new Reserva();
-
-        this.convert(input, reserva);
-
-        return reserva;
-    }
-
-    @Override
-    public void convert(I input, Reserva output) {
-
-        this.conversor.convert(input, output);
-
-        output.setUsuario(null);
-        output.setItemAcervo(null);
-    }
-
-    public static IConversor<Reserva, Reserva> makeNew() {
-
-        return new ConversorReserva<Reserva>(DAOFactory.newConversor(Reserva.class));
-    }
 }

@@ -21,22 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.modelo;
-
-import java.util.Collection;
+package poo.library.app.web.dto;
 
 import poo.library.comum.ETipoUsuario;
-import poo.library.comum.ILocacao;
-import poo.library.comum.IItemAcervo;
-import poo.library.comum.IReserva;
-import poo.library.comum.IUsuario;
-import poo.library.util.Iterables;
-import poo.library.util.Usuarios;
+import poo.library.comum.IIdentificavel;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Usuario implements IUsuario {
+public class UsuarioDto implements IIdentificavel {
 
     private int id;
 
@@ -46,47 +39,11 @@ public class Usuario implements IUsuario {
 
     private ETipoUsuario tipo;
 
-    private Collection<Reserva> reservas;
-    private Collection<Locacao> locacoes;
-
-    public Usuario() {
-
-        this(ETipoUsuario.PADRAO);
-    }
-
-    public Usuario(
-        String nome,
-        String cpf) {
-
-        this(
-            nome,
-            cpf,
-            ETipoUsuario.PADRAO);
-    }
-
-    protected Usuario(ETipoUsuario tipo) {
-
-        this.tipo = tipo;
-    }
-
-    protected Usuario(
-        String nome,
-        String cpf,
-        ETipoUsuario tipo) {
-
-        this(tipo);
-
-        this.nome = nome;
-        this.cpf = cpf;
-    }
-
-    @Override
     public String getCpf() {
 
         return this.cpf;
     }
 
-    @Override
     public String getEndereco() {
 
         return this.endereco;
@@ -98,57 +55,21 @@ public class Usuario implements IUsuario {
         return this.id;
     }
 
-    @Override
-    public Iterable<ILocacao> getLocacoes() {
-
-        return Iterables.cast(this.locacoes);
-    }
-
-    @Override
     public String getNome() {
 
         return this.nome;
     }
 
-    @Override
-    public Iterable<IReserva> getReservas() {
-
-        return Iterables.cast(this.reservas);
-    }
-
-    @Override
     public ETipoUsuario getTipo() {
 
         return this.tipo;
     }
 
-    @Override
-    public void locar(IItemAcervo item) {
-
-        //
-    }
-
-    @Override
-    public boolean match(String termo) {
-
-        return this.getNome().contains(termo) ||
-            this.getCpf().contains(termo) ||
-            this.getEndereco().contains(termo);
-    }
-
-    @Override
-    public void quitar() {
-
-        //
-    }
-
-    @Override
     public void setCpf(String cpf) {
 
         this.cpf = cpf;
     }
 
-    @Override
     public void setEndereco(String endereco) {
 
         this.endereco = endereco;
@@ -159,30 +80,13 @@ public class Usuario implements IUsuario {
         this.id = id;
     }
 
-    public void setLocacoes(Collection<Locacao> locacoes) {
-
-        this.locacoes = locacoes;
-    }
-
-    @Override
     public void setNome(String nome) {
 
         this.nome = nome;
     }
 
-    public void setReservas(Collection<Reserva> reservas) {
-
-        this.reservas = reservas;
-    }
-
     public void setTipo(ETipoUsuario tipo) {
 
         this.tipo = tipo;
-    }
-
-    @Override
-    public String toString() {
-
-        return Usuarios.toString(this);
     }
 }
