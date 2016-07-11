@@ -31,19 +31,19 @@ import java.util.Iterator;
  */
 public class Iterables {
 
-    public static <C, T extends C> Iterable<C> cast(Iterable<T> iterable) {
+    public static <C, T extends C> Iterable<C> cast(final Iterable<T> iterable) {
 
         if (iterable == null) {
 
             return Collections.emptyList();
         }
 
-        final Iterator<T> iter = iterable.iterator();
-
         return new Iterable<C>() {
 
             @Override
             public Iterator<C> iterator() {
+
+                final Iterator<T> iter = iterable.iterator();
 
                 return new Iterator<C>() {
 
@@ -57,6 +57,40 @@ public class Iterables {
                     public C next() {
 
                         return iter.next();
+                    }
+                };
+            }
+        };
+    }
+
+    public static <I, O> Iterable<O> convert(
+        final Iterable<I> iterable,
+        final IConversor<I, O> conversor) {
+
+        if (iterable == null) {
+
+            return Collections.emptyList();
+        }
+
+        return new Iterable<O>() {
+
+            @Override
+            public Iterator<O> iterator() {
+
+                final Iterator<I> iter = iterable.iterator();
+
+                return new Iterator<O>() {
+
+                    @Override
+                    public boolean hasNext() {
+
+                        return iter.hasNext();
+                    }
+
+                    @Override
+                    public O next() {
+
+                        return conversor.convert(iter.next());
                     }
                 };
             }

@@ -23,10 +23,19 @@
  */
 package poo.library.app.web;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import poo.library.dao.comum.DAOFactory;
+import poo.library.app.web.util.ConversorUsuario;
+import poo.library.app.web.util.DAOFactory;
+import poo.library.comum.IReserva;
 import poo.library.modelo.Usuario;
+import poo.library.util.IConversor;
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -35,11 +44,33 @@ import poo.library.modelo.Usuario;
 public class UsuarioResource extends GenericResource<Usuario> {
 
     public static final String PATH = "usuario";
+    public static final IConversor<Usuario, Usuario> CONVERSOR = ConversorUsuario.makeNew();
 
     public UsuarioResource() {
 
         super(
             PATH,
-            DAOFactory.createNew(Usuario.class));
+            DAOFactory.createNew(Usuario.class, CONVERSOR));
+    }
+
+    @GET
+    @Path("/{id}/reserva")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response getReservas(@PathParam("id") int usuarioId) {
+
+        Iterable<IReserva> iter;
+
+        try {
+
+            iter = this.getById(usuarioId).getReservas();
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            return Response.status(Response.Status.NOT_FOUND)
+                .entity(e)
+                .build();
+        }
+
+        return Response.ok().entity(iter).build();
     }
 }

@@ -21,26 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
-
-import java.util.Date;
+package poo.library.util;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IRequisicao extends IIdentificavel {
+public interface IConversor<I, O> {
 
-    IItemAcervo getItemAcervo();
-    int getItemAcervoId();
-
-    Date getRealizadaEm();
-
-    IUsuario getUsuario();
-    int getUsuarioId();
-
-    void setItemAcervoId(int itemId);
-
-    void setUsuarioId(int usuarioId);
-
-    void setRealizadaEm(Date realizadaEm);
+    O convert(I input);
+    void convert(I input, O output);
 }

@@ -21,26 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.app.web;
 
-import java.util.Date;
+import javax.ws.rs.Path;
+
+import poo.library.app.web.util.DAOFactory;
+import poo.library.modelo.Biblioteca;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IRequisicao extends IIdentificavel {
+@Path(BibliotecaResource.PATH)
+public class BibliotecaResource extends GenericResource<Biblioteca> {
 
-    IItemAcervo getItemAcervo();
-    int getItemAcervoId();
+    public static final String PATH = "biblioteca";
 
-    Date getRealizadaEm();
+    public BibliotecaResource() {
 
-    IUsuario getUsuario();
-    int getUsuarioId();
-
-    void setItemAcervoId(int itemId);
-
-    void setUsuarioId(int usuarioId);
-
-    void setRealizadaEm(Date realizadaEm);
+        super(PATH, DAOFactory.createNew(Biblioteca.class));
+    }
 }

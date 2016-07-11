@@ -134,9 +134,9 @@ public class Usuario implements IUsuario {
         //
     }
 
-    public void setAlugueis(Collection<Locacao> alugueis) {
+    public void setLocacoes(Collection<Locacao> locacoes) {
 
-        this.locacoes = alugueis;
+        this.locacoes = locacoes;
     }
 
     @Override

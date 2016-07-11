@@ -28,7 +28,6 @@ import java.net.URI;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -79,7 +78,10 @@ public abstract class GenericResource<T extends IIdentificavel> {
 
         } catch (ObjetoNaoEncontradoException e) {
 
-            throw new NotFoundException(e.getMessage(), e);
+            return Response.status(Response.Status.NOT_FOUND)
+                .entity(e)
+                .build();
+            // throw new NotFoundException(e.getMessage(), e);
 
         } catch (FalhaOperacaoException e) {
 
@@ -105,17 +107,12 @@ public abstract class GenericResource<T extends IIdentificavel> {
 
         try {
 
-            System.out.println(String.format(
-                "Buscando resource por id #%d",
-                id));
-
-            obj = this.dao.find(id);
+            obj = this.getById(id);
 
         } catch (ObjetoNaoEncontradoException e) {
 
-            throw new NotFoundException(
-                e.getMessage(),
-                e);
+            return Response.status(Response.Status.NOT_FOUND)
+                .build();
         }
 
         System.out.println(String.format(
@@ -123,6 +120,15 @@ public abstract class GenericResource<T extends IIdentificavel> {
             obj));
 
         return Response.ok(obj).build();
+    }
+
+    protected T getById(int id) throws ObjetoNaoEncontradoException {
+
+        System.out.println(String.format(
+            "Buscando resource por id #%d",
+            id));
+
+        return this.dao.find(id);
     }
 
     @POST
@@ -151,8 +157,6 @@ public abstract class GenericResource<T extends IIdentificavel> {
     public Response put(
         @PathParam("id") int id,
         T obj) {
-
-        System.out.println("Persisting instance of: " + obj.getClass().getName());
 
         try {
 

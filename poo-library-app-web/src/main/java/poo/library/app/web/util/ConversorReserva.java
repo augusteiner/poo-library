@@ -21,26 +21,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.app.web.util;
 
-import java.util.Date;
+import poo.library.comum.IReserva;
+import poo.library.modelo.Reserva;
+import poo.library.util.IConversor;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IRequisicao extends IIdentificavel {
+public class ConversorReserva<I extends IReserva> implements IConversor<I, Reserva> {
 
-    IItemAcervo getItemAcervo();
-    int getItemAcervoId();
+    private IConversor<I, Reserva> conversor;
 
-    Date getRealizadaEm();
+    public ConversorReserva(IConversor<I, Reserva> conversor) {
 
-    IUsuario getUsuario();
-    int getUsuarioId();
+        this.conversor = conversor;
+    }
 
-    void setItemAcervoId(int itemId);
+    @Override
+    public Reserva convert(I input) {
 
-    void setUsuarioId(int usuarioId);
+        Reserva reserva = new Reserva();
 
-    void setRealizadaEm(Date realizadaEm);
+        this.convert(input, reserva);
+
+        return reserva;
+    }
+
+    @Override
+    public void convert(I input, Reserva output) {
+
+        this.conversor.convert(input, output);
+
+        output.setUsuario(null);
+        output.setItemAcervo(null);
+    }
+
+    public static IConversor<Reserva, Reserva> makeNew() {
+
+        return new ConversorReserva<Reserva>(DAOFactory.newConversor(Reserva.class));
+    }
 }

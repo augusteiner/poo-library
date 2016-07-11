@@ -157,8 +157,9 @@ public class GenericDAO<T> implements IDAO<T> {
 
             throw new FalhaOperacaoException(
                 String.format(
-                    "Não foi possivel salvar o objeto %s",
-                    obj),
+                    "Não foi possivel salvar o objeto %s, (Causa: %s)",
+                    obj,
+                    e.getMessage()),
                 e);
         }
 

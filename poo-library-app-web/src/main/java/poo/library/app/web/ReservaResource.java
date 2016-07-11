@@ -21,26 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.app.web;
 
-import java.util.Date;
+import javax.ws.rs.Path;
+
+import poo.library.app.web.util.ConversorReserva;
+import poo.library.app.web.util.DAOFactory;
+import poo.library.modelo.Reserva;
+import poo.library.util.IConversor;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IRequisicao extends IIdentificavel {
+@Path(ReservaResource.PATH)
+public class ReservaResource extends GenericResource<Reserva> {
 
-    IItemAcervo getItemAcervo();
-    int getItemAcervoId();
+    public static final String PATH = "reserva";
+    public static final IConversor<Reserva, Reserva> CONVERSOR = ConversorReserva.makeNew();
 
-    Date getRealizadaEm();
+    public ReservaResource() {
 
-    IUsuario getUsuario();
-    int getUsuarioId();
-
-    void setItemAcervoId(int itemId);
-
-    void setUsuarioId(int usuarioId);
-
-    void setRealizadaEm(Date realizadaEm);
+        super(PATH, DAOFactory.createNew(Reserva.class, CONVERSOR));
+    }
 }

@@ -2,5 +2,7 @@
 
 set -e
 
+rm -rfv */{bin,target}/
+
 mvn clean
 
