@@ -30,19 +30,19 @@ import poo.library.comum.IIdentificavel;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public abstract class RequisicaoDto implements IIdentificavel {
+public abstract class RequisicaoDTO implements IIdentificavel {
 
     private int id;
 
     private Date realizadaEm;
 
-    private ItemAcervoDto itemAcervo;
+    private ItemAcervoDTO itemAcervo;
     private int itemAcervoId;
 
-    private UsuarioDto usuario;
+    private UsuarioDTO usuario;
     private int usuarioId;
 
-    public RequisicaoDto() { }
+    public RequisicaoDTO() { }
 
     @Override
     public int getId() {
@@ -50,7 +50,7 @@ public abstract class RequisicaoDto implements IIdentificavel {
         return this.id;
     }
 
-    public ItemAcervoDto getItemAcervo() {
+    public ItemAcervoDTO getItemAcervo() {
 
         return this.itemAcervo;
     }
@@ -65,7 +65,7 @@ public abstract class RequisicaoDto implements IIdentificavel {
         return this.realizadaEm;
     }
 
-    public UsuarioDto getUsuario() {
+    public UsuarioDTO getUsuario() {
 
         return this.usuario;
     }
@@ -80,7 +80,7 @@ public abstract class RequisicaoDto implements IIdentificavel {
         this.id = id;
     }
 
-    public void setItemAcervo(ItemAcervoDto itemAcervo) {
+    public void setItemAcervo(ItemAcervoDTO itemAcervo) {
 
         this.itemAcervo = itemAcervo;
     }
@@ -95,7 +95,7 @@ public abstract class RequisicaoDto implements IIdentificavel {
         this.realizadaEm = realizadaEm;
     }
 
-    public void setUsuario(UsuarioDto usuario) {
+    public void setUsuario(UsuarioDTO usuario) {
 
         this.usuario = usuario;
     }

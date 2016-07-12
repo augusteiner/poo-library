@@ -28,7 +28,7 @@ import poo.library.comum.IIdentificavel;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class BibliotecaDto implements IIdentificavel {
+public class BibliotecaDTO implements IIdentificavel {
 
     private int id;
 
@@ -38,7 +38,7 @@ public class BibliotecaDto implements IIdentificavel {
     private int qteDiasValidadeReserva;
     private int qteDiasLocacao;
 
-    public BibliotecaDto() { }
+    public BibliotecaDTO() { }
 
     @Override
     public int getId() {

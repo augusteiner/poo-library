@@ -26,37 +26,13 @@ package poo.library.app.web.dto;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class LivroDto extends ItemAcervoDto {
+public class ApostilaDTO extends ItemAcervoDTO {
 
     private String titulo;
-    private String isbn;
-    private Integer edicao;
-
-    public LivroDto() { }
-
-    public Integer getEdicao() {
-
-        return this.edicao;
-    }
-
-    public String getIsbn() {
-
-        return this.isbn;
-    }
 
     public String getTitulo() {
 
         return this.titulo;
-    }
-
-    public void setEdicao(Integer edicao) {
-
-        this.edicao = edicao;
-    }
-
-    public void setIsbn(String isbn) {
-
-        this.isbn = isbn;
     }
 
     public void setTitulo(String titulo) {

@@ -29,7 +29,7 @@ import poo.library.comum.IIdentificavel;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public abstract class ItemAcervoDto implements IIdentificavel {
+public abstract class ItemAcervoDTO implements IIdentificavel {
 
     private int id;
 
@@ -42,17 +42,17 @@ public abstract class ItemAcervoDto implements IIdentificavel {
 
     private ECategoriaItem categoria;
 
-    private BibliotecaDto biblioteca;
+    private BibliotecaDTO biblioteca;
     private int bibliotecaId;
 
-    public ItemAcervoDto() { }
+    public ItemAcervoDTO() { }
 
     public String getAutor() {
 
         return this.autor;
     }
 
-    public BibliotecaDto getBiblioteca() {
+    public BibliotecaDTO getBiblioteca() {
 
         return this.biblioteca;
     }
@@ -93,7 +93,7 @@ public abstract class ItemAcervoDto implements IIdentificavel {
         this.autor = autor;
     }
 
-    public void setBiblioteca(BibliotecaDto biblioteca) {
+    public void setBiblioteca(BibliotecaDTO biblioteca) {
 
         this.biblioteca = biblioteca;
     }

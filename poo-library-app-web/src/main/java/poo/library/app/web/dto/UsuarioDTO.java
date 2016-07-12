@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2016 José Augusto & Juscelino Messias
+ * Copyright (c) 2016 José Nascimento & Juscelino Messias
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,47 +23,70 @@
  */
 package poo.library.app.web.dto;
 
-import java.util.Date;
+import poo.library.comum.ETipoUsuario;
+import poo.library.comum.IIdentificavel;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class LocacaoDto extends RequisicaoDto {
+public class UsuarioDTO implements IIdentificavel {
 
-    private double precoCobrado;
+    private int id;
 
-    private Date devolverAte;
-    private Date devolvidoEm;
+    private String nome;
+    private String cpf;
+    private String endereco;
 
-    public LocacaoDto() { }
+    private ETipoUsuario tipo;
 
-    public Date getDevolverAte() {
+    public String getCpf() {
 
-        return this.devolverAte;
+        return this.cpf;
     }
 
-    public Date getDevolvidoEm() {
+    public String getEndereco() {
 
-        return this.devolvidoEm;
+        return this.endereco;
     }
 
-    public double getPrecoCobrado() {
+    @Override
+    public int getId() {
 
-        return this.precoCobrado;
+        return this.id;
     }
 
-    public void setDevolverAte(Date devolverAte) {
+    public String getNome() {
 
-        this.devolverAte = devolverAte;
+        return this.nome;
     }
 
-    public void setDevolvidoEm(Date devolvidoEm) {
+    public ETipoUsuario getTipo() {
 
-        this.devolvidoEm = devolvidoEm;
+        return this.tipo;
     }
 
-    public void setPrecoCobrado(double precoCobrado) {
+    public void setCpf(String cpf) {
 
-        this.precoCobrado = precoCobrado;
+        this.cpf = cpf;
+    }
+
+    public void setEndereco(String endereco) {
+
+        this.endereco = endereco;
+    }
+
+    public void setId(int id) {
+
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+
+        this.nome = nome;
+    }
+
+    public void setTipo(ETipoUsuario tipo) {
+
+        this.tipo = tipo;
     }
 }

@@ -23,24 +23,9 @@
  */
 package poo.library.app.web.dto;
 
-import java.util.Date;
-
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class ReservaDto extends RequisicaoDto {
+public class AdministradorDTO extends UsuarioDTO {
 
-    private Date validaAte;
-
-    public ReservaDto() { }
-
-    public Date getValidaAte() {
-
-        return this.validaAte;
-    }
-
-    public void setValidaAte(Date validaAte) {
-
-        this.validaAte = validaAte;
-    }
 }

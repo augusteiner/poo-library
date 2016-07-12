@@ -23,20 +23,47 @@
  */
 package poo.library.app.web.dto;
 
+import java.util.Date;
+
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class ApostilaDto extends ItemAcervoDto {
+public class LocacaoDTO extends RequisicaoDTO {
 
-    private String titulo;
+    private double precoCobrado;
 
-    public String getTitulo() {
+    private Date devolverAte;
+    private Date devolvidoEm;
 
-        return this.titulo;
+    public LocacaoDTO() { }
+
+    public Date getDevolverAte() {
+
+        return this.devolverAte;
     }
 
-    public void setTitulo(String titulo) {
+    public Date getDevolvidoEm() {
 
-        this.titulo = titulo;
+        return this.devolvidoEm;
+    }
+
+    public double getPrecoCobrado() {
+
+        return this.precoCobrado;
+    }
+
+    public void setDevolverAte(Date devolverAte) {
+
+        this.devolverAte = devolverAte;
+    }
+
+    public void setDevolvidoEm(Date devolvidoEm) {
+
+        this.devolvidoEm = devolvidoEm;
+    }
+
+    public void setPrecoCobrado(double precoCobrado) {
+
+        this.precoCobrado = precoCobrado;
     }
 }

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2016 José Nascimento & Juscelino Messias
+ * Copyright (c) 2016 José Augusto & Juscelino Messias
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,70 +23,24 @@
  */
 package poo.library.app.web.dto;
 
-import poo.library.comum.ETipoUsuario;
-import poo.library.comum.IIdentificavel;
+import java.util.Date;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class UsuarioDto implements IIdentificavel {
+public class ReservaDTO extends RequisicaoDTO {
 
-    private int id;
+    private Date validaAte;
 
-    private String nome;
-    private String cpf;
-    private String endereco;
+    public ReservaDTO() { }
 
-    private ETipoUsuario tipo;
+    public Date getValidaAte() {
 
-    public String getCpf() {
-
-        return this.cpf;
+        return this.validaAte;
     }
 
-    public String getEndereco() {
+    public void setValidaAte(Date validaAte) {
 
-        return this.endereco;
-    }
-
-    @Override
-    public int getId() {
-
-        return this.id;
-    }
-
-    public String getNome() {
-
-        return this.nome;
-    }
-
-    public ETipoUsuario getTipo() {
-
-        return this.tipo;
-    }
-
-    public void setCpf(String cpf) {
-
-        this.cpf = cpf;
-    }
-
-    public void setEndereco(String endereco) {
-
-        this.endereco = endereco;
-    }
-
-    public void setId(int id) {
-
-        this.id = id;
-    }
-
-    public void setNome(String nome) {
-
-        this.nome = nome;
-    }
-
-    public void setTipo(ETipoUsuario tipo) {
-
-        this.tipo = tipo;
+        this.validaAte = validaAte;
     }
 }

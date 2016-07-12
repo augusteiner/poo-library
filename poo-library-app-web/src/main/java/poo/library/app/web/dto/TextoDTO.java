@@ -26,6 +26,6 @@ package poo.library.app.web.dto;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class AdministradorDto extends UsuarioDto {
+public class TextoDTO extends ItemAcervoDTO {
 
 }
