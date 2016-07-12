@@ -9,10 +9,7 @@
     </caption>
     <thead>
       <tr>
-        <th>Nome</th>
-        <th>CPF</th>
-        <!-- <th>Tipo</th> -->
-        <th>Endereço</th>
+        <th>Usuário</th>
         <th style="width: 11rem;">Ações</th>
       </tr>
     </thead>
@@ -20,10 +17,14 @@
     </tfoot>
     <tbody>
       <tr ng-repeat="user in users">
-        <td># {{user.id}} - {{user.nome}}</td>
-        <td>{{user.cpf}}</td>
-        <!-- <td>{{user.tipo}}</td> -->
-        <td>{{user.endereco}}</td>
+        <td>
+          <div>
+            &#35;{{user.id}} - {{user.cpf}}: <strong>{{user.nome}}</strong>
+          </div>
+          <div>
+            <small><em>{{user.endereco}}</em></small>
+          </div>
+        </td>
         <td>
           <div class="btn-group">
             <a class="btn btn-xs btn-primary" href="\#{{rootPath}}/{{user.id}}">
