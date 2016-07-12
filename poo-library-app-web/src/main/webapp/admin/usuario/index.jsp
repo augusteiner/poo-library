@@ -11,7 +11,7 @@
       <tr>
         <th>Nome</th>
         <th>CPF</th>
-        <th>Tipo</th>
+        <!-- <th>Tipo</th> -->
         <th>Endereço</th>
         <th>Ações</th>
       </tr>
@@ -22,7 +22,7 @@
       <tr ng-repeat="user in users">
         <td># {{user.id}} - {{user.nome}}</td>
         <td>{{user.cpf}}</td>
-        <td>{{user.tipo}}</td>
+        <!-- <td>{{user.tipo}}</td> -->
         <td>{{user.endereco}}</td>
         <td>
           <div class="btn-group" role="group" aria-label="...">
@@ -32,7 +32,7 @@
             <a class="btn btn-xs btn-primary" href="\#{{rootPath}}/{{user.id}}">
               <span class="glyphicon glyphicon-pencil"></span> Editar
             </a>
-          </div>
+          </div> 
         </td>
       </tr>
     </tbody>

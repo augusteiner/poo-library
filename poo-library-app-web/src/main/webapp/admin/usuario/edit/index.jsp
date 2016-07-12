@@ -36,7 +36,7 @@
       </div>
       <div class="form-group">
         <div class="col-lg-12 modal-footer">
-          <button class="btn btn-default" type="reset"
+          <button class="btn btn-sm btn-default" type="reset"
             ng-click="cancel()">
             <span class="glyphicon glyphicon-chevron-left"></span>
             Voltar
@@ -45,7 +45,7 @@
           <!--   ng-click="void()"> -->
           <!--   <span class="glyphicon glyphicon-trash"></span> Limpar -->
           <!-- </button> -->
-          <button class="btn btn-primary" type="submit">
+          <button class="btn btn-sm btn-primary" type="submit">
             <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
           </button>
         </div>
