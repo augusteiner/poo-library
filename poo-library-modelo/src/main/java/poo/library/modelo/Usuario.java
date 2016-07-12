@@ -44,7 +44,7 @@ public class Usuario implements IUsuario {
     private String cpf;
     private String endereco;
 
-    private ETipoUsuario tipo;
+    private ETipoUsuario tipo = ETipoUsuario.COMUM;
 
     private Collection<Reserva> reservas;
     private Collection<Locacao> locacoes;
@@ -52,6 +52,8 @@ public class Usuario implements IUsuario {
     public Usuario() {
 
         this(ETipoUsuario.PADRAO);
+
+        System.out.println("Construindo usuário pelo ctor padrão");
     }
 
     public Usuario(
@@ -173,11 +175,6 @@ public class Usuario implements IUsuario {
     public void setReservas(Collection<Reserva> reservas) {
 
         this.reservas = reservas;
-    }
-
-    public void setTipo(ETipoUsuario tipo) {
-
-        this.tipo = tipo;
     }
 
     @Override

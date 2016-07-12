@@ -72,7 +72,9 @@ public class Usuarios {
     public static String toString(IUsuario usuario) {
 
         return String.format(
-            "%s - %s (%s) : (%s)",
+            "%s: %s - %s (%s) : (%s)",
+            usuario.getTipo(),
+
             usuario.getId(),
             usuario.getNome(),
 

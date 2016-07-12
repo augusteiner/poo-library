@@ -26,6 +26,7 @@ package poo.library.app.web.util;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
+import poo.library.comum.IIdentificavel;
 import poo.library.dao.comum.IDAO;
 import poo.library.util.IConversor;
 
@@ -59,6 +60,11 @@ public class DAOFactory {
 
             O output = this.getMapper().map(input, this.clsOut);
 
+            System.out.println(String.format(
+                "Mapeado INPUT: %s -> OUTPUT: %s",
+                input,
+                output));
+
             return output;
         }
 
@@ -66,6 +72,11 @@ public class DAOFactory {
         public void convert(I input, O output) {
 
             this.getMapper().map(input, output);
+
+            System.out.println(String.format(
+                "Mapeado INPUT: %s -> OUTPUT: %s",
+                input,
+                output));
         }
 
         public IConversor<O, I> inverse() {
@@ -74,7 +85,24 @@ public class DAOFactory {
         }
     }
 
-    public static <T, M> IDAO<T> createNew(
+    public static <T, M extends IIdentificavel> IDAO<T> newDAO(
+        IDAO<M> dao,
+        Class<M> clsModel,
+        Class<T> clsDto) {
+
+        if (dao == null)
+            throw new IllegalArgumentException("Argumento dao deve ser válido");
+
+        if (clsModel == null)
+            throw new IllegalArgumentException("Argumento clsModel deve ser válido");
+
+        if (clsDto == null)
+            throw new IllegalArgumentException("Argumento clsDto deve ser válido");
+
+        return newDAOConversivel(dao, clsModel, clsDto);
+    }
+
+    private static <T, M> IDAO<T> newDAOConversivel(
         IDAO<M> dao,
         Class<M> clsModel,
         Class<T> clsDto) {

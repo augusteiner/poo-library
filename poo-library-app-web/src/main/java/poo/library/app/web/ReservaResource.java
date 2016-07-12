@@ -23,29 +23,37 @@
  */
 package poo.library.app.web;
 
+import static poo.library.app.web.util.DAOFactory.*;
+
 import javax.ws.rs.Path;
 
-import poo.library.app.web.dto.ReservaDto;
+import poo.library.app.web.dto.ReservaDTO;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Reserva;
-import poo.library.modelo.Usuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Path(ReservaResource.PATH)
-public class ReservaResource extends GenericResource<ReservaDto> {
+public class ReservaResource extends GenericResource<ReservaDTO> {
 
     public static final String PATH = "reserva";
 
     public static final Class<Reserva> MODEL_CLASS = Reserva.class;
-    public static final Class<ReservaDto> DTO_CLASS = ReservaDto.class;
+    public static final Class<ReservaDTO> DTO_CLASS = ReservaDTO.class;
 
-    private final IDAO<Usuario> dao = DAOFactory.createNew(Usuario.class);
+    private final IDAO<Reserva> dao;
 
     public ReservaResource() {
 
-        super(PATH, init(DAOFactory.createNew(MODEL_CLASS), MODEL_CLASS, DTO_CLASS));
+        this(DAOFactory.createNew(MODEL_CLASS));
+    }
+
+    public ReservaResource(IDAO<Reserva> dao) {
+
+        super(PATH, newDAO(dao, MODEL_CLASS, DTO_CLASS));
+
+        this.dao = dao;
     }
 }

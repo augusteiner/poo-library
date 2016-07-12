@@ -23,8 +23,6 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.DAOFactory.*;
-
 import java.net.URI;
 
 import javax.ws.rs.Consumes;
@@ -66,23 +64,6 @@ public abstract class GenericResource<T> {
 
        this.path = path;
        this.dao = dao;
-    }
-
-    protected static <T, M extends IIdentificavel> IDAO<T> init(
-        IDAO<M> dao,
-        Class<M> clsModel,
-        Class<T> clsDto) {
-
-        if (dao == null)
-            throw new IllegalArgumentException("Argumento dao deve ser válido");
-
-        if (clsModel == null)
-            throw new IllegalArgumentException("Argumento clsModel deve ser válido");
-
-        if (clsDto == null)
-            throw new IllegalArgumentException("Argumento clsDto deve ser válido");
-
-        return createNew(dao, clsModel, clsDto);
     }
 
     @DELETE

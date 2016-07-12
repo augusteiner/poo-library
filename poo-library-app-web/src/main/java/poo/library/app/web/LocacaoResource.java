@@ -23,9 +23,11 @@
  */
 package poo.library.app.web;
 
+import static poo.library.app.web.util.DAOFactory.*;
+
 import javax.ws.rs.Path;
 
-import poo.library.app.web.dto.LocacaoDto;
+import poo.library.app.web.dto.LocacaoDTO;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Locacao;
@@ -34,12 +36,12 @@ import poo.library.modelo.Locacao;
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Path(LocacaoResource.PATH)
-public class LocacaoResource extends GenericResource<LocacaoDto> {
+public class LocacaoResource extends GenericResource<LocacaoDTO> {
 
     public static final String PATH = "locacao";
 
     public static final Class<Locacao> MODEL_CLASS = Locacao.class;
-    public static final Class<LocacaoDto> DTO_CLASS = LocacaoDto.class;
+    public static final Class<LocacaoDTO> DTO_CLASS = LocacaoDTO.class;
 
     private final IDAO<Locacao> dao;
 
@@ -50,7 +52,7 @@ public class LocacaoResource extends GenericResource<LocacaoDto> {
 
     public LocacaoResource(IDAO<Locacao> dao) {
 
-        super(PATH, init(dao, MODEL_CLASS, DTO_CLASS));
+        super(PATH, newDAO(dao, MODEL_CLASS, DTO_CLASS));
 
         this.dao = dao;
     }

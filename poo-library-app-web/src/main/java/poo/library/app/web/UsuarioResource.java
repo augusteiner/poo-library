@@ -23,6 +23,8 @@
  */
 package poo.library.app.web;
 
+import static poo.library.app.web.util.DAOFactory.*;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -30,7 +32,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import poo.library.app.web.dto.UsuarioDto;
+import poo.library.app.web.dto.UsuarioDTO;
 import poo.library.comum.IReserva;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
@@ -41,12 +43,12 @@ import poo.library.util.ObjetoNaoEncontradoException;
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Path(UsuarioResource.PATH)
-public class UsuarioResource extends GenericResource<UsuarioDto> {
+public class UsuarioResource extends GenericResource<UsuarioDTO> {
 
     public static final String PATH = "usuario";
 
     public static final Class<Usuario> MODEL_CLASS = Usuario.class;
-    public static final Class<UsuarioDto> DTO_CLASS = UsuarioDto.class;
+    public static final Class<UsuarioDTO> DTO_CLASS = UsuarioDTO.class;
     private final IDAO<Usuario> dao;
 
     public UsuarioResource() {
@@ -56,7 +58,7 @@ public class UsuarioResource extends GenericResource<UsuarioDto> {
 
     public UsuarioResource(IDAO<Usuario> dao) {
 
-        super(PATH, init(dao, MODEL_CLASS, DTO_CLASS));
+        super(PATH, newDAO(dao, MODEL_CLASS, DTO_CLASS));
 
         this.dao = dao;
     }

@@ -29,5 +29,6 @@ package poo.library.util;
 public interface IConversor<I, O> {
 
     O convert(I input);
+
     void convert(I input, O output);
 }
