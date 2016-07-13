@@ -23,9 +23,9 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.Conversores.*;
-import static poo.library.app.web.util.DAOFactory.*;
-import static poo.library.util.Iterables.*;
+import static poo.library.app.web.util.Conversores.newConversor;
+import static poo.library.app.web.util.DAOFactory.newDAO;
+import static poo.library.util.Iterables.convert;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -64,6 +64,29 @@ public class BibliotecaResource extends GenericResource<BibliotecaDTO> {
         super(PATH, newDAO(dao, MODEL_CLASS, DTO_CLASS));
 
         this.dao = dao;
+    }
+
+    @GET
+    @Path("/{id}/reserva")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getReservas(@PathParam("id") int id) {
+
+        Biblioteca biblioteca;
+
+        try {
+
+            biblioteca = this.dao.find(id);
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            return this.notFound().entity(e).build();
+        }
+
+        Iterable<?> iter = convert(
+            biblioteca.getReservas(),
+            newConversor(ReservaResource.DTO_CLASS));
+
+        return Response.ok().entity(iter).build();
     }
 
     @GET
