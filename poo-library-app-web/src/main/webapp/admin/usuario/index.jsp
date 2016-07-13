@@ -23,7 +23,7 @@
           </div>
           <div>
             <small>
-              {{user.cpf}} :: <em>{{user.endereco}}</em>
+              {{user.cpfFormatado}} :: <em>{{user.endereco}}</em>
             </small>
           </div>
         </td>

@@ -25,6 +25,7 @@ package poo.library.app.web.dto;
 
 import poo.library.comum.ETipoUsuario;
 import poo.library.comum.IIdentificavel;
+import poo.library.util.Usuarios;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -42,6 +43,11 @@ public class UsuarioDTO implements IIdentificavel {
     public String getCpf() {
 
         return this.cpf;
+    }
+
+    public String getCpfFormatado() {
+
+        return Usuarios.formatarCpf(this.getCpf());
     }
 
     public String getEndereco() {
@@ -68,6 +74,10 @@ public class UsuarioDTO implements IIdentificavel {
     public void setCpf(String cpf) {
 
         this.cpf = cpf;
+    }
+
+    public void setCpfFormatado(String cpfFormatado) {
+
     }
 
     public void setEndereco(String endereco) {
