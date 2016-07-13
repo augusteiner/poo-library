@@ -21,23 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.util;
+package poo.library.modelo.comum;
 
-import poo.library.comum.IItemAcervo;
-import poo.library.comum.ILocacao;
-import poo.library.comum.IReserva;
-import poo.library.comum.IUsuario;
+import poo.library.modelo.ItemAcervo;
+import poo.library.util.IBuscador;
 
 /**
- * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public interface IArmazem {
+public interface IAcervo extends IArmazem, IBuscador, Iterable<ItemAcervo> {
 
-    void salvarItemAcervo(IItemAcervo itemAcervo);
-
-    void salvarLocacao(ILocacao locacao);
-
-    void salvarReserva(IReserva reserva);
-
-    void salvarUsuario(IUsuario usuario);
 }

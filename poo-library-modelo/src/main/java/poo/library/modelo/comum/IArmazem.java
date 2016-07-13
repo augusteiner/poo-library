@@ -21,30 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.modelo.comum;
 
-import poo.library.util.ObjetoNaoEncontradoException;
+import poo.library.modelo.ItemAcervo;
+import poo.library.modelo.Locacao;
+import poo.library.modelo.Reserva;
+import poo.library.util.FalhaOperacaoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IBiblioteca extends IIdentificavel {
+public interface IArmazem {
 
-    String getNome();
-    double getMultaDiaria();
-    int getQteDiasValidadeReserva();
-    int getQteDiasLocacao();
+    void salvarItemAcervo(ItemAcervo itemAcervo) throws FalhaOperacaoException;
 
-    Iterable<IItemAcervo> getAcervo();
-    Iterable<ILocacao> getAlugueis();
-    Iterable<IReserva> getReservas();
-    Iterable<IUsuario> getUsuarios();
+    void salvarLocacao(Locacao locacao) throws FalhaOperacaoException;
 
-    void setNome(String nome);
-    void setMultaDiaria(double multaDiaria);
+    void salvarReserva(Reserva reserva) throws FalhaOperacaoException;
 
-    IReserva cancelar(int reservaId) throws ObjetoNaoEncontradoException;
-    ILocacao devolver(int locacaoId) throws ObjetoNaoEncontradoException;
-    ILocacao locar(int itemAcervoId, int usuarioId) throws ObjetoNaoEncontradoException;
-    IReserva reservar(int itemAcervoId, int usuarioId) throws ObjetoNaoEncontradoException;
+    //void salvarUsuario(Usuario usuario) throws FalhaOperacaoException;
 }

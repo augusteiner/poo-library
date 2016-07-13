@@ -21,13 +21,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.util;
+package poo.library.modelo.comum;
 
-import poo.library.comum.IItemAcervo;
+import poo.library.modelo.ItemAcervo;
+import poo.library.modelo.Locacao;
+import poo.library.modelo.Reserva;
+import poo.library.modelo.Usuario;
+import poo.library.util.FalhaOperacaoException;
+import poo.library.util.ItemIndisponivelException;
 
 /**
- * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public interface IAcervo extends IArmazem, IBuscador, Iterable<IItemAcervo> {
+public interface IBiblioteca extends poo.library.comum.IBiblioteca {
 
+    void cancelarReserva(Reserva reserva) throws FalhaOperacaoException;
+
+    void devolver(Locacao locacao) throws FalhaOperacaoException;
+
+    void locar(ItemAcervo item, Usuario usuario) throws ItemIndisponivelException, FalhaOperacaoException;
+
+    void reservar(ItemAcervo item, Usuario usuario) throws ItemIndisponivelException, FalhaOperacaoException;
+
+    // double calcularValorMultas(Date dia);
+
+    // double valorDiarioMulta(IItemAcervo item);
 }

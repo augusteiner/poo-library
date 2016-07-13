@@ -36,10 +36,8 @@ public abstract class RequisicaoDTO implements IIdentificavel {
 
     private Date realizadaEm;
 
-    private ItemAcervoDTO itemAcervo;
     private int itemAcervoId;
 
-    private UsuarioDTO usuario;
     private int usuarioId;
 
     public RequisicaoDTO() { }
@@ -48,11 +46,6 @@ public abstract class RequisicaoDTO implements IIdentificavel {
     public int getId() {
 
         return this.id;
-    }
-
-    public ItemAcervoDTO getItemAcervo() {
-
-        return this.itemAcervo;
     }
 
     public int getItemAcervoId() {
@@ -65,11 +58,6 @@ public abstract class RequisicaoDTO implements IIdentificavel {
         return this.realizadaEm;
     }
 
-    public UsuarioDTO getUsuario() {
-
-        return this.usuario;
-    }
-
     public int getUsuarioId() {
 
         return this.usuarioId;
@@ -80,11 +68,6 @@ public abstract class RequisicaoDTO implements IIdentificavel {
         this.id = id;
     }
 
-    public void setItemAcervo(ItemAcervoDTO itemAcervo) {
-
-        this.itemAcervo = itemAcervo;
-    }
-
     public void setItemAcervoId(int itemAcervoId) {
 
         this.itemAcervoId = itemAcervoId;
@@ -93,11 +76,6 @@ public abstract class RequisicaoDTO implements IIdentificavel {
     public void setRealizadaEm(Date realizadaEm) {
 
         this.realizadaEm = realizadaEm;
-    }
-
-    public void setUsuario(UsuarioDTO usuario) {
-
-        this.usuario = usuario;
     }
 
     public void setUsuarioId(int usuarioId) {
