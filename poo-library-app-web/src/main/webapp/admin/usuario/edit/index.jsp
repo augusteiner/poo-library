@@ -1,7 +1,9 @@
-<script type="text/javascript" src="assets/jquery.inputmask/dist/min/jquery.inputmask.js" defer async></script>
+<script type="text/javascript" src="assets/jquery.inputmask/dist/jquery.inputmask.bundle.min.js" defer async></script>
 <script type="text/javascript">
 $(function(){
-  $(".cpf-input").inputmask("999.999.999-99", { autoUnmask : true });
+  $('.cpf-input').inputmask(
+      '999.999.999-99',
+      { autoUnmask : true });
 });
 </script>
 <div class="well">
@@ -20,9 +22,8 @@ $(function(){
       </div>
       <div class="form-group">
         <div class="col-lg-12">
-          <label class="control-label">CPF</label> <input
-            class="form-control cpf-input" name="cpf" type="text" maxlength="14"
-            ng-model="data.cpf" required>
+          <label class="control-label">CPF</label>
+          <input class="form-control cpf-input" name="cpf" type="text" maxlength="14" ng-model="data.cpf" required> 
         </div>
       </div>
       <!-- <div> -->

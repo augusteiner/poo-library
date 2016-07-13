@@ -3,9 +3,10 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="author" content="José Nascimento &lt;joseaugustodearaujonascimento@gmail.com&gt;">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
 <title>:: Sistema de Gerenciamento de Bibliotecas ::</title>
 
 <link href="assets/bootswatch/flatly/bootstrap.min.css" rel="stylesheet" type="text/css">
