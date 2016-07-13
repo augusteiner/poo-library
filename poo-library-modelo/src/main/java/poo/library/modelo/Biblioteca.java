@@ -27,14 +27,16 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
-import poo.library.comum.IBiblioteca;
 import poo.library.comum.IItemAcervo;
 import poo.library.comum.ILocacao;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
-import poo.library.util.IAcervo;
+import poo.library.modelo.comum.IAcervo;
+import poo.library.modelo.comum.IBiblioteca;
+import poo.library.util.FalhaOperacaoException;
 import poo.library.util.IBuscador;
 import poo.library.util.ItemIndisponivelException;
+import poo.library.util.Iterables;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -60,24 +62,24 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public void cancelarReserva(IItemAcervo item, IUsuario usuario) {
+    public void cancelarReserva(ItemAcervo item, Usuario usuario) {
 
     }
 
     @Override
-    public void cancelarReserva(IReserva reserva) {
+    public void cancelarReserva(Reserva reserva) {
 
     }
 
     @Override
-    public void devolver(IItemAcervo item) {
+    public void devolver(ItemAcervo item) {
 
     }
 
     @Override
     public Iterable<IItemAcervo> getAcervo() {
 
-        return this.acervo;
+        return Iterables.cast(this.acervo);
     }
 
     @Override
@@ -128,7 +130,7 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public void locar(IItemAcervo item, IUsuario usuario) throws ItemIndisponivelException {
+    public void locar(ItemAcervo item, Usuario usuario) throws ItemIndisponivelException, FalhaOperacaoException {
 
         if (item.getQteDisponivel() > 0) {
 
@@ -143,7 +145,7 @@ public class Biblioteca implements IBiblioteca {
 
             Date devolverAte = Date.from(dias);
 
-            ILocacao l = new Locacao(
+            Locacao l = new Locacao(
                 devolverAte,
 
                 item,
@@ -159,7 +161,7 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public void reservar(IItemAcervo item, IUsuario usuario) {
+    public void reservar(ItemAcervo item, Usuario usuario) throws FalhaOperacaoException {
 
     }
 

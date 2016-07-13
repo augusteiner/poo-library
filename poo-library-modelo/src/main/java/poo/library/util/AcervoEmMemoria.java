@@ -31,16 +31,21 @@ import poo.library.comum.IItemAcervo;
 import poo.library.comum.ILocacao;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
+import poo.library.modelo.ItemAcervo;
+import poo.library.modelo.Locacao;
+import poo.library.modelo.Reserva;
+import poo.library.modelo.Usuario;
+import poo.library.modelo.comum.IAcervo;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 public class AcervoEmMemoria implements IAcervo {
 
-    private final Collection<ILocacao> locacoes;
-    private final Collection<IReserva> reservas;
-    private final Collection<IUsuario> usuarios;
-    private final Collection<IItemAcervo> itens;
+    private final Collection<Locacao> locacoes;
+    private final Collection<Reserva> reservas;
+    private final Collection<Usuario> usuarios;
+    private final Collection<ItemAcervo> itens;
 
     public AcervoEmMemoria() {
 
@@ -87,9 +92,9 @@ public class AcervoEmMemoria implements IAcervo {
     }
 
     @Override
-    public Iterator<IItemAcervo> iterator() {
+    public Iterator<ItemAcervo> iterator() {
 
-        return this.itens().iterator();
+        return this.itens.iterator();
     }
 
     @Override
@@ -109,7 +114,7 @@ public class AcervoEmMemoria implements IAcervo {
     @Override
     public Iterable<ILocacao> locacoes() {
 
-        return this.locacoes;
+        return Iterables.cast(this.locacoes);
     }
 
     @Override
@@ -151,7 +156,7 @@ public class AcervoEmMemoria implements IAcervo {
     @Override
     public Iterable<IReserva> reservas() {
 
-        return this.reservas;
+        return Iterables.cast(this.reservas);
     }
 
     @Override
@@ -177,28 +182,27 @@ public class AcervoEmMemoria implements IAcervo {
     }
 
     @Override
-    public void salvarItemAcervo(IItemAcervo itemAcervo) {
+    public void salvarItemAcervo(ItemAcervo itemAcervo) {
 
         this.itens.add(itemAcervo);
     }
 
     @Override
-    public void salvarLocacao(ILocacao locacao) {
+    public void salvarLocacao(Locacao locacao) {
 
         this.locacoes.add(locacao);
     }
 
     @Override
-    public void salvarReserva(IReserva reserva) {
+    public void salvarReserva(Reserva reserva) {
 
         this.reservas.add(reserva);
     }
 
-    @Override
-    public void salvarUsuario(IUsuario usuario) {
-
-        this.usuarios.add(usuario);
-    }
+    //public void salvarUsuario(IUsuario usuario) {
+    //
+    //    this.usuarios.add(usuario);
+    //}
 
     @Override
     public IUsuario usuarioPorId(int usuarioId) {
@@ -217,7 +221,7 @@ public class AcervoEmMemoria implements IAcervo {
     @Override
     public Iterable<IUsuario> usuarios() {
 
-        return this.usuarios;
+        return Iterables.cast(this.usuarios);
     }
 
     @Override

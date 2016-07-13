@@ -23,14 +23,23 @@
  */
 package poo.library.app.web;
 
+import static poo.library.app.web.util.Conversores.*;
 import static poo.library.app.web.util.DAOFactory.*;
+import static poo.library.util.Iterables.*;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import poo.library.app.web.dto.BibliotecaDTO;
+import poo.library.app.web.dto.ItemAcervoDTO;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Biblioteca;
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -55,5 +64,28 @@ public class BibliotecaResource extends GenericResource<BibliotecaDTO> {
         super(PATH, newDAO(dao, MODEL_CLASS, DTO_CLASS));
 
         this.dao = dao;
+    }
+
+    @GET
+    @Path("/{id}/acervo")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getAcervo(@PathParam("id") int id) {
+
+        Biblioteca biblioteca;
+
+        try {
+
+            biblioteca = this.dao.find(id);
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            return this.notFound().entity(e).build();
+        }
+
+        Iterable<ItemAcervoDTO> iter = convert(
+            biblioteca.getAcervo(),
+            newConversor(ItemAcervoDTO.class));
+
+        return Response.ok().entity(iter).build();
     }
 }

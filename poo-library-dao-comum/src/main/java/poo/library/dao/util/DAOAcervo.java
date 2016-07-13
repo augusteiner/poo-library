@@ -33,6 +33,8 @@ import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Locacao;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
+import poo.library.modelo.comum.IArmazem;
+import poo.library.util.FalhaOperacaoException;
 import poo.library.util.IBuscador;
 import poo.library.util.Iterables;
 import poo.library.util.ObjetoNaoEncontradoException;
@@ -40,14 +42,14 @@ import poo.library.util.ObjetoNaoEncontradoException;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class DAOBuscador implements IBuscador {
+public class DAOAcervo implements IBuscador, IArmazem {
 
-    private final IDAO<? extends ILocacao> locacoes;
-    private final IDAO<? extends IReserva> reservas;
-    private final IDAO<? extends IUsuario> usuarios;
-    private final IDAO<? extends IItemAcervo> itens;
+    private final IDAO<Locacao> locacoes;
+    private final IDAO<Reserva> reservas;
+    private final IDAO<Usuario> usuarios;
+    private final IDAO<ItemAcervo> itens;
 
-    public DAOBuscador() {
+    public DAOAcervo() {
 
         this.locacoes = DAOFactory.createNew(Locacao.class);
         this.reservas = DAOFactory.createNew(Reserva.class);
@@ -141,5 +143,32 @@ public class DAOBuscador implements IBuscador {
     public Iterable<IUsuario> usuariosPorTermo(String termo) {
 
         return Iterables.cast(this.usuarios.search(termo));
+    }
+
+    @Override
+    public void salvarItemAcervo(ItemAcervo itemAcervo) throws FalhaOperacaoException {
+
+        if (itemAcervo instanceof ItemAcervo) {
+
+            this.itens.save((ItemAcervo) itemAcervo);
+        }
+    }
+
+    @Override
+    public void salvarLocacao(Locacao locacao) throws FalhaOperacaoException {
+
+        if (locacao instanceof Locacao) {
+
+            this.locacoes.save((Locacao) locacao);
+        }
+    }
+
+    @Override
+    public void salvarReserva(Reserva reserva) throws FalhaOperacaoException {
+
+        if (reserva instanceof Reserva) {
+
+            this.reservas.save((Reserva) reserva);
+        }
     }
 }

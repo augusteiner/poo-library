@@ -23,7 +23,7 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.DAOFactory.*;
+import static poo.library.app.web.util.DAOFactory.newDAO;
 
 import javax.ws.rs.Path;
 
@@ -43,7 +43,7 @@ public class ReservaResource extends GenericResource<ReservaDTO> {
     public static final Class<Reserva> MODEL_CLASS = Reserva.class;
     public static final Class<ReservaDTO> DTO_CLASS = ReservaDTO.class;
 
-    private final IDAO<Reserva> dao;
+    //private final IDAO<Reserva> dao;
 
     public ReservaResource() {
 
@@ -54,6 +54,6 @@ public class ReservaResource extends GenericResource<ReservaDTO> {
 
         super(PATH, newDAO(dao, MODEL_CLASS, DTO_CLASS));
 
-        this.dao = dao;
+        //this.dao = dao;
     }
 }

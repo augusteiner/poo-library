@@ -21,39 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.app.web;
+package poo.library.dao.jpa;
 
-import static poo.library.app.web.util.DAOFactory.*;
+import javax.persistence.EntityManager;
 
-import javax.ws.rs.Path;
-
-import poo.library.app.web.dto.LocacaoDTO;
-import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Locacao;
+import poo.library.modelo.Biblioteca;
 
 /**
- * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-@Path(LocacaoResource.PATH)
-public class LocacaoResource extends GenericResource<LocacaoDTO> {
+public class BibliotecaDAO extends GenericDAO<Biblioteca>
+    implements IDAO<Biblioteca> {
 
-    public static final String PATH = "locacao";
+    public BibliotecaDAO(EntityManager em) {
 
-    public static final Class<Locacao> MODEL_CLASS = Locacao.class;
-    public static final Class<LocacaoDTO> DTO_CLASS = LocacaoDTO.class;
-
-    //private final IDAO<Locacao> dao;
-
-    public LocacaoResource() {
-
-        this(DAOFactory.createNew(MODEL_CLASS));
-    }
-
-    public LocacaoResource(IDAO<Locacao> dao) {
-
-        super(PATH, newDAO(dao, MODEL_CLASS, DTO_CLASS));
-
-        //this.dao = dao;
+        super(Biblioteca.class, em);
     }
 }

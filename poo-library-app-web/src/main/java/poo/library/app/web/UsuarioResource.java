@@ -23,7 +23,9 @@
  */
 package poo.library.app.web;
 
+import static poo.library.app.web.util.Conversores.*;
 import static poo.library.app.web.util.DAOFactory.*;
+import static poo.library.util.Iterables.*;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -32,8 +34,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import poo.library.app.web.dto.LocacaoDTO;
+import poo.library.app.web.dto.ReservaDTO;
 import poo.library.app.web.dto.UsuarioDTO;
-import poo.library.comum.IReserva;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Usuario;
@@ -68,11 +71,36 @@ public class UsuarioResource extends GenericResource<UsuarioDTO> {
     @Produces({ MediaType.APPLICATION_JSON })
     public Response getReservas(@PathParam("id") int usuarioId) {
 
-        Iterable<IReserva> iter;
+        Iterable<ReservaDTO> iter;
 
         try {
 
-            iter = this.dao.find(usuarioId).getReservas();
+            iter = convert(
+                this.dao.find(usuarioId).getReservas(),
+                newConversor(ReservaDTO.class));
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            return Response.status(Response.Status.NOT_FOUND)
+                .entity(e)
+                .build();
+        }
+
+        return Response.ok().entity(iter).build();
+    }
+
+    @GET
+    @Path("/{id}/locacao")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response getLocacoes(@PathParam("id") int usuarioId) {
+
+        Iterable<LocacaoDTO> iter;
+
+        try {
+
+            iter = convert(
+                this.dao.find(usuarioId).getLocacoes(),
+                newConversor(LocacaoDTO.class));
 
         } catch (ObjetoNaoEncontradoException e) {
 

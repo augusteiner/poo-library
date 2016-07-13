@@ -35,6 +35,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import poo.library.comum.IIdentificavel;
 import poo.library.dao.comum.IDAO;
@@ -76,7 +77,7 @@ public abstract class GenericResource<T> {
 
         } catch (ObjetoNaoEncontradoException e) {
 
-            return Response.status(Response.Status.NOT_FOUND)
+            return this.notFound()
                 .entity(e)
                 .build();
             // throw new NotFoundException(e.getMessage(), e);
@@ -109,8 +110,7 @@ public abstract class GenericResource<T> {
 
         } catch (ObjetoNaoEncontradoException e) {
 
-            return Response.status(Response.Status.NOT_FOUND)
-                .build();
+            return this.notFound().build();
         }
 
         System.out.println(String.format(
@@ -127,6 +127,11 @@ public abstract class GenericResource<T> {
             id));
 
         return this.dao.find(id);
+    }
+
+    protected ResponseBuilder notFound() {
+
+        return Response.status(Response.Status.NOT_FOUND);
     }
 
     @POST
