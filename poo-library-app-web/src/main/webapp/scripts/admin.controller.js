@@ -14,7 +14,7 @@
           controller: 'AdminCtrlr'
       }).
       otherwise({
-          redirectTo: '/admin/usuario' 
+          redirectTo: '/admin/usuario'
       });
   });
 

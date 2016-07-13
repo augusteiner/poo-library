@@ -38,7 +38,7 @@ public class UsuarioDTO implements IIdentificavel {
     private String cpf;
     private String endereco;
 
-    private ETipoUsuario tipo;
+    private ETipoUsuario tipo = ETipoUsuario.PADRAO;
 
     public String getCpf() {
 
@@ -97,6 +97,6 @@ public class UsuarioDTO implements IIdentificavel {
 
     public void setTipo(ETipoUsuario tipo) {
 
-        this.tipo = tipo;
+        this.tipo = tipo == null ? ETipoUsuario.PADRAO : tipo;
     }
 }

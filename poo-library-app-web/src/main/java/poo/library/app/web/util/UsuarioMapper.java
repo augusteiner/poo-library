@@ -23,55 +23,48 @@
  */
 package poo.library.app.web.util;
 
-import poo.library.comum.IIdentificavel;
-import poo.library.dao.comum.IDAO;
+import poo.library.app.web.dto.UsuarioDTO;
+import poo.library.comum.ETipoUsuario;
+import poo.library.modelo.Administrador;
 import poo.library.modelo.Usuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class DAOFactory {
+public class UsuarioMapper<I> extends Mapper<I, Usuario> {
 
-    public static <T, M extends IIdentificavel> IDAO<T> newDAO(
-        IDAO<M> dao,
-        Class<M> clsModel,
-        Class<T> clsDto) {
+    public UsuarioMapper(Class<I> clsIn) {
 
-        if (dao == null)
-            throw new IllegalArgumentException("Argumento dao deve ser válido");
-
-        if (clsModel == null)
-            throw new IllegalArgumentException("Argumento clsModel deve ser válido");
-
-        if (clsDto == null)
-            throw new IllegalArgumentException("Argumento clsDto deve ser válido");
-
-        return newDAOConversivel(dao, clsModel, clsDto);
+        super(clsIn, Usuario.class);
     }
 
-    @SuppressWarnings("unchecked")
-    private static <T, M> IDAO<T> newDAOConversivel(
-        IDAO<M> dao,
-        Class<M> clsModel,
-        Class<T> clsDto) {
+    @Override
+    public Usuario converter(Object input) {
 
-        Mapper<M, T> mapper;
-        Mapper<T, M> inverso;
+        if (input instanceof UsuarioDTO) {
 
-        mapper = new Mapper<M, T>(clsModel, clsDto);
+            Usuario usuario;
 
-        if (clsModel.equals(Usuario.class)) {
+            ETipoUsuario tipo = ((UsuarioDTO) input).getTipo();
 
-            inverso = (Mapper<T, M>) new UsuarioMapper<T>(clsDto);
+            switch (tipo) {
+                case ADMIN:
+                    usuario = new Administrador();
+                    break;
+                case COMUM:
+                    usuario = new Usuario();
+                    break;
+                default:
+                    throw new IllegalArgumentException(String.format(
+                        "DTO com tipo '%s' de usuário inválido",
+                        tipo));
+            }
 
-        } else {
+            this.map(input, usuario);
 
-            inverso = mapper.inverso();
+            return usuario;
         }
 
-        return new DAOConversor<M, T>(
-            dao,
-            mapper,
-            inverso);
+        return super.converter(input);
     }
 }

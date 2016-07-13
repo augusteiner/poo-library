@@ -36,13 +36,17 @@ class Mapper<I, O> implements IConversor<O> {
     private Class<O> clsOut;
     private Class<I> clsIn;
 
+    private final ModelMapper mapper;
+
     public Mapper(Class<I> clsIn, Class<O> clsOut) {
 
         this.clsIn = clsIn;
         this.clsOut = clsOut;
+
+        this.mapper = this.newMapper();
     }
 
-    private ModelMapper getMapper() {
+    private ModelMapper newMapper() {
 
         ModelMapper mapper = new ModelMapper();
 
@@ -51,10 +55,20 @@ class Mapper<I, O> implements IConversor<O> {
         return mapper;
     }
 
+    protected O map(Object input) {
+
+        return this.mapper.map(input, this.clsOut);
+    }
+
+    protected void map(Object input, O output) {
+
+        this.mapper.map(input, output);
+    }
+
     @Override
     public O converter(Object input) {
 
-        O output = this.getMapper().map(input, this.clsOut);
+        O output = this.map(input);
 
         System.out.println(String.format(
             "Mapeado INPUT: %s -> OUTPUT: %s",
@@ -66,7 +80,7 @@ class Mapper<I, O> implements IConversor<O> {
 
     public void converter(I input, O output) {
 
-        this.getMapper().map(input, output);
+        this.map(input, output);
 
         System.out.println(String.format(
             "Mapeado INPUT: %s -> OUTPUT: %s",
