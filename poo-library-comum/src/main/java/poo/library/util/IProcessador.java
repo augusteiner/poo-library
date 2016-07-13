@@ -25,8 +25,10 @@ package poo.library.util;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
+ * @deprecated
  */
-public interface IConversor<O> {
+@Deprecated
+public interface IProcessador<T> {
 
-    O converter(Object input);
+    void processar(T arg);
 }

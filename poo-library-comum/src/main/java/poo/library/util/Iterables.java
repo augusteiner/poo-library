@@ -31,6 +31,22 @@ import java.util.Iterator;
  */
 public class Iterables {
 
+    static class ProcessadorNoop<T> implements IProcessador<T> {
+
+        public static final IProcessador<?> DEFAULT = new ProcessadorNoop<Object>();
+
+        private ProcessadorNoop() { }
+
+        @Override
+        public void processar(T arg) { }
+
+        @SuppressWarnings("unchecked")
+        public static <O> IProcessador<O> empty() {
+
+            return (IProcessador<O>) DEFAULT;
+        }
+    }
+
     public static <C, T extends C> Iterable<C> cast(final Iterable<T> iterable) {
 
         if (iterable == null) {
@@ -63,9 +79,11 @@ public class Iterables {
         };
     }
 
-    public static <I, O> Iterable<O> convert(
+    public static <I, O> Iterable<O> process(
         final Iterable<I> iterable,
-        final IConversor<I, O> conversor) {
+        final IConversor<O> conversor,
+        final IProcessador<O> processador) {
+
 
         if (iterable == null) {
 
@@ -90,10 +108,21 @@ public class Iterables {
                     @Override
                     public O next() {
 
-                        return conversor.convert(iter.next());
+                        O tmp = conversor.converter(iter.next());
+
+                        processador.processar(tmp);
+
+                        return tmp;
                     }
                 };
             }
         };
+    }
+
+    public static <I, O> Iterable<O> convert(
+        final Iterable<I> iterable,
+        final IConversor<O> conversor) {
+
+        return process(iterable, conversor, ProcessadorNoop.<O>empty());
     }
 }

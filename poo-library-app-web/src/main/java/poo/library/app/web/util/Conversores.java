@@ -21,12 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.util;
+package poo.library.app.web.util;
+
+import poo.library.util.IConversor;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public interface IConversor<O> {
+public class Conversores {
 
-    O converter(Object input);
+    public static <D> IConversor<D> newConversor(Class<D> clsOut) {
+
+        return newConversor(Object.class, clsOut);
+    }
+
+    public static <T, D> IConversor<D> newConversor(
+        Class<T> clsIn,
+        Class<D> clsOut) {
+
+        return new Mapper<T, D>(clsIn, clsOut);
+    }
 }

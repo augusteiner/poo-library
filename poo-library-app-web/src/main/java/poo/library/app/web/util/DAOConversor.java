@@ -33,16 +33,16 @@ import poo.library.util.ObjetoNaoEncontradoException;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class DAOConversor<I, O> implements IConversor<I, O>, IDAO<O> {
+public class DAOConversor<I, O> implements IConversor<O>, IDAO<O> {
 
     private IDAO<I> dao;
-    private IConversor<I, O> conversorIn;
-    private IConversor<O, I> conversorOut;
+    private IConversor<O> conversorIn;
+    private IConversor<I> conversorOut;
 
     public DAOConversor(
         IDAO<I> dao,
-        IConversor<I, O> conversorIn,
-        IConversor<O, I> conversorOut) {
+        IConversor<O> conversorIn,
+        IConversor<I> conversorOut) {
 
         this.dao = dao;
 
@@ -54,18 +54,6 @@ public class DAOConversor<I, O> implements IConversor<I, O>, IDAO<O> {
     public Iterable<O> all() {
 
         return Iterables.convert(this.dao.all(), this);
-    }
-
-    @Override
-    public O convert(I input) {
-
-        return this.conversorIn.convert(input);
-    }
-
-    @Override
-    public void convert(I input, O output) {
-
-        this.conversorIn.convert(input, output);
     }
 
     @Override
@@ -98,19 +86,19 @@ public class DAOConversor<I, O> implements IConversor<I, O>, IDAO<O> {
     @Override
     public O find(int id) throws ObjetoNaoEncontradoException {
 
-        return this.convert(this.dao.find(id));
+        return this.converter(this.dao.find(id));
     }
 
     @Override
     public O first() throws ObjetoNaoEncontradoException {
 
-        return this.convert(this.dao.first());
+        return this.converter(this.dao.first());
     }
 
     @Override
     public void save(O output) throws FalhaOperacaoException {
 
-        I obj = this.conversorOut.convert(output);
+        I obj = this.conversorOut.converter(output);
 
         this.dao.save(obj);
     }
@@ -121,5 +109,11 @@ public class DAOConversor<I, O> implements IConversor<I, O>, IDAO<O> {
         return Iterables.convert(
             this.dao.search(term),
             this);
+    }
+
+    @Override
+    public O converter(Object input) {
+
+        return this.conversorIn.converter(input);
     }
 }

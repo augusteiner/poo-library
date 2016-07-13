@@ -23,67 +23,13 @@
  */
 package poo.library.app.web.util;
 
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
-
 import poo.library.comum.IIdentificavel;
 import poo.library.dao.comum.IDAO;
-import poo.library.util.IConversor;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 public class DAOFactory {
-
-    private static class Conversor<I, O> implements IConversor<I, O> {
-
-        private Class<O> clsOut;
-        private Class<I> clsIn;
-
-        public Conversor(Class<I> clsIn, Class<O> clsOut) {
-
-            this.clsIn = clsIn;
-            this.clsOut = clsOut;
-        }
-
-        private ModelMapper getMapper() {
-
-            ModelMapper mapper = new ModelMapper();
-
-            mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-
-            return mapper;
-        }
-
-        @Override
-        public O convert(I input) {
-
-            O output = this.getMapper().map(input, this.clsOut);
-
-            System.out.println(String.format(
-                "Mapeado INPUT: %s -> OUTPUT: %s",
-                input,
-                output));
-
-            return output;
-        }
-
-        @Override
-        public void convert(I input, O output) {
-
-            this.getMapper().map(input, output);
-
-            System.out.println(String.format(
-                "Mapeado INPUT: %s -> OUTPUT: %s",
-                input,
-                output));
-        }
-
-        public IConversor<O, I> inverse() {
-
-            return new Conversor<O, I>(clsOut, clsIn);
-        }
-    }
 
     public static <T, M extends IIdentificavel> IDAO<T> newDAO(
         IDAO<M> dao,
@@ -107,8 +53,11 @@ public class DAOFactory {
         Class<M> clsModel,
         Class<T> clsDto) {
 
-        Conversor<T, M> conversor = new Conversor<T, M>(clsDto, clsModel);
+        Mapper<M, T> mapper = new Mapper<M, T>(clsModel, clsDto);
 
-        return new DAOConversor<M, T>(dao, conversor.inverse(), conversor);
+        return new DAOConversor<M, T>(
+            dao,
+            mapper,
+            mapper.inverso());
     }
 }
