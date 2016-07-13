@@ -3,7 +3,10 @@
 $(function(){
   $('.cpf-input').inputmask(
       '999.999.999-99',
-      { autoUnmask : true });
+      { autoUnmask : true,
+        placeholder: '',
+        showMaskOnHover: false,
+        showMaskOnFocus: false, });
 });
 </script>
 <div class="well">

@@ -9,8 +9,10 @@
     </caption>
     <thead>
       <tr>
-        <th>Usuário</th>
-        <th style="width: 12rem;">Ações</th>
+        <th>
+            Usuário</th>
+        <th style="width: 8rem;">
+            Ações</th>
       </tr>
     </thead>
     <tfoot>
@@ -30,12 +32,12 @@
         <td>
           <div class="btn-group">
             <a class="btn btn-sm btn-primary" href="\#{{rootPath}}/{{user.id}}">
-              <span class="glyphicon glyphicon-pencil"></span> Editar
+              <span class="glyphicon glyphicon-pencil"></span>
             </a>
             <a data-target="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="caret"></span>
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu pull-right">
               <li>
                 <a class="" href="\#{{rootPath}}" ng-click="delete(user.id)">
                   <span class="glyphicon glyphicon-remove"></span> Deletar
