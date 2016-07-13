@@ -38,43 +38,43 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Biblioteca <span
+              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Biblioteca <span
                   class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li>
-                  <a href="#">
+                  <a href="javascript:void(0);">
                     <span class="glyphicon glyphicon-th-list"></span> Consultar Acervo</a>
                 </li>
-                <li><a href="#">Ver usuários</a></li>
+                <li><a href="javascript:void(0);">Ver usuários</a></li>
                 <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
+                <li><a href="javascript:void(0);">Separated link</a></li>
                 <li class="divider"></li>
-                <li><a href="#">One more separated link</a></li>
+                <li><a href="javascript:void(0);">One more separated link</a></li>
               </ul>
             </li>
             <li class="">
-              <a href="#">Empréstimos</a>
+              <a href="javascript:void(0);">Empréstimos</a>
             </li>
             <li>
-              <a href="#">Reservas</a>
+              <a href="javascript:void(0);">Reservas</a>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 <span class="glyphicon glyphicon-user"></span> Primeiro Nome <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Ver reservas</a></li>
-                <li><a href="#">Ver usuários</a></li>
+                <li><a href="javascript:void(0);">Ver reservas</a></li>
+                <li><a href="javascript:void(0);">Ver usuários</a></li>
                 <li class="divider"></li>
                 <li>
-                  <a href="#">
+                  <a href="javascript:void(0);">
                     <span class="glyphicon glyphicon-cog"></span> Configurações</a>
                 </li>
                 <li class="divider"></li>
                 <li>
-                  <a href="#">
+                  <a href="javascript:void(0);">
                     <span class="glyphicon glyphicon-log-out"></span> Sair</a>
                 </li>
               </ul>
