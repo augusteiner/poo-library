@@ -16,7 +16,8 @@
       <basic name="qteDiasLocacao" />
       <basic name="qteDiasValidadeReserva" />
 
-      <transient name="acervo" />
+      <one-to-many name="acervo"></one-to-many>
+
       <transient name="alugueis" />
       <transient name="reservas" />
       <transient name="usuarios" />
