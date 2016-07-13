@@ -3,7 +3,7 @@
   <table class="table table-striped table-hover">
     <caption>
       Usuários
-      | <a class="btn btn-xs btn-default" href="#/admin/usuario/new">
+      | <a class="btn btn-xs btn-primary" href="#/admin/usuario/new">
         <span class="glyphicon glyphicon-certificate"></span> Novo
       </a>
     </caption>

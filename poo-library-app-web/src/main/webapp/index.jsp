@@ -12,13 +12,13 @@
 
 <link href="styles/main.css" rel="stylesheet" type="text/css">
 
-<script src="assets/angular/angular.min.js" type="text/javascript"></script>
-<script src="assets/angular-route/angular-route.min.js" type="text/javascript"></script>
-
 <script src="assets/jquery/dist/jquery.min.js" type="text/javascript"></script>
 <script src="assets/bootstrap/dist/js/bootstrap.min.js"></script>
 
-<script src="scripts/usuario.controller.js" type="text/javascript"></script>
+<script src="assets/angular/angular.min.js" type="text/javascript"></script>
+<script src="assets/angular-route/angular-route.min.js" type="text/javascript"></script>
+
+<script src="scripts/admin.controller.js" type="text/javascript"></script>
 
 </head>
 <body>

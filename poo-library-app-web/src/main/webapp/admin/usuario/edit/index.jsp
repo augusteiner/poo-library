@@ -1,3 +1,9 @@
+<script type="text/javascript" src="assets/jquery.inputmask/dist/min/jquery.inputmask.js" defer async></script>
+<script type="text/javascript">
+$(function(){
+  $(".cpf-input").inputmask("999.999.999-99", { autoUnmask : true });
+});
+</script>
 <div class="well">
   <form class="form-horizontal" action="javascript:void(0);"
     method="post" ng-submit="save()" ng-controller="AdminCtrlr"
@@ -9,13 +15,13 @@
         <div class="col-lg-12">
           <label class="control-label"> Nome </label> <input
             class="form-control" name="nome" type="text"
-            ng-model="data.nome" required>
+            ng-model="data.nome" required autofocus>
         </div>
       </div>
       <div class="form-group">
         <div class="col-lg-12">
           <label class="control-label">CPF</label> <input
-            class="form-control" name="cpf" type="text" maxlength="11"
+            class="form-control cpf-input" name="cpf" type="text" maxlength="14"
             ng-model="data.cpf" required>
         </div>
       </div>
