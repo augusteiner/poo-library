@@ -25,6 +25,7 @@ package poo.library.modelo;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Collection;
 import java.util.Date;
 
 import poo.library.comum.IItemAcervo;
@@ -37,6 +38,7 @@ import poo.library.util.FalhaOperacaoException;
 import poo.library.util.IBuscador;
 import poo.library.util.ItemIndisponivelException;
 import poo.library.util.Iterables;
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -51,7 +53,10 @@ public class Biblioteca implements IBiblioteca {
     private int qteDiasValidadeReserva;
     private int qteDiasLocacao;
 
-    private IAcervo acervo;
+    private IAcervo armazem;
+
+    private Collection<ItemAcervo> acervo;
+    private Collection<Reserva> reservas;
 
     public Biblioteca() { }
 
@@ -59,21 +64,6 @@ public class Biblioteca implements IBiblioteca {
 
         this.nome = nome;
         this.multaDiaria = multaDiaria;
-    }
-
-    @Override
-    public void cancelarReserva(ItemAcervo item, Usuario usuario) {
-
-    }
-
-    @Override
-    public void cancelarReserva(Reserva reserva) {
-
-    }
-
-    @Override
-    public void devolver(ItemAcervo item) {
-
     }
 
     @Override
@@ -115,12 +105,12 @@ public class Biblioteca implements IBiblioteca {
     @Override
     public Iterable<IReserva> getReservas() {
 
-        return null;
+        return Iterables.cast(this.reservas);
     }
 
     public IBuscador getBuscador() {
 
-        return this.acervo;
+        return this.armazem;
     }
 
     @Override
@@ -151,7 +141,7 @@ public class Biblioteca implements IBiblioteca {
                 item,
                 usuario);
 
-            this.acervo.salvarLocacao(l);
+            this.armazem.salvarLocacao(l);
 
         } else {
 
@@ -187,7 +177,7 @@ public class Biblioteca implements IBiblioteca {
         this.qteDiasValidadeReserva = qteDiasValidadeReserva;
     }
 
-    public void setAcervo(IAcervo acervo) {
+    public void setAcervo(Collection<ItemAcervo> acervo) {
 
         this.acervo = acervo;
     }
@@ -201,5 +191,43 @@ public class Biblioteca implements IBiblioteca {
     public void setQteDiasLocacao(int qteDiasLocacao) {
 
         this.qteDiasLocacao = qteDiasLocacao;
+    }
+
+    @Override
+    public IReserva cancelar(int reservaId)
+        throws ObjetoNaoEncontradoException {
+
+        return null;
+    }
+
+    @Override
+    public ILocacao devolver(int locacaoId)
+        throws ObjetoNaoEncontradoException {
+
+        return null;
+    }
+
+    @Override
+    public ILocacao locar(int itemAcervoId, int usuarioId)
+        throws ObjetoNaoEncontradoException {
+
+        return null;
+    }
+
+    @Override
+    public IReserva reservar(int itemAcervoId, int usuarioId)
+        throws ObjetoNaoEncontradoException {
+
+        return null;
+    }
+
+    @Override
+    public void devolver(Locacao locacao) throws FalhaOperacaoException {
+
+    }
+
+    @Override
+    public void cancelar(Reserva reserva) throws FalhaOperacaoException {
+
     }
 }

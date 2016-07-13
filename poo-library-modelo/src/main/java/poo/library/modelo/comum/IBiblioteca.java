@@ -35,7 +35,7 @@ import poo.library.util.ItemIndisponivelException;
  */
 public interface IBiblioteca extends poo.library.comum.IBiblioteca {
 
-    void cancelarReserva(Reserva reserva) throws FalhaOperacaoException;
+    void cancelar(Reserva reserva) throws FalhaOperacaoException;
 
     void devolver(Locacao locacao) throws FalhaOperacaoException;
 

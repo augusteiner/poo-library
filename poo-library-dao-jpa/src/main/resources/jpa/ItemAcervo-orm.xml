@@ -23,6 +23,11 @@
 
       <basic name="bibliotecaId" />
 
+      <one-to-one name="biblioteca" fetch="LAZY" optional="false" id="false">
+        <join-column name="bibliotecaId" insertable="false" updatable="false"
+          unique="false" nullable="false" />
+      </one-to-one>
+
       <transient name="categoria" />
       <transient name="biblioteca" />
     </attributes>

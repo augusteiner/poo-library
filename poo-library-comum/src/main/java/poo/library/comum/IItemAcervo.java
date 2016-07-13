@@ -50,7 +50,7 @@ public interface IItemAcervo extends IIdentificavel, ILocalizado, ISearcheable {
 
     void setAutor(String autor);
 
-    void setPrecoAluguel(double custoEmprestimo);
+    void setPrecoLocacao(double custoEmprestimo);
 
     void setQteDisponivel(int qteDisponivel);
 

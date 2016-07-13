@@ -3,8 +3,11 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
   version="2.0">
   <entity class="poo.library.modelo.Biblioteca" access="FIELD" metadata-complete="true">
+
     <table name="biblioteca" />
+
     <attributes>
+
       <id name="id">
         <column name="id" />
         <generated-value strategy="IDENTITY" />
@@ -16,11 +19,20 @@
       <basic name="qteDiasLocacao" />
       <basic name="qteDiasValidadeReserva" />
 
-      <one-to-many name="acervo"></one-to-many>
+      <one-to-many name="acervo" access="FIELD" mapped-by="bibliotecaId">
+      </one-to-many>
+
+      <one-to-many name="reservas" access="FIELD">
+        <join-table name="item_acervo">
+          <join-column name="bibliotecaId" />
+          <inverse-join-column name="id" table="reserva" />
+        </join-table>
+      </one-to-many>
 
       <transient name="alugueis" />
-      <transient name="reservas" />
+      <transient name="armazem" />
       <transient name="usuarios" />
+
     </attributes>
   </entity>
 </entity-mappings>

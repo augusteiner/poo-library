@@ -36,14 +36,11 @@ public interface IDAO<T> {
     int count();
 
     void delete(T obj) throws FalhaOperacaoException;
-
     void deleteById(int id) throws ObjetoNaoEncontradoException, FalhaOperacaoException;
 
     T find(int id) throws ObjetoNaoEncontradoException;
-
     T first() throws ObjetoNaoEncontradoException;
+    Iterable<T> search(String term);
 
     void save(T obj) throws FalhaOperacaoException;
-
-    Iterable<T> search(String term);
 }

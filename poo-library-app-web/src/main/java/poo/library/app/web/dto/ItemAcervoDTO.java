@@ -102,9 +102,9 @@ public /* abstract */ class ItemAcervoDTO implements IIdentificavel {
         this.id = id;
     }
 
-    public void setPrecoAluguel(double precoAluguel) {
+    public void setPrecoLocacao(double precoLocacao) {
 
-        this.precoLocacao = precoAluguel;
+        this.precoLocacao = precoLocacao;
     }
 
     public void setQteDisponivel(int qteDisponivel) {

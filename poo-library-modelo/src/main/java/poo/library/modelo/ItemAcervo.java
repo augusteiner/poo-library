@@ -184,9 +184,9 @@ public abstract class ItemAcervo implements IItemAcervo {
     }
 
     @Override
-    public void setPrecoAluguel(double precoAluguel) {
+    public void setPrecoLocacao(double precoLocacao) {
 
-        this.precoLocacao = precoAluguel;
+        this.precoLocacao = precoLocacao;
     }
 
     @Override

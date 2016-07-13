@@ -25,9 +25,7 @@ package poo.library.modelo;
 
 import java.util.Date;
 
-import poo.library.comum.IItemAcervo;
 import poo.library.comum.ILocacao;
-import poo.library.comum.IUsuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -44,21 +42,10 @@ public class Locacao extends Requisicao implements ILocacao {
     public Locacao(
         Date devolverAte,
 
-        IItemAcervo item,
-        IUsuario usuario) {
-
-        super(item.getId(), usuario.getId());
-
-        this.init(devolverAte, item);
-    }
-
-    public Locacao(
-        Date devolverAte,
-
         ItemAcervo item,
         Usuario usuario) {
 
-        super(item, usuario);
+        super(item.getId(), usuario.getId());
 
         this.init(devolverAte, item);
     }
@@ -81,7 +68,7 @@ public class Locacao extends Requisicao implements ILocacao {
         return this.precoCobrado;
     }
 
-    private void init(Date devolverAte, IItemAcervo item) {
+    private void init(Date devolverAte, ItemAcervo item) {
 
         this.devolverAte = devolverAte;
         this.precoCobrado = item.getPrecoLocacao();
