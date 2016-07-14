@@ -23,6 +23,7 @@
  */
 package poo.library.app.seeder;
 
+import static poo.library.app.seeder.BibliotecaSeeder.*;
 import static poo.library.app.seeder.ItemAcervoSeeder.*;
 import static poo.library.app.seeder.UsuarioSeeder.*;
 
@@ -54,7 +55,12 @@ class ReservaSeeder extends Seeder<Reserva> implements ISeeder<Reserva> {
         Date validaAte = Date.from(instant);
 
         Reserva[] reservas = new Reserva[] {
-            new Reserva(validaAte, firstItemAcervoId, firstUsuarioId)
+            new Reserva(
+                validaAte,
+
+                firstItemAcervoId,
+                firstUsuarioId,
+                firstBibliotecaId)
         };
 
         for (Reserva r : reservas) {

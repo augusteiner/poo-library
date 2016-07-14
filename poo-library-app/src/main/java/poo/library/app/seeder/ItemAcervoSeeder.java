@@ -23,6 +23,7 @@
  */
 package poo.library.app.seeder;
 
+import static poo.library.app.seeder.BibliotecaSeeder.*;
 import static poo.library.app.seeder.LocacaoSeeder.*;
 
 import poo.library.app.util.ISeeder;
@@ -53,12 +54,10 @@ class ItemAcervoSeeder extends Seeder<ItemAcervo>
     @Override
     public void seed() throws FalhaOperacaoException {
 
-        int bibliotecaId = BibliotecaSeeder.getBibliotecaId();
-
         ItemAcervo[] itens = new ItemAcervo[] {
-            i1 = new Livro("José A.", "POO - Introdução", 2.5, bibliotecaId),
-            i2 = new Texto("João M.", 1.5, bibliotecaId),
-            new Apostila("Maria J.", "Java & JBDC", 1.25, bibliotecaId) };
+            i1 = new Livro("José A.", "POO - Introdução", 2.5, firstBibliotecaId),
+            i2 = new Texto("João M.", 1.5, firstBibliotecaId),
+            new Apostila("Maria J.", "Java & JBDC", 1.25, firstBibliotecaId) };
 
         item1 = i1;
         item2 = i2;

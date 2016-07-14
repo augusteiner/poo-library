@@ -143,7 +143,8 @@ public class App {
             new Date(),
 
             i1.getId(),
-            u1.getId());
+            u1.getId(),
+            b1.getId());
 
         r1.setValidaAte(Date.from(Instant.now().plus(3, ChronoUnit.DAYS)));
 

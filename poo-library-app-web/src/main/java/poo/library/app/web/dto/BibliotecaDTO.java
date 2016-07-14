@@ -33,12 +33,18 @@ public class BibliotecaDTO implements IIdentificavel {
     private int id;
 
     private String nome;
+    private String endereco;
 
     private double multaDiaria;
     private int qteDiasValidadeReserva;
     private int qteDiasLocacao;
 
     public BibliotecaDTO() { }
+
+    public String getEndereco() {
+
+        return this.endereco;
+    }
 
     @Override
     public int getId() {
@@ -64,6 +70,11 @@ public class BibliotecaDTO implements IIdentificavel {
     public int getQteDiasValidadeReserva() {
 
         return this.qteDiasValidadeReserva;
+    }
+
+    public void setEndereco(String endereco) {
+
+        this.endereco = endereco;
     }
 
     public void setId(int id) {

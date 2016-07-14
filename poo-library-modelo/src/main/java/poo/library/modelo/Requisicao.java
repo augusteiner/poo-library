@@ -51,15 +51,17 @@ public abstract class Requisicao implements IRequisicao {
         ItemAcervo itemAcervo,
         Usuario usuario) {
 
-        this(itemAcervo.getId(), usuario.getId());
+        this(itemAcervo.getId(), usuario.getId(), itemAcervo.getBibliotecaId());
     }
 
     public Requisicao(
         int itemAcervoId,
-        int usuarioId) {
+        int usuarioId,
+        int bibliotecaId) {
 
         this.itemAcervoId = itemAcervoId;
         this.usuarioId = usuarioId;
+        this.bibliotecaId = bibliotecaId;
 
         this.realizadaEm = new Date();
     }
@@ -146,6 +148,7 @@ public abstract class Requisicao implements IRequisicao {
             this.getUsuario());
     }
 
+    @Override
     public Biblioteca getBiblioteca() {
 
         return biblioteca;
@@ -156,11 +159,13 @@ public abstract class Requisicao implements IRequisicao {
         this.biblioteca = biblioteca;
     }
 
+    @Override
     public int getBibliotecaId() {
 
         return bibliotecaId;
     }
 
+    @Override
     public void setBibliotecaId(int bibliotecaId) {
 
         this.bibliotecaId = bibliotecaId;

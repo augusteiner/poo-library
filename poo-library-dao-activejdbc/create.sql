@@ -49,6 +49,7 @@ CREATE TABLE `biblioteca` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 
   `nome` VARCHAR(100) NOT NULL,
+  `endereco` VARCHAR(100) NOT NULL,
   `multaDiaria` DECIMAL(12, 4) NOT NULL DEFAULT 0,
 
   `qteDiasValidadeReserva` SMALLINT UNSIGNED NOT NULL,
@@ -98,6 +99,7 @@ CREATE TABLE `locacao` (
 
   `usuarioId` INT UNSIGNED NOT NULL,
   `itemAcervoId` INT UNSIGNED NOT NULL,
+  `bibliotecaId` INT UNSIGNED NOT NULL,
 
   `precoCobrado` DECIMAL(12, 4) NOT NULL DEFAULT 0.0,
 
@@ -106,6 +108,12 @@ CREATE TABLE `locacao` (
   `realizadaEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY (`id`),
+
+  CONSTRAINT `fk_locacao_biblioteca`
+    FOREIGN KEY (`bibliotecaId`)
+    REFERENCES `biblioteca` (`id`)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT,
 
   CONSTRAINT `fk_locacao_usuario`
     FOREIGN KEY (`usuarioId`)
@@ -131,11 +139,18 @@ CREATE TABLE `reserva` (
 
   `usuarioId` INT UNSIGNED NOT NULL,
   `itemAcervoId` INT UNSIGNED NOT NULL,
+  `bibliotecaId` INT UNSIGNED NOT NULL,
 
   `validaAte` DATETIME NOT NULL,
   `realizadaEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY (`id`),
+
+  CONSTRAINT `fk_reserva_biblioteca`
+    FOREIGN KEY (`bibliotecaId`)
+    REFERENCES `biblioteca` (`id`)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT,
 
   CONSTRAINT `fk_reserva_usuario`
     FOREIGN KEY (`usuarioId`)

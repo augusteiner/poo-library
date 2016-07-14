@@ -48,6 +48,7 @@ public class Biblioteca implements IBiblioteca {
     private int id;
 
     private String nome;
+    private String endereco;
 
     private double multaDiaria;
     private int qteDiasValidadeReserva;
@@ -69,15 +70,56 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
+    public IReserva cancelar(int reservaId)
+        throws ObjetoNaoEncontradoException {
+
+        return null;
+    }
+
+    @Override
+    public void cancelar(Reserva reserva) throws FalhaOperacaoException {
+
+    }
+
+    @Override
+    public ILocacao devolver(int locacaoId)
+        throws ObjetoNaoEncontradoException {
+
+        return null;
+    }
+
+    @Override
+    public void devolver(Locacao locacao) throws FalhaOperacaoException {
+
+    }
+
+    @Override
     public Iterable<IItemAcervo> getAcervo() {
 
         return Iterables.cast(this.acervo);
+    }
+
+    public IBuscador getBuscador() {
+
+        return this.armazem;
+    }
+
+    @Override
+    public String getEndereco() {
+
+        return this.endereco;
     }
 
     @Override
     public int getId() {
 
         return this.id;
+    }
+
+    @Override
+    public Iterable<ILocacao> getLocacoes() {
+
+        return Iterables.cast(this.locacoes);
     }
 
     @Override
@@ -93,6 +135,12 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
+    public int getQteDiasLocacao() {
+
+        return this.qteDiasLocacao;
+    }
+
+    @Override
     public int getQteDiasValidadeReserva() {
 
         return this.qteDiasValidadeReserva;
@@ -105,18 +153,14 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public Iterable<ILocacao> getLocacoes() {
+    public Iterable<IUsuario> getUsuarios() {
 
-        return Iterables.cast(this.locacoes);
-    }
-
-    public IBuscador getBuscador() {
-
-        return this.armazem;
+        return null;
     }
 
     @Override
-    public Iterable<IUsuario> getUsuarios() {
+    public ILocacao locar(int itemAcervoId, int usuarioId)
+        throws ObjetoNaoEncontradoException {
 
         return null;
     }
@@ -153,13 +197,35 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
+    public IReserva reservar(int itemAcervoId, int usuarioId)
+        throws ObjetoNaoEncontradoException {
+
+        return null;
+    }
+
+    @Override
     public void reservar(ItemAcervo item, Usuario usuario) throws FalhaOperacaoException {
 
+    }
+
+    public void setAcervo(Collection<ItemAcervo> acervo) {
+
+        this.acervo = acervo;
+    }
+
+    public void setEndereco(String endereco) {
+
+        this.endereco = endereco;
     }
 
     public void setId(int id) {
 
         this.id = id;
+    }
+
+    public void setLocacoes(Collection<Locacao> locacoes) {
+
+        this.locacoes = locacoes;
     }
 
     @Override
@@ -174,6 +240,11 @@ public class Biblioteca implements IBiblioteca {
         this.nome = nome;
     }
 
+    public void setQteDiasLocacao(int qteDiasLocacao) {
+
+        this.qteDiasLocacao = qteDiasLocacao;
+    }
+
     public void setQteDiasValidadeReserva(int qteDiasValidadeReserva) {
 
         this.qteDiasValidadeReserva = qteDiasValidadeReserva;
@@ -182,64 +253,5 @@ public class Biblioteca implements IBiblioteca {
     public void setReservas(Collection<Reserva> reservas) {
 
         this.reservas = reservas;
-    }
-
-    public void setLocacoes(Collection<Locacao> locacoes) {
-
-        this.locacoes = locacoes;
-    }
-
-    public void setAcervo(Collection<ItemAcervo> acervo) {
-
-        this.acervo = acervo;
-    }
-
-    @Override
-    public int getQteDiasLocacao() {
-
-        return this.qteDiasLocacao;
-    }
-
-    public void setQteDiasLocacao(int qteDiasLocacao) {
-
-        this.qteDiasLocacao = qteDiasLocacao;
-    }
-
-    @Override
-    public IReserva cancelar(int reservaId)
-        throws ObjetoNaoEncontradoException {
-
-        return null;
-    }
-
-    @Override
-    public ILocacao devolver(int locacaoId)
-        throws ObjetoNaoEncontradoException {
-
-        return null;
-    }
-
-    @Override
-    public ILocacao locar(int itemAcervoId, int usuarioId)
-        throws ObjetoNaoEncontradoException {
-
-        return null;
-    }
-
-    @Override
-    public IReserva reservar(int itemAcervoId, int usuarioId)
-        throws ObjetoNaoEncontradoException {
-
-        return null;
-    }
-
-    @Override
-    public void devolver(Locacao locacao) throws FalhaOperacaoException {
-
-    }
-
-    @Override
-    public void cancelar(Reserva reserva) throws FalhaOperacaoException {
-
     }
 }

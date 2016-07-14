@@ -44,17 +44,12 @@ import poo.library.util.FalhaOperacaoException;
 public class BibliotecaSeeder extends Seeder<Biblioteca>
     implements ISeeder<Biblioteca> {
 
-    private static int bibliotecaId;
+    static int firstBibliotecaId;
 
     private final ISeeder<ItemAcervo> itemSeeder;
     private final ISeeder<Reserva> reservaSeeder;
     private final ISeeder<Usuario> usuarioSeeder;
     private final ISeeder<Locacao> locacaoSeeder;
-
-    public static int getBibliotecaId() {
-
-        return bibliotecaId;
-    }
 
     public BibliotecaSeeder(IDAO<Biblioteca> dao) {
 
@@ -85,11 +80,11 @@ public class BibliotecaSeeder extends Seeder<Biblioteca>
             this.dao.save(lib);
         }
 
-        bibliotecaId = libs[0].getId();
+        firstBibliotecaId = libs[0].getId();
 
         printlnCentro(String.format(
             "ID da biblioteca principal #%d",
-            bibliotecaId));
+            firstBibliotecaId));
 
         for (IBiblioteca lib : this.dao.all()) {
 

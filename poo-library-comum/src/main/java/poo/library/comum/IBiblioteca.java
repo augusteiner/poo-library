@@ -31,6 +31,7 @@ import poo.library.util.ObjetoNaoEncontradoException;
 public interface IBiblioteca extends IIdentificavel {
 
     String getNome();
+    String getEndereco();
     double getMultaDiaria();
     int getQteDiasValidadeReserva();
     int getQteDiasLocacao();

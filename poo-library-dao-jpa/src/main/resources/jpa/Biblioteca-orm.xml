@@ -15,6 +15,7 @@
       </id>
 
       <basic name="nome" />
+      <basic name="endereco" />
       <basic name="multaDiaria" />
 
       <basic name="qteDiasLocacao" />

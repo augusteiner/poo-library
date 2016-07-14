@@ -44,16 +44,17 @@ public class Reserva extends Requisicao implements IReserva {
         ItemAcervo itemAcervo,
         Usuario usuario) {
 
-        this(validaAte, itemAcervo.getId(), usuario.getId());
+        this(validaAte, itemAcervo.getId(), usuario.getId(), itemAcervo.getBibliotecaId());
     }
 
     public Reserva(
         Date validaAte,
 
         int itemAcervoId,
-        int usuarioId) {
+        int usuarioId,
+        int bibliotecaId) {
 
-        super(itemAcervoId, usuarioId);
+        super(itemAcervoId, usuarioId, bibliotecaId);
 
         this.validaAte = validaAte;
     }
@@ -69,11 +70,13 @@ public class Reserva extends Requisicao implements IReserva {
         this.validaAte = validaAte;
     }
 
+    @Override
     public Biblioteca getBiblioteca() {
 
         return biblioteca;
     }
 
+    @Override
     public void setBiblioteca(Biblioteca biblioteca) {
 
         this.biblioteca = biblioteca;

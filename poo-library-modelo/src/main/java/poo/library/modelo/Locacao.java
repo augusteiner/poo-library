@@ -47,7 +47,7 @@ public class Locacao extends Requisicao implements ILocacao {
         ItemAcervo item,
         Usuario usuario) {
 
-        super(item.getId(), usuario.getId());
+        super(item.getId(), usuario.getId(), item.getBibliotecaId());
 
         this.init(devolverAte, item);
     }
@@ -105,10 +105,12 @@ public class Locacao extends Requisicao implements ILocacao {
             this.getUsuario());
     }
 
+    @Override
     public Biblioteca getBiblioteca() {
         return biblioteca;
     }
 
+    @Override
     public void setBiblioteca(Biblioteca biblioteca) {
         this.biblioteca = biblioteca;
     }
