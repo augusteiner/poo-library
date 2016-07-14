@@ -1,7 +1,11 @@
 (function() {
   'use strict';
 
-  var app = angular.module('biblioteca', ['ngRoute']);
+  var app = angular.module('biblioteca', ['ngRoute', 'angular-loading-bar', 'ngAnimate']);
+
+  app.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.includeSpinner = false;
+  }]);
 
   app.config(['$httpProvider', function($httpProvider) {
     // initialize get if not there

@@ -33,3 +33,13 @@
 table caption {
   text-align: center;
 }
+
+#loading-bar .bar {
+  background: red !important;
+  /* -moz-box-shadow: red 1px 0 6px 1px !important; */
+  /* -ms-box-shadow: red 1px 0 6px 1px !important; */
+  /* -webkit-box-shadow: red 1px 0 6px 1px !important; */
+  /* box-shadow: red 1px 0 6px 1px !important; */
+  border-top-color: red !important;
+  border-left-color: red !important;
+}
