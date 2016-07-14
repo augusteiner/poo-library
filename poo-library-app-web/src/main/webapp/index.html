@@ -91,6 +91,7 @@
   <script>
     function bootstrap() {
 
+      var appName = 'biblioteca';
       var queue = [];
 
       $('script[data-src]').each(function() {
@@ -108,9 +109,9 @@
               queue.shift().resolve();
             } else {
 
-              $(document).prop('ng-app', "biblioteca");
+              $(document).prop('ng-app', appName);
 
-              angular.bootstrap(document, ['biblioteca']);
+              angular.bootstrap(document, [appName]);
             }
           });
 
