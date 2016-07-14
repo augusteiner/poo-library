@@ -9,6 +9,14 @@
   });
 </script>
 <div class="well">
+  <ol class="breadcrumb">
+    <li>
+      <a href="javascript:void(0);">Biblioteca</a></li>
+    <li>
+      <a href="#{{rootPath}}">Usuários</a></li>
+    <li class="active">
+      {{data.id > 0 ? 'Detalhes' : 'Novo'}}</li>
+  </ol>
   <form class="form-horizontal" action="javascript:void(0);" method="post" ng-submit="save()" ng-init="edit(params.id)">
     <fieldset>
       <legend>Cadastro de Usuário</legend>
