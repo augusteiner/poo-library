@@ -84,24 +84,35 @@
       </div>
     </nav>
     <div ng-view>
-      <strong>Carregando...</strong>
+    <div class="showbox">
+      <div class="loader">
+        <svg class="circular" viewBox="25 25 50 50">
+          <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+        </svg>
+        <strong>Carregando...</strong>
+      </div>
+    </div>
     </div>
   </div>
   <script>
     function queued(e,n){var r=[];return $(e).each(function(){var e=$(this);
-      r.push($.Deferred().done(function(){e.load(function(){r.length>0&&
-      r.shift().resolve()}),e.prop("src",e.data("src"))}))}),r.shift().resolve(),
-      r[r.length-1]}
+    r.push($.Deferred().done(function(){e.load(function(){r.length>0&&
+    r.shift().resolve()}),e.prop("src",e.data("src"))}))}),r.push($.Deferred().
+    done(function(){r.shift()})),r.shift().resolve(),r[r.length-1]}
 
     function bootstrap() {
 
-      var appName = 'biblioteca';
+      var APP_NAME = 'biblioteca';
 
       queued('script.queued').done(function() {
 
-        $(document).prop('ng-app', appName);
+        console.log('End of queue!');
 
-        angular.bootstrap(document, [appName]);
+        $(document).prop('ng-app', APP_NAME);
+
+        angular.bootstrap(document, [APP_NAME]);
+
+        console.log('End of angular bootstrap');
       });
     }
   </script>

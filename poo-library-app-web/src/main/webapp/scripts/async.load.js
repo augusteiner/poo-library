@@ -1,3 +1,4 @@
+
 function queued(selector, options) {
 
   var queue = [];
@@ -12,6 +13,8 @@ function queued(selector, options) {
 
         if (queue.length > 0) {
 
+          console.log('removing!');
+
           queue.shift().resolve();
         }
       });
@@ -20,6 +23,10 @@ function queued(selector, options) {
 
     }));
   });
+
+  queue.push($.Deferred().done(function(){
+    queue.shift();
+  }));
 
   queue.shift().resolve();
 

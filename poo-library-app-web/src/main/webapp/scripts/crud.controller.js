@@ -81,7 +81,9 @@
         });
       };
 
-      $scope.load = function(r) {
+      $scope.load = function() {
+
+        console.log('Loading: ' + PATH);
 
         $http({
           method : 'GET',
