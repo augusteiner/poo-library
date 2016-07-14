@@ -87,60 +87,42 @@
       <strong>Carregando...</strong>
     </div>
   </div>
-
   <script>
+    function queued(e,n){var r=[];return $(e).each(function(){var e=$(this);
+      r.push($.Deferred().done(function(){e.load(function(){r.length>0&&
+      r.shift().resolve()}),e.prop("src",e.data("src"))}))}),r.shift().resolve(),
+      r[r.length-1]}
+
     function bootstrap() {
 
       var appName = 'biblioteca';
-      var queue = [];
 
-      $('script[data-src]').each(function() {
+      queued('script.queued').done(function() {
 
-        var $this = $(this);
+        $(document).prop('ng-app', appName);
 
-        queue.push($.Deferred().done(function() {
-
-          console.log($this.data('src'));
-
-          $this.load(function() {
-
-            if (queue.length > 0) {
-
-              queue.shift().resolve();
-            } else {
-
-              $(document).prop('ng-app', appName);
-
-              angular.bootstrap(document, [appName]);
-            }
-          });
-
-          $this.prop('src', $this.data('src'));
-
-        }));
+        angular.bootstrap(document, [appName]);
       });
-
-      queue.shift().resolve();
     }
   </script>
 
   <script onload="bootstrap()" src="assets/jquery/dist/jquery.min.js" type="text/javascript" defer></script>
 
-  <script data-src="assets/jquery.inputmask/dist/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
+  <script class="queued" data-src="assets/angular/angular.min.js" type="text/javascript"></script>
+  <script class="queued" data-src="assets/angular-route/angular-route.min.js" type="text/javascript"></script>
+  <script class="queued" data-src="assets/angular-animate/angular-animate.min.js" type="text/javascript"></script>
 
-  <script data-src="assets/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+  <script class="queued" data-src="assets/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
 
-  <script data-src="assets/angular/angular.min.js" type="text/javascript"></script>
-  <script data-src="assets/angular-route/angular-route.min.js" type="text/javascript"></script>
-  <script data-src="assets/angular-animate/angular-animate.min.js" type="text/javascript"></script>
+  <script class="queued" data-src="assets/jquery.inputmask/dist/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
 
-  <script data-src="assets/angular-loading-bar/build/loading-bar.min.js" type="text/javascript"></script>
+  <script class="queued" data-src="assets/angular-loading-bar/build/loading-bar.min.js" type="text/javascript"></script>
 
-  <script data-src="scripts/biblioteca.module.js" type="text/javascript"></script>
-  <script data-src="scripts/crud.controller.js" type="text/javascript"></script>
+  <script class="queued" data-src="scripts/biblioteca.module.js" type="text/javascript"></script>
+  <script class="queued" data-src="scripts/crud.controller.js" type="text/javascript"></script>
 
-  <script data-src="scripts/admin/controller.js" type="text/javascript"></script>
-  <script data-src="scripts/admin/usuario.controller.js" type="text/javascript"></script>
-  <script data-src="scripts/admin/biblioteca.controller.js" type="text/javascript"></script>
+  <script class="queued" data-src="scripts/admin/controller.js" type="text/javascript"></script>
+  <script class="queued" data-src="scripts/admin/usuario.controller.js" type="text/javascript"></script>
+  <script class="queued" data-src="scripts/admin/biblioteca.controller.js" type="text/javascript"></script>
 </body>
 </html>
