@@ -31,4 +31,6 @@ import java.util.Date;
 public interface IReserva extends IRequisicao {
 
     Date getValidaAte();
+
+    IBiblioteca getBiblioteca();
 }

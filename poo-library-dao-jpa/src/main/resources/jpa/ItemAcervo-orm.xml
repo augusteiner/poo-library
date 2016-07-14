@@ -23,6 +23,9 @@
 
       <basic name="bibliotecaId" />
 
+      <one-to-many name="reservas" fetch="LAZY" mapped-by="itemAcervo">
+      </one-to-many>
+
       <one-to-one name="biblioteca" fetch="LAZY" optional="false" id="false">
         <join-column name="bibliotecaId" insertable="false" updatable="false"
           unique="false" nullable="false" />

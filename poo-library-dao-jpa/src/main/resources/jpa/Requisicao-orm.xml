@@ -2,7 +2,8 @@
 <entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
   version="2.0">
-  <mapped-superclass class="poo.library.modelo.Requisicao" access="FIELD">
+  <mapped-superclass class="poo.library.modelo.Requisicao"
+    access="FIELD">
 
     <attributes>
 
@@ -13,18 +14,28 @@
 
       <basic name="usuarioId" optional="false" />
       <basic name="itemAcervoId" optional="false" />
+      <basic name="bibliotecaId" optional="false" />
 
       <basic name="realizadaEm" />
 
-      <one-to-one name="usuario" fetch="LAZY" optional="false" id="false">
+      <many-to-one name="usuario" fetch="LAZY" access="FIELD"
+        optional="false" id="false">
         <join-column name="usuarioId" insertable="false" updatable="false"
           unique="false" nullable="false" />
-      </one-to-one>
+      </many-to-one>
 
-      <one-to-one name="itemAcervo" fetch="LAZY" optional="false" id="false">
-        <join-column name="itemAcervoId" insertable="false" updatable="false"
-          unique="false" nullable="false" />
-      </one-to-one>
+      <many-to-one name="itemAcervo" fetch="LAZY" access="FIELD"
+        optional="false" id="false">
+        <join-column name="itemAcervoId" insertable="false"
+          updatable="false" unique="false" nullable="false" />
+      </many-to-one>
+
+      <many-to-one name="biblioteca" fetch="LAZY" access="FIELD"
+        optional="false" id="false">
+        <join-column name="bibliotecaId" insertable="false"
+          updatable="false" unique="false" nullable="false" />
+      </many-to-one>
+
     </attributes>
 
   </mapped-superclass>

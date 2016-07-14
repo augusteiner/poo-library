@@ -30,17 +30,20 @@ import java.util.Date;
  */
 public interface IRequisicao extends IIdentificavel {
 
+    Date getRealizadaEm();
+
+    IBiblioteca getBiblioteca();
+    int getBibliotecaId();
+
     IItemAcervo getItemAcervo();
     int getItemAcervoId();
-
-    Date getRealizadaEm();
 
     IUsuario getUsuario();
     int getUsuarioId();
 
-    void setItemAcervoId(int itemId);
-
-    void setUsuarioId(int usuarioId);
-
     void setRealizadaEm(Date realizadaEm);
+
+    void setItemAcervoId(int itemId);
+    void setUsuarioId(int usuarioId);
+    void setBibliotecaId(int bibliotecaId);
 }

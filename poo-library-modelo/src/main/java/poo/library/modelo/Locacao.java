@@ -37,6 +37,8 @@ public class Locacao extends Requisicao implements ILocacao {
     private Date devolverAte;
     private Date devolvidoEm;
 
+    private Biblioteca biblioteca;
+
     public Locacao() { }
 
     public Locacao(
@@ -101,5 +103,13 @@ public class Locacao extends Requisicao implements ILocacao {
             this.getPrecoCobrado(),
 
             this.getUsuario());
+    }
+
+    public Biblioteca getBiblioteca() {
+        return biblioteca;
+    }
+
+    public void setBiblioteca(Biblioteca biblioteca) {
+        this.biblioteca = biblioteca;
     }
 }

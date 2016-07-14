@@ -56,7 +56,9 @@ public class Biblioteca implements IBiblioteca {
     private IAcervo armazem;
 
     private Collection<ItemAcervo> acervo;
+
     private Collection<Reserva> reservas;
+    private Collection<Locacao> locacoes;
 
     public Biblioteca() { }
 
@@ -70,12 +72,6 @@ public class Biblioteca implements IBiblioteca {
     public Iterable<IItemAcervo> getAcervo() {
 
         return Iterables.cast(this.acervo);
-    }
-
-    @Override
-    public Iterable<ILocacao> getAlugueis() {
-
-        return null;
     }
 
     @Override
@@ -106,6 +102,12 @@ public class Biblioteca implements IBiblioteca {
     public Iterable<IReserva> getReservas() {
 
         return Iterables.cast(this.reservas);
+    }
+
+    @Override
+    public Iterable<ILocacao> getLocacoes() {
+
+        return Iterables.cast(this.locacoes);
     }
 
     public IBuscador getBuscador() {
@@ -175,6 +177,16 @@ public class Biblioteca implements IBiblioteca {
     public void setQteDiasValidadeReserva(int qteDiasValidadeReserva) {
 
         this.qteDiasValidadeReserva = qteDiasValidadeReserva;
+    }
+
+    public void setReservas(Collection<Reserva> reservas) {
+
+        this.reservas = reservas;
+    }
+
+    public void setLocacoes(Collection<Locacao> locacoes) {
+
+        this.locacoes = locacoes;
     }
 
     public void setAcervo(Collection<ItemAcervo> acervo) {

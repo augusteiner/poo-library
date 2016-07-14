@@ -42,6 +42,9 @@ public abstract class Requisicao implements IRequisicao {
     private Usuario usuario;
     private int usuarioId;
 
+    private Biblioteca biblioteca;
+    private int bibliotecaId;
+
     public Requisicao() { }
 
     public Requisicao(
@@ -141,5 +144,25 @@ public abstract class Requisicao implements IRequisicao {
             this.getItemAcervo(),
 
             this.getUsuario());
+    }
+
+    public Biblioteca getBiblioteca() {
+
+        return biblioteca;
+    }
+
+    public void setBiblioteca(Biblioteca biblioteca) {
+
+        this.biblioteca = biblioteca;
+    }
+
+    public int getBibliotecaId() {
+
+        return bibliotecaId;
+    }
+
+    public void setBibliotecaId(int bibliotecaId) {
+
+        this.bibliotecaId = bibliotecaId;
     }
 }

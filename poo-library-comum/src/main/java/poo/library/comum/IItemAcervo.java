@@ -31,28 +31,21 @@ import poo.library.util.ISearcheable;
 public interface IItemAcervo extends IIdentificavel, ILocalizado, ISearcheable {
 
     String getAutor();
-
     ECategoriaItem getCategoria();
-
     double getPrecoLocacao();
 
     int getQteDisponivel();
-
+    int getQteTotal();
     //int getQteReservados();
 
-    int getQteTotal();
-
-    void locar(IUsuario usuario);
-
-    double devolver();
-
-    void reservar(IUsuario usuario);
+    Iterable<IReserva> getReservas();
 
     void setAutor(String autor);
-
     void setPrecoLocacao(double custoEmprestimo);
-
     void setQteDisponivel(int qteDisponivel);
-
     void setQteTotal(int qteTotal);
+
+    void locar(IUsuario usuario);
+    double devolver();
+    void reservar(IUsuario usuario);
 }

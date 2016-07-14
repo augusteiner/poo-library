@@ -13,6 +13,8 @@
       <basic name="devolverAte" />
       <basic name="devolvidoEm" />
 
+      <transient name="biblioteca" />
+
     </attributes>
   </entity>
 </entity-mappings>

@@ -36,7 +36,7 @@ public interface IBiblioteca extends IIdentificavel {
     int getQteDiasLocacao();
 
     Iterable<IItemAcervo> getAcervo();
-    Iterable<ILocacao> getAlugueis();
+    Iterable<ILocacao> getLocacoes();
     Iterable<IReserva> getReservas();
     Iterable<IUsuario> getUsuarios();
 

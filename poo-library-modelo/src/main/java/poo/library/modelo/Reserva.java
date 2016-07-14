@@ -34,6 +34,8 @@ public class Reserva extends Requisicao implements IReserva {
 
     private Date validaAte;
 
+    private Biblioteca biblioteca;
+
     public Reserva() { }
 
     public Reserva(
@@ -65,5 +67,15 @@ public class Reserva extends Requisicao implements IReserva {
     public void setValidaAte(Date validaAte) {
 
         this.validaAte = validaAte;
+    }
+
+    public Biblioteca getBiblioteca() {
+
+        return biblioteca;
+    }
+
+    public void setBiblioteca(Biblioteca biblioteca) {
+
+        this.biblioteca = biblioteca;
     }
 }

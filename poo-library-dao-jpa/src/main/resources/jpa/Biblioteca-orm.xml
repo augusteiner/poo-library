@@ -2,7 +2,8 @@
 <entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
   version="2.0">
-  <entity class="poo.library.modelo.Biblioteca" access="FIELD" metadata-complete="true">
+  <entity class="poo.library.modelo.Biblioteca" access="FIELD"
+    metadata-complete="true">
 
     <table name="biblioteca" />
 
@@ -19,17 +20,18 @@
       <basic name="qteDiasLocacao" />
       <basic name="qteDiasValidadeReserva" />
 
-      <one-to-many name="acervo" access="FIELD" mapped-by="bibliotecaId">
+      <one-to-many name="acervo" access="FIELD" fetch="LAZY"
+        mapped-by="bibliotecaId">
       </one-to-many>
 
-      <one-to-many name="reservas" access="FIELD">
-        <join-table name="item_acervo">
-          <join-column name="bibliotecaId" />
-          <inverse-join-column name="id" table="reserva" />
-        </join-table>
+      <one-to-many name="locacoes" access="FIELD" fetch="LAZY"
+        mapped-by="bibliotecaId">
       </one-to-many>
 
-      <transient name="alugueis" />
+      <one-to-many name="reservas" access="FIELD" fetch="LAZY"
+        mapped-by="bibliotecaId">
+      </one-to-many>
+
       <transient name="armazem" />
       <transient name="usuarios" />
 

@@ -10,6 +10,8 @@
 
       <basic name="validaAte" />
 
+      <transient name="biblioteca" />
+
     </attributes>
   </entity>
 </entity-mappings>

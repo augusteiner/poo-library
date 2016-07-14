@@ -23,10 +23,14 @@
  */
 package poo.library.modelo;
 
+import java.util.Collection;
+
 import poo.library.comum.ECategoriaItem;
 import poo.library.comum.IBiblioteca;
 import poo.library.comum.IItemAcervo;
+import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
+import poo.library.util.Iterables;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -46,6 +50,8 @@ public abstract class ItemAcervo implements IItemAcervo {
 
     private Biblioteca biblioteca;
     private int bibliotecaId;
+
+    private Collection<Reserva> reservas;
 
     public ItemAcervo() { }
 
@@ -142,6 +148,12 @@ public abstract class ItemAcervo implements IItemAcervo {
     public int getQteTotal() {
 
         return this.qteTotal;
+    }
+
+    @Override
+    public Iterable<IReserva> getReservas() {
+
+        return Iterables.cast(this.reservas);
     }
 
     @Override
