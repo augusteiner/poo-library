@@ -1,17 +1,6 @@
-<script type="text/javascript" src="assets/jquery.inputmask/dist/jquery.inputmask.bundle.min.js" defer async></script>
-<script type="text/javascript">
-$(function(){
-  $('.cpf-input').inputmask(
-      '999.999.999-99',
-      { autoUnmask : true,
-        placeholder: '',
-        showMaskOnHover: false,
-        showMaskOnFocus: false, });
-});
-</script>
 <div class="well">
   <form class="form-horizontal" action="javascript:void(0);"
-    method="post" ng-submit="save()" ng-controller="AdminCtrlr"
+    method="post" ng-submit="save()" ng-controller="BibliotecaCtrlr"
     ng-init="edit(params.id)">
     <fieldset>
       <legend>Cadastro de Usuário</legend>

@@ -1,54 +1,34 @@
 (function() {
   'use strict';
 
-  var app = angular.module('biblioteca', ['ngRoute']);
+  var CTRLR = 'UsuarioCtrlr';
+  var PATH = 'api/usuario';
+  var ROOT_PATH = '/admin/usuario';
 
-  app.config(['$httpProvider', function($httpProvider) {
-    // initialize get if not there
-    if (!$httpProvider.defaults.headers.get) {
-        $httpProvider.defaults.headers.get = {};
-    }
-
-    // Answer edited to include suggestions from comments
-    // because previous version of code introduced browser-related errors
-
-    // disable IE ajax request caching
-    $httpProvider.defaults.headers.get['If-Modified-Since'] = 'Mon, 26 Jul 1997 05:00:00 GMT';
-    // extra
-    $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
-    $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
-  }]);
+  var app = angular.module('biblioteca');
 
   app.config(function ($routeProvider) {
     $routeProvider.
-      when('/admin/usuario', {
-          templateUrl: '/admin/usuario/',
-          controller: 'AdminCtrlr'
-      }).
-      when('/admin/usuario/:id', {
-          templateUrl: '/admin/usuario/edit/',
-          controller: 'AdminCtrlr'
-      }).
-      otherwise({
-          redirectTo: '/admin/usuario'
+      when(ROOT_PATH + '/:id', {
+          templateUrl: ROOT_PATH + '/edit.html',
+          controller: CTRLR
       });
   });
 
-  app.controller('AdminCtrlr', function($scope, $http, $routeParams, $location) {
+  app.controller(CTRLR, function($scope, $http, $routeParams, $location) {
     var self = this;
-    var PATH = 'api/usuario';
 
-    $scope.rootPath = '/admin/usuario';
+    $scope.rootPath = ROOT_PATH;
     $scope.params = $routeParams;
 
     $scope.data = {};
 
-    $scope.users = [];
+    $scope.itens = [];
 
     $scope.cancel = function() {
 
       $scope.data = {};
-      $location.path($scope.rootPath);
+      $location.path(ROOT_PATH);
     };
 
     $scope.edit = function(id) {
@@ -111,7 +91,7 @@
         url : PATH
       }).then(function(r) {
 
-        $scope.users = r.data;
+        $scope.itens = r.data;
       });
     };
   });
