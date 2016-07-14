@@ -315,6 +315,9 @@
         <configuration>
           <appName>api-biblioteca</appName>
           <jdkVersion>1.8</jdkVersion>
+          <configVars>
+            <WEBAPP_RUNNER_OPTS>--enable-compression</WEBAPP_RUNNER_OPTS>
+          </configVars>
         </configuration>
       </plugin>
     </plugins>
