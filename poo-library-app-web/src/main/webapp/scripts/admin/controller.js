@@ -6,12 +6,14 @@
 
   var app = angular.module('biblioteca');
 
-  app.config(function ($routeProvider) {
-    $routeProvider.
-      when(ROOT_PATH, {
-          templateUrl: ROOT_PATH + '/index.html',
-          controller: CTRLR
-      });
+  app.config(function($routeProvider) {
+
+    $routeProvider.when(ROOT_PATH, {
+      templateUrl : ROOT_PATH + '/index.html',
+      controller : CTRLR
+    }).when('/', {
+      redirectTo : ROOT_PATH
+    });
   });
 
   app.controller(CTRLR, function($scope, $http, $routeParams, $location) {

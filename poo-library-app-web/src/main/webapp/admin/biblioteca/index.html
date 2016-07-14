@@ -1,9 +1,9 @@
 <section class="user-mgmt" ng-controller="BibliotecaCtrlr" ng-init="load()">
   <table class="table table-striped table-hover">
     <caption>
-      Itens do Acervo
-      | <a class="btn btn-xs btn-primary" href="#/admin/usuario/new">
-        <span class="glyphicon glyphicon-certificate"></span> Novo
+      Bibliotecas
+      | <a class="btn btn-xs btn-primary" href="#{{rootPath}}/new">
+        <span class="glyphicon glyphicon-certificate"></span> Nova
       </a>
     </caption>
     <thead>
@@ -20,17 +20,17 @@
       <tr ng-repeat="item in itens">
         <td>
           <div>
-            &#35;{{item.id}} - <strong>{{item.titulo}}</strong>
+            &#35;{{item.id}} - <strong>{{item.nome}}</strong>
           </div>
           <div>
             <small>
-              {{item.autor}} :: <em>{{item}}</em>
+              <em>{{item.endereco}}</em>
             </small>
           </div>
         </td>
         <td>
           <div class="btn-group">
-            <a class="btn btn-sm btn-primary" href="#{{rootPath}}/{{user.id}}">
+            <a class="btn btn-sm btn-primary" href="#{{rootPath}}/{{item.id}}">
               <span class="glyphicon glyphicon-pencil"></span>
             </a>
             <a data-target="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -38,7 +38,7 @@
             </a>
             <ul class="dropdown-menu pull-right">
               <li>
-                <a class="" href="#{{rootPath}}" ng-click="delete(user.id)">
+                <a class="" href="#{{rootPath}}" ng-click="remove(item.id)">
                   <span class="glyphicon glyphicon-remove"></span> Deletar
                 </a>
               </li>
