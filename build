@@ -4,10 +4,10 @@ set -e
 
 root_dir=$(cd $(dirname $0); echo $(pwd))
 
-cd *-web
+#cd *-web
 bower install
 
-cd "$root_dir"
+#cd "$root_dir"
 mvn install eclipse:eclipse
 
 rm -rf */.settings/

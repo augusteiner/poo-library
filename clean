@@ -3,6 +3,7 @@
 set -e
 
 rm -rfv */{bin,target}/
+rm -rfv *-web/src/main/webapp/assets/
 
 mvn clean
 
