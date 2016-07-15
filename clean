@@ -2,6 +2,7 @@
 
 set -e
 
+rm -rfv ~/.biblioteca/
 rm -rfv */{bin,target}/
 rm -rfv *-web/src/main/webapp/assets/
 

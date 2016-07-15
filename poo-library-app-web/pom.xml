@@ -216,110 +216,123 @@
           <warName>ROOT</warName>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>${version.jetty}</version>
-        <configuration>
-          <httpConnector>
-            <port>${jetty.http.port}</port>
-          </httpConnector>
-          <scanIntervalSeconds>1</scanIntervalSeconds>
-          <jettyXml>${resources.path}/jetty.xml</jettyXml>
-          <!-- <webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory> -->
-        </configuration>
-        <dependencies>
-
-          <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${version.hibernate}</version>
-            <scope>runtime</scope>
-          </dependency>
-
-          <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-c3p0</artifactId>
-            <version>${version.hibernate}</version>
-            <scope>runtime</scope>
-          </dependency>
-
-          <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${version.mysql.driver}</version>
-            <scope>runtime</scope>
-          </dependency>
-        </dependencies>
-      </plugin>
-
-      <plugin>
-        <groupId>net.sf.alchim</groupId>
-        <artifactId>winstone-maven-plugin</artifactId>
-        <version>1.2</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>embed</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <cmdLineOptions>
-            <property>
-              <name>httpPort</name>
-              <value>9090</value>
-            </property>
-
-            <property>
-              <name>ajp13Port</name>
-              <value>-1</value>
-            </property>
-            <property>
-              <name>controlPort</name>
-              <value>-1</value>
-            </property>
-            <property>
-              <name>directoryListings</name>
-              <value>false</value>
-            </property>
-            <property>
-              <name>useInvoker</name>
-              <value>false</value>
-            </property>
-
-            <property>
-              <name>useJasper</name>
-              <value>true</value>
-            </property>
-            <property>
-              <name>useSavedSessions</name>
-              <value>true</value>
-            </property>
-          </cmdLineOptions>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>net.sourceforge.winstone</groupId>
-            <artifactId>winstone</artifactId>
-            <version>0.9.10</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-
-      <plugin>
-        <groupId>com.heroku.sdk</groupId>
-        <artifactId>heroku-maven-plugin</artifactId>
-        <version>1.0.3</version>
-        <configuration>
-          <appName>api-biblioteca</appName>
-          <jdkVersion>1.8</jdkVersion>
-          <configVars>
-            <WEBAPP_RUNNER_OPTS>--enable-compression</WEBAPP_RUNNER_OPTS>
-          </configVars>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>test</id>
+      <build>
+        <plugins>
+
+          <plugin>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
+            <version>${version.jetty}</version>
+            <configuration>
+              <httpConnector>
+                <port>${jetty.http.port}</port>
+              </httpConnector>
+              <scanIntervalSeconds>1</scanIntervalSeconds>
+              <jettyXml>${resources.path}/jetty.xml</jettyXml>
+              <!-- <webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory> -->
+            </configuration>
+            <dependencies>
+
+              <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${version.hibernate}</version>
+                <scope>runtime</scope>
+              </dependency>
+
+              <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-c3p0</artifactId>
+                <version>${version.hibernate}</version>
+                <scope>runtime</scope>
+              </dependency>
+
+              <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${version.mysql.driver}</version>
+                <scope>runtime</scope>
+              </dependency>
+            </dependencies>
+          </plugin>
+
+          <plugin>
+            <groupId>net.sf.alchim</groupId>
+            <artifactId>winstone-maven-plugin</artifactId>
+            <version>1.2</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>embed</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <cmdLineOptions>
+                <property>
+                  <name>httpPort</name>
+                  <value>9090</value>
+                </property>
+
+                <property>
+                  <name>ajp13Port</name>
+                  <value>-1</value>
+                </property>
+                <property>
+                  <name>controlPort</name>
+                  <value>-1</value>
+                </property>
+                <property>
+                  <name>directoryListings</name>
+                  <value>false</value>
+                </property>
+                <property>
+                  <name>useInvoker</name>
+                  <value>false</value>
+                </property>
+
+                <property>
+                  <name>useJasper</name>
+                  <value>true</value>
+                </property>
+                <property>
+                  <name>useSavedSessions</name>
+                  <value>true</value>
+                </property>
+              </cmdLineOptions>
+            </configuration>
+            <dependencies>
+              <dependency>
+                <groupId>net.sourceforge.winstone</groupId>
+                <artifactId>winstone</artifactId>
+                <version>0.9.10</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+
+          <plugin>
+            <groupId>com.heroku.sdk</groupId>
+            <artifactId>heroku-maven-plugin</artifactId>
+            <version>1.0.3</version>
+            <configuration>
+              <appName>api-biblioteca</appName>
+              <jdkVersion>1.8</jdkVersion>
+              <configVars>
+                <WEBAPP_RUNNER_OPTS>--enable-compression</WEBAPP_RUNNER_OPTS>
+              </configVars>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+      <activation>
+      </activation>
+    </profile>
+  </profiles>
 </project>
