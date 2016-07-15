@@ -1,5 +1,8 @@
 {
-  "dependencies" : {
+  "dependencies": {
     "bower": "~1.7.9"
+  },
+  "scripts": {
+    "postinstall": "cd *-web && bower install"
   }
 }
