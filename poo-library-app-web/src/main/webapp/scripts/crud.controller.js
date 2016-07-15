@@ -5,6 +5,8 @@
 
   app.crudCtrlr = function(CTRLR, PATH, ROOT_PATH) {
 
+    console.log('Novo ctrlr de CRUD: ' + CTRLR + ' @ ' + ROOT_PATH);
+
     app.config(function($routeProvider) {
       $routeProvider.when(ROOT_PATH + '/:id', {
         templateUrl : ROOT_PATH + '/edit.html',
@@ -13,7 +15,10 @@
     });
 
     app.controller(CTRLR, function($scope, $http, $routeParams, $location) {
+
       var self = this;
+
+      console.log('Init of ' + CTRLR + ' @ ' + ROOT_PATH);
 
       $scope.rootPath = ROOT_PATH;
       $scope.params = $routeParams;
