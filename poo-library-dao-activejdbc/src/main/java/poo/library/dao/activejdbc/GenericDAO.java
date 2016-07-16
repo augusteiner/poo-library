@@ -167,4 +167,21 @@ public class GenericDAO<T extends IIdentificavel> {
             return obj;
         }
     }
+
+    public void flush() {
+
+        //
+    }
+
+    public T reference(int id) {
+
+        try {
+
+            return this.find(id);
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            return null;
+        }
+    }
 }

@@ -23,6 +23,8 @@
  */
 package poo.library.app.web.util;
 
+import poo.library.modelo.ItemAcervo;
+import poo.library.modelo.Usuario;
 import poo.library.util.IConversor;
 
 /**
@@ -30,15 +32,56 @@ import poo.library.util.IConversor;
  */
 public class Conversores {
 
+    public static <I, O> O converter(I input, Class<O> clsOut) {
+
+        return newConversor(clsOut).converter(input);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <I, O> void converter(I input, O output) {
+
+        if (output == null) {
+
+            throw new IllegalArgumentException(
+                "O argumento output não pode ser nulo");
+        }
+
+        IConversor<O> conversor = newConversor((Class<O>) output.getClass());
+
+        conversor.converter(input, output);
+    }
+
     public static <D> IConversor<D> newConversor(Class<D> clsOut) {
 
         return newConversor(Object.class, clsOut);
     }
 
+    @SuppressWarnings("unchecked")
     public static <T, D> IConversor<D> newConversor(
         Class<T> clsIn,
         Class<D> clsOut) {
 
-        return new Mapper<T, D>(clsIn, clsOut);
+        IConversor<D> out;
+
+        if (clsIn == null)
+            throw new IllegalArgumentException("Argumento clsIn não deve ser nulo");
+
+        if (clsOut == null)
+            throw new IllegalArgumentException("Argumento clsOut não deve ser nulo");
+
+        if (clsOut.equals(Usuario.class)) {
+
+            out = (IConversor<D>) new UsuarioMapperInverso<D>(clsOut);
+
+        } else if (clsOut.equals(ItemAcervo.class)) {
+
+            out = (IConversor<D>) new ItemAcervoMapperInverso<D>(clsOut);
+
+        } else {
+
+            out = new Mapper<T, D>(clsIn, clsOut);
+        }
+
+        return out;
     }
 }

@@ -39,16 +39,13 @@
     <tbody>
       <tr ng-repeat="item in itens">
         <td>
-            <a href="#{{rootPath}}/{{item.id}}">
-          <div>
-              &#35;{{item.id}} - <strong>{{item.nome}}</strong>
-          </div>
-          <div>
+          <a href="#{{rootPath}}/{{item.id}}">
+            &#35;{{item.id}} - <strong>{{item.nome}}</strong>
+            <br>
             <small>
               {{item.cpfFormatado}} :: <em>{{item.endereco}}</em>
             </small>
-          </div>
-            </a>
+          </a>
         </td>
         <td>
           <div class="btn-group">

@@ -25,6 +25,7 @@ package poo.library.modelo;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -34,8 +35,8 @@ import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
 import poo.library.modelo.comum.IAcervo;
 import poo.library.modelo.comum.IBiblioteca;
+import poo.library.modelo.comum.IBuscador;
 import poo.library.util.FalhaOperacaoException;
-import poo.library.util.IBuscador;
 import poo.library.util.ItemIndisponivelException;
 import poo.library.util.Iterables;
 import poo.library.util.ObjetoNaoEncontradoException;
@@ -253,5 +254,31 @@ public class Biblioteca implements IBiblioteca {
     public void setReservas(Collection<Reserva> reservas) {
 
         this.reservas = reservas;
+    }
+
+    @Override
+    public void addAcervo(ItemAcervo item) {
+
+        item.setBibliotecaId(this.getId());
+        item.setBiblioteca(this);
+
+        if (this.acervo == null) {
+
+            this.acervo = new ArrayList<ItemAcervo>();
+        }
+
+        this.acervo.add(item);
+    }
+
+    public static void exportarBuscador(
+        Biblioteca biblioteca,
+        IBuscador buscador) {
+
+        if (buscador != null) {
+
+            buscador.setItensAcervo(biblioteca.acervo);
+            buscador.setReservas(biblioteca.reservas);
+            buscador.setLocacoes(biblioteca.locacoes);
+        }
     }
 }

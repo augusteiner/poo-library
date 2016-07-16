@@ -78,7 +78,8 @@ class Mapper<I, O> implements IConversor<O> {
         return output;
     }
 
-    public void converter(I input, O output) {
+    @Override
+    public void converter(Object input, O output) {
 
         this.map(input, output);
 

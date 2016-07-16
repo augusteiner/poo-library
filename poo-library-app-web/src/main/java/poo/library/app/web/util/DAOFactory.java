@@ -23,9 +23,11 @@
  */
 package poo.library.app.web.util;
 
+import static poo.library.app.web.util.Conversores.newConversor;
+
 import poo.library.comum.IIdentificavel;
 import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Usuario;
+import poo.library.util.IConversor;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -49,25 +51,16 @@ public class DAOFactory {
         return newDAOConversivel(dao, clsModel, clsDto);
     }
 
-    @SuppressWarnings("unchecked")
     private static <T, M> IDAO<T> newDAOConversivel(
         IDAO<M> dao,
         Class<M> clsModel,
         Class<T> clsDto) {
 
-        Mapper<M, T> mapper;
-        Mapper<T, M> inverso;
+        IConversor<T> mapper;
+        IConversor<M> inverso;
 
-        mapper = new Mapper<M, T>(clsModel, clsDto);
-
-        if (clsModel.equals(Usuario.class)) {
-
-            inverso = (Mapper<T, M>) new UsuarioMapper<T>(clsDto);
-
-        } else {
-
-            inverso = mapper.inverso();
-        }
+        mapper = newConversor(clsModel, clsDto);
+        inverso = newConversor(clsDto, clsModel);
 
         return new DAOConversor<M, T>(
             dao,

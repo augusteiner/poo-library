@@ -28,12 +28,16 @@ import static poo.library.app.seeder.LocacaoSeeder.*;
 
 import poo.library.app.util.ISeeder;
 import poo.library.app.util.Seeder;
+import poo.library.comum.IItemAcervo;
+import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Apostila;
+import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Livro;
 import poo.library.modelo.Texto;
 import poo.library.util.FalhaOperacaoException;
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
@@ -62,10 +66,39 @@ class ItemAcervoSeeder extends Seeder<ItemAcervo>
         item1 = i1;
         item2 = i2;
 
+        Biblioteca biblioteca;
+        IDAO<Biblioteca> libDAO = DAOFactory.createNew(Biblioteca.class);
+
+        try {
+
+            biblioteca = libDAO.first();
+
+            System.out.println(String.format(
+                "Biblioteca encontrada: %s",
+                biblioteca));
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            throw new FalhaOperacaoException(e.getMessage(), e);
+        }
+
         for (ItemAcervo item : itens) {
 
             this.dao.save(item);
+            // biblioteca.addAcervo(item);
         }
+
+        // this.dao.flush();
+
+        for (IItemAcervo item : biblioteca.getAcervo()) {
+
+            System.out.println(String.format(
+                "Item do acervo: %d ~ %s",
+                item.getId(),
+                item));
+        }
+
+        System.out.println("FLUSHING...");
 
         firstItemAcervoId = i1.getId();
     }

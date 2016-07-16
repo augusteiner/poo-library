@@ -23,11 +23,14 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.Conversores.newConversor;
-import static poo.library.app.web.util.DAOFactory.newDAO;
-import static poo.library.util.Iterables.convert;
+import static poo.library.app.web.util.Responses.*;
+import static poo.library.app.web.util.Conversores.*;
+import static poo.library.app.web.util.DAOFactory.*;
+import static poo.library.util.Iterables.*;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -36,6 +39,8 @@ import javax.ws.rs.core.Response;
 
 import poo.library.app.web.dto.BibliotecaDTO;
 import poo.library.app.web.dto.ItemAcervoDTO;
+import poo.library.app.web.util.IResource;
+import poo.library.app.web.util.ISubResource;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Biblioteca;
@@ -45,13 +50,15 @@ import poo.library.util.ObjetoNaoEncontradoException;
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Path(BibliotecaResource.PATH)
-public class BibliotecaResource extends GenericResource<BibliotecaDTO> {
+public class BibliotecaResource extends GenericResource<BibliotecaDTO>
+    implements IResource<BibliotecaDTO> {
 
     public static final String PATH = "biblioteca";
 
     public static final Class<Biblioteca> MODEL_CLASS = Biblioteca.class;
     public static final Class<BibliotecaDTO> DTO_CLASS = BibliotecaDTO.class;
 
+    private final ISubResource<ItemAcervoDTO> acervo;
     private final IDAO<Biblioteca> dao;
 
     public BibliotecaResource() {
@@ -64,6 +71,31 @@ public class BibliotecaResource extends GenericResource<BibliotecaDTO> {
         super(PATH, newDAO(dao, MODEL_CLASS, DTO_CLASS));
 
         this.dao = dao;
+
+        this.acervo = new AcervoResource(dao);
+    }
+
+    public ISubResource<ItemAcervoDTO> getAcervo() {
+
+        return this.acervo;
+    }
+
+    @GET
+    @Path("/{id}/acervo")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response getAcervo(@PathParam("id") int id) {
+
+        return this.getAcervo().get(id);
+    }
+
+    @GET
+    @Path("/{id}/acervo/{itemAcervoId}")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response getAcervo(
+        @PathParam("id") int id,
+        @PathParam("itemAcervoId") int itemAcervoId) {
+
+        return this.getAcervo().get(id, itemAcervoId);
     }
 
     @GET
@@ -79,36 +111,39 @@ public class BibliotecaResource extends GenericResource<BibliotecaDTO> {
 
         } catch (ObjetoNaoEncontradoException e) {
 
-            return this.notFound().entity(e).build();
+            return notFound().entity(e).build();
         }
 
         Iterable<?> iter = convert(
             biblioteca.getReservas(),
             newConversor(ReservaResource.DTO_CLASS));
 
-        return Response.ok().entity(iter).build();
+        return ok().entity(iter).build();
     }
 
-    @GET
+    @POST
     @Path("/{id}/acervo")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Response getAcervo(@PathParam("id") int id) {
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response postAcervo(
+        @PathParam("id") int id,
 
-        Biblioteca biblioteca;
+        ItemAcervoDTO itemAcervo) {
 
-        try {
+        return this.getAcervo().post(id, itemAcervo);
+    }
 
-            biblioteca = this.dao.find(id);
+    @PUT
+    @Path("/{id}/acervo/{itemAcervoId}")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response putAcervo(
+        @PathParam("id") int id,
+        @PathParam("itemAcervoId") int itemAcervoId,
 
-        } catch (ObjetoNaoEncontradoException e) {
+        ItemAcervoDTO itemAcervo) {
 
-            return this.notFound().entity(e).build();
-        }
-
-        Iterable<ItemAcervoDTO> iter = convert(
-            biblioteca.getAcervo(),
-            newConversor(ItemAcervoDTO.class));
-
-        return Response.ok().entity(iter).build();
+        return this.getAcervo().put(
+            id,
+            itemAcervoId,
+            itemAcervo);
     }
 }

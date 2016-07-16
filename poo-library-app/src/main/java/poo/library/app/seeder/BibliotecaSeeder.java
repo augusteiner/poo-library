@@ -25,6 +25,8 @@ package poo.library.app.seeder;
 
 import static poo.library.app.App.*;
 
+import java.util.ArrayList;
+
 import poo.library.app.util.ISeeder;
 import poo.library.app.util.Seeder;
 import poo.library.comum.IBiblioteca;
@@ -77,6 +79,8 @@ public class BibliotecaSeeder extends Seeder<Biblioteca>
 
         for (Biblioteca lib : libs) {
 
+            lib.setAcervo(new ArrayList<ItemAcervo>());
+            lib.setEndereco("R. das Magnólias, 21");
             this.dao.save(lib);
         }
 

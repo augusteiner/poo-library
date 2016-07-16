@@ -21,14 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.util;
+package poo.library.app.web.util;
+
+import javax.ws.rs.core.Response;
 
 /**
- * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
- * @deprecated
+ * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Deprecated
-public interface IProcessador<T> {
+public interface ISubResource<T> {
 
-    void processar(T arg);
+    Response get(int parentId);
+
+    Response get(int parentId, int id);
+
+    Response put(int parentId, int id, T obj);
+
+    Response post(int parentId, T obj);
 }

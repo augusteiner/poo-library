@@ -7,9 +7,11 @@
     <discriminator-value>LIVRO</discriminator-value>
 
     <attributes>
+
       <basic name="titulo" />
       <basic name="isbn" />
       <basic name="edicao" />
+
     </attributes>
   </entity>
 </entity-mappings>

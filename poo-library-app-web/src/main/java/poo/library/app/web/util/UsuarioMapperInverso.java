@@ -21,31 +21,50 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.modelo.comum;
+package poo.library.app.web.util;
 
-import poo.library.modelo.ItemAcervo;
-import poo.library.modelo.Locacao;
-import poo.library.modelo.Reserva;
+import poo.library.app.web.dto.UsuarioDTO;
+import poo.library.comum.ETipoUsuario;
+import poo.library.modelo.Administrador;
 import poo.library.modelo.Usuario;
-import poo.library.util.FalhaOperacaoException;
-import poo.library.util.ItemIndisponivelException;
 
 /**
- * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IBiblioteca extends poo.library.comum.IBiblioteca {
+public class UsuarioMapperInverso<I> extends Mapper<I, Usuario> {
 
-    void addAcervo(ItemAcervo item);
+    public UsuarioMapperInverso(Class<I> clsIn) {
 
-    void cancelar(Reserva reserva) throws FalhaOperacaoException;
+        super(clsIn, Usuario.class);
+    }
 
-    void devolver(Locacao locacao) throws FalhaOperacaoException;
+    @Override
+    public Usuario converter(Object input) {
 
-    void locar(ItemAcervo item, Usuario usuario) throws ItemIndisponivelException, FalhaOperacaoException;
+        if (input instanceof UsuarioDTO) {
 
-    void reservar(ItemAcervo item, Usuario usuario) throws ItemIndisponivelException, FalhaOperacaoException;
+            Usuario usuario;
 
-    // double calcularValorMultas(Date dia);
+            ETipoUsuario tipo = ((UsuarioDTO) input).getTipo();
 
-    // double valorDiarioMulta(IItemAcervo item);
+            switch (tipo) {
+                case ADMIN:
+                    usuario = new Administrador();
+                    break;
+                case COMUM:
+                    usuario = new Usuario();
+                    break;
+                default:
+                    throw new IllegalArgumentException(String.format(
+                        "DTO com tipo '%s' de usuário inválido",
+                        tipo));
+            }
+
+            this.map(input, usuario);
+
+            return usuario;
+        }
+
+        return super.converter(input);
+    }
 }

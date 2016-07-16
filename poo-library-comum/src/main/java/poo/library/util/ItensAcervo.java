@@ -21,31 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.modelo.comum;
+package poo.library.util;
 
-import poo.library.modelo.ItemAcervo;
-import poo.library.modelo.Locacao;
-import poo.library.modelo.Reserva;
-import poo.library.modelo.Usuario;
-import poo.library.util.FalhaOperacaoException;
-import poo.library.util.ItemIndisponivelException;
+import poo.library.comum.IItemAcervo;
 
 /**
- * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IBiblioteca extends poo.library.comum.IBiblioteca {
+public class ItensAcervo {
 
-    void addAcervo(ItemAcervo item);
+    public static String toString(IItemAcervo item) {
 
-    void cancelar(Reserva reserva) throws FalhaOperacaoException;
+        return String.format(
+            "%s#%d - %s (R$ %s)",
 
-    void devolver(Locacao locacao) throws FalhaOperacaoException;
+            item.getCategoria(),
 
-    void locar(ItemAcervo item, Usuario usuario) throws ItemIndisponivelException, FalhaOperacaoException;
+            item.getId(),
 
-    void reservar(ItemAcervo item, Usuario usuario) throws ItemIndisponivelException, FalhaOperacaoException;
+            item.getAutor(),
 
-    // double calcularValorMultas(Date dia);
-
-    // double valorDiarioMulta(IItemAcervo item);
+            item.getPrecoLocacao());
+    }
 }

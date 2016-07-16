@@ -130,4 +130,23 @@ class MemoryDAO<T> implements IDAO<T> {
 
         return result;
     }
+
+    @Override
+    public void flush() {
+
+        //
+    }
+
+    @Override
+    public T reference(int id) {
+
+        try {
+
+            return this.find(id);
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            return null;
+        }
+    }
 }

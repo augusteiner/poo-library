@@ -8,7 +8,7 @@
       {{data.id > 0 ? 'Detalhes' : 'Nova'}}</li>
   </ol>
   <div class="well">
-    <form class="form-horizontal" action="javascript:void(0);" method="post" ng-submit="save()" ng-init="edit(params.id)">
+    <form class="form-horizontal" action="javascript:void(0);" method="post" ng-submit="save('/admin/biblioteca')" ng-init="edit(params.id)">
       <fieldset>
         <legend>Cadastro de Unidades</legend>
         <input type="hidden" name="id" ng-model="data.id">
@@ -23,35 +23,35 @@
           <div class="col-lg-12">
             <label class="control-label">
               Endereço</label>
-            <input class="form-control" ng-model="data.endereco" required>
+            <input class="form-control" type="text" ng-model="data.endereco" required>
           </div>
         </div>
         <div class="form-group">
           <div class="col-lg-12">
             <label class="control-label">
               Validade das Reservas (em dias)</label>
-            <input class="form-control" ng-model="data.qteDiasValidadeReserva" required>
+            <input class="form-control" type="number" ng-model="data.qteDiasValidadeReserva" required>
           </div>
         </div>
         <div class="form-group">
           <div class="col-lg-12">
             <label class="control-label">
               Validade das Locações (em dias)</label>
-            <input class="form-control" ng-model="data.qteDiasLocacao" required>
+            <input class="form-control" type="number" ng-model="data.qteDiasLocacao" required>
           </div>
         </div>
         <div class="form-group">
           <div class="col-lg-12">
             <label class="control-label">
               Multa</label>
-            <input class="form-control" ng-model="data.multaDiaria" required>
+            <input class="form-control" type="number" min="0" step="0.01" ng-model="data.multaDiaria" required>
           </div>
         </div>
         <div class="form-group">
           <div class="col-lg-12 modal-footer">
-            <button class="btn btn-sm btn-default" type="reset" ng-click="cancel()">
+            <a class="btn btn-sm btn-default" ng-click="cancel('/admin/biblioteca')">
               <span class="glyphicon glyphicon-chevron-left"></span> Voltar
-            </button>
+            </a>
             <button class="btn btn-sm btn-primary" type="submit">
               <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
             </button>

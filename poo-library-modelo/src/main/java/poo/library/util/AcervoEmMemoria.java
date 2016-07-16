@@ -31,6 +31,7 @@ import poo.library.comum.IItemAcervo;
 import poo.library.comum.ILocacao;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
+import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Locacao;
 import poo.library.modelo.Reserva;
@@ -42,17 +43,21 @@ import poo.library.modelo.comum.IAcervo;
  */
 public class AcervoEmMemoria implements IAcervo {
 
-    private final Collection<Locacao> locacoes;
-    private final Collection<Reserva> reservas;
+    private Biblioteca biblioteca;
+
+    private Collection<Locacao> locacoes;
+    private Collection<Reserva> reservas;
+    private Collection<ItemAcervo> itens;
+
     private final Collection<Usuario> usuarios;
-    private final Collection<ItemAcervo> itens;
 
     public AcervoEmMemoria() {
 
         this.locacoes = novaLista();
         this.reservas = novaLista();
-        this.usuarios = novaLista();
         this.itens = novaLista();
+
+        this.usuarios = novaLista();
     }
 
     @Override
@@ -92,9 +97,11 @@ public class AcervoEmMemoria implements IAcervo {
     }
 
     @Override
-    public Iterator<ItemAcervo> iterator() {
+    public Iterator<IItemAcervo> iterator() {
 
-        return this.itens.iterator();
+        Iterable<IItemAcervo> iter = Iterables.cast(this.itens);
+
+        return iter.iterator();
     }
 
     @Override
@@ -184,19 +191,19 @@ public class AcervoEmMemoria implements IAcervo {
     @Override
     public void salvarItemAcervo(ItemAcervo itemAcervo) {
 
-        this.itens.add(itemAcervo);
+//         this.itens.add(itemAcervo);
     }
 
     @Override
     public void salvarLocacao(Locacao locacao) {
 
-        this.locacoes.add(locacao);
+//        this.locacoes.add(locacao);
     }
 
     @Override
     public void salvarReserva(Reserva reserva) {
 
-        this.reservas.add(reserva);
+//        this.reservas.add(reserva);
     }
 
     //public void salvarUsuario(IUsuario usuario) {
@@ -243,5 +250,34 @@ public class AcervoEmMemoria implements IAcervo {
     private <T> Collection<T> novaLista() {
 
         return new ArrayList<T>();
+    }
+
+    protected Biblioteca getBiblioteca() {
+
+        return this.biblioteca;
+    }
+
+    @Override
+    public void setBiblioteca(Biblioteca biblioteca) {
+
+        this.biblioteca = biblioteca;
+    }
+
+    @Override
+    public void setLocacoes(Collection<Locacao> locacoes) {
+
+        this.locacoes = locacoes;
+    }
+
+    @Override
+    public void setReservas(Collection<Reserva> reservas) {
+
+        this.reservas = reservas;
+    }
+
+    @Override
+    public void setItensAcervo(Collection<ItemAcervo> itens) {
+
+        this.itens = itens;
     }
 }

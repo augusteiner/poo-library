@@ -23,46 +23,52 @@
  */
 package poo.library.app.web.util;
 
-import poo.library.app.web.dto.UsuarioDTO;
-import poo.library.comum.ETipoUsuario;
-import poo.library.modelo.Administrador;
-import poo.library.modelo.Usuario;
+import poo.library.app.web.dto.ItemAcervoDTO;
+import poo.library.comum.ECategoriaItem;
+import poo.library.modelo.Apostila;
+import poo.library.modelo.ItemAcervo;
+import poo.library.modelo.Livro;
+import poo.library.modelo.Texto;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class UsuarioMapper<I> extends Mapper<I, Usuario> {
+public class ItemAcervoMapperInverso<T> extends Mapper<T, ItemAcervo> {
 
-    public UsuarioMapper(Class<I> clsIn) {
+    public ItemAcervoMapperInverso(Class<T> clsIn) {
 
-        super(clsIn, Usuario.class);
+        super(clsIn, ItemAcervo.class);
     }
 
     @Override
-    public Usuario converter(Object input) {
+    public ItemAcervo converter(Object input) {
 
-        if (input instanceof UsuarioDTO) {
+        if (input instanceof ItemAcervoDTO) {
 
-            Usuario usuario;
+            ItemAcervo itemAcervo;
 
-            ETipoUsuario tipo = ((UsuarioDTO) input).getTipo();
+            ECategoriaItem categoria = ((ItemAcervoDTO) input).getCategoria();
 
-            switch (tipo) {
-                case ADMIN:
-                    usuario = new Administrador();
+            switch (categoria) {
+
+                case APOSTILA:
+                    itemAcervo = new Apostila();
                     break;
-                case COMUM:
-                    usuario = new Usuario();
+                case LIVRO:
+                    itemAcervo = new Livro();
+                    break;
+                case TEXTO:
+                    itemAcervo = new Texto();
                     break;
                 default:
                     throw new IllegalArgumentException(String.format(
-                        "DTO com tipo '%s' de usuário inválido",
-                        tipo));
+                        "DTO com categoria '%s' inválida",
+                        categoria));
             }
 
-            this.map(input, usuario);
+            this.map(input, itemAcervo);
 
-            return usuario;
+            return itemAcervo;
         }
 
         return super.converter(input);

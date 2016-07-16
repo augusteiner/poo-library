@@ -23,8 +23,8 @@
  */
 package poo.library.util;
 
-import poo.library.comum.ILocacao;
 import poo.library.comum.IItemAcervo;
+import poo.library.comum.ILocacao;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
 

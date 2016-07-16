@@ -23,12 +23,12 @@
  */
 package poo.library.modelo.comum;
 
-import poo.library.modelo.ItemAcervo;
-import poo.library.util.IBuscador;
+import poo.library.comum.IItemAcervo;
+import poo.library.modelo.comum.IBuscador;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public interface IAcervo extends IArmazem, IBuscador, Iterable<ItemAcervo> {
+public interface IAcervo extends IArmazem, IBuscador, Iterable<IItemAcervo> {
 
 }

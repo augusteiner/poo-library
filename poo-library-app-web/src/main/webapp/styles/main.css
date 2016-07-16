@@ -2,6 +2,7 @@
 table td a {
   text-decoration: none !important;
   color: inherit;
+  display: block;
 }
 
 #loading-bar .bar {

@@ -26,6 +26,8 @@ package poo.library.dao.jpa;
 import java.util.Collections;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -170,5 +172,36 @@ public class GenericDAO<T> implements IDAO<T> {
     public Iterable<T> search(String term) {
 
         return Collections.emptyList();
+    }
+
+    @Override
+    public void flush() throws FalhaOperacaoException {
+
+        EntityTransaction transaction = this.em.getTransaction();
+
+        transaction.begin();
+
+        try {
+
+            this.em.flush();
+
+        } catch (PersistenceException e) {
+
+            transaction.rollback();
+
+            throw new FalhaOperacaoException(
+                e.getMessage(),
+                e);
+        }
+
+        transaction.commit();
+    }
+
+    @Override
+    public T reference(int id) {
+
+        return this.em.getReference(
+            this.cls,
+            id);
     }
 }

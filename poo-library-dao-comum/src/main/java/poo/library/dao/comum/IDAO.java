@@ -40,7 +40,11 @@ public interface IDAO<T> {
 
     T find(int id) throws ObjetoNaoEncontradoException;
     T first() throws ObjetoNaoEncontradoException;
+    T reference(int id);
+
     Iterable<T> search(String term);
 
     void save(T obj) throws FalhaOperacaoException;
+
+    void flush() throws FalhaOperacaoException;
 }

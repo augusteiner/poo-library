@@ -1,14 +1,17 @@
-<section ng-controller="BibliotecaCtrlr" ng-init="load()">
-  <ol class="breadcrumb">
+<section ng-controller="AcervoCtrlr" ng-init="load()">
+ <ol class="breadcrumb">
     <li>
       <a href="#/">
         Início</a></li>
     <li>
-      Unidades</li>
+      <a href="#/admin/biblioteca">
+        Unidades</a></li>
+    <li>
+      Acervo</li>
   </ol>
   <div class="btn-group pull-right">
-    <a class="btn btn-sm btn-primary" href="#{{rootPath}}/new">
-      <span class="glyphicon glyphicon-plus"></span> Nova Biblioteca
+    <a class="btn btn-sm btn-primary" href="#{{url}}/new">
+      <span class="glyphicon glyphicon-plus"></span> Novo Acervo
     </a>
     <a data-target="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
       <span class="caret"></span>
@@ -29,9 +32,9 @@
     <thead>
       <tr>
         <th>
-            Item</th>
+          Itens do Acervo</th>
         <th style="width: 8rem;">
-            Ações</th>
+          Ações</th>
       </tr>
     </thead>
     <tfoot>
@@ -39,33 +42,25 @@
     <tbody>
       <tr ng-repeat="item in itens">
         <td>
-          <a href="#{{rootPath}}/{{item.id}}">
-            &#35;{{item.id}} - <strong>{{item.nome}}</strong>
+          <a href="#{{url}}/{{item.id}}">
+            &#35;{{item.id}} - <strong>{{item.titulo}}</strong>
             <br>
             <small>
-              <em>{{item.endereco}}</em>
+              {{item.categoria}} :: <em>R$ {{item.precoLocacao}}</em>
             </small>
           </a>
         </td>
         <td>
           <div class="btn-group">
-            <a class="btn btn-sm btn-primary" ng-click="remove(item.id)">
+            <a class="btn btn-sm btn-primary" href="#{{url}}/{{item.id}}" ng-click="remove(item.id)">
               <span class="glyphicon glyphicon-remove"></span>
             </a>
             <a data-target="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu pull-right">
-              <li>
-                <a class="" href="#{{rootPath}}" ng-click="remove(item.id)">
-                  <span class="glyphicon glyphicon-remove"></span> Deletar
-                </a>
-              </li>
               <li class="divider"></li>
-              <li>
-                <a class="" href="#{{rootPath}}/{{item.id}}/acervo">
-                  <span class="glyphicon glyphicon-book"></span> Gerenciar Acervo</a>
-              </li>
+              <li><a class="" href="#">Ver detalhes</a></li>
             </ul>
           </div>
         </td>

@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  var app = angular.module('biblioteca', ['ngRoute', 'angular-loading-bar', 'ngAnimate']);
+  var app = angular.module('biblioteca', ['ngRoute', 'ngResource', 'angular-loading-bar', 'ngAnimate']);
 
   app.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = false;
@@ -22,19 +22,5 @@
     $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
     $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
   }]);
-
-  app.config(function($routeProvider) {
-
-    $routeProvider.
-      when('/:ctrlr/:resource', {
-        templateUrl: function(path) {
-
-          return path.ctrlr + '/' + path.resource + '/';
-        }
-      }).
-      otherwise({
-        redirectTo: '/'
-      });
-  });
 
 })();

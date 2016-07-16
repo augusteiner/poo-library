@@ -21,31 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.modelo.comum;
+package poo.library.app.web.util;
 
-import poo.library.modelo.ItemAcervo;
-import poo.library.modelo.Locacao;
-import poo.library.modelo.Reserva;
-import poo.library.modelo.Usuario;
-import poo.library.util.FalhaOperacaoException;
-import poo.library.util.ItemIndisponivelException;
+import javax.ws.rs.core.Response;
+
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
- * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IBiblioteca extends poo.library.comum.IBiblioteca {
+public interface IResource<T> {
 
-    void addAcervo(ItemAcervo item);
+    Iterable<T> get();
 
-    void cancelar(Reserva reserva) throws FalhaOperacaoException;
+    Response get(int id);
 
-    void devolver(Locacao locacao) throws FalhaOperacaoException;
+    Response put(int id, T obj);
 
-    void locar(ItemAcervo item, Usuario usuario) throws ItemIndisponivelException, FalhaOperacaoException;
+    Response post(T obj);
 
-    void reservar(ItemAcervo item, Usuario usuario) throws ItemIndisponivelException, FalhaOperacaoException;
-
-    // double calcularValorMultas(Date dia);
-
-    // double valorDiarioMulta(IItemAcervo item);
+    T findById(int id) throws ObjetoNaoEncontradoException;
 }

@@ -21,31 +21,51 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.modelo.comum;
+package poo.library.app.web.util;
 
-import poo.library.modelo.ItemAcervo;
-import poo.library.modelo.Locacao;
-import poo.library.modelo.Reserva;
-import poo.library.modelo.Usuario;
-import poo.library.util.FalhaOperacaoException;
-import poo.library.util.ItemIndisponivelException;
+import java.net.URI;
+
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.Response.Status;
 
 /**
- * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IBiblioteca extends poo.library.comum.IBiblioteca {
+public class Responses {
 
-    void addAcervo(ItemAcervo item);
+    public static ResponseBuilder badRequest() {
 
-    void cancelar(Reserva reserva) throws FalhaOperacaoException;
+        return status(Status.BAD_REQUEST);
+    }
 
-    void devolver(Locacao locacao) throws FalhaOperacaoException;
+    public static ResponseBuilder created(URI createdUri) {
 
-    void locar(ItemAcervo item, Usuario usuario) throws ItemIndisponivelException, FalhaOperacaoException;
+        return Response.created(createdUri);
+    }
 
-    void reservar(ItemAcervo item, Usuario usuario) throws ItemIndisponivelException, FalhaOperacaoException;
+    public static ResponseBuilder notFound() {
 
-    // double calcularValorMultas(Date dia);
+        return status(Status.NOT_FOUND);
+    }
 
-    // double valorDiarioMulta(IItemAcervo item);
+    public static ResponseBuilder ok() {
+
+        return Response.ok();
+    }
+
+    public static ResponseBuilder ok(Object entity) {
+
+        return Response.ok(entity);
+    }
+
+    public static ResponseBuilder serverError() {
+
+        return Response.serverError();
+    }
+
+    public static ResponseBuilder status(Status status) {
+
+        return Response.status(status);
+    }
 }

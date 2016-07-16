@@ -2,6 +2,6 @@
 
 set -e
 
-mvn jetty:run -pl *-web \
+mvn -Ptest jetty:run -pl *-web \
   -Dfactories.dao=poo.library.dao.jpa.MySqlConnectionDAOFactory
 

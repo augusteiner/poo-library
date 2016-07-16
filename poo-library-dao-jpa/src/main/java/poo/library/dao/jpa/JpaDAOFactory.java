@@ -95,6 +95,9 @@ public abstract class JpaDAOFactory implements IDAOFactory {
         if (this.em != null) {
 
             this.em.close();
+            this.factory.close();
+
+            this.factory = null;
             this.em = null;
         }
     }

@@ -3,86 +3,122 @@
 
   var app = angular.module('biblioteca');
 
-  app.crudCtrlr = function(CTRLR, PATH, ROOT_PATH) {
+  app.crudCtrlr = function(CTRLR_PREFIX, PATH, ROOT_PATH, TPL_ROOT_PATH) {
 
-    console.log('Novo ctrlr de CRUD: ' + CTRLR + ' @ ' + ROOT_PATH);
+    // console.log('Novo ctrlr de CRUD: ' + CTRLR_PREFIX + ' @ ' + ROOT_PATH);
+
+    if (TPL_ROOT_PATH == null)
+      TPL_ROOT_PATH = ROOT_PATH;
 
     app.config(function($routeProvider) {
-      $routeProvider.when(ROOT_PATH + '/:id', {
-        templateUrl : ROOT_PATH + '/edit.html',
-        controller : CTRLR
-      });
+      $routeProvider.
+        when(ROOT_PATH, {
+          templateUrl : TPL_ROOT_PATH + '/index.html',
+          controller : CTRLR_PREFIX
+        }).
+        when(ROOT_PATH + '/:id', {
+          templateUrl : TPL_ROOT_PATH + '/edit.html',
+          controller : CTRLR_PREFIX
+        });
     });
 
-    app.controller(CTRLR, function($scope, $http, $routeParams, $location) {
+    app.controller(CTRLR_PREFIX, function($scope, $routeParams, $location, $resource) {
 
       var self = this;
 
-      console.log('Init of ' + CTRLR + ' @ ' + ROOT_PATH);
+      var $params = {};
+      var $paramsWithId = { id: '@id' };
+
+      for (var key in $routeParams) {
+        if (key == 'id')
+          continue;
+
+        $params[key] = '@'+key;
+      }
+
+      $paramsWithId = angular.extend($paramsWithId, $params);
+
+      var $rest = $resource(PATH, null, {
+        getById: { method: 'GET', params: $paramsWithId },
+        update: { method: 'PUT', params: $paramsWithId },
+        save: { method: 'POST', params: $params }
+      });
+
+      console.log($rest);
+
+      console.log('Init of ' + CTRLR_PREFIX + ' @ ' + ROOT_PATH);
 
       $scope.rootPath = ROOT_PATH;
       $scope.params = $routeParams;
+      $scope.url = $location.url();
+
+      console.log(ROOT_PATH);
 
       $scope.data = {};
 
+      for (var p in $scope.params) {
+
+        $scope.data[p] = $scope.params[p];
+      }
+
       $scope.itens = [];
 
-      $scope.cancel = function() {
+      $scope.cancel = function(url) {
 
         $scope.data = {};
-        $location.path(ROOT_PATH);
+
+        $location.path(url);
       };
 
-      $scope.edit = function(id) {
+      $scope.edit = function(paramId) {
 
-        if (id > 0) {
+        if (paramId > 0) {
 
-          $http({
-            method : 'GET',
-            url : PATH + '/' + id
-          }).then(function(r) {
+          console.log("Getting resource", $scope.params);
 
-            $scope.data = r.data;
+          $rest.getById($scope.params).$promise.then(function(r) {
+
+            //console.log(r);
+
+            $scope.data = r;
           });
         }
       };
 
-      $scope.remove = function(id) {
+      $scope.remove = function(paramId) {
 
         if (!confirm('Tem certeza?'))
           return;
 
-        $http({
-          method : 'DELETE',
-          url : PATH + '/' + id,
-          data : {}
-        }).then(function() {
+        $rest.remove({id : paramId}).$promise.then(function() {
 
           $scope.load();
         });
       };
 
-      $scope.save = function() {
+      $scope.save = function(url) {
 
-        var path = PATH;
-        var method = 'POST';
         var data = $scope.data;
+        var $promise;
 
-        if (data.id != null) {
+        console.log(PATH);
+        console.log(data);
+        console.log($.extend({}, data, $scope.params));
 
-          method = 'PUT';
-          path = path + '/' + data.id;
+        if (data.id > 0) {
+
+          $promise = $rest.update(data).$promise;
+  
+        } else {
+
+          data.id = 0;
+
+          $promise = $rest.save(data).$promise;
         }
 
-        $http({
-          method : method,
-          url : path,
-          data : data
-        }).then(function(r) {
+        $promise.then(function(r) {
 
-          $scope.data = {};
-
-          $scope.cancel();
+          $scope.cancel(url);
         });
       };
 
@@ -90,12 +126,9 @@
 
         console.log('Loading: ' + PATH);
 
-        $http({
-          method : 'GET',
-          url : PATH
-        }).then(function(r) {
+        $rest.query($scope.params).$promise.then(function(r) {
 
-          $scope.itens = r.data;
+          $scope.itens = r;
         });
       };
     });

@@ -23,29 +23,21 @@
  */
 package poo.library.modelo.comum;
 
+import java.util.Collection;
+
+import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Locacao;
 import poo.library.modelo.Reserva;
-import poo.library.modelo.Usuario;
-import poo.library.util.FalhaOperacaoException;
-import poo.library.util.ItemIndisponivelException;
 
 /**
- * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IBiblioteca extends poo.library.comum.IBiblioteca {
+public interface IBuscador extends poo.library.util.IBuscador {
 
-    void addAcervo(ItemAcervo item);
+    void setBiblioteca(Biblioteca biblioteca);
 
-    void cancelar(Reserva reserva) throws FalhaOperacaoException;
-
-    void devolver(Locacao locacao) throws FalhaOperacaoException;
-
-    void locar(ItemAcervo item, Usuario usuario) throws ItemIndisponivelException, FalhaOperacaoException;
-
-    void reservar(ItemAcervo item, Usuario usuario) throws ItemIndisponivelException, FalhaOperacaoException;
-
-    // double calcularValorMultas(Date dia);
-
-    // double valorDiarioMulta(IItemAcervo item);
+    void setLocacoes(Collection<Locacao> locacoes);
+    void setReservas(Collection<Reserva> reservas);
+    void setItensAcervo(Collection<ItemAcervo> itensAcervo);
 }
