@@ -1,11 +1,31 @@
 <section ng-controller="BibliotecaCtrlr" ng-init="load()">
+  <ol class="breadcrumb">
+    <li>
+      <a href="#/">
+        Início</a></li>
+    <li>
+      Unidades</li>
+  </ol>
+  <div class="btn-group pull-right">
+    <a class="btn btn-sm btn-primary" href="#{{rootPath}}/new">
+      <span class="glyphicon glyphicon-plus"></span> Nova Biblioteca
+    </a>
+    <a data-target="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu pull-right">
+      <li>
+        <a class="" href="javascript:void(0);">
+          <span class="glyphicon glyphicon-remove"></span> Deletar
+        </a>
+      </li>
+      <li class="divider"></li>
+      <li>
+        <a class="" href="javascript:void(0);">
+          Selecionar</a></li>
+    </ul>
+  </div>
   <table class="table table-striped table-hover">
-    <caption>
-      Bibliotecas
-      | <a class="btn btn-xs btn-primary" href="#{{rootPath}}/new">
-        <span class="glyphicon glyphicon-certificate"></span> Nova
-      </a>
-    </caption>
     <thead>
       <tr>
         <th>
@@ -19,19 +39,21 @@
     <tbody>
       <tr ng-repeat="item in itens">
         <td>
-          <div>
-            &#35;{{item.id}} - <strong>{{item.nome}}</strong>
-          </div>
-          <div>
-            <small>
-              <em>{{item.endereco}}</em>
-            </small>
-          </div>
+          <a href="#{{rootPath}}/{{item.id}}">
+            <div>
+              &#35;{{item.id}} - <strong>{{item.nome}}</strong>
+            </div>
+            <div>
+              <small>
+                <em>{{item.endereco}}</em>
+              </small>
+            </div>
+          </a>
         </td>
         <td>
           <div class="btn-group">
-            <a class="btn btn-sm btn-primary" href="#{{rootPath}}/{{item.id}}">
-              <span class="glyphicon glyphicon-pencil"></span>
+            <a class="btn btn-sm btn-primary" ng-click="remove(item.id)">
+              <span class="glyphicon glyphicon-remove"></span>
             </a>
             <a data-target="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="caret"></span>
@@ -43,7 +65,10 @@
                 </a>
               </li>
               <li class="divider"></li>
-              <li><a class="" href="#">Ver detalhes</a></li>
+              <li>
+                <a class="" href="javascript:void(0);">
+                  <span class="glyphicon glyphicon-book"></span> Gerenciar Acervo</a>
+              </li>
             </ul>
           </div>
         </td>
