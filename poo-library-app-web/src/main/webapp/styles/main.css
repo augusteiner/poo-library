@@ -4,3 +4,7 @@ table td a {
   color: inherit;
   display: block;
 }
+
+.caret {
+  border-top: 4px solid;
+}
