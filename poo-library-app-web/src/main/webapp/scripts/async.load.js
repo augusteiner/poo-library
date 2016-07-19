@@ -1,7 +1,10 @@
 
-function queued(selector, options) {
+function queued(selector, options, dfd) {
 
   var queue = [];
+  var last = $.Deferred().done(function() {
+    queue.shift();
+  });
 
   $(selector).each(function() {
 
@@ -13,7 +16,9 @@ function queued(selector, options) {
 
         if (queue.length > 0) {
 
-          console.log('removing!');
+          //console.log('removing!');
+
+          last.notify();
 
           queue.shift().resolve();
         }
@@ -24,13 +29,11 @@ function queued(selector, options) {
     }));
   });
 
-  queue.push($.Deferred().done(function(){
-    queue.shift();
-  }));
+  queue.push(last);
 
   queue.shift().resolve();
 
-  return queue[queue.length - 1];
+  return last;
 }
 function bulk(selector) {
 

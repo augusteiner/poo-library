@@ -84,27 +84,32 @@
       </div>
     </nav>
     <div ng-view>
-    <div class="showbox">
-      <div class="loader">
-        <svg class="circular" viewBox="25 25 50 50">
-          <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-        </svg>
-        <strong>Carregando...</strong>
-      </div>
+    <div style="margin: auto; width: 20em; text-align: center; padding-top: 10%;">
+      <progress style="width: 16em; height: 0.4em;" max="100" value="0"></progress>
+      <strong>Carregando...</strong>
     </div>
     </div>
   </div>
   <script>
-    function queued(e,n){var r=[];return $(e).each(function(){var e=$(this);
-    r.push($.Deferred().done(function(){e.load(function(){r.length>0&&
-    r.shift().resolve()}),e.prop("src",e.data("src"))}))}),r.push($.Deferred().
-    done(function(){r.shift()})),r.shift().resolve(),r[r.length-1]}
+    function queued(e,n,r){var t=[],o=$.Deferred().done(function(){t.shift()});
+    return $(e).each(function(){var e=$(this);t.push($.Deferred().done(function(){
+    e.load(function(){t.length>0&&(o.notify(),t.shift().resolve())}),e.prop("src",
+    e.data("src"))}))}),t.push(o),t.shift().resolve(),o}
 
     function bootstrap() {
 
       var APP_NAME = 'biblioteca';
+      var progress = $('progress');
+      var scripts = $('script.queued');
+      var total = scripts.length;
 
-      queued('script.queued').done(function() {
+      progress.prop('max', total);
+
+      queued(scripts).progress(function() {
+
+        progress.val(progress.val() + 1);
+
+      }).done(function() {
 
         console.log('End of queue!');
 
