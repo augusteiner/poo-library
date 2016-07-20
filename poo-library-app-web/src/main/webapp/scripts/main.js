@@ -20,10 +20,6 @@
     var scripts = $('script.queued');
     var total = scripts.length;
 
-    $('.dropdown-menu a:not(.dropdown-toggle)').click(function(){
-      $(this).closest('.dropdown-menu').dropdown('toggle');
-    });
-
     progress.prop('max', total);
 
     var p = function() {
