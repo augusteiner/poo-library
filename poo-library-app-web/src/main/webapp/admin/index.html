@@ -1,3 +1,71 @@
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span> <span
+          class="icon-bar"></span> <span class="icon-bar"></span> <span
+          class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#/">
+        <span class="glyphicon glyphicon-book"></span> SGLiB
+      </a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Biblioteca <span
+              class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <a href="#/biblioteca/">
+                <span class="glyphicon glyphicon-th-list"></span> Acervo</a>
+            </li>
+            <li>
+              <a href="#/admin/usuario/">
+                <span class="glyphicon glyphicon-user"></span> Usuários</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="#/admin/biblioteca">
+                <span class="glyphicon glyphicon-bookmark"></span> Unidades</a>
+            </li>
+            <li class="divider"></li>
+            <li><a href="javascript:void(0);">One more separated link</a></li>
+          </ul>
+        </li>
+        <li class="">
+          <a href="javascript:void(0);">
+            <span class="glyphicon glyphicon-calendar"></span> Empréstimos</a>
+        </li>
+        <li>
+          <a href="javascript:void(0);">
+            <span class="glyphicon glyphicon-saved"></span> Reservas</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <span class="glyphicon glyphicon-user"></span> Augusto
+            <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li class="divider"></li>
+            <li>
+              <a href="#/settings">
+                <span class="glyphicon glyphicon-cog"></span> Configurações</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="#/logout">
+                <span class="glyphicon glyphicon-log-out"></span> Sair</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <section ng-controller="AdminCtrlr as ctrlr">
   <div class="panel panel-default">
     <div class="panel-heading">
