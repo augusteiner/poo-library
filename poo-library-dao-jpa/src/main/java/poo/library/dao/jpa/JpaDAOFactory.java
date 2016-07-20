@@ -38,18 +38,25 @@ import poo.library.modelo.Usuario;
  */
 public abstract class JpaDAOFactory implements IDAOFactory {
 
+    private final String persistenceUnitName;
     private EntityManagerFactory factory;
-    private EntityManager em;
 
     public JpaDAOFactory(String persistenceUnitName) {
 
-        this.factory = Persistence.createEntityManagerFactory(persistenceUnitName);
+        this.persistenceUnitName = persistenceUnitName;
+
+        this.factory = null;
     }
 
     @Override
     public void connect() {
 
-        this.em = this.factory.createEntityManager();
+        if (this.factory == null ||
+            !this.factory.isOpen()) {
+
+            this.factory = Persistence.createEntityManagerFactory(
+                this.persistenceUnitName);
+        }
     }
 
     @Override
@@ -62,43 +69,39 @@ public abstract class JpaDAOFactory implements IDAOFactory {
     @SuppressWarnings("unchecked")
     public <T> IDAO<T> createNew(Class<T> cls) {
 
-        IDAO<?> dao;
+        GenericDAO<?> dao;
+        EntityManager em;
 
-        if (this.em == null) {
+        this.connectPooled();
+        em = this.factory.createEntityManager();
 
-            this.connectPooled();
-        }
+        if (cls.isAssignableFrom(Usuario.class)) {
 
-        if (cls.equals(Usuario.class)) {
+            dao = new UsuarioDAO(em);
 
-            dao = new UsuarioDAO(this.em);
+        } else if (cls.isAssignableFrom(ItemAcervo.class)) {
 
-        } else if (cls.equals(ItemAcervo.class)) {
+            dao = new ItemAcervoDAO(em);
 
-            dao = new ItemAcervoDAO(this.em);
+        } else if (cls.isAssignableFrom(Biblioteca.class)) {
 
-        } else if (cls.equals(Biblioteca.class)) {
-
-            dao = new BibliotecaDAO(this.em);
+            dao = new BibliotecaDAO(em);
 
         } else {
 
-            dao = new GenericDAO<T>(cls, this.em);
+            dao = new GenericDAO<T>(cls, em);
         }
 
-        return (IDAO<T>) dao;
+        return new DAOChecaConexao<T>((GenericDAO<T>) dao);
     }
 
     @Override
     public void close() {
 
-        if (this.em != null) {
+        if (this.factory != null) {
 
-            this.em.close();
             this.factory.close();
-
             this.factory = null;
-            this.em = null;
         }
     }
 }

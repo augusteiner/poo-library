@@ -39,7 +39,7 @@ import poo.library.util.ObjetoNaoEncontradoException;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class GenericDAO<T> implements IDAO<T> {
+public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
 
     protected final Class<T> cls;
     private EntityManager em;
@@ -63,6 +63,13 @@ public class GenericDAO<T> implements IDAO<T> {
     }
 
     @Override
+    public void close() {
+
+        this.em.close();
+        this.em.getEntityManagerFactory().close();
+    }
+
+    @Override
     public int count() {
 
         return 0;
@@ -77,13 +84,11 @@ public class GenericDAO<T> implements IDAO<T> {
 
             this.em.remove(obj);
 
-        } catch (Exception e) {
+        } catch (PersistenceException e) {
 
             this.em.getTransaction().rollback();
 
-            throw new FalhaOperacaoException(
-                String.format("Não foi possivel remover %s", obj),
-                e);
+            throw e;
         }
 
         this.em.getTransaction().commit();
@@ -128,9 +133,33 @@ public class GenericDAO<T> implements IDAO<T> {
             .getSingleResult();
     }
 
-    protected EntityManager getEm() {
+    @Override
+    public void flush() throws FalhaOperacaoException {
 
-        return this.em;
+        EntityTransaction transaction = this.em.getTransaction();
+
+        transaction.begin();
+
+        try {
+
+            this.em.flush();
+
+        } catch (PersistenceException e) {
+
+            transaction.rollback();
+
+            throw e;
+        }
+
+        transaction.commit();
+    }
+
+    @Override
+    public T reference(int id) {
+
+        return this.em.getReference(
+            this.cls,
+            id);
     }
 
     @Override
@@ -153,16 +182,11 @@ public class GenericDAO<T> implements IDAO<T> {
                 this.em.persist(obj);
             }
 
-        } catch (Exception e) {
+        } catch (PersistenceException e) {
 
             this.em.getTransaction().rollback();
 
-            throw new FalhaOperacaoException(
-                String.format(
-                    "Não foi possivel salvar o objeto %s, (Causa: %s)",
-                    obj,
-                    e.getMessage()),
-                e);
+            throw e;
         }
 
         this.em.getTransaction().commit();
@@ -174,34 +198,8 @@ public class GenericDAO<T> implements IDAO<T> {
         return Collections.emptyList();
     }
 
-    @Override
-    public void flush() throws FalhaOperacaoException {
+    protected EntityManager getEm() {
 
-        EntityTransaction transaction = this.em.getTransaction();
-
-        transaction.begin();
-
-        try {
-
-            this.em.flush();
-
-        } catch (PersistenceException e) {
-
-            transaction.rollback();
-
-            throw new FalhaOperacaoException(
-                e.getMessage(),
-                e);
-        }
-
-        transaction.commit();
-    }
-
-    @Override
-    public T reference(int id) {
-
-        return this.em.getReference(
-            this.cls,
-            id);
+        return this.em;
     }
 }
