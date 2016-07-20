@@ -35,31 +35,26 @@ function queued(selector, options, dfd) {
 
   return last;
 }
-function bulk(selector) {
+function bulk(elements) {
 
-  var list = [];
   var dfd = $.Deferred();
 
-  $(selector).each(function() {
+  var els = $(elements);
+  var total = els.length;
 
-    var $this = $(this);
+  els.each(function() {
 
-    list.push(1);
+    queued(this).done(function(){
+      total--;
+      dfd.notify();
 
-    $this.load(function() {
-
-      list.shift();
-
-      if (list.length == 0) {
-
+      if (total == 0) {
         dfd.resolve();
       }
     });
-
-    $this.prop('src', $this.data('src'));
   });
 
-  return dfd;
+  return dfd.promise();
 }
 function bootstrap() {
 
