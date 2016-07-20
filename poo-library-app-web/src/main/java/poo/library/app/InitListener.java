@@ -26,7 +26,6 @@ package poo.library.app;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import poo.library.dao.comum.DAOFactory;
 import poo.library.util.ConfiguracaoException;
 
 /**
@@ -59,8 +58,6 @@ public class InitListener implements ServletContextListener {
 
             e.printStackTrace();
         }
-
-        DAOFactory.connect();
     }
 
     @Override

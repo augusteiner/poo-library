@@ -49,7 +49,7 @@ public abstract class JpaDAOFactory implements IDAOFactory {
     }
 
     @Override
-    public void connect() {
+    public synchronized void connect() {
 
         if (this.factory == null ||
             !this.factory.isOpen()) {
@@ -67,7 +67,7 @@ public abstract class JpaDAOFactory implements IDAOFactory {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> IDAO<T> createNew(Class<T> cls) {
+    public synchronized <T> IDAO<T> createNew(Class<T> cls) {
 
         GenericDAO<?> dao;
         EntityManager em;
@@ -96,7 +96,7 @@ public abstract class JpaDAOFactory implements IDAOFactory {
     }
 
     @Override
-    public void close() {
+    public synchronized void close() {
 
         if (this.factory != null) {
 
