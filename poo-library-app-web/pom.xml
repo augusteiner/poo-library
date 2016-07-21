@@ -146,46 +146,6 @@
       <version>0.1.0-RELEASE</version>
       <scope>runtime</scope>
     </dependency>
-    <dependency>
-      <groupId>poo.library.dao.activejdbc</groupId>
-      <artifactId>poo-library-dao-activejdbc</artifactId>
-      <version>0.1.0-RELEASE</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>poo.library.dao.memory</groupId>
-      <artifactId>poo-library-dao-memory</artifactId>
-      <version>0.1.0-RELEASE</version>
-      <scope>runtime</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-core</artifactId>
-      <version>${version.hibernate}</version>
-      <scope>runtime</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-c3p0</artifactId>
-      <version>${version.hibernate}</version>
-      <scope>runtime</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>${version.mysql.driver}</version>
-      <scope>runtime</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <version>1.4.192</version>
-      <scope>runtime</scope>
-    </dependency>
 
     <dependency>
       <groupId>org.modelmapper</groupId>

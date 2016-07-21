@@ -44,12 +44,14 @@
       <version>0.1.0-RELEASE</version>
       <scope>runtime</scope>
     </dependency>
+
     <dependency>
       <groupId>poo.library.dao.activejdbc</groupId>
       <artifactId>poo-library-dao-activejdbc</artifactId>
       <version>0.1.0-RELEASE</version>
       <scope>runtime</scope>
     </dependency>
+
     <dependency>
       <groupId>poo.library.dao.memory</groupId>
       <artifactId>poo-library-dao-memory</artifactId>

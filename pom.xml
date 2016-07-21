@@ -21,7 +21,6 @@
     <module>poo-library-dao-memory</module>
     <module>poo-library-app-web</module>
     <module>poo-library-dao-jpa</module>
-    <module>poo-library-app-web-selfhosting</module>
   </modules>
   <build>
     <plugins>
