@@ -7,8 +7,8 @@
     <artifactId>poo-library</artifactId>
     <version>0.1.0-RELEASE</version>
   </parent>
-  <groupId>poo.library.app</groupId>
-  <artifactId>poo-library-app</artifactId>
+  <groupId>poo.library.seed</groupId>
+  <artifactId>poo-library-seed</artifactId>
   <version>0.1.0-RELEASE</version>
   <name>poo-library-app</name>
   <url>http://maven.apache.org</url>

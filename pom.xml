@@ -13,7 +13,7 @@
   </properties>
   <modules>
     <module>poo-library-modelo</module>
-    <module>poo-library-app</module>
+    <module>poo-library-seed</module>
     <module>poo-library-comum</module>
     <module>poo-library-dao-comum</module>
     <module>poo-library-dao-activejdbc</module>
