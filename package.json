@@ -2,6 +2,11 @@
   "dependencies": {
     "bower": "~1.7.9"
   },
+  "devDependencies": {
+    "mocha": "~2.3.1",
+    "chai": "~3.2.0",
+    "chai-http": "~1.0.0"
+  },
   "scripts": {
     "postinstall": "bower install"
   }

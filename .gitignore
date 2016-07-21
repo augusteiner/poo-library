@@ -6,6 +6,8 @@
 **/target/
 **/bin/
 
+node_modules/
+
 **.class
 **.jar
 
