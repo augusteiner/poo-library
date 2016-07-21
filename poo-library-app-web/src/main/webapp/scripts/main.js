@@ -14,6 +14,7 @@
     document.getElementById('jquery').addEventListener('load', bootstrap);
 
   function bootstrap() {
+
     var APP_NAME = 'biblioteca';
 
     var progress = $('progress.main-progress');
@@ -25,6 +26,10 @@
     var p = function() {
       progress.val(progress.val() + 1);
     };
+
+    $('.navbar-collapse a:not(.dropdown-toggle)').click(function(){
+      $(".navbar-collapse").collapse('hide');
+    });
 
     var done = function() {
       $(document).prop('ng-app', APP_NAME);
@@ -42,3 +47,4 @@
     });
   }
 })();
+
