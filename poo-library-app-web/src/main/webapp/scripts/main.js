@@ -36,15 +36,19 @@
       angular.bootstrap(document, [APP_NAME]);
     };
 
-    bulk('.bulk-1').progress(p).done(function() {
-      bulk('.bulk-2').progress(p).done(function() {
-        bulk('.bulk-3').progress(p).done(function() {
-          bulk('.bulk-4').progress(p).done(function() {
-            bulk('.bulk-5').progress(p).done(done);
-          });
-        });
-      });
-    });
+    for (var i = 5; i >= 1; i--) {
+
+      done = (function(bulkName, done) {
+
+        return function() {
+
+          bulk(bulkName).progress(p).done(done);
+        };
+
+      })('.bulk-' + i, done);
+    }
+
+    done();
   }
 })();
 
