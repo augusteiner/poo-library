@@ -52,8 +52,6 @@ public class Usuario implements IUsuario {
     public Usuario() {
 
         this(ETipoUsuario.PADRAO);
-
-        System.out.println("Construindo usuário pelo ctor padrão");
     }
 
     public Usuario(

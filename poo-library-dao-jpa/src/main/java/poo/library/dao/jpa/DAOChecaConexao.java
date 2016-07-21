@@ -59,7 +59,7 @@ public class DAOChecaConexao<T> implements IDAO<T>, AutoCloseable {
     }
 
     @Override
-    public void close() {
+    public synchronized void close() {
 
         if (this.dao != null) {
 
