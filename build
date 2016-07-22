@@ -12,3 +12,4 @@ mvn -Ptest install eclipse:eclipse
 
 rm -rf */.settings/
 
+# mvn compile war:war -pl *-web
