@@ -125,6 +125,11 @@
     </dependency>
 
     <dependency>
+      <groupId>poo.library.app.web.dto</groupId>
+      <artifactId>poo-library-app-web-dto</artifactId>
+      <version>0.1.0-RELEASE</version>
+    </dependency>
+    <dependency>
       <groupId>poo.library.comum</groupId>
       <artifactId>poo-library-comum</artifactId>
       <version>0.1.0-RELEASE</version>
