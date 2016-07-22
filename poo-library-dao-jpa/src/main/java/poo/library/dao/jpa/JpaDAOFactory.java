@@ -49,6 +49,16 @@ public abstract class JpaDAOFactory implements IDAOFactory {
     }
 
     @Override
+    public synchronized void close() {
+
+        if (this.factory != null) {
+
+            this.factory.close();
+            this.factory = null;
+        }
+    }
+
+    @Override
     public synchronized void connect() {
 
         if (this.factory == null ||
@@ -73,6 +83,7 @@ public abstract class JpaDAOFactory implements IDAOFactory {
         EntityManager em;
 
         this.connectPooled();
+
         em = this.factory.createEntityManager();
 
         if (cls.isAssignableFrom(Usuario.class)) {
@@ -93,15 +104,5 @@ public abstract class JpaDAOFactory implements IDAOFactory {
         }
 
         return new DAOChecaConexao<T>((GenericDAO<T>) dao);
-    }
-
-    @Override
-    public synchronized void close() {
-
-        if (this.factory != null) {
-
-            this.factory.close();
-            this.factory = null;
-        }
     }
 }

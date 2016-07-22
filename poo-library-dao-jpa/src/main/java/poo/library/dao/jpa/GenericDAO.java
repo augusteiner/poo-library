@@ -67,6 +67,8 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
 
         this.em.close();
         this.em.getEntityManagerFactory().close();
+
+        this.em = null;
     }
 
     @Override
