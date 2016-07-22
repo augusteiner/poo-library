@@ -34,20 +34,20 @@ import poo.library.comum.IUsuario;
 public interface IBuscador {
 
     ILocacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException;
-    Iterable<ILocacao> locacoes();
-    Iterable<ILocacao> locacoesPorUsuario(IUsuario usuario);
-    Iterable<ILocacao> locacoesPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;
+    Iterable<? extends ILocacao> locacoes();
+    Iterable<? extends ILocacao> locacoesPorUsuario(IUsuario usuario);
+    Iterable<? extends ILocacao> locacoesPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;
 
     IItemAcervo itemPorId(int itemId) throws ObjetoNaoEncontradoException;
-    Iterable<IItemAcervo> itens();
-    Iterable<IItemAcervo> itensPorTermo(String termo);
+    Iterable<? extends IItemAcervo> itens();
+    Iterable<? extends IItemAcervo> itensPorTermo(String termo);
 
     IReserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException;
-    Iterable<IReserva> reservas();
-    Iterable<IReserva> reservasPorUsuario(IUsuario usuario);
-    Iterable<IReserva> reservasPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;
+    Iterable<? extends IReserva> reservas();
+    Iterable<? extends IReserva> reservasPorUsuario(IUsuario usuario);
+    Iterable<? extends IReserva> reservasPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;
 
     IUsuario usuarioPorId(int usuarioId) throws ObjetoNaoEncontradoException;
-    Iterable<IUsuario> usuarios();
-    Iterable<IUsuario> usuariosPorTermo(String termo);
+    Iterable<? extends IUsuario> usuarios();
+    Iterable<? extends IUsuario> usuariosPorTermo(String termo);
 }
