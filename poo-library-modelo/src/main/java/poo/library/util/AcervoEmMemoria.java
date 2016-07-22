@@ -49,15 +49,15 @@ public class AcervoEmMemoria implements IAcervo {
     private Collection<Reserva> reservas;
     private Collection<ItemAcervo> itens;
 
-    private final Collection<Usuario> usuarios;
+    private Collection<Usuario> usuarios;
 
     public AcervoEmMemoria() {
 
-        this.locacoes = novaLista();
-        this.reservas = novaLista();
-        this.itens = novaLista();
+        //this.locacoes = novaLista();
+        //this.reservas = novaLista();
+        //this.itens = novaLista();
 
-        this.usuarios = novaLista();
+        //this.usuarios = novaLista();
     }
 
     @Override

@@ -96,9 +96,7 @@ public class AcervoResource implements ISubResource<ItemAcervoDTO>, IConversor<I
 
             Biblioteca biblioteca = this.bibliotecaPorId(bibliotecaId);
 
-            IBuscador buscador = buscador(biblioteca);
-
-            item = buscador.itemPorId(id);
+            item = buscador(biblioteca).itemPorId(id);
 
         } catch (ObjetoNaoEncontradoException e) {
 
@@ -171,6 +169,9 @@ public class AcervoResource implements ISubResource<ItemAcervoDTO>, IConversor<I
 
         item = (ItemAcervo) buscador(biblioteca).itemPorId(itemAcervoId);
 
+        if (item == null)
+            return notFound().entity(itemAcervo).build();
+
         this.converter(itemAcervo, item);
 
         this.getParentDAO().flush();
@@ -180,7 +181,7 @@ public class AcervoResource implements ISubResource<ItemAcervoDTO>, IConversor<I
 
     private Biblioteca bibliotecaPorId(int bibliotecaId) throws ObjetoNaoEncontradoException {
 
-        return this.getParentDAO().find(bibliotecaId);
+        return this.getParentDAO().reference(bibliotecaId);
     }
 
     private IBuscador buscador(Biblioteca biblioteca) {
@@ -202,13 +203,14 @@ public class AcervoResource implements ISubResource<ItemAcervoDTO>, IConversor<I
 
             item = this.converter(itemAcervo);
 
+            biblioteca.addAcervo(item);
+
         } else {
 
-            item = (ItemAcervo) biblioteca.getBuscador()
-                .itemPorId(itemAcervo.getId());
+            item = (ItemAcervo) buscador(biblioteca).itemPorId(itemAcervo.getId());
         }
 
-        biblioteca.addAcervo(item);
+        this.converter(itemAcervo, item);
 
         this.getParentDAO().flush();
 

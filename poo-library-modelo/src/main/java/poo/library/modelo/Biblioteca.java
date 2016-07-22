@@ -274,11 +274,28 @@ public class Biblioteca implements IBiblioteca {
         Biblioteca biblioteca,
         IBuscador buscador) {
 
-        if (buscador != null) {
+        if (biblioteca == null)
+            return;
 
-            buscador.setItensAcervo(biblioteca.acervo);
-            buscador.setReservas(biblioteca.reservas);
-            buscador.setLocacoes(biblioteca.locacoes);
-        }
+        if (buscador == null)
+            return;
+
+        biblioteca.initCollections();
+
+        buscador.setItensAcervo(biblioteca.acervo);
+        buscador.setReservas(biblioteca.reservas);
+        buscador.setLocacoes(biblioteca.locacoes);
+    }
+
+    private void initCollections() {
+
+        if (this.getAcervo() == null)
+            this.setAcervo(new ArrayList<ItemAcervo>());
+
+        if (this.getReservas() == null)
+            this.setReservas(new ArrayList<Reserva>());
+
+        if (this.getLocacoes() == null)
+            this.setLocacoes(new ArrayList<Locacao>());
     }
 }

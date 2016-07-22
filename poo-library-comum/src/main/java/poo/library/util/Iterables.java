@@ -35,7 +35,7 @@ public class Iterables {
 
         if (iterable == null) {
 
-            return Collections.emptyList();
+            return null;
         }
 
         return new Iterable<C>() {

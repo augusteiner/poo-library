@@ -139,7 +139,7 @@ public abstract class GenericResource<T> implements IResource<T> {
 
             this.dao.save(obj);
 
-            this.dao.flush();
+            // this.dao.flush();
 
         } catch (FalhaOperacaoException e) {
 
