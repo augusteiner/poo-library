@@ -61,17 +61,19 @@ public class AcervoEmMemoria implements IAcervo {
     }
 
     @Override
-    public IItemAcervo itemPorId(int itemId) {
+    public IItemAcervo itemPorId(int itemAcervoId) throws ObjetoNaoEncontradoException {
 
         for (IItemAcervo i : this.itens) {
 
-            if (i.getId() == itemId) {
+            if (i.getId() == itemAcervoId) {
 
                 return i;
             }
         }
 
-        return null;
+        throw new ObjetoNaoEncontradoException(String.format(
+            "Item de Acervo #%d não encontrado",
+            itemAcervoId));
     }
 
     @Override
@@ -277,6 +279,12 @@ public class AcervoEmMemoria implements IAcervo {
 
     @Override
     public void setItensAcervo(Collection<ItemAcervo> itens) {
+
+        if (itens == null) {
+
+            throw new IllegalArgumentException(
+                "Argumento itens não deve ser nulo");
+        }
 
         this.itens = itens;
     }

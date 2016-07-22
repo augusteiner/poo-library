@@ -67,7 +67,6 @@ public class Iterables {
         final Iterable<I> iterable,
         final IConversor<O> conversor) {
 
-
         if (iterable == null) {
 
             return Collections.emptyList();

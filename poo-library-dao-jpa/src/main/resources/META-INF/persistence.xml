@@ -33,19 +33,19 @@
       <property name="hibernate.auto_close_session" value="true" />
 
       <!-- configures pool via c3p0 -->
-      <property name="hibernate.connection.provider_class" value="org.hibernate.c3p0.internal.C3P0ConnectionProvider" />
-      <property name="hibernate.c3p0.acquire_increment" value="5" />
-      <property name="hibernate.c3p0.idle_test_period" value="1800" />
-      <property name="hibernate.c3p0.max_size" value="10" />
-      <property name="hibernate.c3p0.max_statements" value="50" />
-      <property name="hibernate.c3p0.min_size" value="5" />
-      <property name="hibernate.c3p0.timeout" value="1800" />
+      <!-- <property name="hibernate.connection.provider_class" value="org.hibernate.c3p0.internal.C3P0ConnectionProvider" /> -->
+      <!-- <property name="hibernate.c3p0.acquire_increment" value="5" /> -->
+      <!-- <property name="hibernate.c3p0.idle_test_period" value="1800" /> -->
+      <!-- <property name="hibernate.c3p0.max_size" value="10" /> -->
+      <!-- <property name="hibernate.c3p0.max_statements" value="50" /> -->
+      <!-- <property name="hibernate.c3p0.min_size" value="5" /> -->
+      <!-- <property name="hibernate.c3p0.timeout" value="1800" /> -->
 
       <!-- configures pool via HikariCP -->
-      <!-- <property name="hibernate.connection.provider_class" value="com.zaxxer.hikari.hibernate.HikariConnectionProvider" /> -->
-      <!-- <property name="hibernate.hikari.minimumIdle" value="5" /> -->
-      <!-- <property name="hibernate.hikari.maximumPoolSize" value="10" /> -->
-      <!-- <property name="hibernate.hikari.idleTimeout" value="1800" /> -->
+      <property name="hibernate.connection.provider_class" value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
+      <property name="hibernate.hikari.minimumIdle" value="5" />
+      <property name="hibernate.hikari.maximumPoolSize" value="10" />
+      <property name="hibernate.hikari.idleTimeout" value="1800" />
 
     </properties>
   </persistence-unit>

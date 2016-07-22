@@ -181,7 +181,7 @@ public class AcervoResource implements ISubResource<ItemAcervoDTO>, IConversor<I
 
     private Biblioteca bibliotecaPorId(int bibliotecaId) throws ObjetoNaoEncontradoException {
 
-        return this.getParentDAO().reference(bibliotecaId);
+        return this.getParentDAO().find(bibliotecaId);
     }
 
     private IBuscador buscador(Biblioteca biblioteca) {

@@ -289,13 +289,24 @@ public class Biblioteca implements IBiblioteca {
 
     private void initCollections() {
 
-        if (this.getAcervo() == null)
-            this.setAcervo(new ArrayList<ItemAcervo>());
+        System.out.println("Inicializando coleções internas");
 
-        if (this.getReservas() == null)
-            this.setReservas(new ArrayList<Reserva>());
+        if (this.acervo == null) {
 
-        if (this.getLocacoes() == null)
-            this.setLocacoes(new ArrayList<Locacao>());
+            System.out.println("Inicializando coleção de acervo");
+            this.acervo = new ArrayList<ItemAcervo>();
+        }
+
+        if (this.reservas == null) {
+
+            System.out.println("Inicializando coleção de reservas");
+            this.reservas = new ArrayList<Reserva>();
+        }
+
+        if (this.locacoes == null) {
+
+            System.out.println("Inicializando coleção de locações");
+            this.locacoes = new ArrayList<Locacao>();
+        }
     }
 }
