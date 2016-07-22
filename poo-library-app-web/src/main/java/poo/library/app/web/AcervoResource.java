@@ -26,6 +26,8 @@ package poo.library.app.web;
 import static poo.library.app.web.util.Conversores.*;
 import static poo.library.app.web.util.Responses.*;
 
+import java.net.URI;
+
 import javax.ws.rs.core.Response;
 
 import poo.library.app.web.dto.ItemAcervoDTO;
@@ -73,6 +75,48 @@ public class AcervoResource implements ISubResource<ItemAcervoDTO>, IConversor<I
     }
 
     @Override
+    public Response delete(int parentId, int id) {
+
+        try {
+
+            return this.deleteItem(parentId, id);
+
+        } catch (Exception e) {
+
+            return serverError().entity(e).build();
+        }
+    }
+
+    private Response deleteItem(int bibliotecaId, int id)
+        throws ObjetoNaoEncontradoException, FalhaOperacaoException {
+
+        Biblioteca biblioteca = this.bibliotecaPorId(bibliotecaId);
+
+        ItemAcervo item = this.itemPorId(bibliotecaId, id);
+
+        item.setBiblioteca(null);
+        biblioteca.removeAcervo(item);
+
+        this.flush();
+
+        return Response.ok().build();
+    }
+
+    private ItemAcervo itemPorId(int bibliotecaId, int id)
+        throws ObjetoNaoEncontradoException {
+
+        Biblioteca biblioteca = this.bibliotecaPorId(bibliotecaId);
+
+        return this.itemPorId(biblioteca, id);
+    }
+
+    private ItemAcervo itemPorId(Biblioteca biblioteca, int id)
+        throws ObjetoNaoEncontradoException {
+
+        return (ItemAcervo) buscador(biblioteca).itemPorId(id);
+    }
+
+    @Override
     public Response get(int bibliotecaId) {
 
         try {
@@ -82,6 +126,8 @@ public class AcervoResource implements ISubResource<ItemAcervoDTO>, IConversor<I
             return ok().entity(iter).build();
 
         } catch (ObjetoNaoEncontradoException e) {
+
+            e.printStackTrace();
 
             return notFound().entity(e).build();
         }
@@ -96,9 +142,11 @@ public class AcervoResource implements ISubResource<ItemAcervoDTO>, IConversor<I
 
             Biblioteca biblioteca = this.bibliotecaPorId(bibliotecaId);
 
-            item = buscador(biblioteca).itemPorId(id);
+            item = this.itemPorId(biblioteca, id);
 
         } catch (ObjetoNaoEncontradoException e) {
+
+            e.printStackTrace();
 
             return notFound().entity(e).build();
         }
@@ -137,6 +185,8 @@ public class AcervoResource implements ISubResource<ItemAcervoDTO>, IConversor<I
 
         } catch (FalhaOperacaoException e) {
 
+            e.printStackTrace();
+
             return serverError().entity(e).build();
         }
     }
@@ -150,6 +200,8 @@ public class AcervoResource implements ISubResource<ItemAcervoDTO>, IConversor<I
 
         } catch (FalhaOperacaoException e) {
 
+            e.printStackTrace();
+
             return serverError().entity(e).build();
 
         } catch (ObjetoNaoEncontradoException e) {
@@ -158,23 +210,19 @@ public class AcervoResource implements ISubResource<ItemAcervoDTO>, IConversor<I
         }
     }
 
-    public Response putItem(int bibliotecaId, int itemAcervoId, ItemAcervoDTO itemAcervo)
+    public Response putItem(int bibliotecaId, int id, ItemAcervoDTO itemAcervo)
         throws ObjetoNaoEncontradoException, FalhaOperacaoException {
 
         ItemAcervo item;
 
-        Biblioteca biblioteca = null;
-
-        biblioteca = this.bibliotecaPorId(bibliotecaId);
-
-        item = (ItemAcervo) buscador(biblioteca).itemPorId(itemAcervoId);
+        item = this.itemPorId(bibliotecaId, id);
 
         if (item == null)
             return notFound().entity(itemAcervo).build();
 
         this.converter(itemAcervo, item);
 
-        this.getParentDAO().flush();
+        this.flush();
 
         return ok().entity(itemAcervo).build();
     }
@@ -193,13 +241,47 @@ public class AcervoResource implements ISubResource<ItemAcervoDTO>, IConversor<I
         return buscador;
     }
 
+    private void close() throws Exception {
+
+        this.parentDAO.close();
+        this.parentDAO = null;
+    }
+
+    private void flush() throws FalhaOperacaoException {
+
+        try {
+
+            this.getParentDAO().flush();
+
+        } catch (FalhaOperacaoException e) {
+
+            e.printStackTrace();
+
+            throw e;
+
+        } finally {
+
+            try {
+
+                this.close();
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+
+                throw new FalhaOperacaoException(e.getMessage(), e);
+            }
+        }
+    }
+
     private Response postItem(int bibliotecaId, ItemAcervoDTO itemAcervo)
         throws ObjetoNaoEncontradoException, FalhaOperacaoException {
 
-        Biblioteca biblioteca = this.bibliotecaPorId(bibliotecaId);
         ItemAcervo item;
 
         if (itemAcervo.getId() == 0) {
+
+            Biblioteca biblioteca = this.bibliotecaPorId(bibliotecaId);
 
             item = this.converter(itemAcervo);
 
@@ -207,14 +289,21 @@ public class AcervoResource implements ISubResource<ItemAcervoDTO>, IConversor<I
 
         } else {
 
-            item = (ItemAcervo) buscador(biblioteca).itemPorId(itemAcervo.getId());
+            item = this.itemPorId(bibliotecaId, itemAcervo.getId());
+
+            this.converter(itemAcervo, item);
         }
 
-        this.converter(itemAcervo, item);
+        this.flush();
 
-        this.getParentDAO().flush();
+        URI createdUri = URI.create(String.format(
+            "biblioteca/%d/acervo/%d",
+            bibliotecaId,
+            item.getId()));
 
-        return ok().entity(CONVERSOR.converter(item)).build();
+        return created(createdUri).build();
+
+        // return created().entity(CONVERSOR.converter(item)).build();
     }
 
     protected IDAO<Biblioteca> getParentDAO() {

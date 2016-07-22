@@ -28,6 +28,7 @@ import static poo.library.app.web.util.Conversores.*;
 import static poo.library.app.web.util.DAOFactory.*;
 import static poo.library.util.Iterables.*;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -145,5 +146,17 @@ public class BibliotecaResource extends GenericResource<BibliotecaDTO>
             id,
             itemAcervoId,
             itemAcervo);
+    }
+
+    @DELETE
+    @Path("/{id}/acervo/{itemAcervoId}")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response deleteAcervo(
+        @PathParam("id") int id,
+        @PathParam("itemAcervoId") int itemAcervoId) {
+
+        return this.getAcervo().delete(
+            id,
+            itemAcervoId);
     }
 }

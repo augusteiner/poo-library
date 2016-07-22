@@ -36,8 +36,8 @@ import poo.library.util.ObjetoNaoEncontradoException;
 public class DAOConversor<I, O> implements IConversor<O>, IDAO<O> {
 
     private IDAO<I> dao;
-    private IConversor<O> conversorIn;
-    private IConversor<I> conversorOut;
+    private final IConversor<O> conversorIn;
+    private final IConversor<I> conversorOut;
 
     public DAOConversor(
         IDAO<I> dao,
@@ -151,5 +151,12 @@ public class DAOConversor<I, O> implements IConversor<O>, IDAO<O> {
     public void converter(Object input, O output) {
 
         this.conversorIn.converter(input, output);
+    }
+
+    @Override
+    public void close() throws Exception {
+
+        this.dao.close();
+        this.dao = null;
     }
 }

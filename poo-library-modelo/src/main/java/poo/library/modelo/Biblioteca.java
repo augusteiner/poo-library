@@ -309,4 +309,11 @@ public class Biblioteca implements IBiblioteca {
             this.locacoes = new ArrayList<Locacao>();
         }
     }
+
+    public void removeAcervo(ItemAcervo item) {
+
+        item.setBiblioteca(null);
+
+        this.acervo.remove(item);
+    }
 }

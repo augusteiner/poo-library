@@ -37,4 +37,6 @@ public interface ISubResource<T> {
     Response put(int parentId, int id, T obj);
 
     Response post(int parentId, T obj);
+
+    Response delete(int parentId, int id);
 }
