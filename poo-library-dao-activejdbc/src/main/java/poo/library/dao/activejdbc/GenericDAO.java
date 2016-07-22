@@ -184,4 +184,9 @@ public class GenericDAO<T extends IIdentificavel> {
             return null;
         }
     }
+
+    public void close() {
+
+        //
+    }
 }

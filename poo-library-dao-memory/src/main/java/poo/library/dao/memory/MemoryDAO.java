@@ -149,4 +149,11 @@ class MemoryDAO<T> implements IDAO<T> {
             return null;
         }
     }
+
+    @Override
+    public void close() throws Exception {
+
+        this.storage.clear();
+        this.storage = null;
+    }
 }

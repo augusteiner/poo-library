@@ -29,7 +29,7 @@ import poo.library.util.ObjetoNaoEncontradoException;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IDAO<T> {
+public interface IDAO<T> extends AutoCloseable {
 
     Iterable<T> all();
 

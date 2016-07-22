@@ -65,10 +65,15 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
     @Override
     public void close() {
 
-        this.em.close();
-        this.em.getEntityManagerFactory().close();
+        if (this.em != null) {
 
-        this.em = null;
+            this.em.clear();
+
+            this.em.close();
+            // this.em.getEntityManagerFactory().close();
+
+            this.em = null;
+        }
     }
 
     @Override
@@ -138,9 +143,9 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
     @Override
     public void flush() throws FalhaOperacaoException {
 
-        EntityTransaction transaction = this.em.getTransaction();
+        EntityTransaction tx = this.em.getTransaction();
 
-        transaction.begin();
+        tx.begin();
 
         try {
 
@@ -148,12 +153,27 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
 
         } catch (PersistenceException e) {
 
-            transaction.rollback();
+            tx.rollback();
+
+            e.printStackTrace();
 
             throw e;
         }
 
-        transaction.commit();
+        try {
+
+            tx.commit();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            throw new FalhaOperacaoException(e.getMessage(), e);
+
+        } finally {
+
+            this.close();
+        }
     }
 
     @Override
