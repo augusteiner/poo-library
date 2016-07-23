@@ -23,152 +23,73 @@
  */
 package poo.library.dao.util;
 
-import poo.library.comum.IItemAcervo;
-import poo.library.comum.ILocacao;
-import poo.library.comum.IReserva;
-import poo.library.comum.IUsuario;
-import poo.library.dao.comum.DAOFactory;
+import java.util.Collection;
+
 import poo.library.dao.comum.IDAO;
+import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Locacao;
 import poo.library.modelo.Reserva;
-import poo.library.modelo.Usuario;
-import poo.library.modelo.comum.IArmazem;
-import poo.library.util.FalhaOperacaoException;
-import poo.library.util.IBuscador;
-import poo.library.util.Iterables;
-import poo.library.util.ObjetoNaoEncontradoException;
+import poo.library.modelo.comum.IBuscador;
+import poo.library.util.AcervoEmMemoria;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class DAOAcervo implements IBuscador, IArmazem {
+public class DAOAcervo extends AcervoEmMemoria implements IBuscador {
 
-    private final IDAO<Locacao> locacoes;
-    private final IDAO<Reserva> reservas;
-    private final IDAO<Usuario> usuarios;
-    private final IDAO<ItemAcervo> itens;
+    private final IDAO<Biblioteca> dao;
 
-    public DAOAcervo() {
+    public DAOAcervo(IDAO<Biblioteca> dao) {
 
-        this.locacoes = DAOFactory.createNew(Locacao.class);
-        this.reservas = DAOFactory.createNew(Reserva.class);
-        this.usuarios = DAOFactory.createNew(Usuario.class);
-        this.itens = DAOFactory.createNew(ItemAcervo.class);
+        this.dao = dao;
     }
 
     @Override
-    public IItemAcervo itemPorId(int itemId) throws ObjetoNaoEncontradoException {
+    public void close() throws Exception {
 
-        return itens.find(itemId);
+        this.dao.close();
+
+        super.close();
+    }
+
+    /**
+     * XXX Forçando carregamento EAGER da lista
+     *
+     * Em futuras versões do java + jpa, utilizando streams seria possível
+     * reduzir o overhead de uma lista inteira na heap utilizando métodos para
+     * paginação.
+     *
+     * <code>
+     *   // exemplo
+     *   list.stream().skip(10).limit(10).collect(toList());
+     * </code>
+     *
+     * @param list
+     * @return
+     */
+    private <T> Collection<T> initialise(Collection<T> list) {
+
+        list.size();
+
+        return list;
     }
 
     @Override
-    public Iterable<IItemAcervo> itens() {
+    public Collection<ItemAcervo> itens() {
 
-        return Iterables.cast(this.itens.all());
+        return this.initialise(super.itens());
     }
 
     @Override
-    public Iterable<IItemAcervo> itensPorTermo(String termo) {
+    public Collection<Locacao> locacoes() {
 
-        return Iterables.cast(this.itens.search(termo));
+        return this.initialise(super.locacoes());
     }
 
     @Override
-    public ILocacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException {
+    public Collection<Reserva> reservas() {
 
-        return this.locacoes.find(locacaoId);
-    }
-
-    @Override
-    public Iterable<ILocacao> locacoes() {
-
-        return Iterables.cast(this.locacoes.all());
-    }
-
-    @Override
-    public Iterable<ILocacao> locacoesPorUsuario(IUsuario usuario) {
-
-        return usuario.getLocacoes();
-    }
-
-    @Override
-    public Iterable<ILocacao> locacoesPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException {
-
-        IUsuario usuario = this.usuarioPorId(usuarioId);
-
-        return this.locacoesPorUsuario(usuario);
-    }
-
-    @Override
-    public IReserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException {
-
-        return this.reservas.find(reservaId);
-    }
-
-    @Override
-    public Iterable<IReserva> reservas() {
-
-        return Iterables.cast(this.reservas.all());
-    }
-
-    @Override
-    public Iterable<IReserva> reservasPorUsuario(IUsuario usuario) {
-
-        return usuario.getReservas();
-    }
-
-    @Override
-    public Iterable<IReserva> reservasPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException {
-
-        IUsuario usuario = this.usuarioPorId(usuarioId);
-
-        return this.reservasPorUsuario(usuario);
-    }
-
-    @Override
-    public IUsuario usuarioPorId(int usuarioId) throws ObjetoNaoEncontradoException {
-
-        return this.usuarios.find(usuarioId);
-    }
-
-    @Override
-    public Iterable<IUsuario> usuarios() {
-
-        return Iterables.cast(this.usuarios.all());
-    }
-
-    @Override
-    public Iterable<IUsuario> usuariosPorTermo(String termo) {
-
-        return Iterables.cast(this.usuarios.search(termo));
-    }
-
-    @Override
-    public void salvarItemAcervo(ItemAcervo itemAcervo) throws FalhaOperacaoException {
-
-        if (itemAcervo instanceof ItemAcervo) {
-
-            this.itens.save((ItemAcervo) itemAcervo);
-        }
-    }
-
-    @Override
-    public void salvarLocacao(Locacao locacao) throws FalhaOperacaoException {
-
-        if (locacao instanceof Locacao) {
-
-            this.locacoes.save((Locacao) locacao);
-        }
-    }
-
-    @Override
-    public void salvarReserva(Reserva reserva) throws FalhaOperacaoException {
-
-        if (reserva instanceof Reserva) {
-
-            this.reservas.save((Reserva) reserva);
-        }
+        return this.initialise(super.reservas());
     }
 }

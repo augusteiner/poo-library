@@ -24,6 +24,11 @@
 package poo.library.dao.jpa;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Biblioteca;
@@ -37,5 +42,27 @@ public class BibliotecaDAO extends GenericDAO<Biblioteca>
     public BibliotecaDAO(EntityManager em) {
 
         super(Biblioteca.class, em);
+    }
+
+    @Override
+    public Iterable<Biblioteca> search(String term) {
+
+        CriteriaBuilder builder = this.getEm().getCriteriaBuilder();
+
+        CriteriaQuery<Biblioteca> query = builder.createQuery(this.cls);
+
+        Root<Biblioteca> root = query.from(this.cls);
+
+        Expression<String> nomePath = root.get("nome");
+        Expression<String> enderecoPath = root.get("endereco");
+
+        Predicate p = builder.or(
+            builder.gt(builder.locate(nomePath, term), 0),
+            builder.gt(builder.locate(enderecoPath, term), 0));
+
+        query.where(p);
+
+        return this.getEm().createQuery(query)
+            .getResultList();
     }
 }

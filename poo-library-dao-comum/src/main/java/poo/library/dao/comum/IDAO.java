@@ -31,7 +31,7 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 public interface IDAO<T> extends AutoCloseable {
 
-    Iterable<T> all();
+    Iterable<? extends T> all();
 
     int count();
 
@@ -42,7 +42,7 @@ public interface IDAO<T> extends AutoCloseable {
     T first() throws ObjetoNaoEncontradoException;
     T reference(int id);
 
-    Iterable<T> search(String term);
+    Iterable<? extends T> search(String term);
 
     void save(T obj) throws FalhaOperacaoException;
 

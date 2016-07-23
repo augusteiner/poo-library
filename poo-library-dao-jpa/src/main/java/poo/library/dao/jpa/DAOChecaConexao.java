@@ -44,7 +44,7 @@ public class DAOChecaConexao<T> implements IDAO<T>, AutoCloseable {
     }
 
     @Override
-    public Iterable<T> all() {
+    public Iterable<? extends T> all() {
 
         try {
 
@@ -199,7 +199,7 @@ public class DAOChecaConexao<T> implements IDAO<T>, AutoCloseable {
     }
 
     @Override
-    public Iterable<T> search(String term) {
+    public Iterable<? extends T> search(String term) {
 
         try {
 

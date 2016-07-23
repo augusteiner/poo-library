@@ -28,7 +28,6 @@ import org.javalite.activejdbc.ModelDelegate;
 
 import poo.library.comum.IIdentificavel;
 import poo.library.dao.activejdbc.util.Models;
-import poo.library.util.Iterables;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
@@ -47,12 +46,12 @@ public class GenericDAO<T extends IIdentificavel> {
         this.modelType = modelType;
     }
 
-    public Iterable<T> all() {
+    public Iterable<? extends T> all() {
 
         return this.all("1 = 1");
     }
 
-    public Iterable<T> all(
+    public Iterable<? extends T> all(
         String condition,
         Object... params) {
 
@@ -62,9 +61,11 @@ public class GenericDAO<T extends IIdentificavel> {
             condition,
             params);
 
-        return Iterables.cast(Models.map(
+        Iterable<? extends T> iterable = Models.map(
             iter,
-            entityType));
+            entityType);
+
+        return iterable;
     }
 
     public int delete(
