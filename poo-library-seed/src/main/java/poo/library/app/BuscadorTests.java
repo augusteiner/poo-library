@@ -28,6 +28,7 @@ import static poo.library.app.App.*;
 import poo.library.comum.IIdentificavel;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.util.DAOAcervo;
+import poo.library.modelo.Biblioteca;
 import poo.library.util.IBuscador;
 import poo.library.util.ObjetoNaoEncontradoException;
 
@@ -64,7 +65,7 @@ public class BuscadorTests {
 
         BuscadorTests tests = new BuscadorTests();
 
-        tests.buscador = new DAOAcervo();
+        tests.buscador = new DAOAcervo(DAOFactory.createNew(Biblioteca.class));
 
         tests.runTests();
     }

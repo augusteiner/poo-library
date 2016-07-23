@@ -169,4 +169,10 @@ COMMENT '';
 
 SET @@FOREIGN_KEY_CHECKS=1;
 
-
+/*
+DELETE FROM reserva;
+DELETE FROM locacao;
+DELETE FROM usuario;
+DELETE FROM item_acervo;
+DELETE FROM biblioteca;
+*/
