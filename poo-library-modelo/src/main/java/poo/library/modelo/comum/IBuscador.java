@@ -35,6 +35,8 @@ import poo.library.modelo.Reserva;
  */
 public interface IBuscador extends poo.library.util.IBuscador {
 
+    Biblioteca getBiblioteca();
+
     void setBiblioteca(Biblioteca biblioteca);
 
     void setLocacoes(Collection<Locacao> locacoes);

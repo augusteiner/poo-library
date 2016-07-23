@@ -21,46 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.util;
+package poo.library.modelo;
 
-import java.util.Iterator;
+import java.util.Collection;
+
+import poo.library.comum.ILocacaoUsuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Iterables {
+public class LocacoesUsuario implements ILocacaoUsuario {
 
-    public static <I, O> Iterable<O> convert(
-        final Iterable<I> iterable,
-        final IConversor<O> conversor) {
+    private Usuario usuario;
+    private Collection<Locacao> locacoes;
 
-        if (iterable == null) {
+    @Override
+    public Collection<Locacao> getLocacoes() {
 
-            return null;
-        }
+        return this.locacoes;
+    }
 
-        return new Iterable<O>() {
+    @Override
+    public Usuario getUsuario() {
 
-            @Override
-            public Iterator<O> iterator() {
+        return this.usuario;
+    }
 
-                final Iterator<I> iter = iterable.iterator();
+    public void setLocacoes(Collection<Locacao> locacoes) {
 
-                return new Iterator<O>() {
-
-                    @Override
-                    public boolean hasNext() {
-
-                        return iter.hasNext();
-                    }
-
-                    @Override
-                    public O next() {
-
-                        return conversor.converter(iter.next());
-                    }
-                };
-            }
-        };
+        this.locacoes = locacoes;
     }
 }

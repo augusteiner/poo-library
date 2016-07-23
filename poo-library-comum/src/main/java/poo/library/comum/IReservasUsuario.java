@@ -21,46 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.util;
-
-import java.util.Iterator;
+package poo.library.comum;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Iterables {
+public interface IReservasUsuario {
 
-    public static <I, O> Iterable<O> convert(
-        final Iterable<I> iterable,
-        final IConversor<O> conversor) {
+    IUsuario getUsuario();
 
-        if (iterable == null) {
-
-            return null;
-        }
-
-        return new Iterable<O>() {
-
-            @Override
-            public Iterator<O> iterator() {
-
-                final Iterator<I> iter = iterable.iterator();
-
-                return new Iterator<O>() {
-
-                    @Override
-                    public boolean hasNext() {
-
-                        return iter.hasNext();
-                    }
-
-                    @Override
-                    public O next() {
-
-                        return conversor.converter(iter.next());
-                    }
-                };
-            }
-        };
-    }
+    Iterable<? extends IReserva> getReservas();
 }

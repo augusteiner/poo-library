@@ -26,11 +26,8 @@ package poo.library.modelo;
 import java.util.Collection;
 
 import poo.library.comum.ETipoUsuario;
-import poo.library.comum.ILocacao;
 import poo.library.comum.IItemAcervo;
-import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
-import poo.library.util.Iterables;
 import poo.library.util.Usuarios;
 
 /**
@@ -99,9 +96,9 @@ public class Usuario implements IUsuario {
     }
 
     @Override
-    public Iterable<ILocacao> getLocacoes() {
+    public Collection<Locacao> getLocacoes() {
 
-        return Iterables.cast(this.locacoes);
+        return this.locacoes;
     }
 
     @Override
@@ -111,9 +108,9 @@ public class Usuario implements IUsuario {
     }
 
     @Override
-    public Iterable<IReserva> getReservas() {
+    public Collection<Reserva> getReservas() {
 
-        return Iterables.cast(this.reservas);
+        return this.reservas;
     }
 
     @Override

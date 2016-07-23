@@ -32,9 +32,9 @@ public interface IUsuario extends IPessoaFisica, ISearcheable {
 
     void locar(IItemAcervo item);
 
-    Iterable<ILocacao> getLocacoes();
+    Iterable<? extends ILocacao> getLocacoes();
 
-    Iterable<IReserva> getReservas();
+    Iterable<? extends IReserva> getReservas();
 
     // IItemAcervo escolherItemAcervo();
 

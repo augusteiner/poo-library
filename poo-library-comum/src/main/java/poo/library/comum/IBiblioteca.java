@@ -23,12 +23,13 @@
  */
 package poo.library.comum;
 
+import poo.library.util.ISearcheable;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IBiblioteca extends IIdentificavel {
+public interface IBiblioteca extends IIdentificavel, ISearcheable {
 
     String getNome();
     String getEndereco();
@@ -36,10 +37,10 @@ public interface IBiblioteca extends IIdentificavel {
     int getQteDiasValidadeReserva();
     int getQteDiasLocacao();
 
-    Iterable<IItemAcervo> getAcervo();
-    Iterable<ILocacao> getLocacoes();
-    Iterable<IReserva> getReservas();
-    Iterable<IUsuario> getUsuarios();
+    Iterable<? extends IItemAcervo> getAcervo();
+    Iterable<? extends ILocacao> getLocacoes();
+    Iterable<? extends IReserva> getReservas();
+    Iterable<? extends IUsuario> getUsuarios();
 
     void setNome(String nome);
     void setMultaDiaria(double multaDiaria);

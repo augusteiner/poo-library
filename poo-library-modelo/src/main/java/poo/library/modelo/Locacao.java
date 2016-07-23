@@ -107,11 +107,13 @@ public class Locacao extends Requisicao implements ILocacao {
 
     @Override
     public Biblioteca getBiblioteca() {
+
         return biblioteca;
     }
 
     @Override
     public void setBiblioteca(Biblioteca biblioteca) {
+
         this.biblioteca = biblioteca;
     }
 }

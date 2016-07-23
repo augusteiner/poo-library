@@ -28,17 +28,13 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
-import poo.library.comum.IItemAcervo;
-import poo.library.comum.ILocacao;
-import poo.library.comum.IReserva;
-import poo.library.comum.IUsuario;
 import poo.library.modelo.comum.IAcervo;
 import poo.library.modelo.comum.IBiblioteca;
 import poo.library.modelo.comum.IBuscador;
 import poo.library.util.FalhaOperacaoException;
 import poo.library.util.ItemIndisponivelException;
-import poo.library.util.Iterables;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
@@ -59,8 +55,8 @@ public class Biblioteca implements IBiblioteca {
 
     private Collection<ItemAcervo> acervo;
 
-    private Collection<Reserva> reservas;
-    private Collection<Locacao> locacoes;
+    private Map<Usuario, ReservasUsuario> reservas;
+    private Map<Usuario, LocacoesUsuario> locacoes;
 
     public Biblioteca() { }
 
@@ -71,7 +67,7 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public IReserva cancelar(int reservaId)
+    public Reserva cancelar(int reservaId)
         throws ObjetoNaoEncontradoException {
 
         return null;
@@ -83,7 +79,7 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public ILocacao devolver(int locacaoId)
+    public Locacao devolver(int locacaoId)
         throws ObjetoNaoEncontradoException {
 
         return null;
@@ -95,9 +91,9 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public Iterable<IItemAcervo> getAcervo() {
+    public Collection<ItemAcervo> getAcervo() {
 
-        return Iterables.cast(this.acervo);
+        return this.acervo;
     }
 
     public IBuscador getBuscador() {
@@ -118,9 +114,10 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public Iterable<ILocacao> getLocacoes() {
+    public Collection<Locacao> getLocacoes() {
 
-        return Iterables.cast(this.locacoes);
+        return null;
+        //return this.locacoes.values();
     }
 
     @Override
@@ -148,19 +145,20 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public Iterable<IReserva> getReservas() {
+    public Collection<Reserva> getReservas() {
 
-        return Iterables.cast(this.reservas);
+        return null;
+        //return this.reservas.values();
     }
 
     @Override
-    public Iterable<IUsuario> getUsuarios() {
+    public Iterable<Usuario> getUsuarios() {
 
         return null;
     }
 
     @Override
-    public ILocacao locar(int itemAcervoId, int usuarioId)
+    public Locacao locar(int itemAcervoId, int usuarioId)
         throws ObjetoNaoEncontradoException {
 
         return null;
@@ -198,7 +196,7 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public IReserva reservar(int itemAcervoId, int usuarioId)
+    public Reserva reservar(int itemAcervoId, int usuarioId)
         throws ObjetoNaoEncontradoException {
 
         return null;
@@ -224,7 +222,7 @@ public class Biblioteca implements IBiblioteca {
         this.id = id;
     }
 
-    public void setLocacoes(Collection<Locacao> locacoes) {
+    public void setLocacoes(Map<Usuario, LocacoesUsuario> locacoes) {
 
         this.locacoes = locacoes;
     }
@@ -251,7 +249,7 @@ public class Biblioteca implements IBiblioteca {
         this.qteDiasValidadeReserva = qteDiasValidadeReserva;
     }
 
-    public void setReservas(Collection<Reserva> reservas) {
+    public void setReservas(Map<Usuario, ReservasUsuario> reservas) {
 
         this.reservas = reservas;
     }
@@ -282,9 +280,12 @@ public class Biblioteca implements IBiblioteca {
 
         biblioteca.initCollections();
 
+        buscador.setBiblioteca(biblioteca);
+
         buscador.setItensAcervo(biblioteca.acervo);
-        buscador.setReservas(biblioteca.reservas);
-        buscador.setLocacoes(biblioteca.locacoes);
+
+        //buscador.setReservas(biblioteca.reservas);
+        //buscador.setLocacoes(biblioteca.locacoes);
     }
 
     private void initCollections() {
@@ -300,13 +301,13 @@ public class Biblioteca implements IBiblioteca {
         if (this.reservas == null) {
 
             System.out.println("Inicializando coleção de reservas");
-            this.reservas = new ArrayList<Reserva>();
+//            this.reservas = new ArrayList<Reserva>();
         }
 
         if (this.locacoes == null) {
 
             System.out.println("Inicializando coleção de locações");
-            this.locacoes = new ArrayList<Locacao>();
+//            this.locacoes = new ArrayList<Locacao>();
         }
     }
 
@@ -315,5 +316,12 @@ public class Biblioteca implements IBiblioteca {
         item.setBiblioteca(null);
 
         this.acervo.remove(item);
+    }
+
+    @Override
+    public boolean match(String term) {
+
+        return this.getNome().contains(term) ||
+            this.getEndereco().contains(term);
     }
 }

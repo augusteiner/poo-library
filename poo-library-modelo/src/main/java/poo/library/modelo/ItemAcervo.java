@@ -26,12 +26,9 @@ package poo.library.modelo;
 import java.util.Collection;
 
 import poo.library.comum.ECategoriaItem;
-import poo.library.comum.IBiblioteca;
 import poo.library.comum.IItemAcervo;
-import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
 import poo.library.util.ItensAcervo;
-import poo.library.util.Iterables;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -111,7 +108,7 @@ public abstract class ItemAcervo implements IItemAcervo {
     }
 
     @Override
-    public IBiblioteca getBiblioteca() {
+    public Biblioteca getBiblioteca() {
 
         return this.biblioteca;
     }
@@ -152,9 +149,9 @@ public abstract class ItemAcervo implements IItemAcervo {
     }
 
     @Override
-    public Iterable<IReserva> getReservas() {
+    public Collection<Reserva> getReservas() {
 
-        return Iterables.cast(this.reservas);
+        return this.reservas;
     }
 
     @Override
@@ -178,7 +175,9 @@ public abstract class ItemAcervo implements IItemAcervo {
     public void setBiblioteca(Biblioteca biblioteca) {
 
         this.biblioteca = biblioteca;
-        this.bibliotecaId = biblioteca.getId();
+
+        if (biblioteca != null)
+            this.bibliotecaId = biblioteca.getId();
     }
 
     @Override

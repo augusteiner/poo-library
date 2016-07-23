@@ -25,12 +25,8 @@ package poo.library.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.Collections;
 
-import poo.library.comum.IItemAcervo;
-import poo.library.comum.ILocacao;
-import poo.library.comum.IReserva;
-import poo.library.comum.IUsuario;
 import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Locacao;
@@ -51,19 +47,35 @@ public class AcervoEmMemoria implements IAcervo {
 
     private Collection<Usuario> usuarios;
 
-    public AcervoEmMemoria() {
+    public AcervoEmMemoria() { }
 
-        //this.locacoes = novaLista();
-        //this.reservas = novaLista();
-        //this.itens = novaLista();
+    @Override
+    public void close() throws Exception {
 
-        //this.usuarios = novaLista();
+        this.biblioteca = null;
+
+        this.itens = null;
+        this.locacoes = null;
+        this.reservas = null;
+        this.usuarios = null;
     }
 
     @Override
-    public IItemAcervo itemPorId(int itemAcervoId) throws ObjetoNaoEncontradoException {
+    public Biblioteca getBiblioteca() {
 
-        for (IItemAcervo i : this.itens) {
+        return this.biblioteca;
+    }
+
+    @Override
+    public ItemAcervo itemPorId(int itemAcervoId) throws ObjetoNaoEncontradoException {
+
+        System.out.println(String.format(
+            "Collection: %s (size: %d)",
+
+            this.itens.getClass(),
+            this.itens.size()));
+
+        for (ItemAcervo i : this.itens) {
 
             if (i.getId() == itemAcervoId) {
 
@@ -77,17 +89,17 @@ public class AcervoEmMemoria implements IAcervo {
     }
 
     @Override
-    public Iterable<IItemAcervo> itens() {
+    public Collection<ItemAcervo> itens() {
 
-        return Iterables.cast(this.itens);
+        return Collections.unmodifiableCollection(this.itens);
     }
 
     @Override
-    public Iterable<IItemAcervo> itensPorTermo(String termo) {
+    public Collection<ItemAcervo> itensPorTermo(String termo) {
 
-        Collection<IItemAcervo> itens = novaLista();
+        Collection<ItemAcervo> itens = novaLista();
 
-        for (IItemAcervo i : this.itens) {
+        for (ItemAcervo i : this.itens) {
 
             if (i.match(termo)) {
 
@@ -95,21 +107,13 @@ public class AcervoEmMemoria implements IAcervo {
             }
         }
 
-        return itens;
+        return Collections.unmodifiableCollection(itens);
     }
 
     @Override
-    public Iterator<IItemAcervo> iterator() {
+    public Locacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException {
 
-        Iterable<IItemAcervo> iter = Iterables.cast(this.itens);
-
-        return iter.iterator();
-    }
-
-    @Override
-    public ILocacao locacaoPorId(int locacaoId) {
-
-        for (ILocacao l : locacoes) {
+        for (Locacao l : locacoes) {
 
             if (l.getId() == locacaoId) {
 
@@ -117,27 +121,28 @@ public class AcervoEmMemoria implements IAcervo {
             }
         }
 
-        return null;
+        throw new ObjetoNaoEncontradoException(String.format(
+            "Locação de id #%d não encontrada",
+            locacaoId));
     }
 
     @Override
-    public Iterable<ILocacao> locacoes() {
+    public Collection<Locacao> locacoes() {
 
-        return Iterables.cast(this.locacoes);
+        return Collections.unmodifiableCollection(this.locacoes);
     }
 
-    @Override
-    public Iterable<ILocacao> locacoesPorUsuario(IUsuario usuario) {
+    public Collection<Locacao> locacoesPorUsuario(Usuario usuario) {
 
         return this.locacoesPorUsuarioId(usuario.getId());
     }
 
     @Override
-    public Iterable<ILocacao> locacoesPorUsuarioId(int usuarioId) {
+    public Collection<Locacao> locacoesPorUsuarioId(int usuarioId) {
 
-        Collection<ILocacao> locacoes = novaLista();
+        Collection<Locacao> locacoes = novaLista();
 
-        for (ILocacao l : this.locacoes) {
+        for (Locacao l : this.locacoes) {
 
             if (l.getUsuarioId() == usuarioId) {
 
@@ -145,13 +150,18 @@ public class AcervoEmMemoria implements IAcervo {
             }
         }
 
-        return locacoes;
+        return Collections.unmodifiableCollection(locacoes);
+    }
+
+    private <T> Collection<T> novaLista() {
+
+        return new ArrayList<T>();
     }
 
     @Override
-    public IReserva reservaPorId(int reservaId) {
+    public Reserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException {
 
-        for (IReserva r : this.reservas) {
+        for (Reserva r : this.reservas) {
 
             if (r.getId() == reservaId) {
 
@@ -159,27 +169,28 @@ public class AcervoEmMemoria implements IAcervo {
             }
         }
 
-        return null;
+        throw new ObjetoNaoEncontradoException(String.format(
+            "Reserva de id #%d não encontrada",
+            reservaId));
     }
 
     @Override
-    public Iterable<IReserva> reservas() {
+    public Collection<Reserva> reservas() {
 
-        return Iterables.cast(this.reservas);
+        return Collections.unmodifiableCollection(this.reservas);
     }
 
-    @Override
-    public Iterable<IReserva> reservasPorUsuario(IUsuario usuario) {
+    public Collection<Reserva> reservasPorUsuario(Usuario usuario) {
 
         return this.reservasPorUsuarioId(usuario.getId());
     }
 
     @Override
-    public Iterable<IReserva> reservasPorUsuarioId(int usuarioId) {
+    public Collection<Reserva> reservasPorUsuarioId(int usuarioId) {
 
-        Collection<IReserva> reservas = novaLista();
+        Collection<Reserva> reservas = novaLista();
 
-        for (IReserva r : this.reservas) {
+        for (Reserva r : this.reservas) {
 
             if (r.getUsuarioId() == usuarioId) {
 
@@ -187,8 +198,13 @@ public class AcervoEmMemoria implements IAcervo {
             }
         }
 
-        return reservas;
+        return Collections.unmodifiableCollection(reservas);
     }
+
+    //public void salvarUsuario(IUsuario usuario) {
+    //
+    //    this.usuarios.add(usuario);
+    //}
 
     @Override
     public void salvarItemAcervo(ItemAcervo itemAcervo) {
@@ -208,61 +224,22 @@ public class AcervoEmMemoria implements IAcervo {
 //        this.reservas.add(reserva);
     }
 
-    //public void salvarUsuario(IUsuario usuario) {
-    //
-    //    this.usuarios.add(usuario);
-    //}
-
-    @Override
-    public IUsuario usuarioPorId(int usuarioId) {
-
-        for (IUsuario u : this.usuarios) {
-
-            if (u.getId() == usuarioId) {
-
-                return u;
-            }
-        }
-
-        return null;
-    }
-
-    @Override
-    public Iterable<IUsuario> usuarios() {
-
-        return Iterables.cast(this.usuarios);
-    }
-
-    @Override
-    public Iterable<IUsuario> usuariosPorTermo(String termo) {
-
-        Collection<IUsuario> usuarios = novaLista();
-
-        for (IUsuario u : this.usuarios) {
-
-            if (u.match(termo)) {
-
-                usuarios.add(u);
-            }
-        }
-
-        return usuarios;
-    }
-
-    private <T> Collection<T> novaLista() {
-
-        return new ArrayList<T>();
-    }
-
-    protected Biblioteca getBiblioteca() {
-
-        return this.biblioteca;
-    }
-
     @Override
     public void setBiblioteca(Biblioteca biblioteca) {
 
         this.biblioteca = biblioteca;
+    }
+
+    @Override
+    public void setItensAcervo(Collection<ItemAcervo> itens) {
+
+        if (itens == null) {
+
+            throw new IllegalArgumentException(
+                "Argumento itens não deve ser nulo");
+        }
+
+        this.itens = itens;
     }
 
     @Override
@@ -278,14 +255,40 @@ public class AcervoEmMemoria implements IAcervo {
     }
 
     @Override
-    public void setItensAcervo(Collection<ItemAcervo> itens) {
+    public Usuario usuarioPorId(int usuarioId) throws ObjetoNaoEncontradoException {
 
-        if (itens == null) {
+        for (Usuario u : this.usuarios) {
 
-            throw new IllegalArgumentException(
-                "Argumento itens não deve ser nulo");
+            if (u.getId() == usuarioId) {
+
+                return u;
+            }
         }
 
-        this.itens = itens;
+        throw new ObjetoNaoEncontradoException(String.format(
+            "Usuário de id #%d não encontrado",
+            usuarioId));
+    }
+
+    @Override
+    public Iterable<Usuario> usuarios() {
+
+        return this.usuarios;
+    }
+
+    @Override
+    public Iterable<Usuario> usuariosPorTermo(String termo) {
+
+        Collection<Usuario> usuarios = novaLista();
+
+        for (Usuario u : this.usuarios) {
+
+            if (u.match(termo)) {
+
+                usuarios.add(u);
+            }
+        }
+
+        return usuarios;
     }
 }

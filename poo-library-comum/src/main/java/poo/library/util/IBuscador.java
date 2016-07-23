@@ -31,11 +31,11 @@ import poo.library.comum.IUsuario;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IBuscador {
+public interface IBuscador extends AutoCloseable {
 
     ILocacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException;
     Iterable<? extends ILocacao> locacoes();
-    Iterable<? extends ILocacao> locacoesPorUsuario(IUsuario usuario);
+    //Iterable<? extends ILocacao> locacoesPorUsuario(IUsuario usuario);
     Iterable<? extends ILocacao> locacoesPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;
 
     IItemAcervo itemPorId(int itemId) throws ObjetoNaoEncontradoException;
@@ -44,7 +44,7 @@ public interface IBuscador {
 
     IReserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException;
     Iterable<? extends IReserva> reservas();
-    Iterable<? extends IReserva> reservasPorUsuario(IUsuario usuario);
+    //Iterable<? extends IReserva> reservasPorUsuario(IUsuario usuario);
     Iterable<? extends IReserva> reservasPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;
 
     IUsuario usuarioPorId(int usuarioId) throws ObjetoNaoEncontradoException;

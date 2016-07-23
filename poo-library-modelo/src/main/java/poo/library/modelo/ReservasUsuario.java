@@ -21,46 +21,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.util;
+package poo.library.modelo;
 
-import java.util.Iterator;
+import java.util.Collection;
+
+import poo.library.comum.IReservasUsuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Iterables {
+public class ReservasUsuario implements IReservasUsuario {
 
-    public static <I, O> Iterable<O> convert(
-        final Iterable<I> iterable,
-        final IConversor<O> conversor) {
+    private Usuario usuario;
+    private Collection<Reserva> reservas;
 
-        if (iterable == null) {
+    @Override
+    public Usuario getUsuario() {
 
-            return null;
-        }
+        return usuario;
+    }
 
-        return new Iterable<O>() {
+    public void setUsuario(Usuario usuario) {
 
-            @Override
-            public Iterator<O> iterator() {
+        this.usuario = usuario;
+    }
 
-                final Iterator<I> iter = iterable.iterator();
+    @Override
+    public Collection<Reserva> getReservas() {
 
-                return new Iterator<O>() {
+        return reservas;
+    }
 
-                    @Override
-                    public boolean hasNext() {
+    public void setReservas(Collection<Reserva> reservas) {
 
-                        return iter.hasNext();
-                    }
-
-                    @Override
-                    public O next() {
-
-                        return conversor.converter(iter.next());
-                    }
-                };
-            }
-        };
+        this.reservas = reservas;
     }
 }
