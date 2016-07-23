@@ -71,6 +71,7 @@ public abstract class GenericResource<T> implements IResource<T> {
 
     @DELETE
     @Path("/{id}")
+    @Override
     public Response delete(@PathParam("id") int id) {
 
         try {
@@ -89,18 +90,20 @@ public abstract class GenericResource<T> implements IResource<T> {
         return ok().build();
     }
 
-    @Override
     @GET
     @Produces({ MediaType.APPLICATION_JSON })
-    public Iterable<T> get() {
+    @Override
+    public Response get() {
 
-        return this.dao.all();
+        Iterable<? extends T> iter = this.dao.all();
+
+        return ok().entity(iter).build();
     }
 
-    @Override
     @GET
     @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
+    @Override
     public Response get(@PathParam("id") int id) {
 
         T obj;
@@ -131,8 +134,8 @@ public abstract class GenericResource<T> implements IResource<T> {
         return this.dao.find(id);
     }
 
-    @Override
     @POST
+    @Override
     public Response post(T obj) {
 
         try {
@@ -154,10 +157,10 @@ public abstract class GenericResource<T> implements IResource<T> {
         return created(createdUri).build();
     }
 
-    @Override
     @PUT
     @Path("/{id}")
     @Consumes({ MediaType.APPLICATION_JSON })
+    @Override
     public Response put(
         @PathParam("id") int id,
         T obj) {
@@ -171,6 +174,6 @@ public abstract class GenericResource<T> implements IResource<T> {
             return serverError().entity(e).build();
         }
 
-        return ok().build();
+        return noContent().build();
     }
 }

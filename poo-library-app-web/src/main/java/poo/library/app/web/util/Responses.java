@@ -44,6 +44,11 @@ public class Responses {
         return Response.created(createdUri);
     }
 
+    public static ResponseBuilder noContent() {
+
+        return status(Status.NO_CONTENT);
+    }
+
     public static ResponseBuilder notFound() {
 
         return status(Status.NOT_FOUND);

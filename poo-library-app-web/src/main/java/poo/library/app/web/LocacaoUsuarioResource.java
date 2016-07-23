@@ -23,37 +23,51 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.DAOFactory.*;
-
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
 
 import poo.library.app.web.dto.LocacaoDTO;
-import poo.library.dao.comum.DAOFactory;
-import poo.library.dao.comum.IDAO;
+import poo.library.app.web.util.ISubResource;
 import poo.library.modelo.Locacao;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Path(LocacaoResource.PATH)
-public class LocacaoResource extends GenericResource<LocacaoDTO> {
+@Path(LocacaoUsuarioResource.PATH)
+public class LocacaoUsuarioResource implements ISubResource<LocacaoDTO> {
 
-    public static final String PATH = "locacao";
+    public static final String PATH = "usuario/{usuarioId}/locacao";
 
     public static final Class<Locacao> MODEL_CLASS = Locacao.class;
     public static final Class<LocacaoDTO> DTO_CLASS = LocacaoDTO.class;
 
-    //private final IDAO<Locacao> dao;
+    @Override
+    public Response get(int parentId) {
 
-    public LocacaoResource() {
-
-        this(DAOFactory.createNew(MODEL_CLASS));
+        return null;
     }
 
-    public LocacaoResource(IDAO<Locacao> dao) {
+    @Override
+    public Response get(int parentId, int id) {
 
-        super(PATH, newDAO(dao, MODEL_CLASS, DTO_CLASS));
+        return null;
+    }
 
-        //this.dao = dao;
+    @Override
+    public Response put(int parentId, int id, LocacaoDTO obj) {
+
+        return null;
+    }
+
+    @Override
+    public Response post(int parentId, LocacaoDTO obj) {
+
+        return null;
+    }
+
+    @Override
+    public Response delete(int parentId, int id) {
+
+        return null;
     }
 }

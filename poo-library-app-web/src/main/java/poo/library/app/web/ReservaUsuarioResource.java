@@ -23,37 +23,65 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.DAOFactory.newDAO;
-
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
 
 import poo.library.app.web.dto.ReservaDTO;
-import poo.library.dao.comum.DAOFactory;
+import poo.library.app.web.util.ISubResource;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Reserva;
+import poo.library.modelo.Usuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Path(ReservaResource.PATH)
-public class ReservaResource extends GenericResource<ReservaDTO> {
+@Path(ReservaUsuarioResource.PATH)
+public class ReservaUsuarioResource implements ISubResource<ReservaDTO> {
 
     public static final String PATH = "reserva";
 
     public static final Class<Reserva> MODEL_CLASS = Reserva.class;
     public static final Class<ReservaDTO> DTO_CLASS = ReservaDTO.class;
 
-    //private final IDAO<Reserva> dao;
+    private IDAO<Usuario> parentDAO;
 
-    public ReservaResource() {
+    public ReservaUsuarioResource(IDAO<Usuario> parentDAO) {
 
-        this(DAOFactory.createNew(MODEL_CLASS));
+        this.parentDAO = parentDAO;
     }
 
-    public ReservaResource(IDAO<Reserva> dao) {
+    @Override
+    public Response get(int usuarioId) {
 
-        super(PATH, newDAO(dao, MODEL_CLASS, DTO_CLASS));
+        return null;
+    }
 
-        //this.dao = dao;
+    @Override
+    public Response get(int usuarioId, int id) {
+
+        return null;
+    }
+
+    @Override
+    public Response put(int usuarioId, int id, ReservaDTO obj) {
+
+        return null;
+    }
+
+    @Override
+    public Response post(int usuarioId, ReservaDTO obj) {
+
+        return null;
+    }
+
+    @Override
+    public Response delete(int usuarioId, int id) {
+
+        return null;
+    }
+
+    protected IDAO<Usuario> getParentDAO() {
+
+        return parentDAO;
     }
 }

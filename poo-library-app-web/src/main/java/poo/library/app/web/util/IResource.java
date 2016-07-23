@@ -32,13 +32,15 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 public interface IResource<T> {
 
-    Iterable<T> get();
+    Response get();
 
     Response get(int id);
 
     Response put(int id, T obj);
 
     Response post(T obj);
+
+    Response delete(int id);
 
     T findById(int id) throws ObjetoNaoEncontradoException;
 }

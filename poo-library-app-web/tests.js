@@ -49,7 +49,23 @@
         });
     });
 
-    it('deve alterar usuário em ' + ROOT_PATH + ' PUT', function(done) {
+    it('deve retornar um usuário em ' + ROOT_PATH + '/{usuarioId} GET', function(done) {
+
+      chai.request(server)
+        .get(ROOT_PATH + '/' + entityId)
+        .end(function(err, res){
+
+          if (err) throw err;
+
+          res.should.have.status(200);
+
+          res.body.id.should.be.above(0);
+
+          done();
+        });
+    });
+
+    it('deve alterar usuário em ' + ROOT_PATH + '/{usuarioId} PUT', function(done) {
 
       chai.request(server)
         .put(ROOT_PATH + '/' + entityId)
@@ -63,13 +79,13 @@
 
           if (err) throw err;
 
-          res.should.have.status(200);
+          res.should.have.status(204);
 
           done();
         });
     });
 
-    it('deve deletar usuário em ' + ROOT_PATH + ' DELETE', function(done) {
+    it('deve deletar usuário em ' + ROOT_PATH + '/{usuarioId} DELETE', function(done) {
       chai.request(server)
         .delete(ROOT_PATH + '/' + entityId)
         .end(function(err, res){
@@ -126,7 +142,23 @@
 
     });
 
-    it('deve alterar biblioteca em ' + ROOT_PATH + ' PUT', function(done) {
+    it('deve retornar uma biblioteca em ' + ROOT_PATH + '/{bibliotecaId} GET', function(done) {
+
+      chai.request(server)
+        .get(ROOT_PATH + '/' + entityId)
+        .end(function(err, res){
+
+          if (err) throw err;
+
+          res.should.have.status(200);
+
+          res.body.id.should.be.above(0);
+
+          done();
+        });
+    });
+
+    it('deve alterar biblioteca em ' + ROOT_PATH + '/{bibliotecaId} PUT', function(done) {
 
       chai.request(server)
         .put(ROOT_PATH + '/' + entityId)
@@ -141,7 +173,7 @@
 
           if (err) throw err;
 
-          res.should.have.status(200);
+          res.should.have.status(204);
 
           done();
         });
@@ -158,20 +190,20 @@
 
       var subEntityId = null;
 
-//      it('deve listar todo o acervo em ' + SUB_ROOT_PATH + ' GET', function(done) {
-//
-//        chai.request(server)
-//          .get(getRootPath())
-//          .end(function(err, res){
-//
-//            if (err) throw err;
-//
-//            res.should.have.status(200);
-//
-//            done();
-//        });
-//
-//      });
+      it('deve listar acervo em ' + SUB_ROOT_PATH + ' GET', function(done) {
+
+        chai.request(server)
+          .get(getRootPath())
+          .end(function(err, res){
+
+            if (err) throw err;
+
+            res.should.have.status(200);
+
+            done();
+        });
+
+      });
 
       it('deve cadastrar acervo em ' + SUB_ROOT_PATH + ' POST', function(done) {
 
@@ -196,13 +228,29 @@
             subEntityId = res.headers.location.replace(server, '').replace(getRootPath() + '/', '');
             subEntityId.should.be.above(0);
 
-            console.log(subEntityId);
+            // console.log(subEntityId);
 
             res.should.have.status(201);
 
             done();
           });
 
+      });
+
+      it('deve retornar acervo em ' + SUB_ROOT_PATH + '/{acervoId} GET', function(done) {
+
+        chai.request(server)
+          .get(getRootPath() + '/' + subEntityId)
+          .end(function(err, res){
+
+            if (err) throw err;
+
+            res.should.have.status(200);
+
+            res.body.id.should.be.above(0);
+
+            done();
+          });
       });
 
       it('deve alterar acervo em ' + SUB_ROOT_PATH + ' PUT', function(done) {
@@ -222,27 +270,27 @@
 
             if (err) throw err;
 
-            res.should.have.status(200);
+            res.should.have.status(204);
 
             done();
           });
 
       });
 
-//    it('deve deletar acervo em ' + SUB_ROOT_PATH + ' DELETE', function(done) {
-//
-//      chai.request(server)
-//        .delete(getRootPath() + '/' + subEntityId)
-//        .end(function(err, res){
-//
-//          if (err) throw err;
-//
-//          res.should.have.status(200);
-//
-//          done();
-//      });
-//
-//    });
+    it('deve deletar acervo em ' + SUB_ROOT_PATH + ' DELETE', function(done) {
+
+      chai.request(server)
+        .delete(getRootPath() + '/' + subEntityId)
+        .end(function(err, res){
+
+          if (err) throw err;
+
+          res.should.have.status(200);
+
+          done();
+      });
+
+    });
 
       it('deve deletar biblioteca em ' + ROOT_PATH + ' DELETE', function(done) {
         chai.request(server)
