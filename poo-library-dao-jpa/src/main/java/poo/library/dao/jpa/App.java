@@ -51,6 +51,7 @@ import poo.library.util.ObjetoNaoEncontradoException;
 public class App {
 
     private Biblioteca b1;
+
     private Livro i1;
     private Apostila i2;
     private Reserva r1;

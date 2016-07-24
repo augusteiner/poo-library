@@ -27,6 +27,7 @@ import java.util.Collections;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -135,9 +136,22 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
 
         query.from(this.cls);
 
-        return this.em.createQuery(query)
-            .setMaxResults(1)
-            .getSingleResult();
+        try {
+
+            return this.em.createQuery(query)
+                .setMaxResults(1)
+                .getSingleResult();
+
+        } catch (NoResultException e) {
+
+            throw new ObjetoNaoEncontradoException(
+                String.format(
+                    "Nenhum(a) '%s' encontrado(a) - (classe: %s)",
+
+                    this.cls.getSimpleName(),
+                    this.cls.getName()),
+                e);
+        }
     }
 
     @Override
@@ -157,7 +171,7 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
 
             e.printStackTrace();
 
-            throw e;
+            throw new FalhaOperacaoException(e.getMessage(), e);
         }
 
         try {
@@ -169,10 +183,6 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
             e.printStackTrace();
 
             throw new FalhaOperacaoException(e.getMessage(), e);
-
-        } finally {
-
-            this.close();
         }
     }
 

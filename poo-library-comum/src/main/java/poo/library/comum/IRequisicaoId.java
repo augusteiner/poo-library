@@ -21,34 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.modelo;
+package poo.library.comum;
 
-import java.util.Collection;
-
-import poo.library.comum.ILocacaoUsuario;
+import java.util.Date;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class LocacoesUsuario implements ILocacaoUsuario {
+public interface IRequisicaoId {
 
-    private Usuario usuario;
-    private Collection<Locacao> locacoes;
+    int getBibliotecaId();
 
-    @Override
-    public Collection<Locacao> getLocacoes() {
+    int getItemAcervoId();
 
-        return this.locacoes;
-    }
+    int getUsuarioId();
 
-    @Override
-    public Usuario getUsuario() {
+    Date getRealizadaEm();
 
-        return this.usuario;
-    }
+    // void setBibliotecaId(int bibliotecaId);
 
-    public void setLocacoes(Collection<Locacao> locacoes) {
+    // void setItemAcervoId(int itemAcervoId);
 
-        this.locacoes = locacoes;
-    }
+    // void setUsuarioId(int usuarioId);
 }

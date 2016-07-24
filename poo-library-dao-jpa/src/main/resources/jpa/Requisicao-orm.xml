@@ -1,39 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
-  version="2.0">
-  <mapped-superclass class="poo.library.modelo.Requisicao"
-    access="FIELD">
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd" version="2.0">
+  <mapped-superclass class="poo.library.modelo.Requisicao" access="FIELD">
 
     <attributes>
 
-      <id name="id">
-        <column name="id" />
-        <generated-value strategy="IDENTITY" />
-      </id>
+      <embedded-id name="id" access="FIELD">
+      </embedded-id>
 
-      <basic name="usuarioId" optional="false" />
-      <basic name="itemAcervoId" optional="false" />
-      <basic name="bibliotecaId" optional="false" />
-
-      <basic name="realizadaEm" />
-
-      <many-to-one name="usuario" fetch="LAZY" access="FIELD"
-        optional="false" id="false">
-        <join-column name="usuarioId" insertable="false" updatable="false"
-          unique="false" nullable="false" />
+      <many-to-one name="usuario" fetch="LAZY" access="FIELD" optional="false" id="false">
+        <join-column name="usuarioId" insertable="false" updatable="false" unique="false" nullable="false" />
       </many-to-one>
 
-      <many-to-one name="itemAcervo" fetch="LAZY" access="FIELD"
-        optional="false" id="false">
-        <join-column name="itemAcervoId" insertable="false"
-          updatable="false" unique="false" nullable="false" />
+      <many-to-one name="itemAcervo" fetch="LAZY" access="FIELD" optional="false" id="false">
+        <join-column name="itemAcervoId" insertable="false" updatable="false" unique="false" nullable="false" />
       </many-to-one>
 
-      <many-to-one name="biblioteca" fetch="LAZY" access="FIELD"
-        optional="false" id="false">
-        <join-column name="bibliotecaId" insertable="false"
-          updatable="false" unique="false" nullable="false" />
+      <many-to-one name="biblioteca" fetch="LAZY" access="FIELD" optional="false" id="false">
+        <join-column name="bibliotecaId" insertable="false" updatable="false" unique="false" nullable="false" />
       </many-to-one>
 
     </attributes>

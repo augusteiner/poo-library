@@ -33,7 +33,7 @@ import poo.library.util.ObjetoNaoEncontradoException;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class GenericDAO<T extends IIdentificavel> {
+public class GenericDAO<T> {
 
     protected final Class<? extends T> entityType;
     protected final Class<? extends Model> modelType;
@@ -82,7 +82,7 @@ public class GenericDAO<T extends IIdentificavel> {
 
         this.delete(
             "id = ?",
-            obj.getId());
+            ((IIdentificavel) obj).getId());
     }
 
     protected T novaInstancia() {
@@ -95,7 +95,7 @@ public class GenericDAO<T extends IIdentificavel> {
         // MAPPER.map(obj, target);
         Model model = this.map(obj);
 
-        if (obj.getId() == 0) {
+        if (((Object) ((IIdentificavel) obj).getId()).equals(0)) {
 
             model.setId(null);
         }

@@ -28,7 +28,7 @@ import poo.library.util.ISearcheable;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IUsuario extends IPessoaFisica, ISearcheable {
+public interface IUsuario extends IIdentificavel, IPessoaFisica, ISearcheable {
 
     void locar(IItemAcervo item);
 

@@ -23,90 +23,98 @@
  */
 package poo.library.modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import poo.library.comum.ILocacao;
+import poo.library.comum.IRequisicaoId;
 import poo.library.util.Requisicoes;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Locacao extends Requisicao implements ILocacao {
+public class RequisicaoId implements IRequisicaoId, Serializable {
 
-    private double precoCobrado;
+    private static final long serialVersionUID = 4174577306072636504L;
 
-    private Date devolverAte;
-    private Date devolvidoEm;
+    private int itemAcervoId;
+    private int usuarioId;
+    private int bibliotecaId;
 
-    public Locacao() { }
+    private Date realizadaEm;
 
-    public Locacao(
-        Date devolverAte,
+    public RequisicaoId() { }
 
-        ItemAcervo item,
-        Usuario usuario) {
+    public RequisicaoId(int bibliotecaId, int itemAcervoId, int usuarioId) {
 
-        super(item, usuario);
+        this.bibliotecaId = bibliotecaId;
+        this.itemAcervoId = itemAcervoId;
+        this.usuarioId = usuarioId;
+    }
 
-        this.init(devolverAte, item);
+    public RequisicaoId(ItemAcervo itemAcervo, Usuario usuario) {
+
+        this(itemAcervo.getBibliotecaId(), itemAcervo.getId(), usuario.getId());
     }
 
     @Override
-    public Date getDevolverAte() {
+    public int getBibliotecaId() {
 
-        return this.devolverAte;
+        return bibliotecaId;
     }
 
     @Override
-    public Date getDevolvidoEm() {
+    public int getItemAcervoId() {
 
-        return this.devolvidoEm;
+        return itemAcervoId;
     }
 
     @Override
-    public double getPrecoCobrado() {
+    public int getUsuarioId() {
 
-        return this.precoCobrado;
+        return usuarioId;
     }
 
-    private void init(Date devolverAte, ItemAcervo item) {
+    public void setBibliotecaId(int bibliotecaId) {
 
-        this.devolverAte = devolverAte;
-        this.precoCobrado = item.getPrecoLocacao();
+        this.bibliotecaId = bibliotecaId;
     }
 
-    @Override
-    public void setDevolverAte(Date devolverAte) {
+    public void setItemAcervoId(int itemAcervoId) {
 
-        this.devolverAte = devolverAte;
+        this.itemAcervoId = itemAcervoId;
     }
 
-    @Override
-    public void setDevolvidoEm(Date devolvidoEm) {
+    public void setUsuarioId(int usuarioId) {
 
-        this.devolvidoEm = devolvidoEm;
+        this.usuarioId = usuarioId;
     }
 
     @Override
-    public void setPrecoCobrado(double precoCobrado) {
+    public boolean equals(Object obj) {
 
-        this.precoCobrado = precoCobrado;
+        return Requisicoes.equals(this, obj);
     }
 
     @Override
     public int hashCode() {
 
-        return Requisicoes.hashCode((ILocacao) this);
+        return Requisicoes.hashCode(this);
     }
 
     @Override
     public String toString() {
 
-        return String.format(
-            super.toString() + " ~ (R$ %.2f) :: %s",
+        return Requisicoes.toString(this);
+    }
 
-            this.getPrecoCobrado(),
+    @Override
+    public Date getRealizadaEm() {
 
-            this.getUsuario());
+        return realizadaEm;
+    }
+
+    public void setRealizadaEm(Date realizadaEm) {
+
+        this.realizadaEm = realizadaEm;
     }
 }

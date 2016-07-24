@@ -37,13 +37,17 @@ public interface IBiblioteca extends poo.library.comum.IBiblioteca {
 
     void addAcervo(ItemAcervo item);
 
-    void cancelar(Reserva reserva) throws FalhaOperacaoException;
+    void cancelar(Reserva reserva)
+        throws FalhaOperacaoException;
 
-    void devolver(Locacao locacao) throws FalhaOperacaoException;
+    void devolver(Locacao locacao)
+        throws FalhaOperacaoException;
 
-    void locar(ItemAcervo item, Usuario usuario) throws ItemIndisponivelException, FalhaOperacaoException;
+    Locacao locar(ItemAcervo item, Usuario usuario)
+        throws ItemIndisponivelException, FalhaOperacaoException;
 
-    void reservar(ItemAcervo item, Usuario usuario) throws ItemIndisponivelException, FalhaOperacaoException;
+    Reserva reservar(ItemAcervo item, Usuario usuario)
+        throws ItemIndisponivelException, FalhaOperacaoException;
 
     // double calcularValorMultas(Date dia);
 

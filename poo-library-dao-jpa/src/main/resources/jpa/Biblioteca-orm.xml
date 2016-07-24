@@ -7,7 +7,7 @@
 
     <attributes>
 
-      <id name="id">
+      <id name="id" access="FIELD">
         <column name="id" />
         <generated-value strategy="IDENTITY" />
       </id>
@@ -25,20 +25,30 @@
         </cascade>
       </one-to-many>
 
-<!--       <one-to-many name="locacoes" access="FIELD" fetch="LAZY" mapped-by="biblioteca"> -->
-<!--         <cascade> -->
-<!--           <cascade-all /> -->
-<!--         </cascade> -->
-<!--       </one-to-many> -->
+      <one-to-many name="locacoes" access="FIELD" fetch="LAZY" mapped-by="biblioteca">
+        <map-key name="" />
 
-<!--       <one-to-many name="reservas" access="FIELD" fetch="LAZY" mapped-by="biblioteca"> -->
-<!--         <cascade> -->
-<!--           <cascade-all /> -->
-<!--         </cascade> -->
-<!--       </one-to-many> -->
+        <cascade>
+          <cascade-all />
+        </cascade>
+      </one-to-many>
 
-      <transient name="locacoes" />
-      <transient name="reservas" />
+      <one-to-many name="reservas" access="FIELD" fetch="LAZY" mapped-by="biblioteca">
+        <map-key name="id" />
+
+        <cascade>
+          <cascade-all />
+        </cascade>
+      </one-to-many>
+
+      <!-- <one-to-many name="reservas" access="FIELD" fetch="LAZY" mapped-by="biblioteca"> -->
+      <!--   <cascade> -->
+      <!--     <cascade-all /> -->
+      <!--   </cascade> -->
+      <!-- </one-to-many> -->
+
+      <!-- <transient name="locacoes" /> -->
+      <!-- <transient name="reservas" /> -->
       <transient name="armazem" />
       <transient name="usuarios" />
 

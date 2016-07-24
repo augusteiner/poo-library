@@ -21,14 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.comum.generic;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface ILocacaoUsuario {
+public interface IIdentificavel<T> {
 
-    IUsuario getUsuario();
-
-    Iterable<? extends ILocacao> getLocacoes();
+    T getId();
 }

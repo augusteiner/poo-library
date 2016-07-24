@@ -21,39 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.modelo;
+package poo.library.util;
 
-import java.util.Collection;
-
-import poo.library.comum.IReservasUsuario;
+import java.text.DateFormat;
+import java.util.Locale;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class ReservasUsuario implements IReservasUsuario {
+public class R {
 
-    private Usuario usuario;
-    private Collection<Reserva> reservas;
+    public static final Locale LOCALE_PT_BR = new Locale("pt", "BR");
+    public static final Locale LOCALE_PADRAO = LOCALE_PT_BR;
 
-    @Override
-    public Usuario getUsuario() {
+    public static final DateFormat FORMATO_DATA_PADRAO = DateFormat.getDateTimeInstance(
+        DateFormat.SHORT,
+        DateFormat.SHORT,
+        LOCALE_PADRAO);
 
-        return usuario;
-    }
+    public static final int PRIMO_RESERVA = 17;
+    public static final int PRIMO_RESERVA_MULT = 31;
 
-    public void setUsuario(Usuario usuario) {
+    public static final int PRIMO_LOCACAO = 19;
+    public static final int PRIMO_LOCACAO_MULT = 37;
 
-        this.usuario = usuario;
-    }
-
-    @Override
-    public Collection<Reserva> getReservas() {
-
-        return reservas;
-    }
-
-    public void setReservas(Collection<Reserva> reservas) {
-
-        this.reservas = reservas;
-    }
+    public static final int PRIMO_REQUISICAO = 23;
+    public static final int PRIMO_REQUISICAO_MULT = 41;
 }

@@ -26,6 +26,7 @@ package poo.library.modelo;
 import java.util.Date;
 
 import poo.library.comum.IReserva;
+import poo.library.util.Requisicoes;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -80,5 +81,20 @@ public class Reserva extends Requisicao implements IReserva {
     public void setBiblioteca(Biblioteca biblioteca) {
 
         this.biblioteca = biblioteca;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Requisicoes.hashCode((IReserva) this);
+    }
+
+    @Override
+    public String toString() {
+
+        return String.format(
+            super.toString() + " :: %s",
+
+            this.getUsuario());
     }
 }

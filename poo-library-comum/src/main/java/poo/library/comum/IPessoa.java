@@ -26,7 +26,7 @@ package poo.library.comum;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IPessoa extends IIdentificavel {
+public interface IPessoa {
 
     String getEndereco();
 

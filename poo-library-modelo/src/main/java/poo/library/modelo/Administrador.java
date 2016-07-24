@@ -36,13 +36,24 @@ public class Administrador extends Usuario implements IAdministrador {
         super(ETipoUsuario.ADMIN);
     }
 
+
     public Administrador(
         String nome,
         String cpf) {
 
+        this(nome, cpf, null);
+    }
+
+
+    public Administrador(
+        String nome,
+        String cpf,
+        String endereco) {
+
         super(
             nome,
             cpf,
+            endereco,
             ETipoUsuario.ADMIN);
     }
 }

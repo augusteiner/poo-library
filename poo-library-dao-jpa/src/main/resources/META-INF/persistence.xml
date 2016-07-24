@@ -20,14 +20,14 @@
 
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:4040/biblioteca?serverTimezone=America/Fortaleza&amp;nullNamePatternMatchesAll=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;useSSL=false" />
-      <property name="javax.persistence.jdbc.user" value="biblioteca" />
-      <property name="javax.persistence.jdbc.password" value="123456" />
+      <property name="javax.persistence.jdbc.user" value="root" />
+      <property name="javax.persistence.jdbc.password" value="" />
 
       <property name="hibernate.show_sql" value="true" />
 
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
       <property name="hibernate.flushMode" value="FLUSH_AUTO" />
-      <!-- <property name="hibernate.hbm2ddl.auto" value="create-drop" /> -->
+      <!-- <property name="hibernate.hbm2ddl.auto" value="update" /> -->
       <!-- <property name="hibernate.hbm2ddl.auto" value="validate" /> -->
 
       <property name="hibernate.auto_close_session" value="true" />

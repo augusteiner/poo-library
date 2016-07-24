@@ -114,6 +114,8 @@ public abstract class GenericResource<T> implements IResource<T> {
 
         } catch (ObjetoNaoEncontradoException e) {
 
+            e.printStackTrace();
+
             return notFound().build();
         }
 

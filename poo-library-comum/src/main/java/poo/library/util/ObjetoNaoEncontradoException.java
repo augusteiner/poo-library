@@ -30,6 +30,11 @@ public class ObjetoNaoEncontradoException extends BibliotecaException {
 
     private static final long serialVersionUID = -6215838190339301973L;
 
+    public ObjetoNaoEncontradoException(String message, Throwable cause) {
+
+        super(message, cause);
+    }
+
     public ObjetoNaoEncontradoException(String message) {
 
         super(message);

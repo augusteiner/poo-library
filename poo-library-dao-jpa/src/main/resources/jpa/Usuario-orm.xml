@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
-  version="2.0">
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd" version="2.0">
   <entity class="poo.library.modelo.Usuario" access="FIELD">
 
     <table name="usuario" />
@@ -12,7 +11,7 @@
     <discriminator-column name="tipo" discriminator-type="STRING" />
 
     <attributes>
-      <id name="id">
+      <id name="id" access="FIELD">
         <column name="id" />
         <generated-value strategy="IDENTITY" />
       </id>
@@ -28,6 +27,9 @@
       </one-to-many>
 
       <transient name="tipo" />
+
+      <transient name="reservas" />
+      <transient name="locacoes" />
     </attributes>
   </entity>
 </entity-mappings>

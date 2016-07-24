@@ -10,7 +10,7 @@
     <discriminator-column name="categoria" discriminator-type="STRING" />
 
     <attributes>
-      <id name="id">
+      <id name="id" access="FIELD">
         <column name="id" />
         <generated-value strategy="IDENTITY" />
       </id>
@@ -29,11 +29,11 @@
         <enumerated>STRING</enumerated>
       </basic>
 
-      <many-to-one name="biblioteca" fetch="LAZY" access="FIELD">
+      <many-to-one name="biblioteca" access="FIELD" fetch="LAZY">
         <join-column name="bibliotecaId" unique="false" nullable="false" insertable="false" updatable="false" />
       </many-to-one>
 
-      <one-to-many name="reservas" fetch="LAZY" mapped-by="itemAcervo">
+      <one-to-many name="reservas" access="FIELD" fetch="LAZY" mapped-by="itemAcervo">
       </one-to-many>
 
       <!-- <transient name="categoria" /> -->

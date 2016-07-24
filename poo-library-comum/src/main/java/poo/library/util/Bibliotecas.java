@@ -34,6 +34,7 @@ public class Bibliotecas {
 
         return String.format(
             "#%d - %s (R$ %s)",
+
             biblioteca.getId(),
             biblioteca.getNome(),
             biblioteca.getMultaDiaria());

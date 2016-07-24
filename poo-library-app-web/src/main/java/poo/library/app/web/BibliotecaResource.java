@@ -85,7 +85,7 @@ public class BibliotecaResource extends GenericResource<BibliotecaDTO>
         }
 
         Iterable<?> iter = convert(
-            biblioteca.getReservas(),
+            biblioteca.getReservas().values(),
             newConversor(ReservaUsuarioResource.DTO_CLASS));
 
         return ok().entity(iter).build();

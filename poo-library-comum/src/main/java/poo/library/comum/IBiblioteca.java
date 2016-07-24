@@ -23,7 +23,10 @@
  */
 package poo.library.comum;
 
+import java.util.Map;
+
 import poo.library.util.ISearcheable;
+import poo.library.util.ItemIndisponivelException;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
@@ -38,8 +41,10 @@ public interface IBiblioteca extends IIdentificavel, ISearcheable {
     int getQteDiasLocacao();
 
     Iterable<? extends IItemAcervo> getAcervo();
-    Iterable<? extends ILocacao> getLocacoes();
-    Iterable<? extends IReserva> getReservas();
+
+    Map<? extends IRequisicaoId, ? extends ILocacao> getLocacoes();
+    Map<? extends IRequisicaoId, ? extends IReserva> getReservas();
+
     Iterable<? extends IUsuario> getUsuarios();
 
     void setNome(String nome);
@@ -47,6 +52,7 @@ public interface IBiblioteca extends IIdentificavel, ISearcheable {
 
     IReserva cancelar(int reservaId) throws ObjetoNaoEncontradoException;
     ILocacao devolver(int locacaoId) throws ObjetoNaoEncontradoException;
-    ILocacao locar(int itemAcervoId, int usuarioId) throws ObjetoNaoEncontradoException;
-    IReserva reservar(int itemAcervoId, int usuarioId) throws ObjetoNaoEncontradoException;
+
+    ILocacao locar(int itemAcervoId, int usuarioId) throws ObjetoNaoEncontradoException, ItemIndisponivelException;
+    IReserva reservar(int itemAcervoId, int usuarioId) throws ObjetoNaoEncontradoException, ItemIndisponivelException;
 }

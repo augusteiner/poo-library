@@ -25,6 +25,7 @@ package poo.library.util;
 
 import poo.library.comum.IItemAcervo;
 import poo.library.comum.ILocacao;
+import poo.library.comum.IRequisicaoId;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
 
@@ -33,16 +34,16 @@ import poo.library.comum.IUsuario;
  */
 public interface IBuscador extends AutoCloseable {
 
-    ILocacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException;
-    Iterable<? extends ILocacao> locacoes();
-    //Iterable<? extends ILocacao> locacoesPorUsuario(IUsuario usuario);
-    Iterable<? extends ILocacao> locacoesPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;
-
     IItemAcervo itemPorId(int itemId) throws ObjetoNaoEncontradoException;
     Iterable<? extends IItemAcervo> itens();
     Iterable<? extends IItemAcervo> itensPorTermo(String termo);
 
-    IReserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException;
+    ILocacao locacaoPorId(IRequisicaoId locacaoId) throws ObjetoNaoEncontradoException;
+    Iterable<? extends ILocacao> locacoes();
+    //Iterable<? extends ILocacao> locacoesPorUsuario(IUsuario usuario);
+    Iterable<? extends ILocacao> locacoesPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;
+
+    IReserva reservaPorId(IRequisicaoId reservaId) throws ObjetoNaoEncontradoException;
     Iterable<? extends IReserva> reservas();
     //Iterable<? extends IReserva> reservasPorUsuario(IUsuario usuario);
     Iterable<? extends IReserva> reservasPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;

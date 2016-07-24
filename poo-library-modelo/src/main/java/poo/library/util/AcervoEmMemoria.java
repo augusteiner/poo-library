@@ -26,10 +26,13 @@ package poo.library.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 
+import poo.library.comum.IRequisicaoId;
 import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Locacao;
+import poo.library.modelo.RequisicaoId;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
 import poo.library.modelo.comum.IAcervo;
@@ -41,8 +44,8 @@ public class AcervoEmMemoria implements IAcervo {
 
     private Biblioteca biblioteca;
 
-    private Collection<Locacao> locacoes;
-    private Collection<Reserva> reservas;
+    private Map<RequisicaoId, Locacao> locacoes;
+    private Map<RequisicaoId, Reserva> reservas;
     private Collection<ItemAcervo> itens;
 
     private Collection<Usuario> usuarios;
@@ -111,11 +114,11 @@ public class AcervoEmMemoria implements IAcervo {
     }
 
     @Override
-    public Locacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException {
+    public Locacao locacaoPorId(IRequisicaoId locacaoId) throws ObjetoNaoEncontradoException {
 
-        for (Locacao l : locacoes) {
+        for (Locacao l : this.locacoes.values()) {
 
-            if (l.getId() == locacaoId) {
+            if (((Object) locacaoId).equals(l.getId())) {
 
                 return l;
             }
@@ -129,7 +132,7 @@ public class AcervoEmMemoria implements IAcervo {
     @Override
     public Collection<Locacao> locacoes() {
 
-        return Collections.unmodifiableCollection(this.locacoes);
+        return Collections.unmodifiableCollection(this.locacoes.values());
     }
 
     public Collection<Locacao> locacoesPorUsuario(Usuario usuario) {
@@ -142,7 +145,7 @@ public class AcervoEmMemoria implements IAcervo {
 
         Collection<Locacao> locacoes = novaLista();
 
-        for (Locacao l : this.locacoes) {
+        for (Locacao l : this.locacoes.values()) {
 
             if (l.getUsuarioId() == usuarioId) {
 
@@ -159,11 +162,11 @@ public class AcervoEmMemoria implements IAcervo {
     }
 
     @Override
-    public Reserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException {
+    public Reserva reservaPorId(IRequisicaoId reservaId) throws ObjetoNaoEncontradoException {
 
-        for (Reserva r : this.reservas) {
+        for (Reserva r : this.reservas.values()) {
 
-            if (r.getId() == reservaId) {
+            if (((Object) reservaId).equals(r.getId())) {
 
                 return r;
             }
@@ -177,7 +180,7 @@ public class AcervoEmMemoria implements IAcervo {
     @Override
     public Collection<Reserva> reservas() {
 
-        return Collections.unmodifiableCollection(this.reservas);
+        return Collections.unmodifiableCollection(this.reservas.values());
     }
 
     public Collection<Reserva> reservasPorUsuario(Usuario usuario) {
@@ -190,7 +193,7 @@ public class AcervoEmMemoria implements IAcervo {
 
         Collection<Reserva> reservas = novaLista();
 
-        for (Reserva r : this.reservas) {
+        for (Reserva r : this.reservas.values()) {
 
             if (r.getUsuarioId() == usuarioId) {
 
@@ -243,13 +246,13 @@ public class AcervoEmMemoria implements IAcervo {
     }
 
     @Override
-    public void setLocacoes(Collection<Locacao> locacoes) {
+    public void setLocacoes(Map<RequisicaoId, Locacao> locacoes) {
 
         this.locacoes = locacoes;
     }
 
     @Override
-    public void setReservas(Collection<Reserva> reservas) {
+    public void setReservas(Map<RequisicaoId, Reserva> reservas) {
 
         this.reservas = reservas;
     }

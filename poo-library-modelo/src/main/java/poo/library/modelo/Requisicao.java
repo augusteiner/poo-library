@@ -26,48 +26,61 @@ package poo.library.modelo;
 import java.util.Date;
 
 import poo.library.comum.IRequisicao;
+import poo.library.util.Requisicoes;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 public abstract class Requisicao implements IRequisicao {
 
-    private int id;
-
-    private Date realizadaEm;
+    private RequisicaoId id;
 
     private ItemAcervo itemAcervo;
-    private int itemAcervoId;
-
     private Usuario usuario;
-    private int usuarioId;
-
     private Biblioteca biblioteca;
-    private int bibliotecaId;
 
     public Requisicao() { }
-
-    public Requisicao(
-        ItemAcervo itemAcervo,
-        Usuario usuario) {
-
-        this(itemAcervo.getId(), usuario.getId(), itemAcervo.getBibliotecaId());
-    }
 
     public Requisicao(
         int itemAcervoId,
         int usuarioId,
         int bibliotecaId) {
 
-        this.itemAcervoId = itemAcervoId;
-        this.usuarioId = usuarioId;
-        this.bibliotecaId = bibliotecaId;
+        this.id = new RequisicaoId();
 
-        this.realizadaEm = new Date();
+        this.id.setItemAcervoId(itemAcervoId);
+        this.id.setUsuarioId(usuarioId);
+        this.id.setBibliotecaId(bibliotecaId);
+
+        this.id.setRealizadaEm(new Date());
+    }
+
+    public Requisicao(
+        ItemAcervo itemAcervo,
+        Usuario usuario) {
+
+        this(itemAcervo.getId(), usuario.getId(), itemAcervo.getBibliotecaId());
+
+        this.itemAcervo = itemAcervo;
+        this.biblioteca = itemAcervo.getBiblioteca();
+
+        this.usuario = usuario;
     }
 
     @Override
-    public int getId() {
+    public Biblioteca getBiblioteca() {
+
+        return biblioteca;
+    }
+
+    @Override
+    public int getBibliotecaId() {
+
+        return this.getId().getBibliotecaId();
+    }
+
+    @Override
+    public RequisicaoId getId() {
 
         return this.id;
     }
@@ -81,13 +94,13 @@ public abstract class Requisicao implements IRequisicao {
     @Override
     public int getItemAcervoId() {
 
-        return this.itemAcervoId;
+        return this.getId().getItemAcervoId();
     }
 
     @Override
     public Date getRealizadaEm() {
 
-        return this.realizadaEm;
+        return this.getId().getRealizadaEm();
     }
 
     @Override
@@ -99,10 +112,21 @@ public abstract class Requisicao implements IRequisicao {
     @Override
     public int getUsuarioId() {
 
-        return this.usuarioId;
+        return this.getId().getUsuarioId();
     }
 
-    public void setId(int id) {
+    public void setBiblioteca(Biblioteca biblioteca) {
+
+        this.biblioteca = biblioteca;
+    }
+
+    @Override
+    public void setBibliotecaId(int bibliotecaId) {
+
+        this.setBibliotecaId(bibliotecaId);
+    }
+
+    public void setId(RequisicaoId id) {
 
         this.id = id;
     }
@@ -115,13 +139,13 @@ public abstract class Requisicao implements IRequisicao {
     @Override
     public void setItemAcervoId(int itemAcervoId) {
 
-        this.itemAcervoId = itemAcervoId;
+        this.setItemAcervoId(itemAcervoId);
     }
 
     @Override
     public void setRealizadaEm(Date realizadaEm) {
 
-        this.realizadaEm = realizadaEm;
+        this.getId().setRealizadaEm(realizadaEm);
     }
 
     public void setUsuario(Usuario usuario) {
@@ -132,42 +156,27 @@ public abstract class Requisicao implements IRequisicao {
     @Override
     public void setUsuarioId(int usuarioId) {
 
-        this.usuarioId = usuarioId;
+        this.getId().setUsuarioId(usuarioId);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+
+        return Requisicoes.equals(
+            (IRequisicao) this,
+            other);
     }
 
     @Override
     public String toString() {
 
         return String.format(
-            "#%d - %s :: %s",
+            "#%s - %s :: %s",
 
             this.getId(),
 
             this.getItemAcervo(),
 
             this.getUsuario());
-    }
-
-    @Override
-    public Biblioteca getBiblioteca() {
-
-        return biblioteca;
-    }
-
-    public void setBiblioteca(Biblioteca biblioteca) {
-
-        this.biblioteca = biblioteca;
-    }
-
-    @Override
-    public int getBibliotecaId() {
-
-        return bibliotecaId;
-    }
-
-    @Override
-    public void setBibliotecaId(int bibliotecaId) {
-
-        this.bibliotecaId = bibliotecaId;
     }
 }

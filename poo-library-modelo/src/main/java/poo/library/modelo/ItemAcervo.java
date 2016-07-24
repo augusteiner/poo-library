@@ -130,6 +130,7 @@ public abstract class ItemAcervo implements IItemAcervo {
 
         return this.id;
     }
+
     @Override
     public double getPrecoLocacao() {
 
@@ -163,7 +164,7 @@ public abstract class ItemAcervo implements IItemAcervo {
     @Override
     public void reservar(IUsuario usuario) {
 
-        this.setQteDisponivel(this.getQteDisponivel() - 1);
+        // this.setQteDisponivel(this.getQteDisponivel() - 1);
     }
 
     @Override
@@ -176,8 +177,14 @@ public abstract class ItemAcervo implements IItemAcervo {
 
         this.biblioteca = biblioteca;
 
-        if (biblioteca != null)
+        if (biblioteca != null) {
+
             this.bibliotecaId = biblioteca.getId();
+
+        } else {
+
+            this.bibliotecaId = 0;
+        }
     }
 
     @Override
