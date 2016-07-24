@@ -23,8 +23,10 @@
  */
 package poo.library.app.seeder;
 
-import static poo.library.app.seeder.LocacaoSeeder.*;
-import static poo.library.app.App.*;
+import static poo.library.app.App.printlnCentro;
+
+import java.util.Arrays;
+import java.util.List;
 
 import poo.library.app.util.ISeeder;
 import poo.library.app.util.Seeder;
@@ -37,10 +39,7 @@ import poo.library.util.Usuarios;
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-class UsuarioSeeder extends Seeder<Usuario>
-    implements ISeeder<Usuario> {
-
-    static int firstUsuarioId;
+class UsuarioSeeder extends Seeder<Usuario> implements ISeeder<Usuario> {
 
     private Usuario u1;
     private Usuario u2;
@@ -49,30 +48,29 @@ class UsuarioSeeder extends Seeder<Usuario>
     public UsuarioSeeder(IDAO<Usuario> dao) {
 
         super(dao);
+
+        this.u1 = new Administrador("José", "11111111111", "R. das Acácias, 211");
+        this.u2 = new Usuario("João", "22222222211", "R. das Jabulanes, 70");
+        this.u3 = new Usuario("Maria", "33333333311", "R. do Boro, 10");
+    }
+
+    @Override
+    public List<Usuario> getList() {
+
+        return Arrays.asList(
+            this.u1,
+            this.u2,
+            this.u3);
     }
 
     @Override
     public void seed() throws FalhaOperacaoException {
 
-        IDAO<Usuario> dao = this.dao;
-
         this.clear();
 
         printlnCentro("Inserindo usuários de teste");
 
-        Usuario[] seed = new Usuario[] {
-            u1 = new Administrador("José", "11111111111"),
-            u2 = new Usuario("João", "22222222211"),
-            u3 = new Usuario("Maria", "33333333311")
-        };
-
-        u1.setEndereco("R. das Acácias, 211");
-        u2.setEndereco("R. das Jabulanes, 70");
-        u3.setEndereco("R. do Boro, 10");
-
-        usuario = u1;
-
-        for (Usuario u : seed) {
+        for (Usuario u : this.getList()) {
 
             dao.save(u);
 
@@ -80,8 +78,6 @@ class UsuarioSeeder extends Seeder<Usuario>
                 "Inserido %s",
                 u));
         }
-
-        firstUsuarioId = u1.getId();
 
         String termo = "Jo";
 

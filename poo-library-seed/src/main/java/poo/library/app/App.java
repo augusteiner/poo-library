@@ -63,7 +63,7 @@ public class App {
 
             seed();
 
-            BuscadorTests.run();
+            //BuscadorTests.run();
 
         } finally {
 
@@ -79,10 +79,15 @@ public class App {
 
         for (Class<?> cls : r.getSubTypesOf(ISeeder.class)) {
 
-            if (!Modifier.isPublic(cls.getModifiers()))
+            if (!Modifier.isPublic(cls.getModifiers()) ||
+                cls.isInterface() ||
+                Modifier.isAbstract(cls.getModifiers()))
                 continue;
 
             ParameterizedType t = ((ParameterizedType) (cls.getGenericInterfaces()[0]));
+
+            System.out.println(t);
+            System.out.println(t.getActualTypeArguments()[0]);
 
             Class<?> inter = ((Class<?>) t.getActualTypeArguments()[0]);
 

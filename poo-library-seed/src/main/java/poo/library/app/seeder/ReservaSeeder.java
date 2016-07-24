@@ -23,49 +23,58 @@
  */
 package poo.library.app.seeder;
 
-import static poo.library.app.seeder.BibliotecaSeeder.*;
-import static poo.library.app.seeder.ItemAcervoSeeder.*;
-import static poo.library.app.seeder.UsuarioSeeder.*;
-
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
+import java.util.Arrays;
+import java.util.List;
 
 import poo.library.app.util.ISeeder;
 import poo.library.app.util.Seeder;
 import poo.library.dao.comum.IDAO;
+import poo.library.modelo.Biblioteca;
+import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Reserva;
+import poo.library.modelo.Usuario;
 import poo.library.util.FalhaOperacaoException;
+import poo.library.util.ItemIndisponivelException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 class ReservaSeeder extends Seeder<Reserva> implements ISeeder<Reserva> {
 
-    public ReservaSeeder(IDAO<Reserva> dao) {
+    private Reserva r1;
+
+    public ReservaSeeder(
+        IDAO<Reserva> dao,
+
+        Biblioteca b1,
+        ItemAcervo i1,
+        Usuario u1) {
 
         super(dao);
+
+        try {
+
+            this.r1 = b1.reservar(i1, u1);
+
+        } catch (ItemIndisponivelException e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Reserva> getList() {
+
+        return Arrays.asList(r1);
     }
 
     @Override
     public void seed() throws FalhaOperacaoException {
 
-        Instant instant = Instant.now().plus(3, ChronoUnit.DAYS);
+        for (Reserva r : this.getList()) {
 
-        Date validaAte = Date.from(instant);
-
-        Reserva[] reservas = new Reserva[] {
-            new Reserva(
-                validaAte,
-
-                firstItemAcervoId,
-                firstUsuarioId,
-                firstBibliotecaId)
-        };
-
-        for (Reserva r : reservas) {
-
-            this.dao.save(r);
+            System.out.println(r);
+            // this.dao.save(r);
         }
     }
 }

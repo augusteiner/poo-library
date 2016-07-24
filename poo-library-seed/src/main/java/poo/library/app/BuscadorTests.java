@@ -26,10 +26,12 @@ package poo.library.app;
 import static poo.library.app.App.*;
 
 import poo.library.comum.IIdentificavel;
+import poo.library.comum.IRequisicaoId;
 import poo.library.dao.comum.DAOFactory;
+import poo.library.dao.comum.IDAO;
 import poo.library.dao.util.DAOAcervo;
 import poo.library.modelo.Biblioteca;
-import poo.library.util.IBuscador;
+import poo.library.modelo.comum.IBuscador;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
@@ -38,8 +40,8 @@ import poo.library.util.ObjetoNaoEncontradoException;
 public class BuscadorTests {
 
     private int usuarioId;
-    private int locacaoId;
-    private int reservaId;
+    private IRequisicaoId locacaoId;
+    private IRequisicaoId reservaId;
     private int itemId;
 
     private String usuariosTermo = "a";
@@ -64,21 +66,28 @@ public class BuscadorTests {
     public static void run() throws ObjetoNaoEncontradoException {
 
         BuscadorTests tests = new BuscadorTests();
+        IDAO<Biblioteca> dao = DAOFactory.createNew(Biblioteca.class);
 
-        tests.buscador = new DAOAcervo(DAOFactory.createNew(Biblioteca.class));
+        tests.buscador = new DAOAcervo(dao);
+        Biblioteca.exportarBuscador(dao.first(), tests.buscador);
 
         tests.runTests();
     }
 
     private IBuscador buscador;
 
-    private int displayIter(Iterable<? extends IIdentificavel> itens) {
+    @SuppressWarnings("unchecked")
+    private <I, T> I displayIter(Iterable<T> itens) {
 
-        int id = 0;
+        I id = null;
 
-        for (IIdentificavel item : itens) {
+        for (T item : itens) {
 
-            id = item.getId();
+            if (item instanceof IIdentificavel)
+                id = (I) (Object) ((IIdentificavel) item).getId();
+
+            if (item instanceof poo.library.comum.generic.IIdentificavel<?>)
+                id = (I) ((poo.library.comum.generic.IIdentificavel<?>) item).getId();
 
             println("%s", item);
         }

@@ -23,18 +23,19 @@
  */
 package poo.library.app.seeder;
 
-import static poo.library.app.App.*;
+import static poo.library.app.App.printlnCentro;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import poo.library.app.util.ISeeder;
 import poo.library.app.util.Seeder;
-import poo.library.comum.IBiblioteca;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Locacao;
+import poo.library.modelo.RequisicaoId;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
 import poo.library.util.Bibliotecas;
@@ -46,58 +47,123 @@ import poo.library.util.FalhaOperacaoException;
 public class BibliotecaSeeder extends Seeder<Biblioteca>
     implements ISeeder<Biblioteca> {
 
-    static int firstBibliotecaId;
+    private Biblioteca b1;
 
-    private final ISeeder<ItemAcervo> itemSeeder;
-    private final ISeeder<Reserva> reservaSeeder;
-    private final ISeeder<Usuario> usuarioSeeder;
-    private final ISeeder<Locacao> locacaoSeeder;
+    private ISeeder<ItemAcervo> itemSeeder;
+    private ISeeder<Reserva> reservaSeeder;
+    private ISeeder<Usuario> usuarioSeeder;
+    private ISeeder<Locacao> locacaoSeeder;
 
     public BibliotecaSeeder(IDAO<Biblioteca> dao) {
 
         super(dao);
 
-        this.itemSeeder = new ItemAcervoSeeder(DAOFactory.createNew(ItemAcervo.class));
-        this.locacaoSeeder = new LocacaoSeeder(DAOFactory.createNew(Locacao.class));
-        this.reservaSeeder = new ReservaSeeder(DAOFactory.createNew(Reserva.class));
-        this.usuarioSeeder = new UsuarioSeeder(DAOFactory.createNew(Usuario.class));
+        b1 = new Biblioteca("Book Library", 2.5);
+    }
+
+    @Override
+    public List<Biblioteca> getList() {
+
+        return Arrays.asList(b1);
     }
 
     @Override
     public void seed() throws FalhaOperacaoException {
 
-        this.locacaoSeeder.clear();
-        this.reservaSeeder.clear();
-        this.usuarioSeeder.clear();
-        this.itemSeeder.clear();
+        //this.list();
+        //
+        //if (true) return;
+
+        ItemAcervo i1;
+        Usuario u1;
 
         this.clear();
 
-        Biblioteca[] libs = new Biblioteca[] {
-            new Biblioteca("Book Library", 2.5)
-        };
+        for (Biblioteca lib : this.getList()) {
 
-        for (Biblioteca lib : libs) {
-
-            lib.setAcervo(new ArrayList<ItemAcervo>());
             lib.setEndereco("R. das Magnólias, 21");
+
+            lib.setQteDiasLocacao(14);
+            lib.setQteDiasValidadeReserva(3);
+
             this.dao.save(lib);
         }
 
-        firstBibliotecaId = libs[0].getId();
+        usuarioSeeder = new UsuarioSeeder(dao(Usuario.class));
+        itemSeeder = new ItemAcervoSeeder(b1);
 
-        printlnCentro(String.format(
-            "ID da biblioteca principal #%d",
-            firstBibliotecaId));
+        i1 = itemSeeder.getList().get(0);
+        u1 = usuarioSeeder.getList().get(0);
 
-        for (IBiblioteca lib : this.dao.all()) {
+        for (Biblioteca lib : this.dao.all()) {
 
             printlnCentro(Bibliotecas.toString(lib));
         }
 
         this.itemSeeder.seed();
+
+        this.dao.flush();
+
         this.usuarioSeeder.seed();
+
+        reservaSeeder = new ReservaSeeder(dao(Reserva.class), b1, i1, u1);
+        locacaoSeeder = new LocacaoSeeder(dao(Locacao.class), b1, i1, u1);
+
         this.reservaSeeder.seed();
         this.locacaoSeeder.seed();
+
+        this.dao.flush();
+
+        for (Biblioteca lib : this.dao.all()) {
+
+            printlnCentro(Bibliotecas.toString(lib));
+
+            for (RequisicaoId reqId : lib.getLocacoes().keySet()) {
+
+                Locacao l = lib.getLocacoes().get(reqId);
+
+                System.out.println(String.format(
+                    "#%s :: %s: %s",
+
+                    reqId,
+
+                    l.getUsuario(),
+                    l.getItemAcervo()));
+            }
+        }
+
+        this.list();
+    }
+
+    private void list() {
+
+        for (Biblioteca lib : this.dao.all()) {
+
+            printlnCentro(Bibliotecas.toString(lib));
+
+            System.out.println(String.format(
+                "%s (size: %d)",
+
+                lib.getLocacoes().getClass(),
+                lib.getLocacoes().size()));
+
+            for (RequisicaoId reqId : lib.getLocacoes().keySet()) {
+
+                Locacao l = lib.getLocacoes().get(reqId);
+
+                System.out.println(String.format(
+                    "#%s :: %s: %s",
+
+                    reqId,
+
+                    l.getUsuario(),
+                    l.getItemAcervo()));
+            }
+        }
+    }
+
+    private static <T> IDAO<T> dao(Class<T> cls) {
+
+        return DAOFactory.createNew(cls);
     }
 }

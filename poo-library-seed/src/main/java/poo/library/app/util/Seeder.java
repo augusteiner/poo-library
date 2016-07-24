@@ -23,13 +23,15 @@
  */
 package poo.library.app.util;
 
+import java.util.List;
+
 import poo.library.dao.comum.IDAO;
 import poo.library.util.FalhaOperacaoException;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-public abstract class Seeder<T> {
+public abstract class Seeder<T> implements ISeeder<T> {
 
     protected final IDAO<T> dao;
 
@@ -45,4 +47,7 @@ public abstract class Seeder<T> {
             this.dao.delete(i);
         }
     }
+
+    @Override
+    public abstract List<T> getList();
 }

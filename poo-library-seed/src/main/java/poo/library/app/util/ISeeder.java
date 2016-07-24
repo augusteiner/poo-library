@@ -23,6 +23,8 @@
  */
 package poo.library.app.util;
 
+import java.util.List;
+
 import poo.library.util.FalhaOperacaoException;
 
 /**
@@ -30,7 +32,7 @@ import poo.library.util.FalhaOperacaoException;
  */
 public interface ISeeder<T> {
 
-    void seed() throws FalhaOperacaoException;
+    List<T> getList();
 
-    void clear() throws FalhaOperacaoException;
+    void seed() throws FalhaOperacaoException;
 }

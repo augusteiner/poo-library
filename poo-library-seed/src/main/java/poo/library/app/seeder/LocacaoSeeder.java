@@ -23,47 +23,51 @@
  */
 package poo.library.app.seeder;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
+import java.util.Arrays;
+import java.util.List;
 
 import poo.library.app.util.ISeeder;
-import poo.library.app.util.Seeder;
 import poo.library.dao.comum.IDAO;
+import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Locacao;
 import poo.library.modelo.Usuario;
 import poo.library.util.FalhaOperacaoException;
+import poo.library.util.ItemIndisponivelException;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
-class LocacaoSeeder extends Seeder<Locacao> implements ISeeder<Locacao> {
+class LocacaoSeeder implements ISeeder<Locacao> {
 
-    static Usuario usuario;
+    private Locacao l1;
 
-    static ItemAcervo item1;
-    static ItemAcervo item2;
+    public LocacaoSeeder(
+        IDAO<Locacao> dao,
 
-    public LocacaoSeeder(IDAO<Locacao> dao) {
+        Biblioteca b1,
+        ItemAcervo i1,
+        Usuario u1) {
 
-        super(dao);
+        try {
+
+            this.l1 = b1.locar(i1, u1);
+
+        } catch (ItemIndisponivelException e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Locacao> getList() {
+
+        return Arrays.asList(l1);
     }
 
     @Override
     public void seed() throws FalhaOperacaoException {
 
-        Instant tresDias = Instant.now().plus(3, ChronoUnit.DAYS);
-        Date dataDevolucao = Date.from(tresDias);
-
-        Locacao[] locacoes = new Locacao[] {
-            new Locacao(dataDevolucao, item1, usuario),
-            new Locacao(dataDevolucao, item2, usuario)
-        };
-
-        for (Locacao l : locacoes) {
-
-            this.dao.save(l);
-        }
+        //
     }
 }
