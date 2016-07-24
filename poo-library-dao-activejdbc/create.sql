@@ -23,6 +23,10 @@ SET PASSWORD FOR 'biblioteca'@'%' = PASSWORD('123456');
 SET PASSWORD FOR 'biblioteca'@'localhost' = PASSWORD('123456');
 
 DROP TABLE IF EXISTS `usuario`;
+DROP TABLE IF EXISTS `biblioteca`;
+DROP TABLE IF EXISTS `item_acervo`;
+DROP TABLE IF EXISTS `locacao`;
+DROP TABLE IF EXISTS `reserva`;
 
 CREATE TABLE `usuario` (
 
@@ -42,7 +46,6 @@ CREATE TABLE `usuario` (
 )
 COMMENT '';
 
-DROP TABLE IF EXISTS `biblioteca`;
 
 CREATE TABLE `biblioteca` (
 
@@ -59,7 +62,6 @@ CREATE TABLE `biblioteca` (
 )
 COMMENT '';
 
-DROP TABLE IF EXISTS `item_acervo`;
 
 CREATE TABLE `item_acervo` (
 
@@ -91,23 +93,21 @@ CREATE TABLE `item_acervo` (
 COMMENT '';
 
 
-DROP TABLE IF EXISTS `locacao`;
-
 CREATE TABLE `locacao` (
 
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  -- `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 
   `usuarioId` INT UNSIGNED NOT NULL,
   `itemAcervoId` INT UNSIGNED NOT NULL,
   `bibliotecaId` INT UNSIGNED NOT NULL,
+  `realizadaEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   `precoCobrado` DECIMAL(12, 4) NOT NULL DEFAULT 0.0,
 
   `devolverAte` DATE NOT NULL,
   `devolvidoEm` TIMESTAMP NULL DEFAULT NULL,
-  `realizadaEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`usuarioId`, `itemAcervoId`, `bibliotecaId`, `realizadaEm`),
 
   CONSTRAINT `fk_locacao_biblioteca`
     FOREIGN KEY (`bibliotecaId`)
@@ -131,20 +131,19 @@ CREATE TABLE `locacao` (
 COMMENT '';
 
 
-DROP TABLE IF EXISTS `reserva`;
-
 CREATE TABLE `reserva` (
 
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  -- `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 
   `usuarioId` INT UNSIGNED NOT NULL,
   `itemAcervoId` INT UNSIGNED NOT NULL,
   `bibliotecaId` INT UNSIGNED NOT NULL,
 
-  `validaAte` DATETIME NOT NULL,
   `realizadaEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-  PRIMARY KEY (`id`),
+  `validaAte` DATETIME NOT NULL,
+
+  PRIMARY KEY (`usuarioId`, `itemAcervoId`, `bibliotecaId`, `realizadaEm`),
 
   CONSTRAINT `fk_reserva_biblioteca`
     FOREIGN KEY (`bibliotecaId`)
