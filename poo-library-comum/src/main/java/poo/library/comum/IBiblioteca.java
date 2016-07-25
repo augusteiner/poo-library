@@ -23,8 +23,6 @@
  */
 package poo.library.comum;
 
-import java.util.Map;
-
 import poo.library.util.ISearcheable;
 import poo.library.util.ItemIndisponivelException;
 import poo.library.util.ObjetoNaoEncontradoException;
@@ -42,8 +40,8 @@ public interface IBiblioteca extends IIdentificavel, ISearcheable {
 
     Iterable<? extends IItemAcervo> getAcervo();
 
-    Map<? extends IRequisicaoId, ? extends ILocacao> getLocacoes();
-    Map<? extends IRequisicaoId, ? extends IReserva> getReservas();
+    Iterable<? extends ILocacao> getLocacoes();
+    Iterable<? extends IReserva> getReservas();
 
     Iterable<? extends IUsuario> getUsuarios();
 

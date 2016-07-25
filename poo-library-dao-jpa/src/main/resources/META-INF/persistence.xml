@@ -20,8 +20,8 @@
 
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:4040/biblioteca?serverTimezone=America/Fortaleza&amp;nullNamePatternMatchesAll=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;useSSL=false" />
-      <property name="javax.persistence.jdbc.user" value="root" />
-      <property name="javax.persistence.jdbc.password" value="" />
+      <property name="javax.persistence.jdbc.user" value="biblioteca" />
+      <property name="javax.persistence.jdbc.password" value="123456" />
 
       <property name="hibernate.show_sql" value="true" />
 

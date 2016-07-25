@@ -33,11 +33,18 @@ import poo.library.util.Requisicoes;
  */
 public abstract class Requisicao implements IRequisicao {
 
-    private RequisicaoId id;
+    private int id;
 
     private ItemAcervo itemAcervo;
+    private int itemAcervoId;
+
     private Usuario usuario;
+    private int usuarioId;
+
     private Biblioteca biblioteca;
+    private int bibliotecaId;
+
+    private Date realizadaEm;
 
     public Requisicao() { }
 
@@ -46,13 +53,11 @@ public abstract class Requisicao implements IRequisicao {
         int usuarioId,
         int bibliotecaId) {
 
-        this.id = new RequisicaoId();
+        this.setItemAcervoId(itemAcervoId);
+        this.setUsuarioId(usuarioId);
+        this.setBibliotecaId(bibliotecaId);
 
-        this.id.setItemAcervoId(itemAcervoId);
-        this.id.setUsuarioId(usuarioId);
-        this.id.setBibliotecaId(bibliotecaId);
-
-        this.id.setRealizadaEm(new Date());
+        this.setRealizadaEm(new Date());
     }
 
     public Requisicao(
@@ -76,11 +81,11 @@ public abstract class Requisicao implements IRequisicao {
     @Override
     public int getBibliotecaId() {
 
-        return this.getId().getBibliotecaId();
+        return this.bibliotecaId;
     }
 
     @Override
-    public RequisicaoId getId() {
+    public int getId() {
 
         return this.id;
     }
@@ -94,13 +99,13 @@ public abstract class Requisicao implements IRequisicao {
     @Override
     public int getItemAcervoId() {
 
-        return this.getId().getItemAcervoId();
+        return this.itemAcervoId;
     }
 
     @Override
     public Date getRealizadaEm() {
 
-        return this.getId().getRealizadaEm();
+        return this.realizadaEm;
     }
 
     @Override
@@ -112,7 +117,7 @@ public abstract class Requisicao implements IRequisicao {
     @Override
     public int getUsuarioId() {
 
-        return this.getId().getUsuarioId();
+        return this.usuarioId;
     }
 
     public void setBiblioteca(Biblioteca biblioteca) {
@@ -123,10 +128,10 @@ public abstract class Requisicao implements IRequisicao {
     @Override
     public void setBibliotecaId(int bibliotecaId) {
 
-        this.setBibliotecaId(bibliotecaId);
+        this.bibliotecaId = bibliotecaId;
     }
 
-    public void setId(RequisicaoId id) {
+    public void setId(int id) {
 
         this.id = id;
     }
@@ -139,13 +144,13 @@ public abstract class Requisicao implements IRequisicao {
     @Override
     public void setItemAcervoId(int itemAcervoId) {
 
-        this.setItemAcervoId(itemAcervoId);
+        this.itemAcervoId = itemAcervoId;
     }
 
     @Override
     public void setRealizadaEm(Date realizadaEm) {
 
-        this.getId().setRealizadaEm(realizadaEm);
+        this.realizadaEm = realizadaEm;
     }
 
     public void setUsuario(Usuario usuario) {
@@ -156,7 +161,7 @@ public abstract class Requisicao implements IRequisicao {
     @Override
     public void setUsuarioId(int usuarioId) {
 
-        this.getId().setUsuarioId(usuarioId);
+        this.usuarioId = usuarioId;
     }
 
     @Override

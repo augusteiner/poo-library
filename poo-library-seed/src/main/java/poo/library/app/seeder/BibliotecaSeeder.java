@@ -26,6 +26,7 @@ package poo.library.app.seeder;
 import static poo.library.app.App.printlnCentro;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import poo.library.app.util.ISeeder;
@@ -35,7 +36,6 @@ import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Locacao;
-import poo.library.modelo.RequisicaoId;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
 import poo.library.util.Bibliotecas;
@@ -114,24 +114,6 @@ public class BibliotecaSeeder extends Seeder<Biblioteca>
 
         this.dao.flush();
 
-        for (Biblioteca lib : this.dao.all()) {
-
-            printlnCentro(Bibliotecas.toString(lib));
-
-            for (RequisicaoId reqId : lib.getLocacoes().keySet()) {
-
-                Locacao l = lib.getLocacoes().get(reqId);
-
-                System.out.println(String.format(
-                    "#%s :: %s: %s",
-
-                    reqId,
-
-                    l.getUsuario(),
-                    l.getItemAcervo()));
-            }
-        }
-
         this.list();
     }
 
@@ -145,16 +127,14 @@ public class BibliotecaSeeder extends Seeder<Biblioteca>
                 "%s (size: %d)",
 
                 lib.getLocacoes().getClass(),
-                lib.getLocacoes().size()));
+                ((Collection<?>) lib.getLocacoes()).size()));
 
-            for (RequisicaoId reqId : lib.getLocacoes().keySet()) {
-
-                Locacao l = lib.getLocacoes().get(reqId);
+            for (Locacao l : lib.getLocacoes()) {
 
                 System.out.println(String.format(
                     "#%s :: %s: %s",
 
-                    reqId,
+                    l.getId(),
 
                     l.getUsuario(),
                     l.getItemAcervo()));

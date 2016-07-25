@@ -26,10 +26,9 @@ package poo.library.modelo;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.LinkedList;
-import java.util.Map;
 
 import poo.library.modelo.comum.IAcervo;
 import poo.library.modelo.comum.IBiblioteca;
@@ -57,15 +56,15 @@ public class Biblioteca implements IBiblioteca {
 
     private Collection<ItemAcervo> acervo;
 
-    private Map<RequisicaoId, Reserva> reservas;
-    private Map<RequisicaoId, Locacao> locacoes;
+    private Collection<Reserva> reservas;
+    private Collection<Locacao> locacoes;
 
     public Biblioteca() {
 
         this.acervo = new LinkedList<ItemAcervo>();
 
-        this.reservas = new Hashtable<RequisicaoId, Reserva>();
-        this.locacoes = new Hashtable<RequisicaoId, Locacao>();
+        this.reservas = new LinkedList<Reserva>();
+        this.locacoes = new LinkedList<Locacao>();
     }
 
     public Biblioteca(String nome, double multaDiaria) {
@@ -103,7 +102,7 @@ public class Biblioteca implements IBiblioteca {
     @Override
     public Collection<ItemAcervo> getAcervo() {
 
-        return this.acervo;
+        return Collections.unmodifiableCollection(this.acervo);
     }
 
     public IBuscador getBuscador() {
@@ -124,9 +123,9 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public Map<RequisicaoId, ? extends Locacao> getLocacoes() {
+    public Collection<Locacao> getLocacoes() {
 
-        return this.locacoes;
+        return Collections.unmodifiableCollection(this.locacoes);
     }
 
     @Override
@@ -154,9 +153,9 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public Map<RequisicaoId, ? extends Reserva> getReservas() {
+    public Collection<Reserva> getReservas() {
 
-        return this.reservas;
+        return Collections.unmodifiableCollection(this.reservas);
     }
 
     @Override
@@ -195,9 +194,7 @@ public class Biblioteca implements IBiblioteca {
                 item,
                 usuario);
 
-            this.locacoes.put(
-                locacao.getId(),
-                locacao);
+            this.locacoes.add(locacao);
 
             item.setQteDisponivel(item.getQteDisponivel() - 1);
 
@@ -244,9 +241,7 @@ public class Biblioteca implements IBiblioteca {
                 item,
                 usuario);
 
-            this.reservas.put(
-                reserva.getId(),
-                reserva);
+            this.reservas.add(reserva);
 
             return reserva;
 
@@ -289,7 +284,7 @@ public class Biblioteca implements IBiblioteca {
         this.qteDiasValidadeReserva = qteDiasValidadeReserva;
     }
 
-    public void setReservas(Map<RequisicaoId, Reserva> reservas) {
+    public void setReservas(Collection<Reserva> reservas) {
 
         this.reservas = reservas;
     }
@@ -321,8 +316,6 @@ public class Biblioteca implements IBiblioteca {
     }
 
     public void removeAcervo(ItemAcervo item) {
-
-        item.setBiblioteca(null);
 
         this.acervo.remove(item);
     }

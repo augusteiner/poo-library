@@ -177,13 +177,14 @@ public abstract class ItemAcervo implements IItemAcervo {
 
         this.biblioteca = biblioteca;
 
-        if (biblioteca != null) {
+        if (biblioteca == null) {
 
-            this.bibliotecaId = biblioteca.getId();
+            throw new IllegalArgumentException(
+                "Argumento 'biblioteca' não deve ser nulo");
 
         } else {
 
-            this.bibliotecaId = 0;
+            this.bibliotecaId = biblioteca.getId();
         }
     }
 

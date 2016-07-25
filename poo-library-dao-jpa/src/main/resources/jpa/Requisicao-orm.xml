@@ -5,8 +5,16 @@
 
     <attributes>
 
-      <embedded-id name="id" access="FIELD">
-      </embedded-id>
+      <id name="id" access="FIELD">
+        <column name="id" />
+        <generated-value strategy="IDENTITY" />
+      </id>
+
+      <basic name="bibliotecaId" />
+      <basic name="usuarioId" />
+      <basic name="itemAcervoId" />
+
+      <basic name="realizadaEm" />
 
       <many-to-one name="usuario" fetch="LAZY" access="FIELD" optional="false" id="false">
         <join-column name="usuarioId" insertable="false" updatable="false" unique="false" nullable="false" />

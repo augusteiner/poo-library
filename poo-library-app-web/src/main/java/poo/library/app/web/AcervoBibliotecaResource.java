@@ -135,7 +135,6 @@ public class AcervoBibliotecaResource implements ISubResource<ItemAcervoDTO>, IC
             Biblioteca biblioteca = buscador.getBiblioteca();
             ItemAcervo item = (ItemAcervo) buscador.itemPorId(id);
 
-            item.setBiblioteca(null);
             biblioteca.removeAcervo(item);
 
             this.flush();

@@ -95,7 +95,7 @@ COMMENT '';
 
 CREATE TABLE `locacao` (
 
-  -- `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 
   `usuarioId` INT UNSIGNED NOT NULL,
   `itemAcervoId` INT UNSIGNED NOT NULL,
@@ -107,7 +107,7 @@ CREATE TABLE `locacao` (
   `devolverAte` DATE NOT NULL,
   `devolvidoEm` TIMESTAMP NULL DEFAULT NULL,
 
-  PRIMARY KEY (`usuarioId`, `itemAcervoId`, `bibliotecaId`, `realizadaEm`),
+  PRIMARY KEY (`id`),
 
   CONSTRAINT `fk_locacao_biblioteca`
     FOREIGN KEY (`bibliotecaId`)
@@ -133,7 +133,7 @@ COMMENT '';
 
 CREATE TABLE `reserva` (
 
-  -- `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 
   `usuarioId` INT UNSIGNED NOT NULL,
   `itemAcervoId` INT UNSIGNED NOT NULL,
@@ -143,7 +143,7 @@ CREATE TABLE `reserva` (
 
   `validaAte` DATETIME NOT NULL,
 
-  PRIMARY KEY (`usuarioId`, `itemAcervoId`, `bibliotecaId`, `realizadaEm`),
+  PRIMARY KEY (`id`),
 
   CONSTRAINT `fk_reserva_biblioteca`
     FOREIGN KEY (`bibliotecaId`)

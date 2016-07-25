@@ -28,9 +28,7 @@ import java.util.Date;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IRequisicao {
-
-    IRequisicaoId getId();
+public interface IRequisicao extends IIdentificavel {
 
     Date getRealizadaEm();
 

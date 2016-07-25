@@ -24,12 +24,10 @@
 package poo.library.modelo.comum;
 
 import java.util.Collection;
-import java.util.Map;
 
 import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Locacao;
-import poo.library.modelo.RequisicaoId;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
 import poo.library.util.ObjetoNaoEncontradoException;
@@ -43,9 +41,8 @@ public interface IBuscador extends poo.library.util.IBuscador {
 
     void setBiblioteca(Biblioteca biblioteca);
 
-    void setLocacoes(Map<RequisicaoId, Locacao> locacoes);
-    void setReservas(Map<RequisicaoId, Reserva> reservas);
-
+    void setLocacoes(Collection<Locacao> locacoes);
+    void setReservas(Collection<Reserva> reservas);
     void setItensAcervo(Collection<ItemAcervo> itensAcervo);
 
     @Override

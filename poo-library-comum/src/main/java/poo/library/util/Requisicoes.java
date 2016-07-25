@@ -44,7 +44,7 @@ public class Requisicoes {
             other != null &&
             one.getClass().equals(other.getClass()) &&
 
-            equals(one.getId(), ((IRequisicao) other).getId());
+            ((Object) one.getId()).equals(((IRequisicao) other).getId());
     }
 
     public static boolean equals(IRequisicaoId one, Object other) {
