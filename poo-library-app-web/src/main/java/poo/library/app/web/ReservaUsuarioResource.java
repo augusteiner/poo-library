@@ -23,14 +23,26 @@
  */
 package poo.library.app.web;
 
+import static poo.library.app.web.util.Responses.*;
+
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import poo.library.app.web.dto.ReservaDTO;
 import poo.library.app.web.util.ISubResource;
+import poo.library.comum.IUsuario;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
+import poo.library.util.FalhaOperacaoException;
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -38,7 +50,7 @@ import poo.library.modelo.Usuario;
 @Path(ReservaUsuarioResource.PATH)
 public class ReservaUsuarioResource implements ISubResource<ReservaDTO> {
 
-    public static final String PATH = "reserva";
+    public static final String PATH = "usuario/{usuarioId}/reserva";
 
     public static final Class<Reserva> MODEL_CLASS = Reserva.class;
     public static final Class<ReservaDTO> DTO_CLASS = ReservaDTO.class;
@@ -50,34 +62,88 @@ public class ReservaUsuarioResource implements ISubResource<ReservaDTO> {
         this.parentDAO = parentDAO;
     }
 
+    @DELETE
+    @Path("/{id}")
+    @Produces({ MediaType.APPLICATION_JSON })
     @Override
-    public Response get(int usuarioId) {
+    public Response delete(
+        @PathParam("usuarioId") int usuarioId,
+        @PathParam("id") int reservaId) {
+
+        IUsuario usuario;
+
+        try {
+
+            usuario = this.getParentDAO().reference(usuarioId);
+
+            usuario.cancelar(reservaId);
+
+            //usuario.getReservas();
+
+            this.getParentDAO().flush();
+
+            return noContent().build();
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            e.printStackTrace();
+
+            return notFound().entity(e).build();
+
+        } catch (FalhaOperacaoException e) {
+
+            e.printStackTrace();
+
+            return serverError().entity(e).build();
+        }
+    }
+
+    @GET
+    @Produces({ MediaType.APPLICATION_JSON })
+    @Override
+    public Response get(@PathParam("usuarioId") int usuarioId) {
 
         return null;
     }
 
+    @GET
+    @Path("/{id}")
+    @Produces({ MediaType.APPLICATION_JSON })
     @Override
-    public Response get(int usuarioId, int id) {
+    public Response get(
+        @PathParam("usuarioId") int usuarioId,
+        @PathParam("id") int id) {
 
         return null;
     }
 
+    @POST
+    @Produces({ MediaType.APPLICATION_JSON })
     @Override
-    public Response put(int usuarioId, int id, ReservaDTO obj) {
+    public Response post(
+        @PathParam("usuarioId") int usuarioId,
+
+        ReservaDTO obj) {
+
+        if (obj.getId() > 0) {
+
+            return unauthorized().build();
+        }
 
         return null;
     }
 
+    @PUT
+    @Path("/{id}")
+    @Produces({ MediaType.APPLICATION_JSON })
     @Override
-    public Response post(int usuarioId, ReservaDTO obj) {
+    public Response put(
+        @PathParam("usuarioId") int usuarioId,
+        @PathParam("id") int id,
 
-        return null;
-    }
+        ReservaDTO obj) {
 
-    @Override
-    public Response delete(int usuarioId, int id) {
-
-        return null;
+        return unauthorized().build();
     }
 
     protected IDAO<Usuario> getParentDAO() {

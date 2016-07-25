@@ -23,12 +23,23 @@
  */
 package poo.library.app.web;
 
+import static poo.library.app.web.util.Responses.*;
+
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import poo.library.app.web.dto.LocacaoDTO;
 import poo.library.app.web.util.ISubResource;
+import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Locacao;
+import poo.library.modelo.Usuario;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -41,33 +52,69 @@ public class LocacaoUsuarioResource implements ISubResource<LocacaoDTO> {
     public static final Class<Locacao> MODEL_CLASS = Locacao.class;
     public static final Class<LocacaoDTO> DTO_CLASS = LocacaoDTO.class;
 
+    private IDAO<Usuario> parentDAO;
+
+    public LocacaoUsuarioResource(IDAO<Usuario> parentDAO) {
+
+        this.parentDAO = parentDAO;
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Produces({ MediaType.APPLICATION_JSON })
     @Override
-    public Response get(int parentId) {
+    public Response delete(
+        @PathParam("usuarioId") int usuarioId,
+        @PathParam("id") int locacaoId) {
+
+        return unauthorized().build();
+    }
+
+    @GET
+    @Produces({ MediaType.APPLICATION_JSON })
+    @Override
+    public Response get(@PathParam("usuarioId") int usuarioId) {
 
         return null;
     }
 
+    @GET
+    @Path("/{id}")
+    @Produces({ MediaType.APPLICATION_JSON })
     @Override
-    public Response get(int parentId, int id) {
+    public Response get(
+        @PathParam("usuarioId") int usuarioId,
+        @PathParam("id") int locacaoId) {
 
         return null;
     }
 
+    @POST
+    @Produces({ MediaType.APPLICATION_JSON })
     @Override
-    public Response put(int parentId, int id, LocacaoDTO obj) {
+    public Response post(
+        @PathParam("usuarioId") int usuarioId,
 
-        return null;
+        LocacaoDTO locacao) {
+
+        return unauthorized().build();
     }
 
+    @PUT
+    @Path("/{id}")
+    @Produces({ MediaType.APPLICATION_JSON })
     @Override
-    public Response post(int parentId, LocacaoDTO obj) {
+    public Response put(
+        @PathParam("usuarioId") int usuarioId,
+        @PathParam("id") int id,
 
-        return null;
+        LocacaoDTO locacao) {
+
+        return unauthorized().build();
     }
 
-    @Override
-    public Response delete(int parentId, int id) {
+    protected IDAO<Usuario> getParentDAO() {
 
-        return null;
+        return parentDAO;
     }
 }
