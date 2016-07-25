@@ -23,6 +23,9 @@
  */
 package poo.library.dao.jpa;
 
+import java.util.Collections;
+import java.util.Map;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -39,11 +42,20 @@ import poo.library.modelo.Usuario;
 public abstract class JpaDAOFactory implements IDAOFactory {
 
     private final String persistenceUnitName;
+    private final Map<String, String> properties;
+
     private EntityManagerFactory factory;
 
     public JpaDAOFactory(String persistenceUnitName) {
 
+        this(persistenceUnitName, Collections.<String, String>emptyMap());
+    }
+
+    public JpaDAOFactory(String persistenceUnitName, Map<String, String> properties) {
+
         this.persistenceUnitName = persistenceUnitName;
+
+        this.properties = properties;
 
         this.factory = null;
     }
@@ -65,7 +77,8 @@ public abstract class JpaDAOFactory implements IDAOFactory {
             !this.factory.isOpen()) {
 
             this.factory = Persistence.createEntityManagerFactory(
-                this.persistenceUnitName);
+                this.persistenceUnitName,
+                this.properties);
         }
     }
 
