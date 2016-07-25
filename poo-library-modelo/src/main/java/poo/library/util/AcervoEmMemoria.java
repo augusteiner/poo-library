@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-import poo.library.comum.IRequisicaoId;
 import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Locacao;
@@ -112,7 +111,7 @@ public class AcervoEmMemoria implements IAcervo {
     }
 
     @Override
-    public Locacao locacaoPorId(IRequisicaoId locacaoId) throws ObjetoNaoEncontradoException {
+    public Locacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException {
 
         for (Locacao l : this.locacoes) {
 
@@ -160,7 +159,7 @@ public class AcervoEmMemoria implements IAcervo {
     }
 
     @Override
-    public Reserva reservaPorId(IRequisicaoId reservaId) throws ObjetoNaoEncontradoException {
+    public Reserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException {
 
         for (Reserva r : this.reservas) {
 

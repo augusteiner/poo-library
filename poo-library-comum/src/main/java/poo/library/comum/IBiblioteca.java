@@ -23,6 +23,7 @@
  */
 package poo.library.comum;
 
+import poo.library.util.FalhaOperacaoException;
 import poo.library.util.ISearcheable;
 import poo.library.util.ItemIndisponivelException;
 import poo.library.util.ObjetoNaoEncontradoException;
@@ -48,8 +49,8 @@ public interface IBiblioteca extends IIdentificavel, ISearcheable {
     void setNome(String nome);
     void setMultaDiaria(double multaDiaria);
 
-    IReserva cancelar(int reservaId) throws ObjetoNaoEncontradoException;
-    ILocacao devolver(int locacaoId) throws ObjetoNaoEncontradoException;
+    IReserva cancelar(int reservaId) throws ObjetoNaoEncontradoException, FalhaOperacaoException;
+    ILocacao devolver(int locacaoId) throws ObjetoNaoEncontradoException, FalhaOperacaoException;
 
     ILocacao locar(int itemAcervoId, int usuarioId) throws ObjetoNaoEncontradoException, ItemIndisponivelException;
     IReserva reservar(int itemAcervoId, int usuarioId) throws ObjetoNaoEncontradoException, ItemIndisponivelException;

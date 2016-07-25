@@ -25,6 +25,7 @@ package poo.library.app.web.dto;
 
 import java.util.Date;
 
+import poo.library.comum.EStatusRequisicao;
 import poo.library.comum.IIdentificavel;
 
 /**
@@ -34,11 +35,13 @@ public abstract class RequisicaoDTO implements IIdentificavel {
 
     private int id;
 
-    private Date realizadaEm;
-
     private int itemAcervoId;
 
     private int usuarioId;
+
+    private Date realizadaEm;
+
+    private EStatusRequisicao status;
 
     public RequisicaoDTO() { }
 
@@ -56,6 +59,11 @@ public abstract class RequisicaoDTO implements IIdentificavel {
     public Date getRealizadaEm() {
 
         return this.realizadaEm;
+    }
+
+    public EStatusRequisicao getStatus() {
+
+        return this.status;
     }
 
     public int getUsuarioId() {
@@ -76,6 +84,11 @@ public abstract class RequisicaoDTO implements IIdentificavel {
     public void setRealizadaEm(Date realizadaEm) {
 
         this.realizadaEm = realizadaEm;
+    }
+
+    public void setStatus(EStatusRequisicao status) {
+
+        this.status = status;
     }
 
     public void setUsuarioId(int usuarioId) {

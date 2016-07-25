@@ -198,7 +198,7 @@ public class Usuario implements IUsuario {
 
     private Reserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException {
 
-        for (Reserva r : this.reservas) {
+        for (Reserva r : this.getReservas()) {
 
             if (r.getId() == reservaId) {
 

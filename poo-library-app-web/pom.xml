@@ -14,7 +14,7 @@
   <name>poo-library-app-web</name>
   <properties>
 
-    <jdk.version>1.7</jdk.version>
+    <jdk.version>1.5</jdk.version>
 
     <version.jersey>2.23.1</version.jersey>
     <version.jetty>9.3.9.M0</version.jetty>

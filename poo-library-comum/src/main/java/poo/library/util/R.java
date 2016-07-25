@@ -44,7 +44,4 @@ public class R {
 
     public static final int PRIMO_LOCACAO = 19;
     public static final int PRIMO_LOCACAO_MULT = 37;
-
-    public static final int PRIMO_REQUISICAO = 23;
-    public static final int PRIMO_REQUISICAO_MULT = 41;
 }

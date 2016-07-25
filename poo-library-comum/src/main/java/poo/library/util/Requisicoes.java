@@ -29,7 +29,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import poo.library.comum.ILocacao;
 import poo.library.comum.IRequisicao;
-import poo.library.comum.IRequisicaoId;
 import poo.library.comum.IReserva;
 
 /**
@@ -47,60 +46,17 @@ public class Requisicoes {
             ((Object) one.getId()).equals(((IRequisicao) other).getId());
     }
 
-    public static boolean equals(IRequisicaoId one, Object other) {
-
-        return
-
-            other != null &&
-            one.getClass().equals(other.getClass()) &&
-
-            equals(one, (IRequisicaoId) other);
-    }
-
-    public static boolean equals(IRequisicaoId one, IRequisicaoId other) {
-
-        return one.getBibliotecaId() == other.getBibliotecaId() &&
-            one.getItemAcervoId() == other.getItemAcervoId() &&
-            one.getUsuarioId() == other.getUsuarioId() &&
-
-            one.getRealizadaEm() != null &&
-            one.getRealizadaEm().equals(other.getRealizadaEm());
-    }
-
     public static int hashCode(ILocacao locacao) {
 
-        return hashCode(PRIMO_LOCACAO, PRIMO_LOCACAO_MULT, (IRequisicaoId) locacao);
-    }
-
-    private static int hashCode(
-        int initialOddNumber,
-        int multiplierOddNumber,
-
-        IRequisicaoId requisicaoId) {
-
-        HashCodeBuilder builder = new HashCodeBuilder(
-            initialOddNumber,
-            multiplierOddNumber);
-
-        builder.append(requisicaoId.getUsuarioId())
-            .append(requisicaoId.getItemAcervoId())
-            .append(requisicaoId.getBibliotecaId())
-            .appendSuper(requisicaoId.getRealizadaEm().hashCode());
-
-        return builder.toHashCode();
-    }
-
-    public static int hashCode(IRequisicaoId requisicaoId) {
-
-        return hashCode(PRIMO_REQUISICAO, PRIMO_REQUISICAO_MULT, requisicaoId);
+        return hashCode(PRIMO_LOCACAO, PRIMO_LOCACAO_MULT, locacao);
     }
 
     public static int hashCode(IReserva reserva) {
 
-        return hashCode(PRIMO_RESERVA, PRIMO_RESERVA_MULT, (IRequisicaoId) reserva);
+        return hashCode(PRIMO_RESERVA, PRIMO_RESERVA_MULT, reserva);
     }
 
-    public static String toString(IRequisicaoId requisicaoId) {
+    public static String toString(IRequisicao requisicaoId) {
 
         return String.format(
             "(%d, %d, %d, %s)",
@@ -110,5 +66,23 @@ public class Requisicoes {
             requisicaoId.getBibliotecaId(),
 
             FORMATO_DATA_PADRAO.format(requisicaoId.getRealizadaEm()));
+    }
+
+    private static int hashCode(
+        int initialOddNumber,
+        int multiplierOddNumber,
+
+        IRequisicao requisicaoId) {
+
+        HashCodeBuilder builder = new HashCodeBuilder(
+            initialOddNumber,
+            multiplierOddNumber);
+
+        builder.append(requisicaoId.getUsuarioId())
+            .append(requisicaoId.getItemAcervoId())
+            .append(requisicaoId.getBibliotecaId())
+            .append(requisicaoId.getRealizadaEm());
+
+        return builder.toHashCode();
     }
 }

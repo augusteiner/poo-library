@@ -26,7 +26,6 @@ package poo.library.app;
 import static poo.library.app.App.*;
 
 import poo.library.comum.IIdentificavel;
-import poo.library.comum.IRequisicaoId;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.dao.util.DAOAcervo;
@@ -40,8 +39,8 @@ import poo.library.util.ObjetoNaoEncontradoException;
 public class BuscadorTests {
 
     private int usuarioId;
-    private IRequisicaoId locacaoId;
-    private IRequisicaoId reservaId;
+    private int locacaoId;
+    private int reservaId;
     private int itemId;
 
     private String usuariosTermo = "a";

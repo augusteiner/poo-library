@@ -23,24 +23,13 @@
  */
 package poo.library.comum;
 
-import java.util.Date;
-
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IRequisicaoId {
+public enum EStatusRequisicao {
 
-    int getBibliotecaId();
+    OK,
+    CANCELADA;
 
-    int getItemAcervoId();
-
-    int getUsuarioId();
-
-    Date getRealizadaEm();
-
-    // void setBibliotecaId(int bibliotecaId);
-
-    // void setItemAcervoId(int itemAcervoId);
-
-    // void setUsuarioId(int usuarioId);
+    public static final EStatusRequisicao PADRAO = OK;
 }

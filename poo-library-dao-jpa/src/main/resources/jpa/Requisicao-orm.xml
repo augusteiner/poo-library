@@ -10,11 +10,15 @@
         <generated-value strategy="IDENTITY" />
       </id>
 
-      <basic name="bibliotecaId" />
-      <basic name="usuarioId" />
-      <basic name="itemAcervoId" />
+      <basic name="bibliotecaId" access="FIELD" />
+      <basic name="usuarioId" access="FIELD" />
+      <basic name="itemAcervoId" access="FIELD" />
 
-      <basic name="realizadaEm" />
+      <basic name="realizadaEm" access="FIELD" />
+
+      <basic name="status" access="FIELD">
+        <enumerated>STRING</enumerated>
+      </basic>
 
       <many-to-one name="usuario" fetch="LAZY" access="FIELD" optional="false" id="false">
         <join-column name="usuarioId" insertable="false" updatable="false" unique="false" nullable="false" />

@@ -37,7 +37,7 @@ import javax.ws.rs.core.Response;
 
 import poo.library.app.web.dto.ReservaDTO;
 import poo.library.app.web.util.ISubResource;
-import poo.library.comum.IUsuario;
+import poo.library.comum.EStatusRequisicao;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
@@ -70,32 +70,7 @@ public class ReservaUsuarioResource implements ISubResource<ReservaDTO> {
         @PathParam("usuarioId") int usuarioId,
         @PathParam("id") int reservaId) {
 
-        IUsuario usuario;
-
-        try {
-
-            usuario = this.getParentDAO().reference(usuarioId);
-
-            usuario.cancelar(reservaId);
-
-            //usuario.getReservas();
-
-            this.getParentDAO().flush();
-
-            return noContent().build();
-
-        } catch (ObjetoNaoEncontradoException e) {
-
-            e.printStackTrace();
-
-            return notFound().entity(e).build();
-
-        } catch (FalhaOperacaoException e) {
-
-            e.printStackTrace();
-
-            return serverError().entity(e).build();
-        }
+        return unauthorized().build();
     }
 
     @GET
@@ -139,11 +114,40 @@ public class ReservaUsuarioResource implements ISubResource<ReservaDTO> {
     @Override
     public Response put(
         @PathParam("usuarioId") int usuarioId,
-        @PathParam("id") int id,
+        @PathParam("id") int reservaId,
 
         ReservaDTO obj) {
 
-        return unauthorized().build();
+        Usuario usuario;
+
+        try {
+
+            usuario = this.getParentDAO().reference(usuarioId);
+
+            if (obj.getStatus() == EStatusRequisicao.CANCELADA) {
+
+                usuario.cancelar(reservaId);
+
+            }
+
+            //usuario.getReservas();
+
+            this.getParentDAO().flush();
+
+            return noContent().build();
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            e.printStackTrace();
+
+            return notFound().entity(e).build();
+
+        } catch (FalhaOperacaoException e) {
+
+            e.printStackTrace();
+
+            return serverError().entity(e).build();
+        }
     }
 
     protected IDAO<Usuario> getParentDAO() {

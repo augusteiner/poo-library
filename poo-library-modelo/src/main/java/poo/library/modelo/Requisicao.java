@@ -25,6 +25,7 @@ package poo.library.modelo;
 
 import java.util.Date;
 
+import poo.library.comum.EStatusRequisicao;
 import poo.library.comum.IRequisicao;
 import poo.library.util.Requisicoes;
 
@@ -46,18 +47,25 @@ public abstract class Requisicao implements IRequisicao {
 
     private Date realizadaEm;
 
-    public Requisicao() { }
+    private EStatusRequisicao status;
+
+    public Requisicao() {
+
+        this.setRealizadaEm(new Date());
+
+        this.status = EStatusRequisicao.PADRAO;
+    }
 
     public Requisicao(
         int itemAcervoId,
         int usuarioId,
         int bibliotecaId) {
 
+        this();
+
         this.setItemAcervoId(itemAcervoId);
         this.setUsuarioId(usuarioId);
         this.setBibliotecaId(bibliotecaId);
-
-        this.setRealizadaEm(new Date());
     }
 
     public Requisicao(
@@ -70,6 +78,14 @@ public abstract class Requisicao implements IRequisicao {
         this.biblioteca = itemAcervo.getBiblioteca();
 
         this.usuario = usuario;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+
+        return Requisicoes.equals(
+            (IRequisicao) this,
+            other);
     }
 
     @Override
@@ -106,6 +122,12 @@ public abstract class Requisicao implements IRequisicao {
     public Date getRealizadaEm() {
 
         return this.realizadaEm;
+    }
+
+    @Override
+    public EStatusRequisicao getStatus() {
+
+        return this.status;
     }
 
     @Override
@@ -153,6 +175,11 @@ public abstract class Requisicao implements IRequisicao {
         this.realizadaEm = realizadaEm;
     }
 
+    public void setStatus(EStatusRequisicao status) {
+
+        this.status = status;
+    }
+
     public void setUsuario(Usuario usuario) {
 
         this.usuario = usuario;
@@ -162,14 +189,6 @@ public abstract class Requisicao implements IRequisicao {
     public void setUsuarioId(int usuarioId) {
 
         this.usuarioId = usuarioId;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-
-        return Requisicoes.equals(
-            (IRequisicao) this,
-            other);
     }
 
     @Override

@@ -30,6 +30,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 
+import poo.library.comum.EStatusRequisicao;
 import poo.library.modelo.comum.IAcervo;
 import poo.library.modelo.comum.IBiblioteca;
 import poo.library.modelo.comum.IBuscador;
@@ -77,14 +78,19 @@ public class Biblioteca implements IBiblioteca {
 
     @Override
     public Reserva cancelar(int reservaId)
-        throws ObjetoNaoEncontradoException {
+        throws ObjetoNaoEncontradoException, FalhaOperacaoException {
 
-        return null;
+        Reserva reserva = (Reserva) this.getBuscador().reservaPorId(reservaId);
+
+        this.cancelar(reserva);
+
+        return reserva;
     }
 
     @Override
     public void cancelar(Reserva reserva) throws FalhaOperacaoException {
 
+        reserva.setStatus(EStatusRequisicao.CANCELADA);
     }
 
     @Override
@@ -309,10 +315,10 @@ public class Biblioteca implements IBiblioteca {
 
         buscador.setBiblioteca(biblioteca);
 
-        buscador.setItensAcervo(biblioteca.acervo);
+        buscador.setItensAcervo(biblioteca.getAcervo());
 
-        buscador.setReservas(biblioteca.reservas);
-        buscador.setLocacoes(biblioteca.locacoes);
+        buscador.setReservas(biblioteca.getReservas());
+        buscador.setLocacoes(biblioteca.getLocacoes());
     }
 
     public void removeAcervo(ItemAcervo item) {

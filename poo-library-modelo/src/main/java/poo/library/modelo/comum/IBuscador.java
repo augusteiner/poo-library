@@ -46,6 +46,12 @@ public interface IBuscador extends poo.library.util.IBuscador {
     void setItensAcervo(Collection<ItemAcervo> itensAcervo);
 
     @Override
+    Locacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException;
+
+    @Override
+    Reserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException;
+
+    @Override
     Usuario usuarioPorId(int usuarioId) throws ObjetoNaoEncontradoException;
 
     @Override

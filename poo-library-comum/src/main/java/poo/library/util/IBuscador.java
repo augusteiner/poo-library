@@ -25,7 +25,6 @@ package poo.library.util;
 
 import poo.library.comum.IItemAcervo;
 import poo.library.comum.ILocacao;
-import poo.library.comum.IRequisicaoId;
 import poo.library.comum.IReserva;
 import poo.library.comum.IUsuario;
 
@@ -38,12 +37,12 @@ public interface IBuscador extends AutoCloseable {
     Iterable<? extends IItemAcervo> itens();
     Iterable<? extends IItemAcervo> itensPorTermo(String termo);
 
-    ILocacao locacaoPorId(IRequisicaoId locacaoId) throws ObjetoNaoEncontradoException;
+    ILocacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException;
     Iterable<? extends ILocacao> locacoes();
     //Iterable<? extends ILocacao> locacoesPorUsuario(IUsuario usuario);
     Iterable<? extends ILocacao> locacoesPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;
 
-    IReserva reservaPorId(IRequisicaoId reservaId) throws ObjetoNaoEncontradoException;
+    IReserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException;
     Iterable<? extends IReserva> reservas();
     //Iterable<? extends IReserva> reservasPorUsuario(IUsuario usuario);
     Iterable<? extends IReserva> reservasPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;

@@ -30,6 +30,8 @@ import java.util.Date;
  */
 public interface IRequisicao extends IIdentificavel {
 
+    EStatusRequisicao getStatus();
+
     Date getRealizadaEm();
 
     IBiblioteca getBiblioteca();
