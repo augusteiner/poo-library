@@ -77,26 +77,6 @@ public class AcervoBibliotecaResource implements ISubResource<ItemAcervoDTO>, IC
         this.parentDAO = parentDAO;
     }
 
-    private Biblioteca bibliotecaPorId(int bibliotecaId) throws ObjetoNaoEncontradoException {
-
-        return this.getParentDAO().find(bibliotecaId);
-    }
-
-    private IBuscador buscador(int bibliotecaId)
-        throws ObjetoNaoEncontradoException {
-
-        return buscador(this.bibliotecaPorId(bibliotecaId));
-    }
-
-    private IBuscador buscador(Biblioteca biblioteca) {
-
-        IBuscador buscador = new DAOAcervo(this.getParentDAO());
-
-        Biblioteca.exportarBuscador(biblioteca, buscador);
-
-        return buscador;
-    }
-
     @Override
     public ItemAcervo converter(Object input) {
 
@@ -119,63 +99,14 @@ public class AcervoBibliotecaResource implements ISubResource<ItemAcervoDTO>, IC
 
         try {
 
-            return this.deleteItem(bibliotecaId, id);
+            this.deleteItem(bibliotecaId, id);
 
         } catch (Exception e) {
 
             return serverError().entity(e).build();
         }
-    }
 
-    private Response deleteItem(int bibliotecaId, int id)
-        throws ObjetoNaoEncontradoException, FalhaOperacaoException {
-
-        try (IBuscador buscador = buscador(bibliotecaId)) {
-
-            Biblioteca biblioteca = buscador.getBiblioteca();
-            ItemAcervo item = (ItemAcervo) buscador.itemPorId(id);
-
-            biblioteca.removeAcervo(item);
-
-            this.flush();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-            throw new FalhaOperacaoException(e.getMessage(), e);
-        }
-
-        return Response.ok().build();
-    }
-
-    private void flush() throws FalhaOperacaoException {
-
-        try {
-
-            this.getParentDAO().flush();
-
-        } catch (FalhaOperacaoException e) {
-
-            e.printStackTrace();
-
-            throw e;
-
-        }
-        // TODO Avaliar necessiade e habilitar novamente
-        //finally {
-        //
-        //    try {
-        //
-        //        this.close();
-        //
-        //    } catch (Exception e) {
-        //
-        //        e.printStackTrace();
-        //
-        //        throw new FalhaOperacaoException(e.getMessage(), e);
-        //    }
-        //}
+        return noContent().build();
     }
 
     @GET
@@ -234,67 +165,21 @@ public class AcervoBibliotecaResource implements ISubResource<ItemAcervoDTO>, IC
         return ok().entity(CONVERSOR.converter(item)).build();
     }
 
-    private ItemAcervo getItem(int bibliotecaId, int id)
-        throws ObjetoNaoEncontradoException, FalhaOperacaoException {
-
-        try (IBuscador buscador = buscador(bibliotecaId)) {
-
-            return (ItemAcervo) buscador.itemPorId(id);
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-            throw new FalhaOperacaoException(e.getMessage(), e);
-        }
-    }
-
     public Iterable<ItemAcervoDTO> getItens(int bibliotecaId)
         throws ObjetoNaoEncontradoException, FalhaOperacaoException {
 
-        Biblioteca biblioteca = this.bibliotecaPorId(bibliotecaId);
+        IBuscador buscador = buscador(bibliotecaId);
 
-        try (IBuscador buscador = buscador(biblioteca)) {
-
+        try {
             return Iterables.convert(
                 buscador.itens(),
                 CONVERSOR);
 
-        } catch (Exception e) {
+        } finally {
 
-            e.printStackTrace();
-
-            throw new FalhaOperacaoException(e.getMessage(), e);
+            this.close(buscador);
         }
     }
-
-    protected IDAO<Biblioteca> getParentDAO() {
-
-        return this.parentDAO;
-    }
-
-//    private ItemAcervo itemPorId(Biblioteca biblioteca, int id)
-//        throws ObjetoNaoEncontradoException, FalhaOperacaoException {
-//
-//        try (IBuscador buscador = buscador(biblioteca)) {
-//
-//            return (ItemAcervo) buscador.itemPorId(id);
-//
-//        } catch (Exception e) {
-//
-//            e.printStackTrace();
-//
-//            throw new FalhaOperacaoException(e.getMessage(), e);
-//        }
-//    }
-//
-//    private ItemAcervo itemPorId(int bibliotecaId, int id)
-//        throws ObjetoNaoEncontradoException, FalhaOperacaoException {
-//
-//        Biblioteca biblioteca = this.bibliotecaPorId(bibliotecaId);
-//
-//        return this.itemPorId(biblioteca, id);
-//    }
 
     @POST
     @Produces({ MediaType.APPLICATION_JSON })
@@ -338,40 +223,6 @@ public class AcervoBibliotecaResource implements ISubResource<ItemAcervoDTO>, IC
         return created(createdUri).build();
     }
 
-    private void postItem(int bibliotecaId, ItemAcervoDTO itemAcervo)
-        throws ObjetoNaoEncontradoException, FalhaOperacaoException {
-
-        ItemAcervo item;
-
-        try (IBuscador buscador = buscador(bibliotecaId)) {
-
-            if (itemAcervo.getId() == 0) {
-
-                Biblioteca biblioteca = this.bibliotecaPorId(bibliotecaId);
-
-                item = this.converter(itemAcervo);
-
-                biblioteca.addAcervo(item);
-
-            } else {
-
-                item = (ItemAcervo) buscador.itemPorId(itemAcervo.getId());
-
-                this.converter(itemAcervo, item);
-            }
-
-            this.flush();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-            throw new FalhaOperacaoException(e.getMessage(), e);
-        }
-
-        CONVERSOR.converter(item, itemAcervo);
-    }
-
     @PUT
     @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
@@ -405,19 +256,149 @@ public class AcervoBibliotecaResource implements ISubResource<ItemAcervoDTO>, IC
     public void putItem(int bibliotecaId, int id, ItemAcervoDTO dto)
         throws ObjetoNaoEncontradoException, FalhaOperacaoException {
 
-        try (IBuscador buscador = buscador(bibliotecaId)) {
+        IBuscador buscador = buscador(bibliotecaId);
+        IItemAcervo item = buscador.itemPorId(id);
 
-            IItemAcervo item = buscador.itemPorId(id);
+        this.converter(dto, item);
 
-            this.converter(dto, item);
+        this.flush();
 
-            this.flush();
+        this.close(buscador);
+    }
+
+    private Biblioteca bibliotecaPorId(int bibliotecaId) throws ObjetoNaoEncontradoException {
+
+        return this.getParentDAO().find(bibliotecaId);
+    }
+
+    private IBuscador buscador(Biblioteca biblioteca) {
+
+        IBuscador buscador = new DAOAcervo(this.getParentDAO());
+
+        Biblioteca.exportarBuscador(biblioteca, buscador);
+
+        return buscador;
+    }
+
+    private IBuscador buscador(int bibliotecaId)
+        throws ObjetoNaoEncontradoException {
+
+        return buscador(this.bibliotecaPorId(bibliotecaId));
+    }
+
+    private void close(IBuscador buscador) throws FalhaOperacaoException {
+
+        try {
+
+            buscador.close();
 
         } catch (Exception e) {
 
             e.printStackTrace();
 
+            // TODO Jogar exceção ou efetuar log somente???
             throw new FalhaOperacaoException(e.getMessage(), e);
         }
+    }
+
+    private void deleteItem(int bibliotecaId, int id)
+        throws ObjetoNaoEncontradoException, FalhaOperacaoException {
+
+        IBuscador buscador = buscador(bibliotecaId);
+
+        Biblioteca biblioteca = buscador.getBiblioteca();
+        ItemAcervo item = (ItemAcervo) buscador.itemPorId(id);
+
+        biblioteca.removeAcervo(item);
+
+        this.flush();
+
+        this.close(buscador);
+    }
+
+//    private ItemAcervo itemPorId(Biblioteca biblioteca, int id)
+//        throws ObjetoNaoEncontradoException, FalhaOperacaoException {
+//
+//        try (IBuscador buscador = buscador(biblioteca)) {
+//
+//            return (ItemAcervo) buscador.itemPorId(id);
+//
+//        } catch (Exception e) {
+//
+//            e.printStackTrace();
+//
+//            throw new FalhaOperacaoException(e.getMessage(), e);
+//        }
+//    }
+//
+//    private ItemAcervo itemPorId(int bibliotecaId, int id)
+//        throws ObjetoNaoEncontradoException, FalhaOperacaoException {
+//
+//        Biblioteca biblioteca = this.bibliotecaPorId(bibliotecaId);
+//
+//        return this.itemPorId(biblioteca, id);
+//    }
+
+    private void flush() throws FalhaOperacaoException {
+
+        try {
+
+            this.getParentDAO().flush();
+
+        } catch (FalhaOperacaoException e) {
+
+            e.printStackTrace();
+
+            throw e;
+
+        }
+    }
+
+    private ItemAcervo getItem(int bibliotecaId, int id)
+        throws ObjetoNaoEncontradoException, FalhaOperacaoException {
+
+        IBuscador buscador = buscador(bibliotecaId);
+
+        try {
+
+            return (ItemAcervo) buscador.itemPorId(id);
+
+        } finally {
+
+            this.close(buscador);
+        }
+    }
+
+    private void postItem(int bibliotecaId, ItemAcervoDTO itemAcervo)
+        throws ObjetoNaoEncontradoException, FalhaOperacaoException {
+
+        ItemAcervo item;
+        IBuscador buscador = buscador(bibliotecaId);
+
+        if (itemAcervo.getId() == 0) {
+
+            Biblioteca biblioteca = this.bibliotecaPorId(bibliotecaId);
+
+            item = this.converter(itemAcervo);
+
+            biblioteca.addAcervo(item);
+
+        } else {
+
+            item = (ItemAcervo) buscador.itemPorId(itemAcervo.getId());
+
+            this.converter(itemAcervo, item);
+        }
+
+        this.flush();
+
+        this.close(buscador);
+
+        CONVERSOR.converter(item, itemAcervo);
+    }
+
+    protected IDAO<Biblioteca> getParentDAO() {
+
+        return this.parentDAO;
     }
 }

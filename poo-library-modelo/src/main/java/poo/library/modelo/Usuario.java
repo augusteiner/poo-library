@@ -28,6 +28,8 @@ import java.util.Collection;
 import poo.library.comum.ETipoUsuario;
 import poo.library.comum.IItemAcervo;
 import poo.library.comum.IUsuario;
+import poo.library.util.FalhaOperacaoException;
+import poo.library.util.ObjetoNaoEncontradoException;
 import poo.library.util.Usuarios;
 
 /**
@@ -183,5 +185,28 @@ public class Usuario implements IUsuario {
     public String toString() {
 
         return Usuarios.toString(this);
+    }
+
+    @Override
+    public void cancelar(int reservaId) throws ObjetoNaoEncontradoException, FalhaOperacaoException {
+
+        Reserva reserva = this.reservaPorId(reservaId);
+
+        reserva.getBiblioteca().cancelar(reserva);
+    }
+
+    private Reserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException {
+
+        for (Reserva r : this.reservas) {
+
+            if (r.getId() == reservaId) {
+
+                return r;
+            }
+        }
+
+        throw new ObjetoNaoEncontradoException(String.format(
+            "Reserva de id #%d não encontrada",
+            reservaId));
     }
 }

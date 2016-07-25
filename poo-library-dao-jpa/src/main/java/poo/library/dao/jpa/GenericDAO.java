@@ -26,6 +26,7 @@ package poo.library.dao.jpa;
 import java.util.Collections;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
@@ -164,6 +165,17 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
         try {
 
             this.em.flush();
+
+        } catch (EntityNotFoundException e) {
+
+            e.printStackTrace();
+
+            Throwable notFound = new ObjetoNaoEncontradoException(
+                e.getMessage(), e);
+
+            throw new FalhaOperacaoException(
+                notFound.getMessage(),
+                notFound);
 
         } catch (PersistenceException e) {
 

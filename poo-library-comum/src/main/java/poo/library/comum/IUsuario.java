@@ -23,7 +23,9 @@
  */
 package poo.library.comum;
 
+import poo.library.util.FalhaOperacaoException;
 import poo.library.util.ISearcheable;
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -41,4 +43,7 @@ public interface IUsuario extends IIdentificavel, IPessoaFisica, ISearcheable {
     ETipoUsuario getTipo();
 
     void quitar();
+
+    void cancelar(int reservaId)
+        throws ObjetoNaoEncontradoException, FalhaOperacaoException;
 }
