@@ -1,0 +1,160 @@
+
+
+DROP SCHEMA IF EXISTS biblioteca CASCADE;
+CREATE SCHEMA biblioteca;
+
+
+SET search_path = biblioteca;
+
+
+DROP TABLE IF EXISTS usuario CASCADE;
+DROP TABLE IF EXISTS biblioteca CASCADE;
+DROP TABLE IF EXISTS item_acervo CASCADE;
+DROP TABLE IF EXISTS locacao CASCADE;
+DROP TABLE IF EXISTS reserva CASCADE;
+
+
+DROP TYPE IF EXISTS E_TIPO_USUARIO CASCADE;
+DROP TYPE IF EXISTS E_CATEGORIA_ACERVO CASCADE;
+DROP TYPE IF EXISTS E_STATUS_REQUISICAO CASCADE;
+
+
+CREATE TYPE E_TIPO_USUARIO AS ENUM('COMUM', 'ADMIN');
+CREATE TYPE E_CATEGORIA_ACERVO AS ENUM('LIVRO', 'TEXTO', 'APOSTILA');
+CREATE TYPE E_STATUS_REQUISICAO AS ENUM('OK', 'CANCELADA');
+
+
+CREATE TABLE usuario (
+
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+
+  nome VARCHAR(100) NOT NULL,
+  cpf CHAR(11) NOT NULL,
+  tipo E_TIPO_USUARIO NOT NULL,
+
+  endereco VARCHAR(100) NULL,
+
+  criadoEm TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  atualizadoEm TIMESTAMP NULL
+
+);
+
+
+CREATE TABLE biblioteca (
+
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+
+  nome VARCHAR(100) NOT NULL,
+  endereco VARCHAR(100) NOT NULL,
+  multaDiaria DECIMAL(12, 4) NOT NULL DEFAULT 0,
+
+  qteDiasValidadeReserva SMALLINT NOT NULL,
+  qteDiasLocacao SMALLINT NOT NULL
+
+);
+
+
+CREATE TABLE item_acervo (
+
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+
+  bibliotecaId BIGINT NOT NULL,
+
+  categoria E_CATEGORIA_ACERVO NOT NULL,
+
+  titulo VARCHAR(100) NULL,
+  autor VARCHAR(100) NOT NULL,
+  edicao INT NULL DEFAULT NULL,
+  isbn VARCHAR(30) NULL DEFAULT NULL,
+
+  qteTotal SMALLINT NOT NULL,
+  qteDisponivel SMALLINT NOT NULL,
+
+  precoLocacao DECIMAL(12, 4) NOT NULL,
+
+  CONSTRAINT fk_item_acervo_biblioteca
+    FOREIGN KEY (bibliotecaId)
+    REFERENCES biblioteca (id)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT
+
+);
+
+
+CREATE TABLE locacao (
+
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+
+  usuarioId BIGINT NOT NULL,
+  itemAcervoId BIGINT NOT NULL,
+  bibliotecaId BIGINT NOT NULL,
+
+  status E_STATUS_REQUISICAO NOT NULL DEFAULT 'OK',
+
+  precoCobrado DECIMAL(12, 4) NOT NULL DEFAULT 0.0,
+
+  realizadaEm TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  devolverAte DATE NOT NULL,
+  devolvidoEm TIMESTAMP NULL DEFAULT NULL,
+
+  CONSTRAINT fk_locacao_biblioteca
+    FOREIGN KEY (bibliotecaId)
+    REFERENCES biblioteca (id)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT,
+
+  CONSTRAINT fk_locacao_usuario
+    FOREIGN KEY (usuarioId)
+    REFERENCES usuario (id)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT,
+
+  CONSTRAINT fk_locacao_item_acervo
+    FOREIGN KEY (itemAcervoId)
+    REFERENCES item_acervo (id)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT
+
+);
+
+
+CREATE TABLE reserva (
+
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+
+  usuarioId BIGINT NOT NULL,
+  itemAcervoId BIGINT NOT NULL,
+  bibliotecaId BIGINT NOT NULL,
+
+  status E_STATUS_REQUISICAO NOT NULL DEFAULT 'OK',
+
+  realizadaEm TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  validaAte TIMESTAMP NOT NULL,
+
+  CONSTRAINT fk_reserva_biblioteca
+    FOREIGN KEY (bibliotecaId)
+    REFERENCES biblioteca (id)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT,
+
+  CONSTRAINT fk_reserva_usuario
+    FOREIGN KEY (usuarioId)
+    REFERENCES usuario (id)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT,
+
+  CONSTRAINT fk_reserva_item_acervo
+    FOREIGN KEY (itemAcervoId)
+    REFERENCES item_acervo (id)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT
+
+);
+
+/*
+DELETE FROM reserva;
+DELETE FROM locacao;
+DELETE FROM usuario;
+DELETE FROM item_acervo;
+DELETE FROM biblioteca;
+*/
