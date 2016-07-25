@@ -24,6 +24,7 @@
 package poo.library.modelo;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import poo.library.comum.ETipoUsuario;
 import poo.library.comum.IItemAcervo;
@@ -107,7 +108,7 @@ public class Usuario implements IUsuario {
     @Override
     public Collection<Locacao> getLocacoes() {
 
-        return this.locacoes;
+        return Collections.unmodifiableCollection(this.locacoes);
     }
 
     @Override
@@ -119,7 +120,7 @@ public class Usuario implements IUsuario {
     @Override
     public Collection<Reserva> getReservas() {
 
-        return this.reservas;
+        return Collections.unmodifiableCollection(this.reservas);
     }
 
     @Override

@@ -87,7 +87,7 @@ public abstract class GenericResource<T> implements IResource<T> {
             return serverError().entity(e).build();
         }
 
-        return ok().build();
+        return noContent().build();
     }
 
     @GET

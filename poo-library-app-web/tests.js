@@ -92,7 +92,7 @@
 
           if (err) throw err;
 
-          res.should.have.status(200);
+          res.should.have.status(204);
 
           done();
         });
@@ -285,7 +285,7 @@
 
           if (err) throw err;
 
-          res.should.have.status(200);
+          res.should.have.status(204);
 
           done();
       });
@@ -299,7 +299,7 @@
 
             if (err) throw err;
 
-            res.should.have.status(200);
+            res.should.have.status(204);
 
             done();
           });

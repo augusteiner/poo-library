@@ -34,6 +34,11 @@ import javax.ws.rs.core.Response.Status;
  */
 public class Responses {
 
+    public static ResponseBuilder unauthorized() {
+
+        return Response.status(Response.Status.UNAUTHORIZED);
+    }
+
     public static ResponseBuilder badRequest() {
 
         return status(Status.BAD_REQUEST);
