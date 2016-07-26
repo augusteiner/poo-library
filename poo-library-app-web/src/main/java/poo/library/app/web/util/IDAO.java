@@ -23,46 +23,10 @@
  */
 package poo.library.app.web.util;
 
-import static poo.library.app.web.util.Conversores.newConversor;
-
-import poo.library.util.IConversor;
-
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class DAOFactory {
+public interface IDAO<D> extends poo.library.dao.comum.IDAO<D> {
 
-    public static <T, M> IDAO<T> newDAO(
-        poo.library.dao.comum.IDAO<M> dao,
-        Class<M> clsModel,
-        Class<T> clsDto) {
-
-        if (dao == null)
-            throw new IllegalArgumentException("Argumento dao deve ser válido");
-
-        if (clsModel == null)
-            throw new IllegalArgumentException("Argumento clsModel deve ser válido");
-
-        if (clsDto == null)
-            throw new IllegalArgumentException("Argumento clsDto deve ser válido");
-
-        return newDAOConversivel(dao, clsModel, clsDto);
-    }
-
-    private static <T, M> IDAO<T> newDAOConversivel(
-        poo.library.dao.comum.IDAO<M> dao,
-        Class<M> clsModel,
-        Class<T> clsDto) {
-
-        IConversor<T> mapper;
-        IConversor<M> inverso;
-
-        mapper = newConversor(clsModel, clsDto);
-        inverso = newConversor(clsDto, clsModel);
-
-        return new DAOConversor<M, T>(
-            dao,
-            mapper,
-            inverso);
-    }
+    <E> poo.library.dao.comum.IDAO<E> unwrap();
 }

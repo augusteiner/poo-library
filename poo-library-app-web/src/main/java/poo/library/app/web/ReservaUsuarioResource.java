@@ -23,7 +23,6 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.Conversores.*;
 import static poo.library.app.web.util.Responses.*;
 
 import java.net.URI;
@@ -46,7 +45,6 @@ import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
 import poo.library.util.FalhaOperacaoException;
-import poo.library.util.IConversor;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**

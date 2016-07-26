@@ -25,7 +25,6 @@ package poo.library.app.web;
 
 import static poo.library.app.web.util.Responses.*;
 import static poo.library.app.web.util.Conversores.*;
-import static poo.library.app.web.util.DAOFactory.*;
 import static poo.library.util.Iterables.*;
 
 import javax.ws.rs.GET;
@@ -36,10 +35,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import poo.library.app.web.dto.BibliotecaDTO;
-import poo.library.app.web.util.IResource;
-import poo.library.dao.comum.DAOFactory;
-import poo.library.dao.comum.IDAO;
+import poo.library.app.web.dto.ReservaDTO;
+import poo.library.app.web.util.IDAOHolder;
 import poo.library.modelo.Biblioteca;
+import poo.library.util.IConversor;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
@@ -47,37 +46,25 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 @Path(BibliotecaResource.PATH)
 public class BibliotecaResource extends GenericResource<BibliotecaDTO>
-    implements IResource<BibliotecaDTO> {
+    implements IDAOHolder<BibliotecaDTO>, IConversor<Biblioteca> {
 
     public static final String PATH = "biblioteca";
 
-    public static final Class<Biblioteca> MODEL_CLASS = Biblioteca.class;
-    public static final Class<BibliotecaDTO> DTO_CLASS = BibliotecaDTO.class;
-
-    private final IDAO<Biblioteca> dao;
-
     public BibliotecaResource() {
 
-        this(DAOFactory.createNew(MODEL_CLASS));
-    }
-
-    public BibliotecaResource(IDAO<Biblioteca> dao) {
-
-        super(PATH, newDAO(dao, MODEL_CLASS, DTO_CLASS));
-
-        this.dao = dao;
+        super(PATH);
     }
 
     @GET
     @Path("/{id}/reserva")
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({ MediaType.APPLICATION_JSON })
     public Response getReservas(@PathParam("id") int id) {
 
         Biblioteca biblioteca;
 
         try {
 
-            biblioteca = this.dao.find(id);
+            biblioteca = converter(this.getDAO().find(id));
 
         } catch (ObjetoNaoEncontradoException e) {
 
@@ -86,8 +73,19 @@ public class BibliotecaResource extends GenericResource<BibliotecaDTO>
 
         Iterable<?> iter = convert(
             biblioteca.getReservas(),
-            newConversor(ReservaUsuarioResource.DTO_CLASS));
+            newConversor(ReservaDTO.class));
 
         return ok().entity(iter).build();
+    }
+
+    @Override
+    public Biblioteca converter(Object input) {
+
+        return null;
+    }
+
+    @Override
+    public void converter(Object input, Biblioteca output) {
+
     }
 }

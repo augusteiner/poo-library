@@ -24,7 +24,6 @@
 package poo.library.app.web.util;
 
 import poo.library.comum.IIdentificavel;
-import poo.library.dao.comum.IDAO;
 import poo.library.util.FalhaOperacaoException;
 import poo.library.util.IConversor;
 import poo.library.util.Iterables;
@@ -35,13 +34,13 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 public class DAOConversor<I, O> implements IConversor<O>, IDAO<O> {
 
-    private final IDAO<I> dao;
+    private final poo.library.dao.comum.IDAO<I> dao;
 
     private final IConversor<O> conversorIn;
     private final IConversor<I> conversorOut;
 
     public DAOConversor(
-        IDAO<I> dao,
+        poo.library.dao.comum.IDAO<I> dao,
         IConversor<O> conversorIn,
         IConversor<I> conversorOut) {
 
@@ -158,5 +157,12 @@ public class DAOConversor<I, O> implements IConversor<O>, IDAO<O> {
     public void close() throws Exception {
 
         this.dao.close();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public poo.library.dao.comum.IDAO<I> unwrap() {
+
+        return this.dao;
     }
 }

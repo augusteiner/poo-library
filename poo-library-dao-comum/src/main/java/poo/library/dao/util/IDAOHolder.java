@@ -28,9 +28,9 @@ import poo.library.dao.comum.IDAO;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IDAOHolder<E> {
+public interface IDAOHolder<T> {
 
-    IDAO<E> getDAO();
+    IDAO<T> getDAO();
 
-    void setDAO(IDAO<E> dao);
+    void setDAO(IDAO<T> dao);
 }

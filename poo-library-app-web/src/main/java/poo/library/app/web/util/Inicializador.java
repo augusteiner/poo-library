@@ -23,41 +23,86 @@
  */
 package poo.library.app.web.util;
 
+import static poo.library.app.web.util.DAOFactory.*;
+
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import poo.library.comum.IIdentificavel;
-import poo.library.dao.util.IDAOHolder;
+import poo.library.dao.comum.DAOFactory;
+import poo.library.dao.comum.IDAO;
 import poo.library.util.IConversor;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Inicializador<T> {
+public class Inicializador<D, T, M> {
+
+    public static class InicializadorHolder<D> {
+
+        private Inicializador<D, ?, ?> init;
+
+        public InicializadorHolder(Inicializador<D, ?, ?> init) {
+
+            this.init = init;
+        }
+
+        public void configure(IDAOHolder<D> usuarioResource) {
+
+            init.configure(usuarioResource);
+        }
+    }
 
     private final Class<T> cls;
 
-    private Class<?> modelCls;
-    private Class<?> dtoCls;
+    private Class<M> modelCls;
+    private Class<D> dtoCls;
 
     private Inicializador(Class<T> cls) {
 
         this.cls = cls;
+
+        this.dtoCls = null;
+        this.modelCls = null;
     }
 
-    public static <T> Inicializador<T> init(Class<T> cls) {
+    @SuppressWarnings("unchecked")
+    public static <D, T extends IDAOHolder<D>> void init(T obj) {
 
-        return new Inicializador<T>(cls);
+        InicializadorHolder<D> holder;
+
+        holder = init((Class<? extends T>) obj.getClass());
+
+        holder.configure(obj);
     }
 
-    public void configure(T resource) {
+    public static <D, T extends IDAOHolder<D>> InicializadorHolder<D> init(Class<T> cls) {
+
+        Inicializador<D, T, ?> init = new Inicializador<D, T, Object>(cls);
+
+        return new InicializadorHolder<D>(init);
+    }
+
+    public void configure(IDAOHolder<D> resource) {
 
         discoverGenericParams();
+
+        if (dtoCls != null && modelCls != null) {
+
+            System.out.println(String.format(
+                "Instanciando novo DAO<%s>",
+                modelCls.getName()));
+
+            IDAO<M> dao = DAOFactory.createNew(modelCls);
+
+            resource.setDAO(newDAO(dao, modelCls, dtoCls));
+        }
     }
 
+    @SuppressWarnings("unchecked")
     private void discoverGenericParams() {
 
-        for (Type gInter : this.cls.getGenericInterfaces()) {
+        for (Type gInter : cls.getGenericInterfaces()) {
 
             if (gInter instanceof ParameterizedType) {
 
@@ -74,12 +119,20 @@ public class Inicializador<T> {
 
                             if (IDAOHolder.class.isAssignableFrom(gInterCls)) {
 
-                                dtoCls = entityCls;
+                                System.out.println(String.format(
+                                    "Encontrada classe de dto: %s",
+                                    entityCls));
+
+                                dtoCls = (Class<D>) entityCls;
                             }
 
                             if (IConversor.class.isAssignableFrom(gInterCls)) {
 
-                                modelCls = entityCls;
+                                System.out.println(String.format(
+                                    "Encontrada classe de modelo: %s",
+                                    entityCls));
+
+                                modelCls = (Class<M>) entityCls;
                             }
                         }
                     }

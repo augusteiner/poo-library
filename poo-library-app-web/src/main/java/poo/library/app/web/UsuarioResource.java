@@ -23,9 +23,8 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.Inicializador.*;
 import static poo.library.app.web.util.Conversores.*;
-import static poo.library.app.web.util.DAOFactory.*;
+import static poo.library.app.web.util.Responses.*;
 import static poo.library.util.Iterables.*;
 
 import javax.ws.rs.GET;
@@ -38,10 +37,7 @@ import javax.ws.rs.core.Response;
 import poo.library.app.web.dto.LocacaoDTO;
 import poo.library.app.web.dto.ReservaDTO;
 import poo.library.app.web.dto.UsuarioDTO;
-import poo.library.app.web.util.Inicializador;
-import poo.library.dao.comum.DAOFactory;
-import poo.library.dao.comum.IDAO;
-import poo.library.dao.util.IDAOHolder;
+import poo.library.app.web.util.IDAOHolder;
 import poo.library.modelo.Usuario;
 import poo.library.util.IConversor;
 import poo.library.util.ObjetoNaoEncontradoException;
@@ -55,47 +51,32 @@ public class UsuarioResource extends GenericResource<UsuarioDTO>
 
     public static final String PATH = "usuario";
 
-    private static final Inicializador<UsuarioResource> INIT = init(UsuarioResource.class);
-
-    public static final Class<Usuario> MODEL_CLASS = Usuario.class;
-    public static final Class<UsuarioDTO> DTO_CLASS = UsuarioDTO.class;
-    private final IDAO<Usuario> dao;
-
     public UsuarioResource() {
 
-        this(DAOFactory.createNew(MODEL_CLASS));
-
-        INIT.configure(this);
+        super(PATH);
     }
-
-    public UsuarioResource(IDAO<Usuario> dao) {
-
-        super(PATH, newDAO(dao, MODEL_CLASS, DTO_CLASS));
-
-        this.dao = dao;
-    }
-
     @GET
     @Path("/{id}/reserva")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response getReservas(@PathParam("id") int usuarioId) {
 
+        Usuario usuario;
         Iterable<ReservaDTO> iter;
 
         try {
 
+            usuario = converter(this.getDAO().find(usuarioId));
+
             iter = convert(
-                this.dao.find(usuarioId).getReservas(),
+                usuario.getReservas(),
                 newConversor(ReservaDTO.class));
 
         } catch (ObjetoNaoEncontradoException e) {
 
-            return Response.status(Response.Status.NOT_FOUND)
-                .entity(e)
-                .build();
+            return notFound().entity(e).build();
         }
 
-        return Response.ok().entity(iter).build();
+        return ok().entity(iter).build();
     }
 
     @GET
@@ -103,33 +84,39 @@ public class UsuarioResource extends GenericResource<UsuarioDTO>
     @Produces({ MediaType.APPLICATION_JSON })
     public Response getLocacoes(@PathParam("id") int usuarioId) {
 
+        Usuario usuario;
         Iterable<LocacaoDTO> iter;
 
         try {
 
+            usuario = converter(this.getDAO().find(usuarioId));
+
             iter = convert(
-                this.dao.find(usuarioId).getLocacoes(),
+                usuario.getLocacoes(),
                 newConversor(LocacaoDTO.class));
 
         } catch (ObjetoNaoEncontradoException e) {
 
-            return Response.status(Response.Status.NOT_FOUND)
-                .entity(e)
-                .build();
+            return notFound().entity(e).build();
         }
 
         return Response.ok().entity(iter).build();
     }
 
+
     @Override
     public Usuario converter(Object input) {
 
-        return null;
+        Usuario usuario = new Usuario();
+
+        converter(input, usuario);
+
+        return usuario;
     }
 
     @Override
-    public void converter(Object input, Usuario output) {
+    public void converter(Object input, Usuario usuario) {
 
-        //
+        newConversor(Usuario.class).converter(input, usuario);
     }
 }

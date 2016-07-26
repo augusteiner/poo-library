@@ -24,8 +24,6 @@
 package poo.library.app;
 
 import poo.library.comum.IIdentificavel;
-import poo.library.dao.comum.DAOFactory;
-import poo.library.dao.comum.IDAO;
 import poo.library.dao.util.IDAOHolder;
 import poo.library.modelo.Usuario;
 import poo.library.util.ConfiguracaoException;
@@ -39,53 +37,22 @@ import java.lang.reflect.Type;
  */
 public class DAOHolderTests {
 
-    private static class UsuarioDTO implements IIdentificavel {
+    private static abstract class UsuarioDTO implements IIdentificavel { }
 
-        @Override
-        public int getId() {
+    private static abstract class UsuarioResource
+        implements IDAOHolder<UsuarioDTO>, IConversor<Usuario> { }
 
-            return 0;
-        }
-    }
-
-    private static class UsuarioResource implements IDAOHolder<UsuarioDTO>, IConversor<Usuario> {
-
-        @Override
-        public Usuario converter(Object input) {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
-        @Override
-        public void converter(Object input, Usuario output) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public IDAO<UsuarioDTO> getDAO() {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
-        @Override
-        public void setDAO(IDAO<UsuarioDTO> dao) {
-            // TODO Auto-generated method stub
-
-        }
-
-    }
-
-    /**
-     * @param args
-     * @throws ConfiguracaoException
-     */
     public static void main(String[] args) throws ConfiguracaoException {
+
+        discoverClasses(UsuarioResource.class);
+    }
+
+    private static void discoverClasses(Class<UsuarioResource> cls) {
 
         Class<?> dtoCls = null;
         Class<?> modelCls = null;
 
-        for (Type gInter : UsuarioResource.class.getGenericInterfaces()) {
+        for (Type gInter : cls.getGenericInterfaces()) {
 
             if (gInter instanceof ParameterizedType) {
 
@@ -103,19 +70,24 @@ public class DAOHolderTests {
                             if (IDAOHolder.class.isAssignableFrom(gInterCls)) {
 
                                 dtoCls = entityCls;
+
+                                System.out.println(String.format(
+                                    "Encontrada classe de dto: %s",
+                                    dtoCls));
                             }
 
                             if (IConversor.class.isAssignableFrom(gInterCls)) {
 
                                 modelCls = entityCls;
+
+                                System.out.println(String.format(
+                                    "Encontrada classe de modelo: %s",
+                                    modelCls));
                             }
                         }
                     }
                 }
             }
         }
-
-        System.out.println("DTO Class: " + dtoCls);
-        System.out.println("Model Class: " + modelCls);
     }
 }
