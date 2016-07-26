@@ -23,31 +23,32 @@
  */
 package poo.library.app;
 
-import poo.library.comum.IIdentificavel;
-import poo.library.dao.util.IDAOHolder;
-import poo.library.modelo.Usuario;
-import poo.library.util.ConfiguracaoException;
-import poo.library.util.IConversor;
-
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+
+import poo.library.comum.IIdentificavel;
+import poo.library.dao.util.IDAOHolder;
+import poo.library.util.ConfiguracaoException;
+import poo.library.util.IConversor;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 public class DAOHolderTests {
 
-    private static abstract class UsuarioDTO implements IIdentificavel { }
+    private static abstract class TestModel implements IIdentificavel { }
 
-    private static abstract class UsuarioResource
-        implements IDAOHolder<UsuarioDTO>, IConversor<Usuario> { }
+    private static abstract class TestDTO implements IIdentificavel { }
+
+    private static abstract class TestResource
+        implements IDAOHolder<TestDTO>, IConversor<TestModel> { }
 
     public static void main(String[] args) throws ConfiguracaoException {
 
-        discoverClasses(UsuarioResource.class);
+        discoverClasses(TestResource.class);
     }
 
-    private static void discoverClasses(Class<UsuarioResource> cls) {
+    private static void discoverClasses(Class<TestResource> cls) {
 
         Class<?> dtoCls = null;
         Class<?> modelCls = null;
