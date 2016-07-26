@@ -21,61 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.app.web.util;
-
-import java.net.URI;
-
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
-import javax.ws.rs.core.Response.Status;
+package poo.library.util;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Responses {
+public class Conversores {
 
-    public static ResponseBuilder unauthorized() {
+    private static final Conversores INSTANCE = new Conversores();
 
-        return Response.status(Response.Status.UNAUTHORIZED);
+    private IConversorProvider provedor = new NullConversorProvider();
+
+    private Conversores() { }
+
+    public static <T> IConversor<T> novoConversor(Class<T> cls) {
+
+        return INSTANCE.provedor.novoConversor(cls);
     }
 
-    public static ResponseBuilder badRequest() {
+    public static void registrarProvedor(IConversorProvider provedor) {
 
-        return status(Status.BAD_REQUEST);
-    }
-
-    public static ResponseBuilder created(URI createdAt) {
-
-        return Response.created(createdAt);
-    }
-
-    public static ResponseBuilder noContent() {
-
-        return status(Status.NO_CONTENT);
-    }
-
-    public static ResponseBuilder notFound() {
-
-        return status(Status.NOT_FOUND);
-    }
-
-    public static ResponseBuilder ok() {
-
-        return Response.ok();
-    }
-
-    public static ResponseBuilder ok(Object entity) {
-
-        return Response.ok(entity);
-    }
-
-    public static ResponseBuilder serverError() {
-
-        return Response.serverError();
-    }
-
-    public static ResponseBuilder status(Status status) {
-
-        return Response.status(status);
+        INSTANCE.provedor = provedor;
     }
 }

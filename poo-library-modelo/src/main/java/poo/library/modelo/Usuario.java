@@ -196,7 +196,7 @@ public class Usuario implements IUsuario {
         reserva.getBiblioteca().cancelar(reserva);
     }
 
-    private Reserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException {
+    public Reserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException {
 
         for (Reserva r : this.getReservas()) {
 

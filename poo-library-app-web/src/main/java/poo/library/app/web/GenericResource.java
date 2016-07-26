@@ -41,6 +41,7 @@ import javax.ws.rs.core.Response;
 import poo.library.app.web.util.IResource;
 import poo.library.comum.IIdentificavel;
 import poo.library.dao.comum.IDAO;
+import poo.library.dao.util.IDAOHolder;
 import poo.library.util.FalhaOperacaoException;
 import poo.library.util.ObjetoNaoEncontradoException;
 
@@ -50,7 +51,7 @@ import poo.library.util.ObjetoNaoEncontradoException;
 public abstract class GenericResource<T> implements IResource<T> {
 
     private final String path;
-    private final IDAO<T> dao;
+    private IDAO<T> dao;
 
     protected GenericResource(String path, IDAO<T> dao) {
 
@@ -177,5 +178,15 @@ public abstract class GenericResource<T> implements IResource<T> {
         }
 
         return noContent().build();
+    }
+
+    public IDAO<T> getDAO() {
+
+        return this.dao;
+    }
+
+    public void setDAO(IDAO<T> dao) {
+
+        this.dao = dao;
     }
 }

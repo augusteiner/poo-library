@@ -23,6 +23,7 @@
  */
 package poo.library.app.web;
 
+import static poo.library.app.web.util.Inicializador.*;
 import static poo.library.app.web.util.Conversores.*;
 import static poo.library.app.web.util.DAOFactory.*;
 import static poo.library.util.Iterables.*;
@@ -37,18 +38,24 @@ import javax.ws.rs.core.Response;
 import poo.library.app.web.dto.LocacaoDTO;
 import poo.library.app.web.dto.ReservaDTO;
 import poo.library.app.web.dto.UsuarioDTO;
+import poo.library.app.web.util.Inicializador;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
+import poo.library.dao.util.IDAOHolder;
 import poo.library.modelo.Usuario;
+import poo.library.util.IConversor;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Path(UsuarioResource.PATH)
-public class UsuarioResource extends GenericResource<UsuarioDTO> {
+public class UsuarioResource extends GenericResource<UsuarioDTO>
+    implements IDAOHolder<UsuarioDTO>, IConversor<Usuario> {
 
     public static final String PATH = "usuario";
+
+    private static final Inicializador<UsuarioResource> INIT = init(UsuarioResource.class);
 
     public static final Class<Usuario> MODEL_CLASS = Usuario.class;
     public static final Class<UsuarioDTO> DTO_CLASS = UsuarioDTO.class;
@@ -57,6 +64,8 @@ public class UsuarioResource extends GenericResource<UsuarioDTO> {
     public UsuarioResource() {
 
         this(DAOFactory.createNew(MODEL_CLASS));
+
+        INIT.configure(this);
     }
 
     public UsuarioResource(IDAO<Usuario> dao) {
@@ -110,5 +119,17 @@ public class UsuarioResource extends GenericResource<UsuarioDTO> {
         }
 
         return Response.ok().entity(iter).build();
+    }
+
+    @Override
+    public Usuario converter(Object input) {
+
+        return null;
+    }
+
+    @Override
+    public void converter(Object input, Usuario output) {
+
+        //
     }
 }

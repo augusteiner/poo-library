@@ -23,7 +23,10 @@
  */
 package poo.library.app.web;
 
+import static poo.library.app.web.util.Conversores.*;
 import static poo.library.app.web.util.Responses.*;
+
+import java.net.URI;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -38,10 +41,12 @@ import javax.ws.rs.core.Response;
 import poo.library.app.web.dto.ReservaDTO;
 import poo.library.app.web.util.ISubResource;
 import poo.library.comum.EStatusRequisicao;
+import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
 import poo.library.util.FalhaOperacaoException;
+import poo.library.util.IConversor;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
@@ -55,7 +60,12 @@ public class ReservaUsuarioResource implements ISubResource<ReservaDTO> {
     public static final Class<Reserva> MODEL_CLASS = Reserva.class;
     public static final Class<ReservaDTO> DTO_CLASS = ReservaDTO.class;
 
-    private IDAO<Usuario> parentDAO;
+    private final IDAO<Usuario> parentDAO;
+
+    public ReservaUsuarioResource() {
+
+        this(DAOFactory.createNew(Usuario.class));
+    }
 
     public ReservaUsuarioResource(IDAO<Usuario> parentDAO) {
 
@@ -78,7 +88,20 @@ public class ReservaUsuarioResource implements ISubResource<ReservaDTO> {
     @Override
     public Response get(@PathParam("usuarioId") int usuarioId) {
 
-        return null;
+        Iterable<Reserva> iter;
+
+        try {
+
+            iter = this.reservasPorUsuario(usuarioId);
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            e.printStackTrace();
+
+            return notFound().entity(e).build();
+        }
+
+        return ok().entity(iter).build();
     }
 
     @GET
@@ -89,7 +112,30 @@ public class ReservaUsuarioResource implements ISubResource<ReservaDTO> {
         @PathParam("usuarioId") int usuarioId,
         @PathParam("id") int id) {
 
+        Reserva reserva;
+
+        try {
+
+            reserva = this.usuarioPorId(usuarioId).reservaPorId(id);
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            e.printStackTrace();
+
+            return notFound().entity(e).build();
+        }
+
+        return ok().entity(this.converter(reserva)).build();
+    }
+
+    private Object converter(Reserva reserva) {
+
         return null;
+    }
+
+    protected IDAO<Usuario> getParentDAO() {
+
+        return parentDAO;
     }
 
     @POST
@@ -98,14 +144,60 @@ public class ReservaUsuarioResource implements ISubResource<ReservaDTO> {
     public Response post(
         @PathParam("usuarioId") int usuarioId,
 
-        ReservaDTO obj) {
+        ReservaDTO dto) {
 
-        if (obj.getId() > 0) {
+        // XXX Não será permitida atualização
+        if (dto.getId() > 0) {
 
             return unauthorized().build();
         }
 
-        return null;
+        try {
+
+            this.postReserva(usuarioId, dto);
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            e.printStackTrace();
+
+            return notFound().entity(e).build();
+
+        } catch (FalhaOperacaoException e) {
+
+            e.printStackTrace();
+
+            return serverError().entity(e).build();
+        }
+
+        URI createdUri = URI.create(String.format(
+            "usuario/%d/reserva/%d",
+
+            dto.getUsuarioId(),
+            dto.getId()));
+
+        return created(createdUri).build();
+    }
+
+    private void postReserva(int usuarioId, ReservaDTO dto)
+        throws ObjetoNaoEncontradoException, FalhaOperacaoException {
+
+        Reserva reserva = this.usuarioPorId(usuarioId).reservaPorId(dto.getId());
+
+        this.converter(dto, reserva);
+
+        this.getParentDAO().flush();
+
+        this.converter(reserva, dto);
+    }
+
+    private void converter(ReservaDTO dto, Reserva reserva) {
+
+        //
+    }
+
+    private void converter(Reserva reserva, ReservaDTO dto) {
+
+        //
     }
 
     @PUT
@@ -150,8 +242,13 @@ public class ReservaUsuarioResource implements ISubResource<ReservaDTO> {
         }
     }
 
-    protected IDAO<Usuario> getParentDAO() {
+    private Iterable<Reserva> reservasPorUsuario(int usuarioId) throws ObjetoNaoEncontradoException {
 
-        return parentDAO;
+        return this.usuarioPorId(usuarioId).getReservas();
+    }
+
+    private Usuario usuarioPorId(int usuarioId) throws ObjetoNaoEncontradoException {
+
+        return this.getParentDAO().find(usuarioId);
     }
 }
