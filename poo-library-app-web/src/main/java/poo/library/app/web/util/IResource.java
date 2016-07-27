@@ -23,7 +23,7 @@
  */
 package poo.library.app.web.util;
 
-import javax.ws.rs.core.Response;
+import java.util.Collection;
 
 import poo.library.util.ObjetoNaoEncontradoException;
 
@@ -32,15 +32,16 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 public interface IResource<T> {
 
-    Response get();
+    void delete(int id)
+        throws ObjetoNaoEncontradoException;
 
-    Response get(int id);
+    Collection<?> get();
 
-    Response put(int id, T obj);
+    Object get(int id)
+        throws ObjetoNaoEncontradoException;
 
-    Response post(T obj);
+    void post(T obj);
 
-    Response delete(int id);
-
-    T findById(int id) throws ObjetoNaoEncontradoException;
+    void put(int id, T obj)
+        throws ObjetoNaoEncontradoException;
 }

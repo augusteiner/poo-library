@@ -117,7 +117,7 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
 
         IBuscador buscador = buscador(bibliotecaId);
 
-        return CONVERSOR_DTO.converter(buscador.itemPorId(id));
+        return this.getConversorDTO().converter(buscador.itemPorId(id));
     }
 
     @Override
@@ -150,7 +150,7 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
 
         this.flush();
 
-        CONVERSOR_DTO.converter(item, itemAcervo);
+        this.getConversorDTO().converter(item, itemAcervo);
     }
 
     @Override

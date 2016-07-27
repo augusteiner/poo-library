@@ -51,13 +51,19 @@ import poo.library.util.ObjetoNaoEncontradoException;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public abstract class GenericSubResource<T extends IIdentificavel> {
+public abstract class GenericSubResource<T extends IIdentificavel>
+    extends NullSubResource<T>
+    implements ISubResource<T> {
 
     private ISubResource<T> behavior;
 
     public GenericSubResource() { }
 
-    public abstract URI createdAt(int parentId, int id);
+    @Override
+    public URI createdAt(int parentId, int id) {
+
+        return super.createdAt(parentId, id);
+    }
 
     @DELETE
     @Path("/{id}")

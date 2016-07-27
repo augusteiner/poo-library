@@ -32,18 +32,18 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 public interface ISubResource<T> {
 
+    void delete(int parentId, int id)
+        throws ObjetoNaoEncontradoException;
+
     Collection<?> get(int parentId)
         throws ObjetoNaoEncontradoException;
 
     Object get(int parentId, int id)
         throws ObjetoNaoEncontradoException;
 
-    void put(int parentId, int id, T obj)
-        throws ObjetoNaoEncontradoException;
-
     void post(int parentId, T obj)
         throws ObjetoNaoEncontradoException;
 
-    void delete(int parentId, int id)
+    void put(int parentId, int id, T obj)
         throws ObjetoNaoEncontradoException;
 }

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2016 José Nascimento & Juscelino Messias
+ * Copyright (c) 2016 José Augusto & Juscelino Messias
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,30 +23,55 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.DAOFactory.*;
+import static poo.library.app.web.util.Conversores.*;
 
-import javax.ws.rs.Path;
+import java.net.URI;
 
-import poo.library.app.web.dto.UsuarioDTO;
+import poo.library.app.web.dto.ReservaDTO;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Usuario;
+import poo.library.modelo.Biblioteca;
+import poo.library.util.IConversor;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Path(UsuarioResource.PATH)
-public class UsuarioResource extends GenericResource<UsuarioDTO> {
+public class ReservaResource extends GenericSubResource<ReservaDTO> {
 
-    public static final String PATH = "usuario";
+    public static final String PATH = "biblioteca/{bibliotecaId}/reserva";
+    public static final IConversor<ReservaDTO> CONVERSOR_DTO = conversor(ReservaDTO.class);
 
-    public UsuarioResource() {
+    private IDAO<Biblioteca> parentDAO;
 
-        this(DAOFactory.novoDAO(Usuario.class));
+    public ReservaResource() {
+
+        this(DAOFactory.novoDAO(Biblioteca.class));
     }
 
-    public UsuarioResource(IDAO<Usuario> dao) {
+    public ReservaResource(IDAO<Biblioteca> dao) {
 
-        super(PATH, novoDAO(dao, UsuarioDTO.class));
+        this.parentDAO = dao;
+    }
+
+    @Override
+    public URI createdAt(int bibliotecaId, int id) {
+
+        return URI.create(String.format(
+            "biblioteca/%d/reserva/%d",
+
+            bibliotecaId,
+            id));
+    }
+
+    @Override
+    protected IConversor<ReservaDTO> getConversorDTO() {
+
+        return CONVERSOR_DTO;
+    }
+
+    @Override
+    protected IDAO<?> getParentDAO() {
+
+        return this.parentDAO;
     }
 }

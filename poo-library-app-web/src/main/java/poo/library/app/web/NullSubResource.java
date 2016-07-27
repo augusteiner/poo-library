@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2016 José Nascimento & Juscelino Messias
+ * Copyright (c) 2016 José Augusto & Juscelino Messias
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,30 +23,54 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.DAOFactory.*;
+import java.net.URI;
+import java.util.Collection;
 
-import javax.ws.rs.Path;
+import javax.ws.rs.NotFoundException;
 
-import poo.library.app.web.dto.UsuarioDTO;
-import poo.library.dao.comum.DAOFactory;
-import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Usuario;
+import poo.library.app.web.util.ISubResource;
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Path(UsuarioResource.PATH)
-public class UsuarioResource extends GenericResource<UsuarioDTO> {
+public class NullSubResource<T> implements ISubResource<T> {
 
-    public static final String PATH = "usuario";
+    @Override
+    public void delete(int parentId, int id)
+        throws ObjetoNaoEncontradoException {
 
-    public UsuarioResource() {
-
-        this(DAOFactory.novoDAO(Usuario.class));
+        throw new NotFoundException();
     }
 
-    public UsuarioResource(IDAO<Usuario> dao) {
+    @Override
+    public Collection<?> get(int parentId) throws ObjetoNaoEncontradoException {
 
-        super(PATH, novoDAO(dao, UsuarioDTO.class));
+        throw new NotFoundException();
+    }
+
+    @Override
+    public Object get(int parentId, int id)
+        throws ObjetoNaoEncontradoException {
+
+        throw new NotFoundException();
+    }
+
+    @Override
+    public void post(int parentId, T obj) throws ObjetoNaoEncontradoException {
+
+        throw new NotFoundException();
+    }
+
+    @Override
+    public void put(int parentId, int id, T obj)
+        throws ObjetoNaoEncontradoException {
+
+        throw new NotFoundException();
+    }
+
+    public URI createdAt(int parentId, int id) {
+
+        throw new UnsupportedOperationException();
     }
 }

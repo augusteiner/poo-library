@@ -23,80 +23,30 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.Responses.*;
-import static poo.library.app.web.util.Conversores.*;
-import static poo.library.util.Iterables.*;
+import static poo.library.app.web.util.DAOFactory.*;
 
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import poo.library.app.web.dto.BibliotecaDTO;
-import poo.library.app.web.dto.ReservaDTO;
-import poo.library.app.web.util.Conversores;
-import poo.library.app.web.util.DAOFactory;
+import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Biblioteca;
-import poo.library.util.IConversor;
-import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Path(BibliotecaResource.PATH)
-public class BibliotecaResource extends GenericResource<BibliotecaDTO>
-    implements IConversor<Biblioteca> {
+public class BibliotecaResource extends GenericResource<BibliotecaDTO> {
 
     public static final String PATH = "biblioteca";
-    private IDAO<Biblioteca> dao;
 
     public BibliotecaResource() {
 
-        this(poo.library.dao.comum.DAOFactory.novoDAO(Biblioteca.class));
+        this(DAOFactory.novoDAO(Biblioteca.class));
     }
 
     public BibliotecaResource(IDAO<Biblioteca> dao) {
 
-        super(PATH, DAOFactory.novoDAO(dao, BibliotecaDTO.class));
-
-        this.dao = dao;
-    }
-
-    @GET
-    @Path("/{id}/reserva")
-    @Produces({ MediaType.APPLICATION_JSON })
-    public Response getReservas(@PathParam("id") int id) {
-
-        Biblioteca biblioteca;
-
-        try {
-
-            biblioteca = converter(this.dao.find(id));
-
-        } catch (ObjetoNaoEncontradoException e) {
-
-            return notFound().entity(e).build();
-        }
-
-        Iterable<?> iter = convert(
-            biblioteca.getReservas(),
-            conversor(ReservaDTO.class));
-
-        return ok().entity(iter).build();
-    }
-
-    @Override
-    public Biblioteca converter(Object input) {
-
-        return Conversores.converter(input, Biblioteca.class);
-    }
-
-    @Override
-    public void converter(Object input, Biblioteca output) {
-
-        Conversores.converter(input, output);
+        super(PATH, novoDAO(dao, BibliotecaDTO.class));
     }
 }

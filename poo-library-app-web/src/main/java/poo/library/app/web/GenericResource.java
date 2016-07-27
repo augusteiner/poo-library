@@ -38,8 +38,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import poo.library.app.web.util.IResource;
-
 import poo.library.comum.IIdentificavel;
 import poo.library.dao.comum.IDAO;
 import poo.library.util.FalhaOperacaoException;
@@ -48,7 +46,7 @@ import poo.library.util.ObjetoNaoEncontradoException;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public abstract class GenericResource<T> implements IResource<T> {
+public abstract class GenericResource<T extends IIdentificavel> {
 
     private final String path;
     private final IDAO<T> dao;
@@ -72,10 +70,26 @@ public abstract class GenericResource<T> implements IResource<T> {
         this.dao = dao;
     }
 
+    protected URI createdAt(int id)
+    {
+        return URI.create(String.format(
+            "%s/%d",
+            this.path,
+            id));
+    }
+
+    public T find(int id) throws ObjetoNaoEncontradoException {
+
+        System.out.println(String.format(
+            "Buscando resource por id #%d",
+            id));
+
+        return this.dao.find(id);
+    }
+
     @DELETE
     @Path("/{id}")
-    @Override
-    public Response delete(@PathParam("id") int id) {
+    public Response httpDelete(@PathParam("id") int id) {
 
         try {
 
@@ -95,8 +109,7 @@ public abstract class GenericResource<T> implements IResource<T> {
 
     @GET
     @Produces({ MediaType.APPLICATION_JSON })
-    @Override
-    public Response get() {
+    public Response httpGet() {
 
         Iterable<?> iter = this.dao.all();
 
@@ -106,14 +119,13 @@ public abstract class GenericResource<T> implements IResource<T> {
     @GET
     @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    @Override
-    public Response get(@PathParam("id") int id) {
+    public Response httpGet(@PathParam("id") int id) {
 
         T obj;
 
         try {
 
-            obj = this.findById(id);
+            obj = this.find(id);
 
         } catch (ObjetoNaoEncontradoException e) {
 
@@ -129,19 +141,8 @@ public abstract class GenericResource<T> implements IResource<T> {
         return ok(obj).build();
     }
 
-    @Override
-    public T findById(int id) throws ObjetoNaoEncontradoException {
-
-        System.out.println(String.format(
-            "Buscando resource por id #%d",
-            id));
-
-        return this.dao.find(id);
-    }
-
     @POST
-    @Override
-    public Response post(T obj) {
+    public Response httpPost(T obj) {
 
         try {
 
@@ -154,24 +155,15 @@ public abstract class GenericResource<T> implements IResource<T> {
             return serverError().entity(e).build();
         }
 
-        URI createdUri = this.createdUri(obj);
+        URI createdUri = this.createdAt(obj.getId());
 
         return created(createdUri).build();
-    }
-
-    protected URI createdUri(T obj)
-    {
-        return URI.create(String.format(
-            "%s/%d",
-            this.path,
-            ((IIdentificavel) obj).getId()));
     }
 
     @PUT
     @Path("/{id}")
     @Consumes({ MediaType.APPLICATION_JSON })
-    @Override
-    public Response put(
+    public Response httpPut(
         @PathParam("id") int id,
         T obj) {
 

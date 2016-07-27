@@ -23,90 +23,64 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.Responses.*;
+import static poo.library.app.web.util.Conversores.*;
 
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
+import java.util.Collection;
+
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import poo.library.app.web.dto.LocacaoDTO;
+import poo.library.app.web.util.ISubResource;
+import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Locacao;
 import poo.library.modelo.Usuario;
+import poo.library.util.IConversor;
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Path(LocacaoUsuarioResource.PATH)
-public class LocacaoUsuarioResource {
+public class LocacaoUsuarioResource extends GenericSubResource<LocacaoDTO>
+    implements ISubResource<LocacaoDTO> {
 
     public static final String PATH = "usuario/{usuarioId}/locacao";
+    public static final IConversor<LocacaoDTO> CONVERSOR_DTO = conversor(LocacaoDTO.class);
 
-    public static final Class<Locacao> MODEL_CLASS = Locacao.class;
-    public static final Class<LocacaoDTO> DTO_CLASS = LocacaoDTO.class;
+    private final IDAO<Usuario> parentDAO;
 
-    private IDAO<Usuario> parentDAO;
+    public LocacaoUsuarioResource() {
+
+        this(DAOFactory.novoDAO(Usuario.class));
+    }
 
     public LocacaoUsuarioResource(IDAO<Usuario> parentDAO) {
 
         this.parentDAO = parentDAO;
     }
 
-    @DELETE
-    @Path("/{id}")
-    @Produces({ MediaType.APPLICATION_JSON })
-    public Response delete(
-        @PathParam("usuarioId") int usuarioId,
-        @PathParam("id") int locacaoId) {
+    @Override
+    public Collection<Locacao> get(int usuarioId)
+        throws ObjetoNaoEncontradoException {
 
-        return unauthorized().build();
+        return getParentDAO().find(usuarioId).getLocacoes();
     }
 
-    @GET
-    @Produces({ MediaType.APPLICATION_JSON })
-    public Response get(@PathParam("usuarioId") int usuarioId) {
+    @Override
+    public Locacao get(int usuarioId, int id)
+        throws ObjetoNaoEncontradoException {
 
-        return null;
+        return getParentDAO().find(usuarioId).locacaoPorId(id);
     }
 
-    @GET
-    @Path("/{id}")
-    @Produces({ MediaType.APPLICATION_JSON })
-    public Response get(
-        @PathParam("usuarioId") int usuarioId,
-        @PathParam("id") int locacaoId) {
+    @Override
+    protected IConversor<LocacaoDTO> getConversorDTO() {
 
-        return null;
+        return CONVERSOR_DTO;
     }
 
-    @POST
-    @Produces({ MediaType.APPLICATION_JSON })
-    public Response post(
-        @PathParam("usuarioId") int usuarioId,
-
-        LocacaoDTO locacao) {
-
-        return unauthorized().build();
-    }
-
-    @PUT
-    @Path("/{id}")
-    @Produces({ MediaType.APPLICATION_JSON })
-    public Response put(
-        @PathParam("usuarioId") int usuarioId,
-        @PathParam("id") int id,
-
-        LocacaoDTO locacao) {
-
-        return unauthorized().build();
-    }
-
+    @Override
     protected IDAO<Usuario> getParentDAO() {
 
         return parentDAO;
