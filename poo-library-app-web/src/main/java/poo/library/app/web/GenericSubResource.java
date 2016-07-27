@@ -83,7 +83,9 @@ public abstract class GenericSubResource<T extends IIdentificavel>
 
             e.printStackTrace();
 
-            throw new NotFoundException(e.getMessage(), e);
+            throw new NotFoundException(
+                notFound().entity(e).build(),
+                e);
 
         } finally {
 
@@ -114,7 +116,11 @@ public abstract class GenericSubResource<T extends IIdentificavel>
 
         } catch (ObjetoNaoEncontradoException e) {
 
-            throw new NotFoundException(e.getMessage(), e);
+            e.printStackTrace();
+
+            throw new NotFoundException(
+                notFound().entity(e).build(),
+                e);
 
         } finally {
 
@@ -137,7 +143,11 @@ public abstract class GenericSubResource<T extends IIdentificavel>
 
         } catch (ObjetoNaoEncontradoException e) {
 
-            throw new NotFoundException(e.getMessage(), e);
+            e.printStackTrace();
+
+            throw new NotFoundException(
+                notFound().entity(e).build(),
+                e);
 
         } finally {
 
@@ -160,7 +170,11 @@ public abstract class GenericSubResource<T extends IIdentificavel>
 
         } catch (ObjetoNaoEncontradoException e) {
 
-            throw new NotFoundException(e.getMessage(), e);
+            e.printStackTrace();
+
+            throw new NotFoundException(
+                notFound().entity(e).build(),
+                e);
 
         } finally {
 
@@ -191,7 +205,9 @@ public abstract class GenericSubResource<T extends IIdentificavel>
 
             e.printStackTrace();
 
-            throw new NotFoundException(e.getMessage(), e);
+            throw new NotFoundException(
+                notFound().entity(e).build(),
+                e);
 
         } finally {
 

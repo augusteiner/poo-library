@@ -92,7 +92,9 @@ class MemoryDAO<T> implements IDAO<T> {
         }
 
         throw new ObjetoNaoEncontradoException(String.format(
-            "Objeto de id #%d não encontrado",
+            "%s #%d não encontrado",
+
+            this.getEntityClass().getSimpleName(),
             id));
     }
 
@@ -101,7 +103,11 @@ class MemoryDAO<T> implements IDAO<T> {
 
         if (this.storage.isEmpty()) {
 
-            throw new ObjetoNaoEncontradoException("");
+            throw new ObjetoNaoEncontradoException(String.format(
+                "Nenhum(a) '%s' encontrado(a) - (classe: %s)",
+
+                this.getEntityClass().getSimpleName(),
+                this.getEntityClass().getName()));
 
         } else {
 

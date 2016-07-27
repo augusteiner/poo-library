@@ -119,7 +119,9 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
         if (obj == null) {
 
             throw new ObjetoNaoEncontradoException(String.format(
-                "Objeto de id #%d não encontrado",
+                "%s #%d não encontrado",
+
+                this.getEntityClass().getSimpleName(),
                 id));
 
         } else {
@@ -149,8 +151,8 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
                 String.format(
                     "Nenhum(a) '%s' encontrado(a) - (classe: %s)",
 
-                    this.cls.getSimpleName(),
-                    this.cls.getName()),
+                    this.getEntityClass().getSimpleName(),
+                    this.getEntityClass().getName()),
                 e);
         }
     }

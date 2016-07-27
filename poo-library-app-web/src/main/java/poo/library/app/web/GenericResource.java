@@ -131,7 +131,7 @@ public abstract class GenericResource<T extends IIdentificavel> {
 
             e.printStackTrace();
 
-            return notFound().build();
+            return notFound().entity(e).build();
         }
 
         System.out.println(String.format(

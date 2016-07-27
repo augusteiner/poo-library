@@ -25,9 +25,14 @@
     app.controller(CTRLR_PREFIX, function($scope, $routeParams, $location, $resource) {
 
       var self = this;
+      var errorHandler = function(response) {
+
+        alert(['OPS!', response.data.message].join('\n\n'));
+      };
 
       var $params = {};
       var $paramsWithId = { id: '@id' };
+      var $inter = { responseError: errorHandler };
 
       for (var key in $routeParams) {
         if (key == 'id')
@@ -39,10 +44,10 @@
       $paramsWithId = angular.extend({}, $paramsWithId, $params);
 
       var $rest = $resource(PATH, null, {
-        getById: { method: 'GET', params: $paramsWithId },
-        update: { method: 'PUT', params: $paramsWithId },
-        save: { method: 'POST', params: $params },
-        remove: { method: 'DELETE', params: $paramsWithId }
+        getById: { method: 'GET', params: $paramsWithId, interceptor: $inter },
+        update: { method: 'PUT', params: $paramsWithId, interceptor: $inter },
+        save: { method: 'POST', params: $params, interceptor: $inter },
+        remove: { method: 'DELETE', params: $paramsWithId, interceptor: $inter }
       });
 
       console.log($rest);
