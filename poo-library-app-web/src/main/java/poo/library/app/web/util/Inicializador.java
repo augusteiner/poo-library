@@ -72,19 +72,26 @@ public class Inicializador<D, T, M> {
         this.modelCls = null;
     }
 
-    @SuppressWarnings("unchecked")
-    public static <D, T extends IDAOHolder<D>> void init(T obj) {
+    public static <D> void init(IDAOHolder<D> obj) {
 
         InicializadorHolder<D> holder;
 
-        holder = init((Class<? extends T>) obj.getClass());
+        holder = init(obj.getClass());
 
         holder.configure(obj);
     }
 
-    public static <D, T extends IDAOHolder<D>> InicializadorHolder<D> init(Class<T> cls) {
+    public static <D, T> InicializadorHolder<D> init(Class<T> cls) {
 
-        Inicializador<D, T, ?> init = new Inicializador<D, T, Object>(cls);
+        if (!IDAOHolder.class.isAssignableFrom(cls)) {
+
+            throw new IllegalArgumentException(String.format(
+                "Argumento cls deve implementar '%s'",
+
+                IDAOHolder.class));
+        }
+
+        Inicializador<D, T, Object> init = new Inicializador<D, T, Object>(cls);
 
         return new InicializadorHolder<D>(init);
     }
