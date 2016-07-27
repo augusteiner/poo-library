@@ -65,7 +65,7 @@ public class Requisicoes {
             requisicaoId.getItemAcervoId(),
             requisicaoId.getBibliotecaId(),
 
-            FORMATO_DATA_PADRAO.format(requisicaoId.getRealizadaEm()));
+            FORMATTER_DATA_HORA_PADRAO.format(requisicaoId.getRealizadaEm()));
     }
 
     private static int hashCode(

@@ -27,6 +27,7 @@ import static javax.ws.rs.core.Response.Status.*;
 import static poo.library.app.web.util.Responses.*;
 
 import java.net.URI;
+import java.util.Collection;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -94,12 +95,21 @@ public abstract class GenericSubResource<T extends IIdentificavel>
 
     @GET
     @Produces({ MediaType.APPLICATION_JSON })
-    public Iterable<T> httpGet(@PathParam("parentId") int parentId) {
+    public Iterable<T> httpGet(
+        @PathParam("parentId") int parentId) {
 
         try {
 
+            Collection<?> list = this.behavior.get(parentId);
+
+            System.out.println(String.format(
+                "(lista: %s; size: %d)",
+
+                list.getClass(),
+                list.size()));
+
             return Iterables.convert(
-                this.behavior.get(parentId),
+                list,
                 this.getConversorDTO());
 
         } catch (ObjetoNaoEncontradoException e) {

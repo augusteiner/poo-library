@@ -23,57 +23,9 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.Conversores.*;
-
-import java.net.URI;
-
-import poo.library.app.web.dto.ReservaDTO;
-import poo.library.dao.comum.DAOFactory;
-import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Biblioteca;
-import poo.library.util.IConversor;
-
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class ReservaResource extends GenericSubResource<ReservaDTO> {
+public abstract class RequisicaoUsuarioResource {
 
-    public static final String PATH = "biblioteca/{parentId}/reserva";
-    public static final IConversor<ReservaDTO> CONVERSOR_DTO = conversor(ReservaDTO.class);
-
-    private IDAO<Biblioteca> parentDAO;
-
-    public ReservaResource() {
-
-        this(DAOFactory.novoDAO(Biblioteca.class));
-    }
-
-    public ReservaResource(IDAO<Biblioteca> dao) {
-
-        this.parentDAO = dao;
-
-        this.initBehavior(this);
-    }
-
-    @Override
-    public URI createdAt(int bibliotecaId, int id) {
-
-        return URI.create(String.format(
-            "biblioteca/%d/reserva/%d",
-
-            bibliotecaId,
-            id));
-    }
-
-    @Override
-    protected IConversor<ReservaDTO> getConversorDTO() {
-
-        return CONVERSOR_DTO;
-    }
-
-    @Override
-    protected IDAO<?> getParentDAO() {
-
-        return this.parentDAO;
-    }
 }

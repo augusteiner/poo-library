@@ -45,7 +45,7 @@ import poo.library.util.ObjetoNaoEncontradoException;
 public class LocacaoUsuarioResource extends GenericSubResource<LocacaoDTO>
     implements ISubResource<LocacaoDTO> {
 
-    public static final String PATH = "usuario/{usuarioId}/locacao";
+    public static final String PATH = "usuario/{parentId}/locacao";
     public static final IConversor<LocacaoDTO> CONVERSOR_DTO = conversor(LocacaoDTO.class);
 
     private final IDAO<Usuario> parentDAO;
@@ -58,6 +58,8 @@ public class LocacaoUsuarioResource extends GenericSubResource<LocacaoDTO>
     public LocacaoUsuarioResource(IDAO<Usuario> parentDAO) {
 
         this.parentDAO = parentDAO;
+
+        this.initBehavior(this);
     }
 
     @Override

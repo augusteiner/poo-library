@@ -54,7 +54,7 @@ import poo.library.util.ObjetoNaoEncontradoException;
 public class ReservaUsuarioResource extends GenericSubResource<ReservaDTO>
     implements ISubResource<ReservaDTO> {
 
-    public static final String PATH = "usuario/{usuarioId}/reserva";
+    public static final String PATH = "usuario/{parentId}/reserva";
 
     private final IDAO<Usuario> parentDAO;
 
@@ -81,9 +81,20 @@ public class ReservaUsuarioResource extends GenericSubResource<ReservaDTO>
     }
 
     @Override
-    public Collection<Reserva> get(int usuarioId) throws ObjetoNaoEncontradoException {
+    public Collection<?> get(int usuarioId)
+        throws ObjetoNaoEncontradoException {
 
-        return this.usuarioPorId(usuarioId).getReservas();
+        Usuario usuario = this.usuarioPorId(usuarioId);
+
+        Collection<?> reservas = usuario.getReservas();
+
+        System.out.println(String.format(
+            "Reservas (list: %s; size: %d)",
+
+            reservas,
+            reservas.size()));
+
+        return reservas;
     }
 
     @Override
