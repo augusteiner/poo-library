@@ -36,12 +36,13 @@
         $params[key] = '@'+key;
       }
 
-      $paramsWithId = angular.extend($paramsWithId, $params);
+      $paramsWithId = angular.extend({}, $paramsWithId, $params);
 
       var $rest = $resource(PATH, null, {
         getById: { method: 'GET', params: $paramsWithId },
         update: { method: 'PUT', params: $paramsWithId },
-        save: { method: 'POST', params: $params }
+        save: { method: 'POST', params: $params },
+        remove: { method: 'DELETE', params: $paramsWithId }
       });
 
       console.log($rest);
@@ -90,7 +91,11 @@
         if (!confirm('Tem certeza?'))
           return;
 
-        $rest.remove({id : paramId}).$promise.then(function() {
+        var params = angular.extend(
+            { id: paramId },
+            $scope.params);
+
+        $rest.remove(params).$promise.then(function() {
 
           $scope.load();
         });

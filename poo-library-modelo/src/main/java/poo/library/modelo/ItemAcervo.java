@@ -37,6 +37,9 @@ public abstract class ItemAcervo implements IItemAcervo {
 
     private int id;
 
+    private Biblioteca biblioteca;
+    private int bibliotecaId;
+
     private String autor;
 
     private double precoLocacao;
@@ -45,9 +48,6 @@ public abstract class ItemAcervo implements IItemAcervo {
     private int qteTotal;
 
     private ECategoriaItem categoria;
-
-    private Biblioteca biblioteca;
-    private int bibliotecaId;
 
     private Collection<Reserva> reservas;
 
@@ -177,12 +177,7 @@ public abstract class ItemAcervo implements IItemAcervo {
 
         this.biblioteca = biblioteca;
 
-        if (biblioteca == null) {
-
-            throw new IllegalArgumentException(
-                "Argumento 'biblioteca' não deve ser nulo");
-
-        } else {
+        if (biblioteca != null) {
 
             this.bibliotecaId = biblioteca.getId();
         }

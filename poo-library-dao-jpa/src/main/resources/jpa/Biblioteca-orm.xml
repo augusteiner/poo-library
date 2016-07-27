@@ -20,13 +20,13 @@
       <basic name="qteDiasLocacao" />
       <basic name="qteDiasValidadeReserva" />
 
-      <one-to-many name="acervo" access="FIELD" fetch="LAZY" mapped-by="biblioteca">
+      <one-to-many name="acervo" access="FIELD" fetch="LAZY" mapped-by="biblioteca" orphan-removal="true">
         <cascade>
           <cascade-all />
         </cascade>
       </one-to-many>
 
-      <one-to-many name="locacoes" access="FIELD" fetch="LAZY" mapped-by="biblioteca">
+      <one-to-many name="locacoes" access="FIELD" fetch="LAZY" mapped-by="biblioteca" orphan-removal="true">
         <order-by>realizadaEm DESC</order-by>
 
         <cascade>
@@ -34,7 +34,7 @@
         </cascade>
       </one-to-many>
 
-      <one-to-many name="reservas" access="FIELD" fetch="LAZY" mapped-by="biblioteca">
+      <one-to-many name="reservas" access="FIELD" fetch="LAZY" mapped-by="biblioteca" orphan-removal="true">
         <order-by>realizadaEm DESC</order-by>
 
         <cascade>

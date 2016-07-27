@@ -321,9 +321,19 @@ public class Biblioteca implements IBiblioteca {
         buscador.setLocacoes(biblioteca.getLocacoes());
     }
 
-    public void removeAcervo(ItemAcervo item) {
+    public void removeAcervo(ItemAcervo item) throws FalhaOperacaoException {
 
-        this.acervo.remove(item);
+        boolean removed = this.acervo.remove(item);
+
+        if (!removed) {
+
+            throw new FalhaOperacaoException(String.format(
+                "Objeto %s não encontrado",
+
+                item));
+        }
+
+        item.setBiblioteca(null);
     }
 
     @Override

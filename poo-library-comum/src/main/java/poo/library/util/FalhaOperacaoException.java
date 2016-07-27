@@ -30,6 +30,11 @@ public class FalhaOperacaoException extends BibliotecaException {
 
     private static final long serialVersionUID = -8055414089256933460L;
 
+    public FalhaOperacaoException(String message) {
+
+        super(message);
+    }
+
     public FalhaOperacaoException(String message, Throwable cause) {
 
         super(message, cause);
