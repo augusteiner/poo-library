@@ -49,8 +49,7 @@ public class AcervoEmMemoria implements IAcervo {
 
     public AcervoEmMemoria() { }
 
-    @Override
-    public void close() throws Exception {
+    public void close() {
 
         this.biblioteca = null;
 

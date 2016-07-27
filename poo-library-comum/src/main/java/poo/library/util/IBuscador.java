@@ -31,7 +31,7 @@ import poo.library.comum.IUsuario;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IBuscador extends AutoCloseable {
+public interface IBuscador {
 
     IItemAcervo itemPorId(int itemId) throws ObjetoNaoEncontradoException;
     Iterable<? extends IItemAcervo> itens();

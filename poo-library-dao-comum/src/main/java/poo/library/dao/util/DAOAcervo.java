@@ -45,12 +45,9 @@ public class DAOAcervo extends AcervoEmMemoria implements IBuscador {
         this.dao = dao;
     }
 
-    @Override
-    public void close() throws Exception {
+    public IDAO<Biblioteca> getDAO() {
 
-        this.dao.close();
-
-        super.close();
+        return this.dao;
     }
 
     /**
