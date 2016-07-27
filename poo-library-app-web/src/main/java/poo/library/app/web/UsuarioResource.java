@@ -38,6 +38,7 @@ import poo.library.app.web.dto.LocacaoDTO;
 import poo.library.app.web.dto.ReservaDTO;
 import poo.library.app.web.dto.UsuarioDTO;
 import poo.library.app.web.util.IDAOHolder;
+import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Usuario;
 import poo.library.util.IConversor;
 import poo.library.util.ObjetoNaoEncontradoException;
@@ -55,6 +56,7 @@ public class UsuarioResource extends GenericResource<UsuarioDTO>
 
         super(PATH);
     }
+
     @GET
     @Path("/{id}/reserva")
     @Produces({ MediaType.APPLICATION_JSON })
@@ -69,7 +71,7 @@ public class UsuarioResource extends GenericResource<UsuarioDTO>
 
             iter = convert(
                 usuario.getReservas(),
-                newConversor(ReservaDTO.class));
+                conversor(ReservaDTO.class));
 
         } catch (ObjetoNaoEncontradoException e) {
 
@@ -89,11 +91,13 @@ public class UsuarioResource extends GenericResource<UsuarioDTO>
 
         try {
 
-            usuario = converter(this.getDAO().find(usuarioId));
+            IDAO<Usuario> dao = this.getDAO().unwrap();
+
+            usuario = dao.find(usuarioId);
 
             iter = convert(
                 usuario.getLocacoes(),
-                newConversor(LocacaoDTO.class));
+                conversor(LocacaoDTO.class));
 
         } catch (ObjetoNaoEncontradoException e) {
 
@@ -102,7 +106,6 @@ public class UsuarioResource extends GenericResource<UsuarioDTO>
 
         return Response.ok().entity(iter).build();
     }
-
 
     @Override
     public Usuario converter(Object input) {
@@ -117,6 +120,6 @@ public class UsuarioResource extends GenericResource<UsuarioDTO>
     @Override
     public void converter(Object input, Usuario usuario) {
 
-        newConversor(Usuario.class).converter(input, usuario);
+        conversor(Usuario.class).converter(input, usuario);
     }
 }

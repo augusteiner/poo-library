@@ -79,6 +79,11 @@ public class AcervoEmMemoria implements IAcervo {
 
             if (i.getId() == itemAcervoId) {
 
+                System.out.println(String.format(
+                    "Item de Acervo #%d encontrado",
+
+                    itemAcervoId));
+
                 return i;
             }
         }

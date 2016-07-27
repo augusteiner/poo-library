@@ -36,6 +36,7 @@ import javax.ws.rs.core.Response;
 
 import poo.library.app.web.dto.BibliotecaDTO;
 import poo.library.app.web.dto.ReservaDTO;
+import poo.library.app.web.util.Conversores;
 import poo.library.app.web.util.IDAOHolder;
 import poo.library.modelo.Biblioteca;
 import poo.library.util.IConversor;
@@ -73,7 +74,7 @@ public class BibliotecaResource extends GenericResource<BibliotecaDTO>
 
         Iterable<?> iter = convert(
             biblioteca.getReservas(),
-            newConversor(ReservaDTO.class));
+            conversor(ReservaDTO.class));
 
         return ok().entity(iter).build();
     }
@@ -81,11 +82,12 @@ public class BibliotecaResource extends GenericResource<BibliotecaDTO>
     @Override
     public Biblioteca converter(Object input) {
 
-        return null;
+        return Conversores.converter(input, Biblioteca.class);
     }
 
     @Override
     public void converter(Object input, Biblioteca output) {
 
+        Conversores.converter(input, output);
     }
 }

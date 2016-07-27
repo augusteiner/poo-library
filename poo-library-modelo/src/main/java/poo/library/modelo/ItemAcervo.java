@@ -53,21 +53,6 @@ public abstract class ItemAcervo implements IItemAcervo {
 
     public ItemAcervo() { }
 
-    public ItemAcervo(
-        String autor,
-        double precoLocacao,
-        int qteDisponivel,
-        int qteTotal,
-        int bibliotecaId) {
-
-        this.autor = autor;
-        this.precoLocacao = precoLocacao;
-        this.qteDisponivel = qteDisponivel;
-        this.qteTotal = qteTotal;
-
-        this.bibliotecaId = bibliotecaId;
-    }
-
     protected ItemAcervo(ECategoriaItem categoria) {
 
         this.categoria = categoria;
@@ -89,10 +74,19 @@ public abstract class ItemAcervo implements IItemAcervo {
         this.categoria = categoria;
     }
 
-    @Override
-    public void locar(IUsuario usuario) {
+    public ItemAcervo(
+        String autor,
+        double precoLocacao,
+        int qteDisponivel,
+        int qteTotal,
+        int bibliotecaId) {
 
-        //
+        this.autor = autor;
+        this.precoLocacao = precoLocacao;
+        this.qteDisponivel = qteDisponivel;
+        this.qteTotal = qteTotal;
+
+        this.bibliotecaId = bibliotecaId;
     }
 
     @Override
@@ -153,6 +147,12 @@ public abstract class ItemAcervo implements IItemAcervo {
     public Collection<Reserva> getReservas() {
 
         return this.reservas;
+    }
+
+    @Override
+    public void locar(IUsuario usuario) {
+
+        //
     }
 
     @Override

@@ -23,7 +23,7 @@
  */
 package poo.library.app.web.util;
 
-import static poo.library.app.web.util.Conversores.newConversor;
+import static poo.library.app.web.util.Conversores.*;
 
 import poo.library.util.IConversor;
 
@@ -57,8 +57,8 @@ public class DAOFactory {
         IConversor<T> mapper;
         IConversor<M> inverso;
 
-        mapper = newConversor(clsModel, clsDto);
-        inverso = newConversor(clsDto, clsModel);
+        mapper = conversor(clsModel, clsDto);
+        inverso = conversor(clsDto, clsModel);
 
         return new DAOConversor<M, T>(
             dao,

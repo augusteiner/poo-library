@@ -34,7 +34,7 @@ public class Conversores {
 
     public static <I, O> O converter(I input, Class<O> clsOut) {
 
-        return newConversor(clsOut).converter(input);
+        return conversor(clsOut).converter(input);
     }
 
     @SuppressWarnings("unchecked")
@@ -46,18 +46,18 @@ public class Conversores {
                 "O argumento output não pode ser nulo");
         }
 
-        IConversor<O> conversor = newConversor((Class<O>) output.getClass());
+        IConversor<O> conversor = conversor((Class<O>) output.getClass());
 
         conversor.converter(input, output);
     }
 
-    public static <D> IConversor<D> newConversor(Class<D> clsOut) {
+    public static <D> IConversor<D> conversor(Class<D> clsOut) {
 
-        return newConversor(Object.class, clsOut);
+        return conversor(Object.class, clsOut);
     }
 
     @SuppressWarnings("unchecked")
-    public static <T, D> IConversor<D> newConversor(
+    public static <T, D> IConversor<D> conversor(
         Class<T> clsIn,
         Class<D> clsOut) {
 

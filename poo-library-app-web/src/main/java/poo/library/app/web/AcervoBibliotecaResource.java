@@ -24,6 +24,7 @@
 package poo.library.app.web;
 
 import static poo.library.app.web.util.Conversores.*;
+import static poo.library.app.web.util.Inicializador.*;
 import static poo.library.app.web.util.Responses.*;
 
 import java.net.URI;
@@ -41,8 +42,6 @@ import javax.ws.rs.core.Response;
 import poo.library.app.web.dto.ItemAcervoDTO;
 import poo.library.app.web.util.Conversores;
 import poo.library.app.web.util.ISubResource;
-import poo.library.comum.IItemAcervo;
-import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.dao.util.DAOAcervo;
 import poo.library.modelo.Biblioteca;
@@ -57,19 +56,20 @@ import poo.library.util.ObjetoNaoEncontradoException;
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Path(AcervoBibliotecaResource.PATH)
-public class AcervoBibliotecaResource implements ISubResource<ItemAcervoDTO>, IConversor<IItemAcervo> {
+public class AcervoBibliotecaResource implements ISubResource<ItemAcervoDTO>, IConversor<ItemAcervo> {
 
     public static final String PATH = "biblioteca/{bibliotecaId}/acervo";
 
     public static final Class<ItemAcervo> MODEL_CLASS = ItemAcervo.class;
     public static final Class<ItemAcervoDTO> DTO_CLASS = ItemAcervoDTO.class;
-    public static final IConversor<ItemAcervoDTO> CONVERSOR = newConversor(DTO_CLASS);
+
+    public static final IConversor<ItemAcervoDTO> CONVERSOR = conversor(DTO_CLASS);
 
     private IDAO<Biblioteca> parentDAO;
 
     public AcervoBibliotecaResource() {
 
-        this(DAOFactory.createNew(Biblioteca.class));
+        this(init(BibliotecaResource.class).novoDAO().unwrap());
     }
 
     public AcervoBibliotecaResource(IDAO<Biblioteca> parentDAO) {
@@ -80,11 +80,11 @@ public class AcervoBibliotecaResource implements ISubResource<ItemAcervoDTO>, IC
     @Override
     public ItemAcervo converter(Object input) {
 
-        return Conversores.converter(input, MODEL_CLASS);
+        return Conversores.converter(input, ItemAcervo.class);
     }
 
     @Override
-    public void converter(Object input, IItemAcervo output) {
+    public void converter(Object input, ItemAcervo output) {
 
         Conversores.converter(input, output);
     }
@@ -143,7 +143,7 @@ public class AcervoBibliotecaResource implements ISubResource<ItemAcervoDTO>, IC
         @PathParam("bibliotecaId") int bibliotecaId,
         @PathParam("id") int id) {
 
-        IItemAcervo item;
+        ItemAcervo item;
 
         try {
 
@@ -257,7 +257,7 @@ public class AcervoBibliotecaResource implements ISubResource<ItemAcervoDTO>, IC
         throws ObjetoNaoEncontradoException, FalhaOperacaoException {
 
         IBuscador buscador = buscador(bibliotecaId);
-        IItemAcervo item = buscador.itemPorId(id);
+        ItemAcervo item = buscador.itemPorId(id);
 
         this.converter(dto, item);
 
@@ -309,6 +309,11 @@ public class AcervoBibliotecaResource implements ISubResource<ItemAcervoDTO>, IC
         Biblioteca biblioteca = buscador.getBiblioteca();
         ItemAcervo item = (ItemAcervo) buscador.itemPorId(id);
 
+        System.out.println(String.format(
+            "Removendo item %s",
+
+            item));
+
         biblioteca.removeAcervo(item);
 
         this.flush();
@@ -350,7 +355,6 @@ public class AcervoBibliotecaResource implements ISubResource<ItemAcervoDTO>, IC
             e.printStackTrace();
 
             throw e;
-
         }
     }
 

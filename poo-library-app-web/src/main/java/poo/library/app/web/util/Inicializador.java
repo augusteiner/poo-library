@@ -30,7 +30,6 @@ import java.lang.reflect.Type;
 
 import poo.library.comum.IIdentificavel;
 import poo.library.dao.comum.DAOFactory;
-import poo.library.dao.comum.IDAO;
 import poo.library.util.IConversor;
 
 /**
@@ -44,12 +43,19 @@ public class Inicializador<D, T, M> {
 
         public InicializadorHolder(Inicializador<D, ?, ?> init) {
 
+            init.discoverGenericParams();
+
             this.init = init;
+        }
+
+        public IDAO<D> novoDAO() {
+
+            return this.init.novoDAO();
         }
 
         public void configure(IDAOHolder<D> usuarioResource) {
 
-            init.configure(usuarioResource);
+            this.init.configure(usuarioResource);
         }
     }
 
@@ -83,9 +89,7 @@ public class Inicializador<D, T, M> {
         return new InicializadorHolder<D>(init);
     }
 
-    public void configure(IDAOHolder<D> resource) {
-
-        discoverGenericParams();
+    public IDAO<D> novoDAO() {
 
         if (dtoCls != null && modelCls != null) {
 
@@ -93,9 +97,21 @@ public class Inicializador<D, T, M> {
                 "Instanciando novo DAO<%s>",
                 modelCls.getName()));
 
-            IDAO<M> dao = DAOFactory.createNew(modelCls);
+            return newDAO(DAOFactory.createNew(modelCls), modelCls, dtoCls);
+        }
 
-            resource.setDAO(newDAO(dao, modelCls, dtoCls));
+        return null;
+    }
+
+    public void configure(IDAOHolder<D> resource) {
+
+        if (dtoCls != null && modelCls != null) {
+
+            System.out.println(String.format(
+                "Instanciando novo DAO<%s>",
+                modelCls.getName()));
+
+            resource.setDAO(novoDAO());
         }
     }
 
