@@ -93,9 +93,10 @@ CREATE TABLE locacao (
 
   precoCobrado DECIMAL(12, 4) NOT NULL DEFAULT 0.0,
 
-  realizadaEm TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  devolverAte DATE NOT NULL,
   devolvidoEm TIMESTAMP NULL DEFAULT NULL,
+  devolverAte DATE NOT NULL,
+
+  realizadaEm TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   CONSTRAINT fk_locacao_biblioteca
     FOREIGN KEY (bibliotecaId)
@@ -129,7 +130,7 @@ CREATE TABLE reserva (
   status E_STATUS_REQUISICAO NOT NULL DEFAULT 'OK',
 
   realizadaEm TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  validaAte TIMESTAMP NOT NULL,
+  validaAte DATE NOT NULL,
 
   CONSTRAINT fk_reserva_biblioteca
     FOREIGN KEY (bibliotecaId)

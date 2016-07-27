@@ -30,11 +30,11 @@ import poo.library.util.Dates;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class ReservaDTO extends RequisicaoDTO {
+public class ReservaUsuarioDTO extends RequisicaoDTO {
 
     private Date validaAte;
 
-    public ReservaDTO() { }
+    public ReservaUsuarioDTO() { }
 
     public String getValidaAte() {
 
@@ -44,16 +44,5 @@ public class ReservaDTO extends RequisicaoDTO {
     public void setValidaAte(Date validaAte) {
 
         this.validaAte = validaAte;
-    }
-
-    @Override
-    public String toString() {
-
-        return String.format(
-            "Reserva: %s; validade: %s",
-
-            super.toString(),
-
-            this.getValidaAte());
     }
 }

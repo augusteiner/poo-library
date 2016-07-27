@@ -105,9 +105,10 @@ CREATE TABLE `locacao` (
 
   `precoCobrado` DECIMAL(12, 4) NOT NULL DEFAULT 0.0,
 
-  `realizadaEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `devolverAte` DATE NOT NULL,
   `devolvidoEm` TIMESTAMP NULL DEFAULT NULL,
+  `devolverAte` DATE NOT NULL,
+
+  `realizadaEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY (`id`),
 
@@ -143,8 +144,9 @@ CREATE TABLE `reserva` (
 
   `status` ENUM('OK', 'CANCELADA') NOT NULL DEFAULT 'OK',
 
+  `validaAte` DATE NOT NULL,
+
   `realizadaEm` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `validaAte` DATETIME NOT NULL,
 
   PRIMARY KEY (`id`),
 

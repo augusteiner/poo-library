@@ -26,6 +26,7 @@ package poo.library.modelo;
 import java.util.Date;
 
 import poo.library.comum.IReserva;
+import poo.library.util.Dates;
 import poo.library.util.Requisicoes;
 
 /**
@@ -93,8 +94,10 @@ public class Reserva extends Requisicao implements IReserva {
     public String toString() {
 
         return String.format(
-            super.toString() + " :: %s",
+            "Reserva: %s; validade: %s",
 
-            this.getUsuario());
+            super.toString(),
+
+            Dates.format(this.getValidaAte()));
     }
 }

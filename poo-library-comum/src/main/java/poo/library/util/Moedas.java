@@ -21,39 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.app.web.dto;
+package poo.library.util;
 
-import java.util.Date;
-
-import poo.library.util.Dates;
+import java.text.NumberFormat;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class ReservaDTO extends RequisicaoDTO {
+public class Moedas {
 
-    private Date validaAte;
+    public static String format(double valor) {
 
-    public ReservaDTO() { }
-
-    public String getValidaAte() {
-
-        return Dates.format(this.validaAte);
+        return format(valor, R.FORMATTER_MOEDA_PADRAO);
     }
 
-    public void setValidaAte(Date validaAte) {
+    public static String format(double valor, NumberFormat format) {
 
-        this.validaAte = validaAte;
-    }
-
-    @Override
-    public String toString() {
-
-        return String.format(
-            "Reserva: %s; validade: %s",
-
-            super.toString(),
-
-            this.getValidaAte());
+        return format.format(valor);
     }
 }

@@ -195,12 +195,11 @@ public abstract class Requisicao implements IRequisicao {
     public String toString() {
 
         return String.format(
-            "#%s - %s :: %s",
+            "#%d; item: #%d; biblioteca: #%d usuário: #%d",
 
             this.getId(),
-
-            this.getItemAcervo(),
-
-            this.getUsuario());
+            this.getItemAcervoId(),
+            this.getBibliotecaId(),
+            this.getUsuarioId());
     }
 }

@@ -26,6 +26,7 @@ package poo.library.modelo;
 import java.util.Date;
 
 import poo.library.comum.ILocacao;
+import poo.library.util.R;
 import poo.library.util.Requisicoes;
 
 /**
@@ -103,10 +104,14 @@ public class Locacao extends Requisicao implements ILocacao {
     public String toString() {
 
         return String.format(
-            super.toString() + " ~ (R$ %.2f) :: %s",
+            R.LOCALE_PADRAO,
+
+            "Locação: %s; preço: %.2f; devolver: %s; devolvido: %s",
+
+            super.toString(),
 
             this.getPrecoCobrado(),
-
-            this.getUsuario());
+            this.getDevolverAte(),
+            this.getDevolvidoEm());
     }
 }

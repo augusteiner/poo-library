@@ -25,6 +25,8 @@ package poo.library.app.web.dto;
 
 import java.util.Date;
 
+import poo.library.util.Dates;
+
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
@@ -37,14 +39,14 @@ public class LocacaoDTO extends RequisicaoDTO {
 
     public LocacaoDTO() { }
 
-    public Date getDevolverAte() {
+    public String getDevolverAte() {
 
-        return this.devolverAte;
+        return Dates.format(this.devolverAte);
     }
 
-    public Date getDevolvidoEm() {
+    public String getDevolvidoEm() {
 
-        return this.devolvidoEm;
+        return Dates.formatWithTime(this.devolvidoEm);
     }
 
     public double getPrecoCobrado() {

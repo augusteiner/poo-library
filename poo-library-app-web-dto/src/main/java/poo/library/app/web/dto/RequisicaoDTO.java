@@ -27,6 +27,7 @@ import java.util.Date;
 
 import poo.library.comum.EStatusRequisicao;
 import poo.library.comum.IIdentificavel;
+import poo.library.util.Dates;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -61,9 +62,9 @@ public abstract class RequisicaoDTO implements IIdentificavel {
         return this.itemAcervoId;
     }
 
-    public Date getRealizadaEm() {
+    public String getRealizadaEm() {
 
-        return this.realizadaEm;
+        return Dates.formatWithTime(this.realizadaEm);
     }
 
     public EStatusRequisicao getStatus() {
@@ -104,5 +105,17 @@ public abstract class RequisicaoDTO implements IIdentificavel {
     public void setUsuarioId(int usuarioId) {
 
         this.usuarioId = usuarioId;
+    }
+
+    @Override
+    public String toString() {
+
+        return String.format(
+            "#%d; item: #%d; biblioteca: #%d usuário: #%d",
+
+            this.getId(),
+            this.getItemAcervoId(),
+            this.getBibliotecaId(),
+            this.getUsuarioId());
     }
 }

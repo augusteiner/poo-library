@@ -25,11 +25,11 @@ package poo.library.modelo;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 
 import poo.library.comum.ETipoUsuario;
 import poo.library.comum.IItemAcervo;
 import poo.library.comum.IUsuario;
-import poo.library.util.FalhaOperacaoException;
 import poo.library.util.ObjetoNaoEncontradoException;
 import poo.library.util.Usuarios;
 
@@ -44,17 +44,22 @@ public class Usuario implements IUsuario {
     private String cpf;
     private String endereco;
 
-    private ETipoUsuario tipo = ETipoUsuario.COMUM;
+    private ETipoUsuario tipo;
 
     private Collection<Reserva> reservas;
     private Collection<Locacao> locacoes;
 
     public Usuario() {
 
-        this(ETipoUsuario.PADRAO);
+        this.tipo = ETipoUsuario.PADRAO;
+
+        this.reservas = new LinkedList<Reserva>();
+        this.locacoes = new LinkedList<Locacao>();
     }
 
     protected Usuario(ETipoUsuario tipo) {
+
+        this();
 
         this.tipo = tipo;
     }

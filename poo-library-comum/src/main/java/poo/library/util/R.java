@@ -24,6 +24,7 @@
 package poo.library.util;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
@@ -34,9 +35,16 @@ public class R {
     public static final Locale LOCALE_PT_BR = new Locale("pt", "BR");
     public static final Locale LOCALE_PADRAO = LOCALE_PT_BR;
 
-    public static final DateFormat FORMATO_DATA_PADRAO = DateFormat.getDateTimeInstance(
+    public static final DateFormat FORMATTER_DATA_HORA_PADRAO = DateFormat.getDateTimeInstance(
         DateFormat.SHORT,
         DateFormat.SHORT,
+        LOCALE_PADRAO);
+
+    public static final DateFormat FORMATTER_DATA_PADRAO = DateFormat.getDateInstance(
+        DateFormat.SHORT,
+        LOCALE_PADRAO);
+
+    public static final NumberFormat FORMATTER_MOEDA_PADRAO = NumberFormat.getCurrencyInstance(
         LOCALE_PADRAO);
 
     public static final int PRIMO_RESERVA = 17;

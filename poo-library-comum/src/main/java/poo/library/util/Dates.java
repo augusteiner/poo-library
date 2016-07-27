@@ -21,39 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.app.web.dto;
+package poo.library.util;
 
+import java.text.DateFormat;
 import java.util.Date;
-
-import poo.library.util.Dates;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class ReservaDTO extends RequisicaoDTO {
+public class Dates {
 
-    private Date validaAte;
+    public static String format(Date date) {
 
-    public ReservaDTO() { }
-
-    public String getValidaAte() {
-
-        return Dates.format(this.validaAte);
+        return format(date, R.FORMATTER_DATA_PADRAO);
     }
 
-    public void setValidaAte(Date validaAte) {
+    public static String formatWithTime(Date date) {
 
-        this.validaAte = validaAte;
+        return format(date, R.FORMATTER_DATA_HORA_PADRAO);
     }
 
-    @Override
-    public String toString() {
+    public static String format(Date date, DateFormat formatter) {
 
-        return String.format(
-            "Reserva: %s; validade: %s",
+        if (date == null)
+            return null;
 
-            super.toString(),
-
-            this.getValidaAte());
+        return formatter.format(date);
     }
 }
