@@ -88,7 +88,7 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public void cancelar(Reserva reserva) throws FalhaOperacaoException {
+    public void cancelar(Reserva reserva) {
 
         reserva.setStatus(EStatusRequisicao.CANCELADA);
     }
@@ -101,7 +101,7 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public void devolver(Locacao locacao) throws FalhaOperacaoException {
+    public void devolver(Locacao locacao) {
 
     }
 

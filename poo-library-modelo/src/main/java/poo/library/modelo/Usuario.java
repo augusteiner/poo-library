@@ -189,7 +189,7 @@ public class Usuario implements IUsuario {
     }
 
     @Override
-    public void cancelar(int reservaId) throws ObjetoNaoEncontradoException, FalhaOperacaoException {
+    public void cancelar(int reservaId) throws ObjetoNaoEncontradoException {
 
         Reserva reserva = this.reservaPorId(reservaId);
 
@@ -209,5 +209,21 @@ public class Usuario implements IUsuario {
         throw new ObjetoNaoEncontradoException(String.format(
             "Reserva de id #%d não encontrada",
             reservaId));
+    }
+
+    public Locacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException {
+
+        for (Locacao locacao : this.locacoes) {
+
+            if (locacao.getId() == locacaoId) {
+
+                return locacao;
+            }
+        }
+
+        throw new ObjetoNaoEncontradoException(String.format(
+            "Locação #%d não encontrada",
+
+            locacaoId));
     }
 }

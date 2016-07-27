@@ -36,14 +36,19 @@ public abstract class RequisicaoDTO implements IIdentificavel {
     private int id;
 
     private int itemAcervoId;
-
     private int usuarioId;
+    private int bibliotecaId;
 
     private Date realizadaEm;
 
     private EStatusRequisicao status;
 
     public RequisicaoDTO() { }
+
+    public int getBibliotecaId() {
+
+        return this.bibliotecaId;
+    }
 
     @Override
     public int getId() {
@@ -69,6 +74,11 @@ public abstract class RequisicaoDTO implements IIdentificavel {
     public int getUsuarioId() {
 
         return this.usuarioId;
+    }
+
+    public void setBibliotecaId(int bibliotecaId) {
+
+        this.bibliotecaId = bibliotecaId;
     }
 
     public void setId(int id) {

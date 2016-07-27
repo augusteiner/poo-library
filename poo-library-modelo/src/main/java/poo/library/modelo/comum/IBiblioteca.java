@@ -37,11 +37,9 @@ public interface IBiblioteca extends poo.library.comum.IBiblioteca {
 
     void addAcervo(ItemAcervo item);
 
-    void cancelar(Reserva reserva)
-        throws FalhaOperacaoException;
+    void cancelar(Reserva reserva);
 
-    void devolver(Locacao locacao)
-        throws FalhaOperacaoException;
+    void devolver(Locacao locacao);
 
     Locacao locar(ItemAcervo item, Usuario usuario)
         throws ItemIndisponivelException, FalhaOperacaoException;
