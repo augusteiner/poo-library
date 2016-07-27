@@ -31,6 +31,8 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 public interface IDAO<T> extends AutoCloseable {
 
+    Class<T> getEntityClass();
+
     Iterable<? extends T> all();
 
     int count();

@@ -65,7 +65,7 @@ public class BuscadorTests {
     public static void run() throws ObjetoNaoEncontradoException {
 
         BuscadorTests tests = new BuscadorTests();
-        IDAO<Biblioteca> dao = DAOFactory.createNew(Biblioteca.class);
+        IDAO<Biblioteca> dao = DAOFactory.novoDAO(Biblioteca.class);
 
         tests.buscador = new DAOAcervo(dao);
         Biblioteca.exportarBuscador(dao.first(), tests.buscador);

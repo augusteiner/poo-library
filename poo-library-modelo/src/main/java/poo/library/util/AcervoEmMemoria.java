@@ -275,13 +275,13 @@ public class AcervoEmMemoria implements IAcervo {
     }
 
     @Override
-    public Iterable<Usuario> usuarios() {
+    public Collection<Usuario> usuarios() {
 
         return this.usuarios;
     }
 
     @Override
-    public Iterable<Usuario> usuariosPorTermo(String termo) {
+    public Collection<Usuario> usuariosPorTermo(String termo) {
 
         Collection<Usuario> usuarios = novaLista();
 

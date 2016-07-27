@@ -144,6 +144,6 @@ public class BibliotecaSeeder extends Seeder<Biblioteca>
 
     private static <T> IDAO<T> dao(Class<T> cls) {
 
-        return DAOFactory.createNew(cls);
+        return DAOFactory.novoDAO(cls);
     }
 }

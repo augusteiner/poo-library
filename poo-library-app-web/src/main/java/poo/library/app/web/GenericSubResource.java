@@ -44,6 +44,8 @@ import poo.library.app.web.util.ISubResource;
 import poo.library.comum.IIdentificavel;
 import poo.library.dao.comum.IDAO;
 import poo.library.util.FalhaOperacaoException;
+import poo.library.util.IConversor;
+import poo.library.util.Iterables;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
@@ -90,7 +92,9 @@ public abstract class GenericSubResource<T extends IIdentificavel> {
 
         try {
 
-            return this.behavior.get(parentId);
+            return Iterables.convert(
+                this.behavior.get(parentId),
+                this.getConversorDTO());
 
         } catch (ObjetoNaoEncontradoException e) {
 
@@ -111,7 +115,9 @@ public abstract class GenericSubResource<T extends IIdentificavel> {
 
         try {
 
-            return this.behavior.get(parentId, id);
+            Object entity = this.behavior.get(parentId, id);
+
+            return this.getConversorDTO().converter(entity);
 
         } catch (ObjetoNaoEncontradoException e) {
 
@@ -213,6 +219,8 @@ public abstract class GenericSubResource<T extends IIdentificavel> {
                 INTERNAL_SERVER_ERROR, e);
         }
     }
+
+    protected abstract IConversor<T> getConversorDTO();
 
     protected abstract IDAO<?> getParentDAO();
 }

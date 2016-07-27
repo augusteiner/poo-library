@@ -25,6 +25,7 @@ package poo.library.app.web.util;
 
 import static poo.library.app.web.util.Conversores.*;
 
+import poo.library.dao.comum.IDAO;
 import poo.library.util.IConversor;
 
 /**
@@ -32,25 +33,21 @@ import poo.library.util.IConversor;
  */
 public class DAOFactory {
 
-    public static <T, M> IDAO<T> newDAO(
-        poo.library.dao.comum.IDAO<M> dao,
-        Class<M> clsModel,
+    public static <T, M> IDAO<T> novoDAO(
+        IDAO<M> dao,
         Class<T> clsDto) {
 
         if (dao == null)
             throw new IllegalArgumentException("Argumento dao deve ser válido");
 
-        if (clsModel == null)
-            throw new IllegalArgumentException("Argumento clsModel deve ser válido");
-
         if (clsDto == null)
             throw new IllegalArgumentException("Argumento clsDto deve ser válido");
 
-        return newDAOConversivel(dao, clsModel, clsDto);
+        return newDAOConversivel(dao, dao.getEntityClass(), clsDto);
     }
 
     private static <T, M> IDAO<T> newDAOConversivel(
-        poo.library.dao.comum.IDAO<M> dao,
+        IDAO<M> dao,
         Class<M> clsModel,
         Class<T> clsDto) {
 
@@ -63,6 +60,7 @@ public class DAOFactory {
         return new DAOConversor<M, T>(
             dao,
             mapper,
+            clsDto,
             inverso);
     }
 }

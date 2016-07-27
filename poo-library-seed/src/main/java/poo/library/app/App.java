@@ -91,7 +91,7 @@ public class App {
 
             Class<?> inter = ((Class<?>) t.getActualTypeArguments()[0]);
 
-            Object dao = DAOFactory.createNew(inter);
+            Object dao = DAOFactory.novoDAO(inter);
 
             if (dao == null) {
 
@@ -132,7 +132,7 @@ public class App {
 
         Class<?> inter = ((Class<?>) t.getActualTypeArguments()[0]);
 
-        Object dao = DAOFactory.createNew(inter);
+        Object dao = DAOFactory.novoDAO(inter);
 
         if (dao == null) {
 

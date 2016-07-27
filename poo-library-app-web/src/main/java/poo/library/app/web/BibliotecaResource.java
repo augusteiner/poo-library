@@ -37,7 +37,8 @@ import javax.ws.rs.core.Response;
 import poo.library.app.web.dto.BibliotecaDTO;
 import poo.library.app.web.dto.ReservaDTO;
 import poo.library.app.web.util.Conversores;
-import poo.library.app.web.util.IDAOHolder;
+import poo.library.app.web.util.DAOFactory;
+import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Biblioteca;
 import poo.library.util.IConversor;
 import poo.library.util.ObjetoNaoEncontradoException;
@@ -47,13 +48,21 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 @Path(BibliotecaResource.PATH)
 public class BibliotecaResource extends GenericResource<BibliotecaDTO>
-    implements IDAOHolder<BibliotecaDTO>, IConversor<Biblioteca> {
+    implements IConversor<Biblioteca> {
 
     public static final String PATH = "biblioteca";
+    private IDAO<Biblioteca> dao;
 
     public BibliotecaResource() {
 
-        super(PATH);
+        this(poo.library.dao.comum.DAOFactory.novoDAO(Biblioteca.class));
+    }
+
+    public BibliotecaResource(IDAO<Biblioteca> dao) {
+
+        super(PATH, DAOFactory.novoDAO(dao, BibliotecaDTO.class));
+
+        this.dao = dao;
     }
 
     @GET
@@ -65,7 +74,7 @@ public class BibliotecaResource extends GenericResource<BibliotecaDTO>
 
         try {
 
-            biblioteca = converter(this.getDAO().find(id));
+            biblioteca = converter(this.dao.find(id));
 
         } catch (ObjetoNaoEncontradoException e) {
 

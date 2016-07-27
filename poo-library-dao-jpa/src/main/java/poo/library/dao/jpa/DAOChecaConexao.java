@@ -226,4 +226,10 @@ public class DAOChecaConexao<T> implements IDAO<T>, AutoCloseable {
 
         return this.dao;
     }
+
+    @Override
+    public Class<T> getEntityClass() {
+
+        return this.dao.getEntityClass();
+    }
 }

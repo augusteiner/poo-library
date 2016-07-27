@@ -199,6 +199,12 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
     }
 
     @Override
+    public Class<T> getEntityClass() {
+
+        return this.cls;
+    }
+
+    @Override
     public T reference(int id) {
 
         return this.em.getReference(

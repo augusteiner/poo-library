@@ -38,7 +38,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import poo.library.app.web.dto.ReservaDTO;
-import poo.library.app.web.util.ISubResource;
 import poo.library.comum.EStatusRequisicao;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
@@ -62,7 +61,7 @@ public class ReservaUsuarioResource {
 
     public ReservaUsuarioResource() {
 
-        this(DAOFactory.createNew(Usuario.class));
+        this(DAOFactory.novoDAO(Usuario.class));
     }
 
     public ReservaUsuarioResource(IDAO<Usuario> parentDAO) {

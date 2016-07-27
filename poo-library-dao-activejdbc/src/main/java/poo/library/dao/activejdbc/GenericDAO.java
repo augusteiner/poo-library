@@ -35,14 +35,14 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 public class GenericDAO<T> {
 
-    protected final Class<? extends T> entityType;
+    protected final Class<T> entityType;
     protected final Class<? extends Model> modelType;
 
     protected GenericDAO(
         Class<? extends Model> modelType,
-        Class<? extends T> proxyType) {
+        Class<T> entityType) {
 
-        this.entityType = proxyType;
+        this.entityType = entityType;
         this.modelType = modelType;
     }
 
@@ -68,6 +68,16 @@ public class GenericDAO<T> {
         return iterable;
     }
 
+    public void close() {
+
+        //
+    }
+
+    public int count() {
+
+        return ModelDelegate.count(modelType).intValue();
+    }
+
     public int delete(
         String condition,
         Object... params) {
@@ -85,9 +95,46 @@ public class GenericDAO<T> {
             ((IIdentificavel) obj).getId());
     }
 
-    protected T novaInstancia() {
+    public void deleteById(int id) throws ObjetoNaoEncontradoException {
 
-        return Models.novaInstancia(entityType);
+        int deleted = this.delete("id = ?", id);
+
+        if (deleted == 0) {
+
+            throw new ObjetoNaoEncontradoException("");
+        }
+    }
+
+    public T find(int id) throws ObjetoNaoEncontradoException {
+
+        return this.findFirst("id = ?", id);
+    }
+
+    public T first() throws ObjetoNaoEncontradoException {
+
+        return findFirst("1 = 1");
+    }
+
+    public void flush() {
+
+        //
+    }
+
+    public Class<T> getEntityClass() {
+
+        return this.entityType;
+    }
+
+    public T reference(int id) {
+
+        try {
+
+            return this.find(id);
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            return null;
+        }
     }
 
     public void save(T obj) {
@@ -108,48 +155,9 @@ public class GenericDAO<T> {
         this.inverseMap(obj, model);
     }
 
-    protected void inverseMap(T obj, Model model) {
-
-        Models.inverseMap(
-            obj,
-            model);
-    }
-
-    protected Model map(T obj) {
-
-        Model model = Models.map(obj, modelType);
-
-        return model;
-    }
-
-    public int count() {
-
-        return ModelDelegate.count(modelType).intValue();
-    }
-
-    public T find(int id) throws ObjetoNaoEncontradoException {
-
-        return this.findFirst("id = ?", id);
-    }
-
-    public void deleteById(int id) throws ObjetoNaoEncontradoException {
-
-        int deleted = this.delete("id = ?", id);
-
-        if (deleted == 0) {
-
-            throw new ObjetoNaoEncontradoException("");
-        }
-    }
-
     public Iterable<T> search(String term) {
 
         return null;
-    }
-
-    public T first() throws ObjetoNaoEncontradoException {
-
-        return findFirst("1 = 1");
     }
 
     private T findFirst(String condition, Object... params) throws ObjetoNaoEncontradoException {
@@ -169,25 +177,22 @@ public class GenericDAO<T> {
         }
     }
 
-    public void flush() {
+    protected void inverseMap(T obj, Model model) {
 
-        //
+        Models.inverseMap(
+            obj,
+            model);
     }
 
-    public T reference(int id) {
+    protected Model map(T obj) {
 
-        try {
+        Model model = Models.map(obj, modelType);
 
-            return this.find(id);
-
-        } catch (ObjetoNaoEncontradoException e) {
-
-            return null;
-        }
+        return model;
     }
 
-    public void close() {
+    protected T novaInstancia() {
 
-        //
+        return Models.novaInstancia(entityType);
     }
 }

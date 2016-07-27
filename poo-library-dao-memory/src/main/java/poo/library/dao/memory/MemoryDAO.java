@@ -37,16 +37,13 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 class MemoryDAO<T> implements IDAO<T> {
 
+    private Class<T> cls;
     private List<T> storage;
 
-    public MemoryDAO() {
+    public MemoryDAO(Class<T> cls) {
 
+        this.cls = cls;
         this.storage = newList();
-    }
-
-    private <C> List<C> newList() {
-
-        return new ArrayList<C>();
     }
 
     @Override
@@ -56,24 +53,30 @@ class MemoryDAO<T> implements IDAO<T> {
     }
 
     @Override
-    public void delete(T obj) {
+    public void close() throws Exception {
 
-        this.storage.remove(obj);
-    }
-
-    @Override
-    public void save(T obj) {
-
-        if (!this.storage.contains(obj)) {
-
-            this.storage.add(obj);
-        }
+        this.storage.clear();
+        this.storage = null;
     }
 
     @Override
     public int count() {
 
         return this.storage.size();
+    }
+
+    @Override
+    public void delete(T obj) {
+
+        this.storage.remove(obj);
+    }
+
+    @Override
+    public void deleteById(int id) throws ObjetoNaoEncontradoException {
+
+        T obj = this.find(id);
+
+        this.storage.remove(obj);
     }
 
     @Override
@@ -94,14 +97,6 @@ class MemoryDAO<T> implements IDAO<T> {
     }
 
     @Override
-    public void deleteById(int id) throws ObjetoNaoEncontradoException {
-
-        T obj = this.find(id);
-
-        this.storage.remove(obj);
-    }
-
-    @Override
     public T first() throws ObjetoNaoEncontradoException {
 
         if (this.storage.isEmpty()) {
@@ -111,6 +106,40 @@ class MemoryDAO<T> implements IDAO<T> {
         } else {
 
             return this.storage.get(0);
+        }
+    }
+
+    @Override
+    public void flush() {
+
+        //
+    }
+
+    @Override
+    public Class<T> getEntityClass() {
+
+        return this.cls;
+    }
+
+    @Override
+    public T reference(int id) {
+
+        try {
+
+            return this.find(id);
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            return null;
+        }
+    }
+
+    @Override
+    public void save(T obj) {
+
+        if (!this.storage.contains(obj)) {
+
+            this.storage.add(obj);
         }
     }
 
@@ -131,29 +160,8 @@ class MemoryDAO<T> implements IDAO<T> {
         return result;
     }
 
-    @Override
-    public void flush() {
+    private <C> List<C> newList() {
 
-        //
-    }
-
-    @Override
-    public T reference(int id) {
-
-        try {
-
-            return this.find(id);
-
-        } catch (ObjetoNaoEncontradoException e) {
-
-            return null;
-        }
-    }
-
-    @Override
-    public void close() throws Exception {
-
-        this.storage.clear();
-        this.storage = null;
+        return new ArrayList<C>();
     }
 }

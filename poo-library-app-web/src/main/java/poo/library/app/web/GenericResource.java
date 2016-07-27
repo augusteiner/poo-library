@@ -23,7 +23,6 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.Inicializador.*;
 import static poo.library.app.web.util.Responses.*;
 
 import java.net.URI;
@@ -39,33 +38,38 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import poo.library.app.web.util.IDAO;
-import poo.library.app.web.util.IDAOHolder;
 import poo.library.app.web.util.IResource;
 
 import poo.library.comum.IIdentificavel;
+import poo.library.dao.comum.IDAO;
 import poo.library.util.FalhaOperacaoException;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public abstract class GenericResource<T> implements IResource<T>, IDAOHolder<T> {
+public abstract class GenericResource<T> implements IResource<T> {
 
     private final String path;
-    protected IDAO<T> dao;
+    private final IDAO<T> dao;
 
-    protected GenericResource(String path) {
+    protected GenericResource(String path, IDAO<T> dao) {
 
         if (path == null ||
             path.length() == 0) {
 
-            throw new IllegalArgumentException("Argumento path deve ser válido");
+            throw new IllegalArgumentException(
+                "Argumento path deve ser válido");
         }
 
-        init(this);
+        if (dao == null) {
+
+            throw new IllegalArgumentException(
+                "Argumento dao deve ser válido");
+        }
 
         this.path = path;
+        this.dao = dao;
     }
 
     @DELETE
@@ -181,17 +185,5 @@ public abstract class GenericResource<T> implements IResource<T>, IDAOHolder<T> 
         }
 
         return noContent().build();
-    }
-
-    @Override
-    public IDAO<T> getDAO() {
-
-        return this.dao;
-    }
-
-    @Override
-    public void setDAO(IDAO<T> dao) {
-
-        this.dao = dao;
     }
 }

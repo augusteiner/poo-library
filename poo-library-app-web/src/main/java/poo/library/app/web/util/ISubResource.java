@@ -23,6 +23,8 @@
  */
 package poo.library.app.web.util;
 
+import java.util.Collection;
+
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
@@ -30,10 +32,10 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 public interface ISubResource<T> {
 
-    Iterable<T> get(int parentId)
+    Collection<?> get(int parentId)
         throws ObjetoNaoEncontradoException;
 
-    T get(int parentId, int id)
+    Object get(int parentId, int id)
         throws ObjetoNaoEncontradoException;
 
     void put(int parentId, int id, T obj)

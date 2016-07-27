@@ -24,6 +24,7 @@
 package poo.library.app.web.util;
 
 import poo.library.comum.IIdentificavel;
+import poo.library.dao.comum.IDAO;
 import poo.library.util.FalhaOperacaoException;
 import poo.library.util.IConversor;
 import poo.library.util.Iterables;
@@ -34,18 +35,22 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 public class DAOConversor<I, O> implements IConversor<O>, IDAO<O> {
 
-    private final poo.library.dao.comum.IDAO<I> dao;
+    private final IDAO<I> dao;
 
     private final IConversor<O> conversorIn;
     private final IConversor<I> conversorOut;
 
+    private Class<O> cls;
+
     public DAOConversor(
-        poo.library.dao.comum.IDAO<I> dao,
+        IDAO<I> dao,
         IConversor<O> conversorIn,
+        Class<O> clsIn,
         IConversor<I> conversorOut) {
 
         this.dao = dao;
 
+        this.cls = clsIn;
         this.conversorIn = conversorIn;
         this.conversorOut = conversorOut;
     }
@@ -54,6 +59,24 @@ public class DAOConversor<I, O> implements IConversor<O>, IDAO<O> {
     public Iterable<O> all() {
 
         return Iterables.convert(this.dao.all(), this);
+    }
+
+    @Override
+    public void close() throws Exception {
+
+        this.dao.close();
+    }
+
+    @Override
+    public O converter(Object input) {
+
+        return this.conversorIn.converter(input);
+    }
+
+    @Override
+    public void converter(Object input, O output) {
+
+        this.conversorIn.converter(input, output);
     }
 
     @Override
@@ -96,6 +119,24 @@ public class DAOConversor<I, O> implements IConversor<O>, IDAO<O> {
     }
 
     @Override
+    public void flush() throws FalhaOperacaoException {
+
+        this.dao.flush();
+    }
+
+    @Override
+    public Class<O> getEntityClass() {
+
+        return this.cls;
+    }
+
+    @Override
+    public O reference(int id) {
+
+        return this.converter(this.dao.reference(id));
+    }
+
+    @Override
     public void save(O entity) throws FalhaOperacaoException {
 
         I obj = null;
@@ -127,42 +168,5 @@ public class DAOConversor<I, O> implements IConversor<O>, IDAO<O> {
         return Iterables.convert(
             this.dao.search(term),
             this);
-    }
-
-    @Override
-    public O converter(Object input) {
-
-        return this.conversorIn.converter(input);
-    }
-
-    @Override
-    public void flush() throws FalhaOperacaoException {
-
-        this.dao.flush();
-    }
-
-    @Override
-    public O reference(int id) {
-
-        return this.converter(this.dao.reference(id));
-    }
-
-    @Override
-    public void converter(Object input, O output) {
-
-        this.conversorIn.converter(input, output);
-    }
-
-    @Override
-    public void close() throws Exception {
-
-        this.dao.close();
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public poo.library.dao.comum.IDAO<I> unwrap() {
-
-        return this.dao;
     }
 }

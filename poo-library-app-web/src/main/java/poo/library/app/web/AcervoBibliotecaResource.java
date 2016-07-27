@@ -24,9 +24,9 @@
 package poo.library.app.web;
 
 import static poo.library.app.web.util.Conversores.*;
-import static poo.library.app.web.util.Inicializador.*;
 
 import java.net.URI;
+import java.util.Collection;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Path;
@@ -34,13 +34,13 @@ import javax.ws.rs.Path;
 import poo.library.app.web.dto.ItemAcervoDTO;
 import poo.library.app.web.util.Conversores;
 import poo.library.app.web.util.ISubResource;
+import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.dao.util.DAOAcervo;
 import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.comum.IBuscador;
 import poo.library.util.IConversor;
-import poo.library.util.Iterables;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
@@ -52,13 +52,13 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
 
     public static final String PATH = "biblioteca/{parentId}/acervo";
 
-    public static final IConversor<ItemAcervoDTO> CONVERSOR = conversor(ItemAcervoDTO.class);
+    public static final IConversor<ItemAcervoDTO> CONVERSOR_DTO = conversor(ItemAcervoDTO.class);
 
     private final IDAO<Biblioteca> parentDAO;
 
     public AcervoBibliotecaResource() {
 
-        this.parentDAO = init(BibliotecaResource.class).novoDAO().unwrap();
+        this.parentDAO = DAOFactory.novoDAO(Biblioteca.class);
 
         this.initBehavior(this);
     }
@@ -103,14 +103,12 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
     }
 
     @Override
-    public Iterable<ItemAcervoDTO> get(int bibliotecaId)
+    public Collection<ItemAcervo> get(int bibliotecaId)
         throws ObjetoNaoEncontradoException {
 
         IBuscador buscador = buscador(bibliotecaId);
 
-        return Iterables.convert(
-            buscador.itens(),
-            CONVERSOR);
+        return buscador.itens();
     }
 
     @Override
@@ -119,7 +117,7 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
 
         IBuscador buscador = buscador(bibliotecaId);
 
-        return CONVERSOR.converter(buscador.itemPorId(id));
+        return CONVERSOR_DTO.converter(buscador.itemPorId(id));
     }
 
     @Override
@@ -152,7 +150,7 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
 
         this.flush();
 
-        CONVERSOR.converter(item, itemAcervo);
+        CONVERSOR_DTO.converter(item, itemAcervo);
     }
 
     @Override
@@ -192,5 +190,11 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
     protected IDAO<Biblioteca> getParentDAO() {
 
         return this.parentDAO;
+    }
+
+    @Override
+    protected IConversor<ItemAcervoDTO> getConversorDTO() {
+
+        return CONVERSOR_DTO;
     }
 }

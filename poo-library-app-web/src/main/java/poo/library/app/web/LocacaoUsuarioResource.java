@@ -36,7 +36,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import poo.library.app.web.dto.LocacaoDTO;
-import poo.library.app.web.util.ISubResource;
 import poo.library.dao.comum.IDAO;
 import poo.library.modelo.Locacao;
 import poo.library.modelo.Usuario;

@@ -35,6 +35,6 @@ public class MemoryDAOFactory extends NullDAOFactory implements IDAOFactory {
     @Override
     public <T> IDAO<T> createNew(Class<T> cls) {
 
-        return new MemoryDAO<T>();
+        return new MemoryDAO<T>(cls);
     }
 }
