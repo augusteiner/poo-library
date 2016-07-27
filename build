@@ -5,6 +5,7 @@ set -e
 root_dir=$(cd $(dirname $0); echo $(pwd))
 
 #cd *-web
+npm install
 bower install
 
 #cd "$root_dir"
