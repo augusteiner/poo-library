@@ -45,7 +45,7 @@ import poo.library.modelo.Usuario;
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Path(LocacaoUsuarioResource.PATH)
-public class LocacaoUsuarioResource implements ISubResource<LocacaoDTO> {
+public class LocacaoUsuarioResource {
 
     public static final String PATH = "usuario/{usuarioId}/locacao";
 
@@ -62,7 +62,6 @@ public class LocacaoUsuarioResource implements ISubResource<LocacaoDTO> {
     @DELETE
     @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    @Override
     public Response delete(
         @PathParam("usuarioId") int usuarioId,
         @PathParam("id") int locacaoId) {
@@ -72,7 +71,6 @@ public class LocacaoUsuarioResource implements ISubResource<LocacaoDTO> {
 
     @GET
     @Produces({ MediaType.APPLICATION_JSON })
-    @Override
     public Response get(@PathParam("usuarioId") int usuarioId) {
 
         return null;
@@ -81,7 +79,6 @@ public class LocacaoUsuarioResource implements ISubResource<LocacaoDTO> {
     @GET
     @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    @Override
     public Response get(
         @PathParam("usuarioId") int usuarioId,
         @PathParam("id") int locacaoId) {
@@ -91,7 +88,6 @@ public class LocacaoUsuarioResource implements ISubResource<LocacaoDTO> {
 
     @POST
     @Produces({ MediaType.APPLICATION_JSON })
-    @Override
     public Response post(
         @PathParam("usuarioId") int usuarioId,
 
@@ -103,7 +99,6 @@ public class LocacaoUsuarioResource implements ISubResource<LocacaoDTO> {
     @PUT
     @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    @Override
     public Response put(
         @PathParam("usuarioId") int usuarioId,
         @PathParam("id") int id,

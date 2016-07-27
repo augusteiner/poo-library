@@ -23,20 +23,25 @@
  */
 package poo.library.app.web.util;
 
-import javax.ws.rs.core.Response;
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 public interface ISubResource<T> {
 
-    Response get(int parentId);
+    Iterable<T> get(int parentId)
+        throws ObjetoNaoEncontradoException;
 
-    Response get(int parentId, int id);
+    T get(int parentId, int id)
+        throws ObjetoNaoEncontradoException;
 
-    Response put(int parentId, int id, T obj);
+    void put(int parentId, int id, T obj)
+        throws ObjetoNaoEncontradoException;
 
-    Response post(int parentId, T obj);
+    void post(int parentId, T obj)
+        throws ObjetoNaoEncontradoException;
 
-    Response delete(int parentId, int id);
+    void delete(int parentId, int id)
+        throws ObjetoNaoEncontradoException;
 }

@@ -51,7 +51,7 @@ import poo.library.util.ObjetoNaoEncontradoException;
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 @Path(ReservaUsuarioResource.PATH)
-public class ReservaUsuarioResource implements ISubResource<ReservaDTO> {
+public class ReservaUsuarioResource {
 
     public static final String PATH = "usuario/{usuarioId}/reserva";
 
@@ -73,7 +73,6 @@ public class ReservaUsuarioResource implements ISubResource<ReservaDTO> {
     @DELETE
     @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    @Override
     public Response delete(
         @PathParam("usuarioId") int usuarioId,
         @PathParam("id") int reservaId) {
@@ -83,7 +82,6 @@ public class ReservaUsuarioResource implements ISubResource<ReservaDTO> {
 
     @GET
     @Produces({ MediaType.APPLICATION_JSON })
-    @Override
     public Response get(@PathParam("usuarioId") int usuarioId) {
 
         Iterable<Reserva> iter;
@@ -105,7 +103,6 @@ public class ReservaUsuarioResource implements ISubResource<ReservaDTO> {
     @GET
     @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    @Override
     public Response get(
         @PathParam("usuarioId") int usuarioId,
         @PathParam("id") int id) {
@@ -138,7 +135,6 @@ public class ReservaUsuarioResource implements ISubResource<ReservaDTO> {
 
     @POST
     @Produces({ MediaType.APPLICATION_JSON })
-    @Override
     public Response post(
         @PathParam("usuarioId") int usuarioId,
 
@@ -201,7 +197,6 @@ public class ReservaUsuarioResource implements ISubResource<ReservaDTO> {
     @PUT
     @Path("/{id}")
     @Produces({ MediaType.APPLICATION_JSON })
-    @Override
     public Response put(
         @PathParam("usuarioId") int usuarioId,
         @PathParam("id") int reservaId,
