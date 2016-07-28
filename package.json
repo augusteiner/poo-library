@@ -1,4 +1,6 @@
 {
+  "repository": "https://github.com/augusteiner/poo-library",
+  "license": "MIT",
   "dependencies": {
     "bower": "~1.7.9"
   },

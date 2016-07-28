@@ -81,26 +81,20 @@ public class ReservaUsuarioResource extends GenericSubResource<ReservaDTO>
     }
 
     @Override
-    public Collection<?> get(int usuarioId)
+    public Collection<Reserva> get(int usuarioId)
         throws ObjetoNaoEncontradoException {
 
         Usuario usuario = this.usuarioPorId(usuarioId);
 
-        Collection<?> reservas = usuario.getReservas();
-
-        System.out.println(String.format(
-            "Reservas (list: %s; size: %d)",
-
-            reservas,
-            reservas.size()));
-
-        return reservas;
+        return usuario.getReservas();
     }
 
     @Override
     public Reserva get(int usuarioId, int id) throws ObjetoNaoEncontradoException {
 
-        return this.usuarioPorId(usuarioId).reservaPorId(id);
+        Usuario usuario = this.usuarioPorId(usuarioId);
+
+        return usuario.reservaPorId(id);
     }
 
     @Override

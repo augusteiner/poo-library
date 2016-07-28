@@ -41,9 +41,9 @@ public interface ISubResource<T> {
     Object get(int parentId, int id)
         throws ObjetoNaoEncontradoException;
 
-    void post(int parentId, T obj)
+    void post(int parentId, T dto)
         throws ObjetoNaoEncontradoException;
 
-    void put(int parentId, int id, T obj)
+    void put(int parentId, int id, T dto)
         throws ObjetoNaoEncontradoException;
 }
