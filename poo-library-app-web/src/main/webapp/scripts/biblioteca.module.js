@@ -46,6 +46,11 @@
 
   app.controller('MainCtrlr', function($route, $scope, $location) {
 
+    $scope.settings = {
+      theme : {
+        dark: false }
+    };
+
     $scope.credentials = {
         login: null,
         password: null

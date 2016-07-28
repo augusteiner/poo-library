@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-controller="MainCtrlr">
 <head>
 
   <meta charset="UTF-8">
@@ -9,14 +9,15 @@
 
   <title>:: Sistema de Gerenciamento de Bibliotecas ::</title>
 
-  <link href="assets/bootswatch/flatly/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="assets/bootswatch/darkly/bootstrap.min.css" rel="stylesheet" type="text/css" ng-if="settings.theme.dark">
+  <link href="assets/bootswatch/flatly/bootstrap.min.css" rel="stylesheet" type="text/css" ng-if="!settings.theme.dark">
   <link href="assets/angular-loading-bar/build/loading-bar.min.css" rel="stylesheet" type="text/css" media="all">
 
   <link href="styles/main.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
-  <div class="container" ng-controller="MainCtrlr">
+  <div class="container">
     <div ng-include="menu" ng-show="user != null"></div>
     <div ng-view>
       <div style="margin: auto; width: 20em; text-align: center; padding-top: 10%;">
