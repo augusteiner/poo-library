@@ -1,8 +1,9 @@
 (function() {
+
   'use strict';
 
-  var CTRLR = 'AdminCtrlr';
-  var ROOT_PATH = '/admin';
+  var CTRLR = 'UserCtrlr';
+  var ROOT_PATH = '/user';
 
   var app = angular.module('biblioteca');
 
