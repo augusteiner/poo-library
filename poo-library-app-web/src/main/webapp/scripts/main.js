@@ -2,11 +2,11 @@
 (function() {
 
   function queued(e,n,r){var t=[],o=$.Deferred().done(function(){t.shift()});
-  return $(e).each(function(){var e=$(this);t.push($.Deferred().done(function(){
-  e.load(function(){t.length>0&&(o.notify(),t.shift().resolve())}),e.prop("src",
-  e.data("src"))}))}),t.push(o),t.shift().resolve(),o}function bulk(e){var n=
-  $.Deferred(),r=$(e),t=r.length;return r.each(function(){queued(this).done(
-  function(){t--,n.notify(),0==t&&n.resolve()})}),n.promise()}
+  $(e).each(function(){var e=$(this);t.push($.Deferred().done(function(){
+  e.bind("load",function(){if(t.length>0){o.notify();var e=t.shift();e.resolve()}}),
+  e.prop("src",e.data("src"))}))}),t.push(o);var r=t.shift();return r.resolve(),o}
+  function bulk(e){var n=$.Deferred(),r=$(e),t=r.length;return r.each(function(){
+  queued(this).done(function(){t--,n.notify(),0==t&&n.resolve()})}),n.promise()}
 
   if (jQuery)
     $(bootstrap);

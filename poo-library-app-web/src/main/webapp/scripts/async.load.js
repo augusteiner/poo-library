@@ -12,7 +12,7 @@ function queued(selector, options, dfd) {
 
     queue.push($.Deferred().done(function() {
 
-      $this.load(function() {
+      $this.bind('load', function() {
 
         if (queue.length > 0) {
 
@@ -20,7 +20,8 @@ function queued(selector, options, dfd) {
 
           last.notify();
 
-          queue.shift().resolve();
+          var dfd = queue.shift();
+          dfd.resolve();
         }
       });
 
@@ -31,7 +32,8 @@ function queued(selector, options, dfd) {
 
   queue.push(last);
 
-  queue.shift().resolve();
+  var dfd = queue.shift();
+  dfd.resolve();
 
   return last;
 }
