@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" ng-controller="AdminCtrlr">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -15,12 +15,41 @@
       <ul class="nav navbar-nav">
         <li class="dropdown">
           <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-            <span class="glyphicon glyphicon-book"></span> Acervo <span class="caret"></span>
+            <span class="glyphicon glyphicon-user"></span> Usuários <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" role="menu">
             <li>
-              <a href="#/user/acervo">
+              <a href="#/admin/usuario">
                 <span class="glyphicon glyphicon-th-list"></span> Busca</a>
+            </li>
+            <li>
+              <a href="#/admin/usuario/new">
+                <span class="glyphicon glyphicon-plus"></span> Cadastro</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="javascript:void(0);">
+                 Outra opção</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="javascript:void(0);">
+                Mais outra opção</a>
+            </li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <span class="glyphicon glyphicon-bookmark"></span> Unidades <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <a href="#/admin/biblioteca">
+                <span class="glyphicon glyphicon-th-list"></span> Busca</a>
+            </li>
+            <li>
+              <a href="#/admin/biblioteca/new">
+                <span class="glyphicon glyphicon-plus"></span> Cadastro</a>
             </li>
             <li class="divider"></li>
             <li>
@@ -31,29 +60,21 @@
             <li><a href="javascript:void(0);">Mais outra opção</a></li>
           </ul>
         </li>
-        <li class="">
-          <a href="#/user/{{userId}}/locacao">
-            <span class="glyphicon glyphicon-calendar"></span> Empréstimos</a>
-        </li>
-        <li>
-          <a href="#/user/{{userId}}/reserva">
-            <span class="glyphicon glyphicon-saved"></span> Reservas</a>
-        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-            <span class="glyphicon glyphicon-user"></span> Augusto
+            <span class="glyphicon glyphicon-user"></span> ADMIN
             <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li class="divider"></li>
             <li>
-              <a href="#/user/{{userId}}/settings">
+              <a href="#/settings">
                 <span class="glyphicon glyphicon-cog"></span> Configurações</a>
             </li>
             <li class="divider"></li>
             <li>
-              <a href="#/logout">
+              <a href="#/logout" ng-click="logout()">
                 <span class="glyphicon glyphicon-log-out"></span> Sair</a>
             </li>
           </ul>

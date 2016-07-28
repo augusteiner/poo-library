@@ -6,7 +6,7 @@
   var PATH = 'api/biblioteca/:bibliotecaId/acervo/:id';
   var PARENT_PATH = '/admin/biblioteca';
   var ROOT_PATH = PARENT_PATH + '/:bibliotecaId/acervo';
-  var TPL_ROOT_PATH = PARENT_PATH + '/acervo';
+  var TPL_ROOT_PATH = 'views' + PARENT_PATH + '/acervo';
 
   var app = angular.module('biblioteca');
 
@@ -16,10 +16,10 @@
 
     $routeProvider.
       when(ROOT_PATH, {
-        templateUrl : PARENT_PATH + '/acervo/index.html'
+        templateUrl : TPL_ROOT_PATH + '/'
       }).
       when(ROOT_PATH + '/:id', {
-        templateUrl : PARENT_PATH + '/acervo/edit.html'
+        templateUrl : TPL_ROOT_PATH + '/edit.html'
       });
   });
 

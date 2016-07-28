@@ -9,16 +9,17 @@
   app.config(function($routeProvider) {
 
     $routeProvider.when(ROOT_PATH, {
-      templateUrl : ROOT_PATH + '/index.html',
+      templateUrl : 'views' + ROOT_PATH + '/',
       controller : CTRLR
-    })
+    })/*
     .otherwise({
       redirectTo: ROOT_PATH
-    });
+    })*/;
   });
 
   app.controller(CTRLR, function($scope, $http, $routeParams, $location) {
 
-    $scope.$parent.menu = ROOT_PATH + '/menu.html';
+//    $scope.$parent.menu = 'views' + ROOT_PATH + '/menu/';
+//    $scope.$parent.userId = 1;
   });
 })();

@@ -1,13 +1,15 @@
 (function() {
   'use strict';
 
-  var app = angular.module('biblioteca', ['ngRoute', 'ngResource', 'angular-loading-bar', 'ngAnimate']);
+  var app = angular.module('biblioteca', ['ngRoute', 'ngResource', 'ngAnimate', 'angular-loading-bar']);
 
   app.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+
     cfpLoadingBarProvider.includeSpinner = false;
   }]);
 
   app.config(['$httpProvider', function($httpProvider) {
+
     // initialize get if not there
     if (!$httpProvider.defaults.headers.get) {
         $httpProvider.defaults.headers.get = {};
@@ -24,19 +26,65 @@
   }]);
 
   app.config(['$routeProvider', function($routeProvider) {
+
     $routeProvider
-    .when('/user', {
-      templateUrl: 'user/index.html',
-      controller: 'UserCtrlr'
-    })
-    .when('/admin', {
-      templateUrl: 'admin/index.html',
-      controller: 'AdminCtrlr'
-    });
+      .when('/user', {
+        templateUrl: 'views/user/',
+        controller: 'UserCtrlr'
+      })
+      .when('/admin', {
+        templateUrl: 'views/admin/',
+        controller: 'AdminCtrlr'
+      })
+      .when('/login', {
+        templateUrl: 'views/login/'
+      })
+      .otherwise({
+        redirectTo: '/login'
+      });
   }]);
 
-  app.controller('MainCtrlr', function($route, $scope) {
-    $scope.menu = '/user/menu.html';
+  app.controller('MainCtrlr', function($route, $scope, $location) {
+
+    $scope.credentials = {
+        login: null,
+        password: null
+    };
+
+    $scope.logout = function() {
+
+      $scope.user = null;
+      $scope.menu = null;
+
+      $location.path('/');
+    };
+
+    $scope.login = function() {
+
+      var credentials = $scope.credentials;
+      $scope.credentials = {};
+
+      // TODO Realizar via ajax
+      (function(r) {
+
+        if (credentials.login == 'admin') {
+  
+          $scope.menu = 'views/admin/menu/';
+          $scope.user = r;
+
+          $location.path('/admin');
+  
+        } else {
+
+          $scope.menu = 'views/user/menu/';
+          $scope.user = r;
+
+          $location.path('/user');
+
+        }
+
+      })({ id: 1 });
+    };
   });
 
 })();

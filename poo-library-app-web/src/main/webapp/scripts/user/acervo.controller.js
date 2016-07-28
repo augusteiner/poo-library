@@ -2,7 +2,7 @@
 
   'use strict';
 
-  var CTRLR = 'AcervoCtrlr';
+  var CTRLR = 'AcervoUsuarioCtrlr';
   var PATH = 'api/acervo/:id';
   var ROOT_PATH = '/user/acervo';
 
@@ -14,10 +14,10 @@
 
     $routeProvider.
       when(ROOT_PATH, {
-        templateUrl : ROOT_PATH + '/index.html'
+        templateUrl : 'views' + ROOT_PATH
       }).
       when(ROOT_PATH + '/:id', {
-        templateUrl : ROOT_PATH + '/view.html'
+        templateUrl : 'views' + ROOT_PATH + '/view.html'
       });
   });
 

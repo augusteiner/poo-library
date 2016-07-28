@@ -13,7 +13,7 @@
     app.config(function($routeProvider) {
       $routeProvider.
         when(ROOT_PATH, {
-          templateUrl : TPL_ROOT_PATH + '/index.html',
+          templateUrl : TPL_ROOT_PATH + '/',
           controller : CTRLR_PREFIX
         }).
         when(ROOT_PATH + '/:id', {
@@ -23,6 +23,8 @@
     });
 
     app.controller(CTRLR_PREFIX, function($scope, $routeParams, $location, $resource) {
+
+      console.log(CTRLR_PREFIX);
 
       var self = this;
       var errorHandler = function(response) {
