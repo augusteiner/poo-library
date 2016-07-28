@@ -25,13 +25,18 @@
 
   app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
-      .when('/user', {
-        templateUrl: 'user/index.html',
-        controller: 'UserCtrlr'
-      })
-      .when('/admin', {
-        templateUrl: 'admin/index.html',
-        controller: 'AdminCtrlr'
-      });
+    .when('/user', {
+      templateUrl: 'user/index.html',
+      controller: 'UserCtrlr'
+    })
+    .when('/admin', {
+      templateUrl: 'admin/index.html',
+      controller: 'AdminCtrlr'
+    });
   }]);
+
+  app.controller('MainCtrlr', function($route, $scope) {
+    $scope.menu = '/user/menu.html';
+  });
+
 })();
