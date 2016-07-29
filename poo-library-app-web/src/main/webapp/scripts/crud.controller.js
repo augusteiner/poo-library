@@ -3,8 +3,10 @@
 
   var app = angular.module('biblioteca');
 
-  app.crudCtrlr = function(CTRLR_PREFIX, PATH, ROOT_PATH, TPL_ROOT_PATH) {
+  app.crudCtrlr = function(CTRLR_PREFIX, REL_PATH, ROOT_PATH, TPL_ROOT_PATH) {
 
+    var __PREFIX_PATH = 'api';
+    var PATH = __PREFIX_PATH + '/' + REL_PATH;
     // console.log('Novo ctrlr de CRUD: ' + CTRLR_PREFIX + ' @ ' + ROOT_PATH);
 
     if (TPL_ROOT_PATH == null)
@@ -29,7 +31,13 @@
       var self = this;
       var errorHandler = function(response) {
 
-        alert(['OPS!', response.data.message].join('\n\n'));
+        console.log(response);
+
+        if (response.data && 
+            response.data.message) {
+
+          alert(['OPS!', response.data.message].join('\n\n'));
+        }
       };
 
       var $params = {};
@@ -46,10 +54,17 @@
       $paramsWithId = angular.extend({}, $paramsWithId, $params);
 
       var $rest = $resource(PATH, null, {
-        getById: { method: 'GET', params: $paramsWithId, interceptor: $inter },
+        get: { method: 'GET', params: $paramsWithId, interceptor: $inter },
         update: { method: 'PUT', params: $paramsWithId, interceptor: $inter },
         save: { method: 'POST', params: $params, interceptor: $inter },
-        remove: { method: 'DELETE', params: $paramsWithId, interceptor: $inter }
+        remove: { method: 'DELETE', params: $paramsWithId, interceptor: $inter },
+        search: {
+          method: 'GET',
+          params: $params,
+          interceptor: $inter,
+          url: __PREFIX_PATH + '/search/' + REL_PATH,
+          isArray: true
+        }
       });
 
       console.log($rest);
@@ -71,6 +86,22 @@
 
       $scope.itens = [];
 
+      $scope.search = function(term) {
+
+        var params = angular.extend(
+          { term: term },
+          $scope.params);
+
+        console.log('Loading: ' + PATH);
+
+        $rest.search(params).$promise.then(function(r) {
+
+          console.log(r);
+
+          $scope.itens = r;
+        });
+      };
+
       $scope.cancel = function(url) {
 
         $scope.data = {};
@@ -84,7 +115,7 @@
 
           console.log("Getting resource", $scope.params);
 
-          $rest.getById($scope.params).$promise.then(function(r) {
+          $rest.get($scope.params).$promise.then(function(r) {
 
             //console.log(r);
 

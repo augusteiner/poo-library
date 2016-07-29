@@ -3,7 +3,7 @@
   'use strict';
 
   var CTRLR = 'AcervoCtrlr';
-  var PATH = 'api/biblioteca/:bibliotecaId/acervo/:id';
+  var PATH = 'biblioteca/:bibliotecaId/acervo/:id';
   var PARENT_PATH = '/admin/biblioteca';
   var ROOT_PATH = PARENT_PATH + '/:bibliotecaId/acervo';
   var TPL_ROOT_PATH = 'views' + PARENT_PATH + '/acervo';

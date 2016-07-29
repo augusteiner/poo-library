@@ -23,9 +23,15 @@
  */
 package poo.library.app.web;
 
+import static poo.library.app.web.util.Responses.*;
 import static poo.library.app.web.util.DAOFactory.*;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import poo.library.app.web.dto.UsuarioDTO;
 import poo.library.dao.comum.DAOFactory;
@@ -48,5 +54,21 @@ public class UsuarioResource extends GenericResource<UsuarioDTO> {
     public UsuarioResource(IDAO<Usuario> dao) {
 
         super(PATH, novoDAO(dao, UsuarioDTO.class));
+    }
+
+    @Path("search")
+    public static class UsuarioSearchResource {
+
+        private UsuarioResource self = new UsuarioResource();
+
+        @GET
+        @Path("usuario")
+        @Produces({ MediaType.APPLICATION_JSON })
+        public Response httpGet(@QueryParam("term") String term) {
+
+            Iterable<?> iter = self.dao.search(term);
+
+            return ok().entity(iter).build();
+        }
     }
 }

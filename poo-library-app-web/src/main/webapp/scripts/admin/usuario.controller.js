@@ -2,7 +2,7 @@
   'use strict';
 
   var CTRLR = 'UsuarioCtrlr';
-  var PATH = 'api/usuario/:id';
+  var PATH = 'usuario/:id';
   var ROOT_PATH = '/admin/usuario';
   var TPL_ROOT_PATH = 'views' + ROOT_PATH;
 

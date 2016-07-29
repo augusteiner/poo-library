@@ -3,7 +3,7 @@
   'use strict';
 
   var CTRLR = 'AcervoUsuarioCtrlr';
-  var PATH = 'api/acervo/:id';
+  var PATH = 'acervo/:id';
   var ROOT_PATH = '/user/acervo';
 
   var app = angular.module('biblioteca');
