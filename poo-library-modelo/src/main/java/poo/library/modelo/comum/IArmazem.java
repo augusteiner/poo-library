@@ -30,7 +30,9 @@ import poo.library.util.FalhaOperacaoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
+ * @deprecated
  */
+@Deprecated
 public interface IArmazem {
 
     void salvarItemAcervo(ItemAcervo itemAcervo) throws FalhaOperacaoException;

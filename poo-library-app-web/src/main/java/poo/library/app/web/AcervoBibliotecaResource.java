@@ -36,7 +36,7 @@ import poo.library.app.web.util.Conversores;
 import poo.library.app.web.util.ISubResource;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
-import poo.library.dao.util.DAOAcervo;
+import poo.library.dao.util.BuscadorDb;
 import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.comum.IBuscador;
@@ -173,7 +173,7 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
 
     private IBuscador buscador(Biblioteca biblioteca) {
 
-        IBuscador buscador = new DAOAcervo(this.getParentDAO());
+        IBuscador buscador = new BuscadorDb();
 
         Biblioteca.exportarBuscador(biblioteca, buscador);
 

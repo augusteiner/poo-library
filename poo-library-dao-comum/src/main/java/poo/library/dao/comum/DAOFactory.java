@@ -45,14 +45,19 @@ public class DAOFactory {
         getSingleton().impl.connectPooled();
     }
 
-    public static <T> IDAO<T> novoDAO(Class<T> cls) {
+    public static IDAOFactory getImpl() {
 
-        return INSTANCE.impl.createNew(cls);
+        return INSTANCE.impl;
     }
 
     private static DAOFactory getSingleton() {
 
         return INSTANCE;
+    }
+
+    public static <T> IDAO<T> novoDAO(Class<T> cls) {
+
+        return INSTANCE.impl.createNew(cls);
     }
 
     public static void register(IDAOFactory factory) {

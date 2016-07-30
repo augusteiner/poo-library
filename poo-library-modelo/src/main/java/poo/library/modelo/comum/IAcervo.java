@@ -25,7 +25,9 @@ package poo.library.modelo.comum;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
+ * @deprecated
  */
+@Deprecated
 public interface IAcervo extends IArmazem, IBuscador {
 
 }

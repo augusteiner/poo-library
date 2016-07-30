@@ -72,7 +72,7 @@ public class ReservaResource extends GenericSubResource<ReservaDTO> {
     }
 
     @Override
-    protected IDAO<?> getParentDAO() {
+    protected IDAO<Biblioteca> getParentDAO() {
 
         return this.parentDAO;
     }

@@ -35,41 +35,25 @@ import poo.library.util.ObjetoNaoEncontradoException;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IBuscador extends poo.library.util.IBuscador {
+public interface IBuscador /* extends poo.library.util.IBuscador */ {
 
     Biblioteca getBiblioteca();
 
     void setBiblioteca(Biblioteca biblioteca);
 
-    void setLocacoes(Collection<Locacao> locacoes);
-    void setReservas(Collection<Reserva> reservas);
-    void setItensAcervo(Collection<ItemAcervo> itensAcervo);
-
-    @Override
     ItemAcervo itemPorId(int itemAcervoId) throws ObjetoNaoEncontradoException;
-    @Override
     Collection<ItemAcervo> itens();
-    @Override
     Collection<ItemAcervo> itensPorTermo(String termo);
 
-    @Override
     Locacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException;
-    @Override
     Collection<Locacao> locacoes();
-    @Override
     Collection<Locacao> locacoesPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;
 
-    @Override
     Reserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException;
-    @Override
     Collection<Reserva> reservas();
-    @Override
     Collection<Reserva> reservasPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;
 
-    @Override
     Usuario usuarioPorId(int usuarioId) throws ObjetoNaoEncontradoException;
-    @Override
     Collection<Usuario> usuarios();
-    @Override
     Collection<Usuario> usuariosPorTermo(String termo);
 }

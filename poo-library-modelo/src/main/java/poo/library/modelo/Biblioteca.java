@@ -31,7 +31,6 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import poo.library.comum.EStatusRequisicao;
-import poo.library.modelo.comum.IAcervo;
 import poo.library.modelo.comum.IBiblioteca;
 import poo.library.modelo.comum.IBuscador;
 import poo.library.util.Bibliotecas;
@@ -53,7 +52,7 @@ public class Biblioteca implements IBiblioteca {
     private int qteDiasValidadeReserva;
     private int qteDiasLocacao;
 
-    private IAcervo armazem;
+    private IBuscador buscador;
 
     private Collection<ItemAcervo> acervo;
 
@@ -113,7 +112,7 @@ public class Biblioteca implements IBiblioteca {
 
     public IBuscador getBuscador() {
 
-        return this.armazem;
+        return this.buscador;
     }
 
     @Override
@@ -217,9 +216,11 @@ public class Biblioteca implements IBiblioteca {
     public Reserva reservar(int itemAcervoId, int usuarioId)
         throws ObjetoNaoEncontradoException, ItemIndisponivelException {
 
-        ItemAcervo itemAcervo = this.getBuscador().itemPorId(itemAcervoId);
+        IBuscador buscador = this.getBuscador();
 
-        Usuario usuario = this.getBuscador().usuarioPorId(usuarioId);
+        ItemAcervo itemAcervo = buscador.itemPorId(itemAcervoId);
+
+        Usuario usuario = buscador.usuarioPorId(usuarioId);
 
         return this.reservar(itemAcervo, usuario);
     }
@@ -315,10 +316,7 @@ public class Biblioteca implements IBiblioteca {
 
         buscador.setBiblioteca(biblioteca);
 
-        buscador.setItensAcervo(biblioteca.getAcervo());
-
-        buscador.setReservas(biblioteca.getReservas());
-        buscador.setLocacoes(biblioteca.getLocacoes());
+        biblioteca.buscador = buscador;
     }
 
     public void removeAcervo(ItemAcervo item) throws ObjetoNaoEncontradoException {

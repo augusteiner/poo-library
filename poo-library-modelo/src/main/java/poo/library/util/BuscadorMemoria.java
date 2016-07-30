@@ -27,17 +27,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import poo.library.modelo.comum.IBuscador;
 import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Locacao;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
-import poo.library.modelo.comum.IAcervo;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class AcervoEmMemoria implements IAcervo {
+public class BuscadorMemoria implements IBuscador {
 
     private Biblioteca biblioteca;
 
@@ -47,7 +47,7 @@ public class AcervoEmMemoria implements IAcervo {
 
     private Collection<Usuario> usuarios;
 
-    public AcervoEmMemoria() { }
+    public BuscadorMemoria() { }
 
     public void close() {
 
@@ -138,23 +138,27 @@ public class AcervoEmMemoria implements IAcervo {
 
     public Collection<Locacao> locacoesPorUsuario(Usuario usuario) {
 
-        return this.locacoesPorUsuarioId(usuario.getId());
-    }
-
-    @Override
-    public Collection<Locacao> locacoesPorUsuarioId(int usuarioId) {
-
         Collection<Locacao> locacoes = novaLista();
 
         for (Locacao l : this.locacoes) {
 
-            if (l.getUsuarioId() == usuarioId) {
+            if (l.getUsuarioId() == usuario.getId()) {
 
                 locacoes.add(l);
             }
         }
 
         return Collections.unmodifiableCollection(locacoes);
+
+    }
+
+    @Override
+    public Collection<Locacao> locacoesPorUsuarioId(int usuarioId)
+        throws ObjetoNaoEncontradoException {
+
+        Usuario usuario = this.usuarioPorId(usuarioId);
+
+        return this.locacoesPorUsuario(usuario);
     }
 
     private <T> Collection<T> novaLista() {
@@ -186,17 +190,11 @@ public class AcervoEmMemoria implements IAcervo {
 
     public Collection<Reserva> reservasPorUsuario(Usuario usuario) {
 
-        return this.reservasPorUsuarioId(usuario.getId());
-    }
-
-    @Override
-    public Collection<Reserva> reservasPorUsuarioId(int usuarioId) {
-
         Collection<Reserva> reservas = novaLista();
 
         for (Reserva r : this.reservas) {
 
-            if (r.getUsuarioId() == usuarioId) {
+            if (r.getUsuarioId() == usuario.getId()) {
 
                 reservas.add(r);
             }
@@ -205,36 +203,25 @@ public class AcervoEmMemoria implements IAcervo {
         return Collections.unmodifiableCollection(reservas);
     }
 
-    //public void salvarUsuario(IUsuario usuario) {
-    //
-    //    this.usuarios.add(usuario);
-    //}
-
     @Override
-    public void salvarItemAcervo(ItemAcervo itemAcervo) {
+    public Collection<Reserva> reservasPorUsuarioId(int usuarioId)
+        throws ObjetoNaoEncontradoException {
 
-//         this.itens.add(itemAcervo);
-    }
+        Usuario usuario = this.usuarioPorId(usuarioId);
 
-    @Override
-    public void salvarLocacao(Locacao locacao) {
-
-//        this.locacoes.add(locacao);
-    }
-
-    @Override
-    public void salvarReserva(Reserva reserva) {
-
-//        this.reservas.add(reserva);
+        return this.reservasPorUsuario(usuario);
     }
 
     @Override
     public void setBiblioteca(Biblioteca biblioteca) {
 
         this.biblioteca = biblioteca;
+
+        this.setLocacoes(biblioteca.getLocacoes());
+        this.setReservas(biblioteca.getReservas());
+        this.setItensAcervo(biblioteca.getAcervo());
     }
 
-    @Override
     public void setItensAcervo(Collection<ItemAcervo> itens) {
 
         if (itens == null) {
@@ -246,14 +233,24 @@ public class AcervoEmMemoria implements IAcervo {
         this.itens = itens;
     }
 
-    @Override
     public void setLocacoes(Collection<Locacao> locacoes) {
+
+        if (locacoes == null) {
+
+            throw new IllegalArgumentException(
+                "Argumento locacoes não deve ser nulo");
+        }
 
         this.locacoes = locacoes;
     }
 
-    @Override
     public void setReservas(Collection<Reserva> reservas) {
+
+        if (reservas == null) {
+
+            throw new IllegalArgumentException(
+                "Argumento reservas não deve ser nulo");
+        }
 
         this.reservas = reservas;
     }

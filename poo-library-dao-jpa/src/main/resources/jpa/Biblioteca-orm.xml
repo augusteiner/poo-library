@@ -42,7 +42,7 @@
         </cascade>
       </one-to-many>
 
-      <transient name="armazem" />
+      <transient name="buscador" />
       <transient name="usuarios" />
 
     </attributes>

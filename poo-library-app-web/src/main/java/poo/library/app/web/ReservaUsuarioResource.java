@@ -30,7 +30,6 @@ import java.net.URI;
 import java.util.Collection;
 
 import javax.ws.rs.BadRequestException;
-import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.ServerErrorException;
 
@@ -116,13 +115,15 @@ public class ReservaUsuarioResource extends GenericSubResource<ReservaDTO>
 
         try {
 
-            reserva = biblioteca.reservar(dto.getItemAcervoId(), dto.getUsuarioId());
+            reserva = biblioteca.reservar(
+                dto.getItemAcervoId(),
+                dto.getUsuarioId());
 
         } catch (ItemIndisponivelException e) {
 
             e.printStackTrace();
 
-            throw new NotFoundException(
+            throw new BadRequestException(
                 e.getMessage(),
                 e);
         }
