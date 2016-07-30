@@ -11,7 +11,7 @@ bower install
 
 #cd "$root_dir"
 
-mvn install eclipse:eclipse
+mvn -Ptest install eclipse:eclipse
 
 rm -rf */.settings/
 

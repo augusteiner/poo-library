@@ -2,9 +2,12 @@
 
 set -e
 
+# cleaning some resources
 rm -rfv ~/.biblioteca/
-rm -rfv */{bin,target}/
 rm -rfv *-web/src/main/webapp/assets/
+rm -rfv ~/.m2/repository/poo/
+
+rm -rfv */{bin,target}/
 
 mvn clean
 
