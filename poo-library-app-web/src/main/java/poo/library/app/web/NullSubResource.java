@@ -23,10 +23,14 @@
  */
 package poo.library.app.web;
 
+import static poo.library.app.web.util.Responses.ok;
+
 import java.net.URI;
 import java.util.Collection;
 
-import javax.ws.rs.NotFoundException;
+import javax.ws.rs.NotAllowedException;
+import javax.ws.rs.OPTIONS;
+import javax.ws.rs.core.Response;
 
 import poo.library.app.web.util.ISubResource;
 import poo.library.util.ObjetoNaoEncontradoException;
@@ -36,37 +40,43 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 public class NullSubResource<T> implements ISubResource<T> {
 
+    @OPTIONS
+    public Response httpOptions() {
+
+        return ok().allow("OPTIONS").build();
+    }
+
     @Override
     public void delete(int parentId, int id)
         throws ObjetoNaoEncontradoException {
 
-        throw new NotFoundException();
+        throw new NotAllowedException("OPTIONS");
     }
 
     @Override
     public Collection<?> get(int parentId) throws ObjetoNaoEncontradoException {
 
-        throw new NotFoundException();
+        throw new NotAllowedException("OPTIONS");
     }
 
     @Override
     public Object get(int parentId, int id)
         throws ObjetoNaoEncontradoException {
 
-        throw new NotFoundException();
+        throw new NotAllowedException("OPTIONS");
     }
 
     @Override
     public void post(int parentId, T obj) throws ObjetoNaoEncontradoException {
 
-        throw new NotFoundException();
+        throw new NotAllowedException("OPTIONS");
     }
 
     @Override
     public void put(int parentId, int id, T obj)
         throws ObjetoNaoEncontradoException {
 
-        throw new NotFoundException();
+        throw new NotAllowedException("OPTIONS");
     }
 
     public URI createdAt(int parentId, int id) {
