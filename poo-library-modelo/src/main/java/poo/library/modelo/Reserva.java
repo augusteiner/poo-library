@@ -85,12 +85,6 @@ public class Reserva extends Requisicao implements IReserva {
     }
 
     @Override
-    public int hashCode() {
-
-        return Requisicoes.hashCode((IReserva) this);
-    }
-
-    @Override
     public String toString() {
 
         return String.format(

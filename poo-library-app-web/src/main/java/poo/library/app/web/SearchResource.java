@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2016 José Nascimento & Juscelino Messias
+ * Copyright (c) 2016 José Augusto & Juscelino Messias
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,30 +23,9 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.DAOFactory.*;
-
-import javax.ws.rs.Path;
-
-import poo.library.app.web.dto.UsuarioDTO;
-import poo.library.dao.comum.DAOFactory;
-import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Usuario;
-
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Path(UsuarioResource.PATH)
-public class UsuarioResource extends GenericResource<UsuarioDTO> {
+public abstract class SearchResource {
 
-    public static final String PATH = "usuario";
-
-    public UsuarioResource() {
-
-        this(DAOFactory.novoDAO(Usuario.class));
-    }
-
-    public UsuarioResource(IDAO<Usuario> dao) {
-
-        super(PATH, novoDAO(dao, UsuarioDTO.class));
-    }
 }

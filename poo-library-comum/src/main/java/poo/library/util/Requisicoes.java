@@ -25,11 +25,7 @@ package poo.library.util;
 
 import static poo.library.util.R.*;
 
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
-import poo.library.comum.ILocacao;
 import poo.library.comum.IRequisicao;
-import poo.library.comum.IReserva;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -46,16 +42,6 @@ public class Requisicoes {
             ((Object) one.getId()).equals(((IRequisicao) other).getId());
     }
 
-    public static int hashCode(ILocacao locacao) {
-
-        return hashCode(PRIMO_LOCACAO, PRIMO_LOCACAO_MULT, locacao);
-    }
-
-    public static int hashCode(IReserva reserva) {
-
-        return hashCode(PRIMO_RESERVA, PRIMO_RESERVA_MULT, reserva);
-    }
-
     public static String toString(IRequisicao requisicaoId) {
 
         return String.format(
@@ -66,23 +52,5 @@ public class Requisicoes {
             requisicaoId.getBibliotecaId(),
 
             FORMATTER_DATA_HORA_PADRAO.format(requisicaoId.getRealizadaEm()));
-    }
-
-    private static int hashCode(
-        int initialOddNumber,
-        int multiplierOddNumber,
-
-        IRequisicao requisicaoId) {
-
-        HashCodeBuilder builder = new HashCodeBuilder(
-            initialOddNumber,
-            multiplierOddNumber);
-
-        builder.append(requisicaoId.getUsuarioId())
-            .append(requisicaoId.getItemAcervoId())
-            .append(requisicaoId.getBibliotecaId())
-            .append(requisicaoId.getRealizadaEm());
-
-        return builder.toHashCode();
     }
 }

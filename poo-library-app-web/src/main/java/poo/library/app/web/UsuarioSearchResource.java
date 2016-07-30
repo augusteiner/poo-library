@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2016 José Nascimento & Juscelino Messias
+ * Copyright (c) 2016 José Augusto & Juscelino Messias
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,30 +23,30 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.DAOFactory.*;
+import static poo.library.app.web.util.Responses.ok;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-
-import poo.library.app.web.dto.UsuarioDTO;
-import poo.library.dao.comum.DAOFactory;
-import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Usuario;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Path(UsuarioResource.PATH)
-public class UsuarioResource extends GenericResource<UsuarioDTO> {
+@Path("search")
+public class UsuarioSearchResource extends SearchResource {
 
-    public static final String PATH = "usuario";
+    private UsuarioResource self = new UsuarioResource();
 
-    public UsuarioResource() {
+    @GET
+    @Path("/usuario")
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Response httpGet(@QueryParam("term") String term) {
 
-        this(DAOFactory.novoDAO(Usuario.class));
-    }
+        Iterable<?> iter = self.dao.search(term);
 
-    public UsuarioResource(IDAO<Usuario> dao) {
-
-        super(PATH, novoDAO(dao, UsuarioDTO.class));
+        return ok().entity(iter).build();
     }
 }

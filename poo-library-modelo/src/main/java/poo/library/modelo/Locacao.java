@@ -95,12 +95,6 @@ public class Locacao extends Requisicao implements ILocacao {
     }
 
     @Override
-    public int hashCode() {
-
-        return Requisicoes.hashCode((ILocacao) this);
-    }
-
-    @Override
     public String toString() {
 
         return String.format(
