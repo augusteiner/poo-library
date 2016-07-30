@@ -107,7 +107,8 @@ public class DAOConversor<I, O> implements IConversor<O>, IDAO<O> {
     }
 
     @Override
-    public O find(int id) throws ObjetoNaoEncontradoException {
+    public O find(Object id)
+        throws ObjetoNaoEncontradoException {
 
         return this.converter(this.dao.find(id));
     }
@@ -163,7 +164,7 @@ public class DAOConversor<I, O> implements IConversor<O>, IDAO<O> {
     }
 
     @Override
-    public Iterable<O> search(String term) {
+    public Iterable<O> search(Object term) {
 
         return Iterables.convert(
             this.dao.search(term),

@@ -45,7 +45,8 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements IDAO<Usuario> {
     }
 
     @Override
-    public void save(Usuario obj) throws FalhaOperacaoException {
+    public void save(Usuario obj)
+        throws FalhaOperacaoException {
 
         // TODO Detectar alteração no tipo de usuário???
         super.save(obj);

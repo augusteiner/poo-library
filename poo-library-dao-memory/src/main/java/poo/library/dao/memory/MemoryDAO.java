@@ -25,6 +25,7 @@ package poo.library.dao.memory;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import poo.library.comum.IIdentificavel;
@@ -80,14 +81,14 @@ class MemoryDAO<T> implements IDAO<T> {
     }
 
     @Override
-    public T find(int id) throws ObjetoNaoEncontradoException {
+    public T find(Object id) throws ObjetoNaoEncontradoException {
 
-        for (T i : this.storage) {
+        for (T obj : this.storage) {
 
-            if (i instanceof IIdentificavel &&
-                ((IIdentificavel) i).getId() == id) {
+            if (obj instanceof IIdentificavel &&
+                id.equals(((IIdentificavel) obj).getId())) {
 
-                return i;
+                return obj;
             }
         }
 
@@ -149,7 +150,6 @@ class MemoryDAO<T> implements IDAO<T> {
         }
     }
 
-    @Override
     public Iterable<T> search(String term) {
 
         Collection<T> result = newList();
@@ -164,6 +164,15 @@ class MemoryDAO<T> implements IDAO<T> {
         }
 
         return result;
+    }
+
+    @Override
+    public Iterable<T> search(Object term) {
+
+        if (term instanceof String)
+            return this.search(term.toString());
+        else
+            return Collections.emptyList();
     }
 
     private <C> List<C> newList() {

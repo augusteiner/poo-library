@@ -31,22 +31,30 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 public interface IDAO<T> extends AutoCloseable {
 
-    Class<T> getEntityClass();
-
     Iterable<? extends T> all();
 
     int count();
 
-    void delete(T obj) throws FalhaOperacaoException;
-    void deleteById(int id) throws ObjetoNaoEncontradoException, FalhaOperacaoException;
+    void delete(T obj)
+        throws FalhaOperacaoException;
 
-    T find(int id) throws ObjetoNaoEncontradoException;
-    T first() throws ObjetoNaoEncontradoException;
-    T reference(int id);
+    void deleteById(int id)
+        throws ObjetoNaoEncontradoException, FalhaOperacaoException;
 
-    Iterable<? extends T> search(String term);
+    T find(Object id)
+        throws ObjetoNaoEncontradoException;
 
-    void save(T obj) throws FalhaOperacaoException;
+    T first()
+        throws ObjetoNaoEncontradoException;
 
     void flush() throws FalhaOperacaoException;
+
+    Class<T> getEntityClass();
+
+    T reference(int id);
+
+    void save(T obj)
+        throws FalhaOperacaoException;
+
+    Iterable<? extends T> search(Object term);
 }

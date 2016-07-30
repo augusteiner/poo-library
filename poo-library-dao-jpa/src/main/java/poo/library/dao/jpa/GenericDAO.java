@@ -69,12 +69,17 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
 
         if (this.em != null) {
 
-            this.em.clear();
+            try {
 
-            this.em.close();
-            // this.em.getEntityManagerFactory().close();
+                this.em.clear();
 
-            this.em = null;
+            } finally {
+
+                this.em.close();
+                // this.em.getEntityManagerFactory().close();
+
+                this.em = null;
+            }
         }
     }
 
@@ -112,7 +117,8 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
     }
 
     @Override
-    public T find(int id) throws ObjetoNaoEncontradoException {
+    public T find(Object id)
+        throws ObjetoNaoEncontradoException {
 
         T obj = this.em.find(this.cls, id);
 
@@ -244,10 +250,18 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
         this.em.getTransaction().commit();
     }
 
-    @Override
     public Iterable<T> search(String term) {
 
         return Collections.emptyList();
+    }
+
+    @Override
+    public Iterable<T> search(Object term) {
+
+        if (term instanceof String)
+            return this.search(term.toString());
+        else
+            return Collections.emptyList();
     }
 
     protected EntityManager getEm() {

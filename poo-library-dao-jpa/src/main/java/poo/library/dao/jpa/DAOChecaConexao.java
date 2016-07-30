@@ -117,7 +117,8 @@ public class DAOChecaConexao<T> implements IDAO<T>, AutoCloseable {
     }
 
     @Override
-    public T find(int id) throws ObjetoNaoEncontradoException {
+    public T find(Object id)
+        throws ObjetoNaoEncontradoException {
 
         try {
 
@@ -199,7 +200,7 @@ public class DAOChecaConexao<T> implements IDAO<T>, AutoCloseable {
     }
 
     @Override
-    public Iterable<? extends T> search(String term) {
+    public Iterable<? extends T> search(Object term) {
 
         try {
 

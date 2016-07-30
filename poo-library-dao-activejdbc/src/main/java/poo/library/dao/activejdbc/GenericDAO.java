@@ -23,6 +23,8 @@
  */
 package poo.library.dao.activejdbc;
 
+import java.util.Collections;
+
 import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.ModelDelegate;
 
@@ -105,7 +107,7 @@ public class GenericDAO<T> {
         }
     }
 
-    public T find(int id) throws ObjetoNaoEncontradoException {
+    public T find(Object id) throws ObjetoNaoEncontradoException {
 
         return this.findFirst("id = ?", id);
     }
@@ -155,9 +157,9 @@ public class GenericDAO<T> {
         this.inverseMap(obj, model);
     }
 
-    public Iterable<T> search(String term) {
+    public Iterable<T> search(Object term) {
 
-        return null;
+        return Collections.emptyList();
     }
 
     private T findFirst(String condition, Object... params) throws ObjetoNaoEncontradoException {
