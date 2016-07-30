@@ -29,6 +29,7 @@ package poo.library.comum;
 public enum EStatusRequisicao {
 
     OK,
+    ENCERRADA,
     CANCELADA;
 
     public static final EStatusRequisicao PADRAO = OK;

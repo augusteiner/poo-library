@@ -49,9 +49,17 @@ public interface IBiblioteca extends IIdentificavel, ISearcheable {
     void setNome(String nome);
     void setMultaDiaria(double multaDiaria);
 
-    IReserva cancelar(int reservaId) throws ObjetoNaoEncontradoException, FalhaOperacaoException;
-    ILocacao devolver(int locacaoId) throws ObjetoNaoEncontradoException, FalhaOperacaoException;
+    IReserva cancelar(int reservaId)
+        throws ObjetoNaoEncontradoException, FalhaOperacaoException;
 
-    ILocacao locar(int itemAcervoId, int usuarioId) throws ObjetoNaoEncontradoException, ItemIndisponivelException;
-    IReserva reservar(int itemAcervoId, int usuarioId) throws ObjetoNaoEncontradoException, ItemIndisponivelException;
+    ILocacao devolver(int locacaoId)
+        throws ObjetoNaoEncontradoException, FalhaOperacaoException;
+    ILocacao devolver(int usuarioId, int itemAcervoId)
+        throws ObjetoNaoEncontradoException, FalhaOperacaoException;
+
+    ILocacao locar(int itemAcervoId, int usuarioId)
+        throws ObjetoNaoEncontradoException, ItemIndisponivelException;
+
+    IReserva reservar(int itemAcervoId, int usuarioId)
+        throws ObjetoNaoEncontradoException, ItemIndisponivelException;
 }

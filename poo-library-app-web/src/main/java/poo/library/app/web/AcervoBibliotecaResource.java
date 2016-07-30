@@ -106,9 +106,9 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
     public Collection<ItemAcervo> get(int bibliotecaId)
         throws ObjetoNaoEncontradoException {
 
-        IBuscador buscador = buscador(bibliotecaId);
+        Biblioteca biblioteca = this.bibliotecaPorId(bibliotecaId);
 
-        return buscador.itens();
+        return biblioteca.getAcervo();
     }
 
     @Override

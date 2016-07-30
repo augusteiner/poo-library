@@ -292,4 +292,25 @@ public class BuscadorMemoria implements IBuscador {
 
         return usuarios;
     }
+
+    @Override
+    public Locacao ultimaLocacao(int usuarioId, int itemAcervoId)
+        throws ObjetoNaoEncontradoException {
+
+        // XXX Se vale da ordenação de locações pela data de realização
+        for (Locacao l : this.locacoes) {
+
+            if (l.getUsuarioId() == usuarioId &&
+                l.getItemAcervoId() == itemAcervoId) {
+
+                return l;
+            }
+        }
+
+        throw new ObjetoNaoEncontradoException(String.format(
+            "Última locação não encontrada (Usuario: #%d; ItemAcervo: #%d)",
+
+            usuarioId,
+            itemAcervoId));
+    }
 }

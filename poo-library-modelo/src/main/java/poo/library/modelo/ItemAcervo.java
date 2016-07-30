@@ -222,4 +222,11 @@ public abstract class ItemAcervo implements IItemAcervo {
 
         return ItensAcervo.toString(this);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        return obj instanceof ItemAcervo &&
+            ((ItemAcervo) obj).getId() == this.getId();
+    }
 }

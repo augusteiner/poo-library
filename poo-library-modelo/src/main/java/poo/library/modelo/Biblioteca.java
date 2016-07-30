@@ -93,15 +93,31 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
+    public Locacao devolver(int usuarioId, int itemAcervoId)
+        throws ObjetoNaoEncontradoException, FalhaOperacaoException {
+
+        Locacao locacao = this.getBuscador().ultimaLocacao(usuarioId, itemAcervoId);
+
+        this.devolver(locacao);
+
+        return locacao;
+    }
+
+    @Override
     public Locacao devolver(int locacaoId)
         throws ObjetoNaoEncontradoException {
 
-        return null;
+        Locacao locacao = this.getBuscador().locacaoPorId(locacaoId);
+
+        this.devolver(locacao);
+
+        return locacao;
     }
 
     @Override
     public void devolver(Locacao locacao) {
 
+        locacao.setStatus(EStatusRequisicao.ENCERRADA);
     }
 
     @Override

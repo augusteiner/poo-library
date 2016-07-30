@@ -23,8 +23,6 @@
  */
 package poo.library.modelo.comum;
 
-import java.util.Collection;
-
 import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Locacao;
@@ -42,18 +40,24 @@ public interface IBuscador /* extends poo.library.util.IBuscador */ {
     void setBiblioteca(Biblioteca biblioteca);
 
     ItemAcervo itemPorId(int itemAcervoId) throws ObjetoNaoEncontradoException;
-    Collection<ItemAcervo> itens();
-    Collection<ItemAcervo> itensPorTermo(String termo);
+    Iterable<ItemAcervo> itens();
+    Iterable<ItemAcervo> itensPorTermo(String termo);
 
     Locacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException;
-    Collection<Locacao> locacoes();
-    Collection<Locacao> locacoesPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;
+    Iterable<Locacao> locacoes();
+    Iterable<Locacao> locacoesPorUsuarioId(int usuarioId)
+        throws ObjetoNaoEncontradoException;
 
     Reserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException;
-    Collection<Reserva> reservas();
-    Collection<Reserva> reservasPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;
+    Iterable<Reserva> reservas();
+    Iterable<Reserva> reservasPorUsuarioId(int usuarioId) throws ObjetoNaoEncontradoException;
 
     Usuario usuarioPorId(int usuarioId) throws ObjetoNaoEncontradoException;
-    Collection<Usuario> usuarios();
-    Collection<Usuario> usuariosPorTermo(String termo);
+    @Deprecated
+    Iterable<Usuario> usuarios();
+    @Deprecated
+    Iterable<Usuario> usuariosPorTermo(String termo);
+
+    Locacao ultimaLocacao(int usuarioId, int itemAcervoId)
+        throws ObjetoNaoEncontradoException;
 }
