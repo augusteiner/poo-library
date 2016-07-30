@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+rm -rfv ~/.m2/repository/poo/*
+
+mvn clean install
