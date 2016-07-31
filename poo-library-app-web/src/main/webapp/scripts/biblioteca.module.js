@@ -51,14 +51,43 @@
         dark: false }
     };
 
-    $scope.credentials = {
-        login: null,
-        password: null
+    $scope.user = {
+      credentials: null
+    };
+    $scope.credentials = {};
+
+    var credentials = JSON.parse(sessionStorage.getItem("credentials"));
+
+    if (credentials != null) {
+
+      $scope.user.credentials = credentials;
+    }
+
+    var displayMenu = function() {
+
+      var credentials = $scope.user.credentials;
+
+      if (credentials == null ||
+          credentials.login == null)
+        return;
+
+      if (credentials.login == 'admin') {
+
+        $scope.menu = 'views/admin/menu/';
+        $location.path('/admin');
+
+      } else {
+
+        $scope.menu = 'views/user/menu/';
+        $location.path('/user');
+      }
     };
 
     $scope.logout = function() {
 
-      $scope.user = null;
+      sessionStorage.setItem("credentials", JSON.stringify(null));
+
+      $scope.user.credentials = null;
       $scope.menu = null;
 
       $location.path('/');
@@ -66,30 +95,24 @@
 
     $scope.login = function() {
 
-      var credentials = $scope.credentials;
-      $scope.credentials = {};
+      $scope.user = {};
 
       // TODO Realizar via ajax
       (function(r) {
 
-        if (credentials.login == 'admin') {
-  
-          $scope.menu = 'views/admin/menu/';
-          $scope.user = r;
+        console.log(r);
 
-          $location.path('/admin');
-  
-        } else {
+        sessionStorage.setItem("credentials", JSON.stringify(r));
 
-          $scope.menu = 'views/user/menu/';
-          $scope.user = r;
+        $scope.user.credentials = r;
+        $scope.credentials = {};
 
-          $location.path('/user');
+        displayMenu();
 
-        }
-
-      })({ id: 1 });
+      })($scope.credentials);
     };
+
+    displayMenu();
   });
 
 })();
