@@ -62,7 +62,7 @@ public class ItemAcervoDAO extends GenericDAO<ItemAcervo> implements IDAO<ItemAc
         Expression<String> autorPath = root.get("autor");
         Expression<String> autorTextoPath = textoRoot.get("autor");
 
-        Expression<String> categoriaPath = root.get("categoria");
+        Expression<String> categoriaPath = root.get("categoria").as(String.class);
 
         Expression<String> tituloLivroPath = livroRoot.get("titulo");
         Expression<String> tituloApostilaPath = apostilaRoot.get("titulo");
