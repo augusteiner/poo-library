@@ -23,32 +23,30 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.Responses.*;
+import static poo.library.app.web.util.DAOFactory.*;
 
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+
+import poo.library.app.web.dto.ItemAcervoDTO;
+import poo.library.dao.comum.DAOFactory;
+import poo.library.dao.comum.IDAO;
+import poo.library.modelo.ItemAcervo;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Path(UsuarioSearchResource.PATH)
-public class UsuarioSearchResource extends SearchResource {
+@Path(AcervoResource.PATH)
+class AcervoResource extends GenericResource<ItemAcervoDTO> {
 
-    public static final String PATH = "search";
+    protected static final String PATH = "acervo";
 
-    private UsuarioResource self = new UsuarioResource();
+    public AcervoResource() {
 
-    @GET
-    @Path("/usuario")
-    @Produces({ MediaType.APPLICATION_JSON })
-    public Response httpGet(@QueryParam("term") String term) {
+        this(DAOFactory.novoDAO(ItemAcervo.class));
+    }
 
-        Iterable<?> iter = self.dao.search(term);
+    public AcervoResource(IDAO<ItemAcervo> dao) {
 
-        return ok().entity(iter).build();
+        super(PATH, novoDAO(dao, ItemAcervoDTO.class));
     }
 }

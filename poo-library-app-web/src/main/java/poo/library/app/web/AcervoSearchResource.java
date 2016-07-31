@@ -23,7 +23,7 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.Responses.*;
+import static poo.library.app.web.util.Responses.ok;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -35,15 +35,14 @@ import javax.ws.rs.core.Response;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Path(UsuarioSearchResource.PATH)
-public class UsuarioSearchResource extends SearchResource {
+@Path(AcervoSearchResource.PATH)
+public class AcervoSearchResource extends SearchResource {
 
     public static final String PATH = "search";
-
-    private UsuarioResource self = new UsuarioResource();
+    private AcervoResource self = new AcervoResource();
 
     @GET
-    @Path("/usuario")
+    @Path("acervo")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response httpGet(@QueryParam("term") String term) {
 

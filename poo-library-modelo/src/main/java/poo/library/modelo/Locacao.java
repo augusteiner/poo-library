@@ -27,7 +27,6 @@ import java.util.Date;
 
 import poo.library.comum.ILocacao;
 import poo.library.util.R;
-import poo.library.util.Requisicoes;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>

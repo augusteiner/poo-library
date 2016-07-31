@@ -31,8 +31,10 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import poo.library.dao.comum.IDAO;
+import poo.library.modelo.Apostila;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Livro;
+import poo.library.modelo.Texto;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
@@ -52,17 +54,31 @@ public class ItemAcervoDAO extends GenericDAO<ItemAcervo> implements IDAO<ItemAc
         CriteriaQuery<ItemAcervo> query = builder.createQuery(this.cls);
 
         Root<ItemAcervo> root = query.from(this.cls);
-        Root<Livro> livroRoot = builder.treat(root, Livro.class);
+
+        Root<?> apostilaRoot = builder.treat(root, Apostila.class);
+        Root<?> livroRoot = builder.treat(root, Livro.class);
+        Root<?> textoRoot = builder.treat(root, Texto.class);
 
         Expression<String> autorPath = root.get("autor");
+        Expression<String> autorTextoPath = textoRoot.get("autor");
+
+        Expression<String> categoriaPath = root.get("categoria");
+
         Expression<String> tituloLivroPath = livroRoot.get("titulo");
+        Expression<String> tituloApostilaPath = apostilaRoot.get("titulo");
+
         Expression<String> isbnLivroPath = livroRoot.get("isbn");
 
         Predicate p = builder.or(
             builder.gt(builder.locate(autorPath, term), 0),
+            builder.gt(builder.locate(autorTextoPath, term), 0),
+
+            builder.gt(builder.locate(categoriaPath, term), 0),
+
             builder.gt(builder.locate(tituloLivroPath, term), 0),
-            builder.gt(builder.locate(isbnLivroPath, term), 0)
-        );
+            builder.gt(builder.locate(tituloApostilaPath, term), 0),
+
+            builder.gt(builder.locate(isbnLivroPath, term), 0));
 
         query.where(p);
 
