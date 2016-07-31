@@ -102,16 +102,16 @@
       // TODO Realizar via ajax
       (function(r) {
 
-        console.log(r);
-
-        sessionStorage.setItem("credentials", JSON.stringify(r));
+        //console.log(r);
 
         $scope.user.credentials = r;
+        sessionStorage.setItem("credentials", JSON.stringify($scope.user.credentials));
+
         $scope.credentials = {};
 
         displayMenu();
 
-      })($scope.credentials);
+      })(angular.extend({ id: 1 }, $scope.credentials));
     };
 
     displayMenu();
