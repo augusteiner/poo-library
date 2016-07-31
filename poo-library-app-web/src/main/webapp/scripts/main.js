@@ -1,6 +1,8 @@
 
 (function() {
 
+  'use strict';
+
   function queued(e,n,r){var t=[],o=$.Deferred().done(function(){t.shift()});
   $(e).each(function(){var e=$(this);t.push($.Deferred().done(function(){
   e.bind("load",function(){if(t.length>0){o.notify();var e=t.shift();e.resolve()}}),
@@ -50,5 +52,6 @@
 
     done();
   }
+
 })();
 

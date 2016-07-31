@@ -1,3 +1,4 @@
+
 (function() {
 
   'use strict';
@@ -33,7 +34,9 @@
 
   app.controller(CTRLR, function($scope, $http, $routeParams, $location) {
 
-//    $scope.$parent.menu = 'views' + ROOT_PATH + '/menu/';
-//    $scope.$parent.userId = 1;
+    //$scope.$parent.menu = 'views' + ROOT_PATH + '/menu/';
+    //$scope.$parent.userId = 1;
   });
+
 })();
+

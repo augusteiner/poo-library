@@ -1,4 +1,6 @@
+
 (function() {
+
   'use strict';
 
   var app = angular.module('biblioteca', ['ngRoute', 'ngResource', 'ngAnimate', 'angular-loading-bar']);
@@ -116,3 +118,4 @@
   });
 
 })();
+

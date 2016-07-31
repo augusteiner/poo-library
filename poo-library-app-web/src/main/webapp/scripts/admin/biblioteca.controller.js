@@ -1,4 +1,6 @@
+
 (function() {
+
   'use strict';
 
   var CTRLR = 'BibliotecaCtrlr';
@@ -11,3 +13,4 @@
   app.crudCtrlr(CTRLR, PATH, ROOT_PATH, TPL_ROOT_PATH);
 
 })();
+
