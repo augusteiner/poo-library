@@ -35,6 +35,12 @@
       </tr>
     </thead>
     <tfoot>
+        <tr>
+            <td class="text-center" colspan="2" ng-if="itens == null || itens.length == 0">
+                <em>
+                    Nenhum item a exibir</em>
+            </td>
+        </tr>
     </tfoot>
     <tbody>
       <tr ng-repeat="item in itens">

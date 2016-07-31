@@ -11,9 +11,9 @@
       <a class="input-group-addon">
         <span class="glyphicon glyphicon-search"></span>
       </a>
-      <input class="form-control" type="search" placeholder="Buscar por Nome, Endereço, CPF" ng-model="search.term">
+      <input class="form-control search search-user" type="search" placeholder="Buscar por Nome, Endereço, CPF" ng-model="search.term">
       <div class="input-group-btn">
-        <a class="btn btn-primary" href="#{{rootPath}}/new">
+        <a class="btn btn-primary" href="#{{url}}/new">
           <span class="glyphicon glyphicon-plus"></span> Novo
         </a>
         <a data-target="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -43,6 +43,12 @@
       </tr>
     </thead>
     <tfoot>
+        <tr>
+            <td class="text-center" colspan="2" ng-if="itens == null || itens.length == 0">
+                <em>
+                    Nenhum item a exibir</em>
+            </td>
+        </tr>
     </tfoot>
     <tbody>
       <tr ng-repeat="item in itens">
