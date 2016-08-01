@@ -31,7 +31,6 @@ import poo.library.comum.ILivro;
  */
 public class Livro extends ItemAcervo implements ILivro {
 
-    private String titulo;
     private String isbn;
     private Integer edicao;
 
@@ -47,12 +46,12 @@ public class Livro extends ItemAcervo implements ILivro {
         int bibliotecaId) {
 
         super(
+            titulo,
             autor,
             precoAluguel,
             ECategoriaItem.LIVRO,
             bibliotecaId);
 
-        this.titulo = titulo;
         this.edicao = 1;
     }
 
@@ -68,12 +67,6 @@ public class Livro extends ItemAcervo implements ILivro {
         return this.isbn;
     }
 
-    @Override
-    public String getTitulo() {
-
-        return this.titulo;
-    }
-
     public void setEdicao(Integer edicao) {
 
         this.edicao = edicao;
@@ -82,11 +75,6 @@ public class Livro extends ItemAcervo implements ILivro {
     public void setIsbn(String isbn) {
 
         this.isbn = isbn;
-    }
-
-    public void setTitulo(String titulo) {
-
-        this.titulo = titulo;
     }
 
     @Override

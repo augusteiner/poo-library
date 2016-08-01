@@ -40,6 +40,7 @@ public abstract class ItemAcervo implements IItemAcervo {
     private Biblioteca biblioteca;
     private int bibliotecaId;
 
+    private String titulo;
     private String autor;
 
     private double precoLocacao;
@@ -59,6 +60,7 @@ public abstract class ItemAcervo implements IItemAcervo {
     }
 
     protected ItemAcervo(
+        String titulo,
         String autor,
         double precoAluguel,
         ECategoriaItem categoria,
@@ -93,6 +95,13 @@ public abstract class ItemAcervo implements IItemAcervo {
     public double devolver() {
 
         return 0;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        return obj instanceof ItemAcervo &&
+            ((ItemAcervo) obj).getId() == this.getId();
     }
 
     @Override
@@ -147,6 +156,12 @@ public abstract class ItemAcervo implements IItemAcervo {
     public Collection<Reserva> getReservas() {
 
         return this.reservas;
+    }
+
+    @Override
+    public String getTitulo() {
+
+        return titulo;
     }
 
     @Override
@@ -217,16 +232,19 @@ public abstract class ItemAcervo implements IItemAcervo {
         this.qteTotal = qteTotal;
     }
 
+    public void setReservas(Collection<Reserva> reservas) {
+
+        this.reservas = reservas;
+    }
+
+    public void setTitulo(String titulo) {
+
+        this.titulo = titulo;
+    }
+
     @Override
     public String toString() {
 
         return ItensAcervo.toString(this);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-
-        return obj instanceof ItemAcervo &&
-            ((ItemAcervo) obj).getId() == this.getId();
     }
 }

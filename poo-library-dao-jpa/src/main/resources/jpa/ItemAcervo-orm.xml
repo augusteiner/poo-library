@@ -16,6 +16,7 @@
       </id>
 
       <basic name="autor" />
+      <basic name="titulo" />
       <basic name="precoLocacao" />
       <basic name="qteDisponivel" />
       <basic name="qteTotal" />

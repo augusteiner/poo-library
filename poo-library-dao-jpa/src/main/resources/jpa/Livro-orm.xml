@@ -8,7 +8,6 @@
 
     <attributes>
 
-      <basic name="titulo" />
       <basic name="isbn" />
       <basic name="edicao" />
 

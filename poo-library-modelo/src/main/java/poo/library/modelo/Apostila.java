@@ -31,8 +31,6 @@ import poo.library.comum.IApostila;
  */
 public class Apostila extends ItemAcervo implements IApostila {
 
-    private String titulo;
-
     public Apostila() {
 
         super(ECategoriaItem.APOSTILA);
@@ -45,23 +43,11 @@ public class Apostila extends ItemAcervo implements IApostila {
         int bibliotecaId) {
 
         super(
+            titulo,
             autor,
             precoAluguel,
             ECategoriaItem.APOSTILA,
             bibliotecaId);
-
-        this.titulo = titulo;
-    }
-
-    @Override
-    public String getTitulo() {
-
-        return this.titulo;
-    }
-
-    public void setTitulo(String titulo) {
-
-        this.titulo = titulo;
     }
 
     @Override

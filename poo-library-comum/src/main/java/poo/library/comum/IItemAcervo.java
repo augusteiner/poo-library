@@ -30,6 +30,7 @@ import poo.library.util.ISearcheable;
  */
 public interface IItemAcervo extends IIdentificavel, ILocalizado, ISearcheable {
 
+    String getTitulo();
     String getAutor();
     ECategoriaItem getCategoria();
     double getPrecoLocacao();

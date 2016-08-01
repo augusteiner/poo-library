@@ -37,11 +37,13 @@ public class Texto extends ItemAcervo implements ITexto {
     }
 
     public Texto(
+        String titulo,
         String autor,
         double precoAluguel,
         int bibliotecaId) {
 
         super(
+            titulo,
             autor,
             precoAluguel,
             ECategoriaItem.TEXTO,
