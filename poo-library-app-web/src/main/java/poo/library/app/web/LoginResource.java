@@ -25,7 +25,7 @@ package poo.library.app.web;
 
 import static poo.library.app.web.util.Responses.*;
 
-import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
@@ -41,8 +41,8 @@ public class LoginResource {
     public static final String PATH = "login";
     private UsuarioResource self = new UsuarioResource();
 
-    @GET
-    public Response httpGet(CredencialDTO credenciais) {
+    @POST
+    public Response httpPost(CredencialDTO credenciais) {
 
         String login = credenciais.getLogin();
         String senha = credenciais.getSenha();
