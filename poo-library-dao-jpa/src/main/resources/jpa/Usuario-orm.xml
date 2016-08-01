@@ -17,6 +17,9 @@
       </id>
 
       <basic name="nome" />
+      <basic name="login" />
+      <basic name="senha" />
+
       <basic name="cpf" />
       <basic name="endereco" />
 

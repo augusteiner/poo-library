@@ -62,11 +62,13 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements IDAO<Usuario> {
         Root<Usuario> root = query.from(this.cls);
 
         Expression<String> nomePath = root.get("nome");
+        Expression<String> loginPath = root.get("login");
         Expression<String> cpfPath = root.get("cpf");
         Expression<String> enderecoPath = root.get("endereco");
 
         Predicate p = builder.or(
             builder.gt(builder.locate(nomePath, term), 0),
+            builder.gt(builder.locate(loginPath, term), 0),
             builder.gt(builder.locate(cpfPath, term), 0),
             builder.gt(builder.locate(enderecoPath, term), 0));
 

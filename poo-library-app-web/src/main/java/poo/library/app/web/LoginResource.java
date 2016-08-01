@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2016 José Nascimento & Juscelino Messias
+ * Copyright (c) 2016 José Augusto & Juscelino Messias
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,33 +21,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
+package poo.library.app.web;
 
-import poo.library.util.FalhaOperacaoException;
-import poo.library.util.ISearcheable;
-import poo.library.util.ObjetoNaoEncontradoException;
+import static poo.library.app.web.util.Responses.*;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
+
+import poo.library.app.web.dto.CredencialDTO;
+import poo.library.app.web.dto.UsuarioDTO;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IUsuario extends IIdentificavel, IPessoaFisica, ISearcheable {
+@Path(LoginResource.PATH)
+public class LoginResource {
 
-    String getLogin();
+    public static final String PATH = "login";
+    private UsuarioResource self = new UsuarioResource();
 
-    String getSenha();
+    @GET
+    public Response httpGet(CredencialDTO credenciais) {
 
-    // IItemAcervo escolherItemAcervo();
+        String login = credenciais.getLogin();
+        String senha = credenciais.getSenha();
 
-    ETipoUsuario getTipo();
+        Iterable<? extends UsuarioDTO> usuarios = self.dao.search(login);
 
-    void locar(IItemAcervo item);
+        for (UsuarioDTO usuario : usuarios) {
 
-    Iterable<? extends ILocacao> getLocacoes();
+            if (usuario.getLogin().equals(login) &&
+                usuario.getSenha().equals(senha)) {
 
-    Iterable<? extends IReserva> getReservas();
+                credenciais.setUsuarioId(usuario.getId());
 
-    void quitar();
+                return ok().entity(credenciais).build();
+            }
+        }
 
-    void cancelar(int reservaId)
-        throws ObjetoNaoEncontradoException, FalhaOperacaoException;
+        return notFound().entity(credenciais).build();
+    }
 }

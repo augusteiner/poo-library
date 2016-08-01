@@ -41,6 +41,10 @@ public class Usuario implements IUsuario {
     private int id;
 
     private String nome;
+
+    private String login;
+    private String senha;
+
     private String cpf;
     private String endereco;
 
@@ -117,9 +121,21 @@ public class Usuario implements IUsuario {
     }
 
     @Override
+    public String getLogin() {
+
+        return this.login;
+    }
+
+    @Override
     public String getNome() {
 
         return this.nome;
+    }
+
+    @Override
+    public String getSenha() {
+
+        return this.senha;
     }
 
     @Override
@@ -176,10 +192,20 @@ public class Usuario implements IUsuario {
         this.locacoes = locacoes;
     }
 
+    public void setLogin(String login) {
+
+        this.login = login;
+    }
+
     @Override
     public void setNome(String nome) {
 
         this.nome = nome;
+    }
+
+    public void setSenha(String senha) {
+
+        this.senha = senha;
     }
 
     public void setReservas(Collection<Reserva> reservas) {

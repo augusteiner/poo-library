@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2016 José Nascimento & Juscelino Messias
+ * Copyright (c) 2016 José Augusto & Juscelino Messias
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,33 +21,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.comum;
-
-import poo.library.util.FalhaOperacaoException;
-import poo.library.util.ISearcheable;
-import poo.library.util.ObjetoNaoEncontradoException;
+package poo.library.app.web.dto;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IUsuario extends IIdentificavel, IPessoaFisica, ISearcheable {
+public class CredencialDTO {
 
-    String getLogin();
+    private int usuarioId;
 
-    String getSenha();
+    private String login;
+    private String senha;
 
-    // IItemAcervo escolherItemAcervo();
+    public CredencialDTO() { }
 
-    ETipoUsuario getTipo();
+    public String getLogin() {
 
-    void locar(IItemAcervo item);
+        return this.login;
+    }
 
-    Iterable<? extends ILocacao> getLocacoes();
+    public String getSenha() {
 
-    Iterable<? extends IReserva> getReservas();
+        return this.senha;
+    }
 
-    void quitar();
+    public int getUsuarioId() {
 
-    void cancelar(int reservaId)
-        throws ObjetoNaoEncontradoException, FalhaOperacaoException;
+        return this.usuarioId;
+    }
+
+    public void setLogin(String login) {
+
+        this.login = login;
+    }
+
+    public void setSenha(String senha) {
+
+        this.senha = senha;
+    }
+
+    public void setUsuarioId(int usuarioId) {
+
+        this.usuarioId = usuarioId;
+    }
 }
