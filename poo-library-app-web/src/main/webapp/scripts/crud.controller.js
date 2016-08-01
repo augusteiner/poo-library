@@ -15,12 +15,12 @@
       TPL_ROOT_PATH = ROOT_PATH;
 
     app.config(function($routeProvider) {
-      $routeProvider.
-        when(ROOT_PATH, {
+      $routeProvider
+        .when(ROOT_PATH, {
           templateUrl : TPL_ROOT_PATH + '/',
           controller : CTRLR_PREFIX
-        }).
-        when(ROOT_PATH + '/:id', {
+        })
+        .when(ROOT_PATH + '/:id', {
           templateUrl : TPL_ROOT_PATH + '/edit.html',
           controller : CTRLR_PREFIX
         });
@@ -88,7 +88,7 @@
 
       $scope.itens = [];
 
-      $scope.search = function(term) {
+      $scope.find = function(term) {
 
         var params = angular.extend(
           { term: term },

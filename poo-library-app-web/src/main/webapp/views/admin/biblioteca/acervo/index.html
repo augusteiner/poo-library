@@ -1,7 +1,7 @@
 <section ng-controller="AcervoCtrlr" ng-init="load()">
  <ol class="breadcrumb">
     <li>
-      <a href="#/">
+      <a href="#/admin">
         Início</a></li>
     <li>
       <a href="#/admin/biblioteca">
@@ -9,8 +9,7 @@
     <li>
       Acervo</li>
   </ol>
-  
-  <form ng-submit="search(search.term)">
+  <form ng-submit="find(search.term)">
     <div class="input-group input-group-sm">
       <a class="input-group-addon">
         <span class="glyphicon glyphicon-search"></span>
