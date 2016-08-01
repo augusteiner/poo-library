@@ -97,6 +97,14 @@ public class Usuario implements IUsuario {
     }
 
     @Override
+    public void cancelar(int reservaId) throws ObjetoNaoEncontradoException {
+
+        Reserva reserva = this.reservaPorId(reservaId);
+
+        reserva.getBiblioteca().cancelar(reserva);
+    }
+
+    @Override
     public String getCpf() {
 
         return this.cpf;
@@ -150,6 +158,22 @@ public class Usuario implements IUsuario {
         return this.tipo;
     }
 
+    public Locacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException {
+
+        for (Locacao locacao : this.locacoes) {
+
+            if (locacao.getId() == locacaoId) {
+
+                return locacao;
+            }
+        }
+
+        throw new ObjetoNaoEncontradoException(String.format(
+            "Locação #%d não encontrada",
+
+            locacaoId));
+    }
+
     @Override
     public void locar(IItemAcervo item) {
 
@@ -168,6 +192,21 @@ public class Usuario implements IUsuario {
     public void quitar() {
 
         //
+    }
+
+    public Reserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException {
+
+        for (Reserva r : this.getReservas()) {
+
+            if (r.getId() == reservaId) {
+
+                return r;
+            }
+        }
+
+        throw new ObjetoNaoEncontradoException(String.format(
+            "Reserva de id #%d não encontrada",
+            reservaId));
     }
 
     @Override
@@ -217,44 +256,5 @@ public class Usuario implements IUsuario {
     public String toString() {
 
         return Usuarios.toString(this);
-    }
-
-    @Override
-    public void cancelar(int reservaId) throws ObjetoNaoEncontradoException {
-
-        Reserva reserva = this.reservaPorId(reservaId);
-
-        reserva.getBiblioteca().cancelar(reserva);
-    }
-
-    public Reserva reservaPorId(int reservaId) throws ObjetoNaoEncontradoException {
-
-        for (Reserva r : this.getReservas()) {
-
-            if (r.getId() == reservaId) {
-
-                return r;
-            }
-        }
-
-        throw new ObjetoNaoEncontradoException(String.format(
-            "Reserva de id #%d não encontrada",
-            reservaId));
-    }
-
-    public Locacao locacaoPorId(int locacaoId) throws ObjetoNaoEncontradoException {
-
-        for (Locacao locacao : this.locacoes) {
-
-            if (locacao.getId() == locacaoId) {
-
-                return locacao;
-            }
-        }
-
-        throw new ObjetoNaoEncontradoException(String.format(
-            "Locação #%d não encontrada",
-
-            locacaoId));
     }
 }

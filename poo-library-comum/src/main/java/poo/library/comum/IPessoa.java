@@ -28,9 +28,9 @@ package poo.library.comum;
  */
 public interface IPessoa {
 
-    String getEndereco();
-
     String getNome();
+
+    String getEndereco();
 
     void setEndereco(String endereco);
 
