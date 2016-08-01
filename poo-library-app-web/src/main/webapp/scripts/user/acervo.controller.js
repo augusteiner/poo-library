@@ -15,7 +15,7 @@
 
     $routeProvider.
       when(ROOT_PATH, {
-        templateUrl : 'views' + ROOT_PATH
+        templateUrl : 'views' + ROOT_PATH + '/'
       }).
       when(ROOT_PATH + '/:id', {
         templateUrl : 'views' + ROOT_PATH + '/view.html'

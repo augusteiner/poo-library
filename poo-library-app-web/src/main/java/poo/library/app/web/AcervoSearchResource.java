@@ -23,7 +23,7 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.Responses.ok;
+import static poo.library.app.web.util.Responses.*;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -45,6 +45,11 @@ public class AcervoSearchResource extends SearchResource {
     @Path("acervo")
     @Produces({ MediaType.APPLICATION_JSON })
     public Response httpGet(@QueryParam("term") String term) {
+
+        System.out.println(String.format(
+            "Buscando por termo: %s",
+
+            term));
 
         Iterable<?> iter = self.dao.search(term);
 
