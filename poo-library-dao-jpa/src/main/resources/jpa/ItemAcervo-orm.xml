@@ -15,26 +15,28 @@
         <generated-value strategy="IDENTITY" />
       </id>
 
-      <basic name="autor" />
-      <basic name="titulo" />
-      <basic name="precoLocacao" />
-      <basic name="qteDisponivel" />
-      <basic name="qteTotal" />
+      <basic name="autor" access="FIELD" />
+      <basic name="titulo" access="FIELD" />
+      <basic name="sinopse" access="FIELD" />
 
-      <basic name="bibliotecaId">
+      <basic name="precoLocacao" access="FIELD" />
+      <basic name="qteDisponivel" access="FIELD" />
+      <basic name="qteTotal" access="FIELD" />
+
+      <basic name="bibliotecaId" access="FIELD">
         <column unique="false" />
       </basic>
 
-      <basic name="categoria">
+      <basic name="categoria" access="FIELD">
         <column name="categoria" insertable="false" updatable="false" />
         <enumerated>STRING</enumerated>
       </basic>
 
-      <many-to-one name="biblioteca" access="FIELD" fetch="LAZY">
+      <many-to-one name="biblioteca" fetch="LAZY" access="FIELD">
         <join-column name="bibliotecaId" unique="false" nullable="false" insertable="false" updatable="false" />
       </many-to-one>
 
-      <one-to-many name="reservas" access="FIELD" fetch="LAZY" mapped-by="itemAcervo">
+      <one-to-many name="reservas" fetch="LAZY" access="FIELD" mapped-by="itemAcervo">
       </one-to-many>
 
       <!-- <transient name="categoria" /> -->

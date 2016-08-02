@@ -49,7 +49,7 @@ import poo.library.util.ObjetoNaoEncontradoException;
 public abstract class GenericResource<T extends IIdentificavel> {
 
     private final String path;
-    protected final IDAO<T> dao;
+    private final IDAO<T> dao;
 
     protected GenericResource(String path, IDAO<T> dao) {
 
@@ -85,6 +85,11 @@ public abstract class GenericResource<T extends IIdentificavel> {
             id));
 
         return this.dao.find(id);
+    }
+
+    protected IDAO<T> getDAO() {
+
+        return this.dao;
     }
 
     @DELETE

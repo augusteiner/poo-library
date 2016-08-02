@@ -32,7 +32,10 @@ public interface IItemAcervo extends IIdentificavel, ILocalizado, ISearcheable {
 
     String getTitulo();
     String getAutor();
+    String getSinopse();
+
     ECategoriaItem getCategoria();
+
     double getPrecoLocacao();
 
     int getQteDisponivel();

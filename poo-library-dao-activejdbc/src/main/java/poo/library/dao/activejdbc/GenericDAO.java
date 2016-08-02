@@ -112,6 +112,23 @@ public class GenericDAO<T> {
         return this.findFirst("id = ?", id);
     }
 
+    private T findFirst(String condition, Object... params) throws ObjetoNaoEncontradoException {
+
+        Model model = ModelDelegate.findFirst(modelType, condition, params);
+
+        if (model == null) {
+
+            throw new ObjetoNaoEncontradoException("");
+        } else {
+
+            T obj = this.novaInstancia();
+
+            this.inverseMap(obj, model);
+
+            return obj;
+        }
+    }
+
     public T first() throws ObjetoNaoEncontradoException {
 
         return findFirst("1 = 1");
@@ -125,6 +142,25 @@ public class GenericDAO<T> {
     public Class<T> getEntityClass() {
 
         return this.entityType;
+    }
+
+    protected void inverseMap(T obj, Model model) {
+
+        Models.inverseMap(
+            obj,
+            model);
+    }
+
+    protected Model map(T obj) {
+
+        Model model = Models.map(obj, modelType);
+
+        return model;
+    }
+
+    protected T novaInstancia() {
+
+        return Models.novaInstancia(entityType);
     }
 
     public T reference(int id) {
@@ -160,41 +196,5 @@ public class GenericDAO<T> {
     public Iterable<T> search(Object term) {
 
         return Collections.emptyList();
-    }
-
-    private T findFirst(String condition, Object... params) throws ObjetoNaoEncontradoException {
-
-        Model model = ModelDelegate.findFirst(modelType, condition, params);
-
-        if (model == null) {
-
-            throw new ObjetoNaoEncontradoException("");
-        } else {
-
-            T obj = this.novaInstancia();
-
-            this.inverseMap(obj, model);
-
-            return obj;
-        }
-    }
-
-    protected void inverseMap(T obj, Model model) {
-
-        Models.inverseMap(
-            obj,
-            model);
-    }
-
-    protected Model map(T obj) {
-
-        Model model = Models.map(obj, modelType);
-
-        return model;
-    }
-
-    protected T novaInstancia() {
-
-        return Models.novaInstancia(entityType);
     }
 }

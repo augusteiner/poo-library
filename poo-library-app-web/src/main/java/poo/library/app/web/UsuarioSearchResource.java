@@ -47,7 +47,7 @@ public class UsuarioSearchResource extends SearchResource {
     @Produces({ MediaType.APPLICATION_JSON })
     public Response httpGet(@QueryParam("term") String term) {
 
-        Iterable<?> iter = self.dao.search(term);
+        Iterable<?> iter = self.getDAO().search(term);
 
         return ok().entity(iter).build();
     }

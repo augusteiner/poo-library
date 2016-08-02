@@ -67,6 +67,8 @@ CREATE TABLE item_acervo (
 
   titulo VARCHAR(100) NULL,
   autor VARCHAR(100) NOT NULL,
+  sinopse VARCHAR(512) NOT NULL,
+
   edicao INT NULL DEFAULT NULL,
   isbn VARCHAR(30) NULL DEFAULT NULL,
 

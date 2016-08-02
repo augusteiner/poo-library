@@ -35,6 +35,7 @@ public /* abstract */ class ItemAcervoDTO implements IIdentificavel {
 
     private String titulo;
     private String autor;
+    private String sinopse;
 
     private double precoLocacao;
 
@@ -83,6 +84,11 @@ public /* abstract */ class ItemAcervoDTO implements IIdentificavel {
         return this.qteTotal;
     }
 
+    public String getSinopse() {
+
+        return this.sinopse;
+    }
+
     public String getTitulo() {
 
         return titulo;
@@ -121,6 +127,11 @@ public /* abstract */ class ItemAcervoDTO implements IIdentificavel {
     public void setQteTotal(int qteTotal) {
 
         this.qteTotal = qteTotal;
+    }
+
+    public void setSinopse(String sinopse) {
+
+        this.sinopse = sinopse;
     }
 
     public void setTitulo(String titulo) {

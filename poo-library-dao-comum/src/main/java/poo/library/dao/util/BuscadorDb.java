@@ -85,19 +85,19 @@ public class BuscadorDb extends BuscadorMemoria implements IBuscador {
         return usuario.getLocacoes();
     }
 
-    @Override
-    public Locacao locacaoPorId(int locacaoId)
-        throws ObjetoNaoEncontradoException {
+    //@Override
+    //public Locacao locacaoPorId(int locacaoId)
+    //    throws ObjetoNaoEncontradoException {
+    //
+    //    return this.locacaoDAO.find(locacaoId);
+    //}
 
-        return this.locacaoDAO.find(locacaoId);
-    }
-
-    @Override
-    public Reserva reservaPorId(int reservaId)
-        throws ObjetoNaoEncontradoException {
-
-        return this.reservaDAO.find(reservaId);
-    }
+    //@Override
+    //public Reserva reservaPorId(int reservaId)
+    //    throws ObjetoNaoEncontradoException {
+    //
+    //    return this.reservaDAO.find(reservaId);
+    //}
 
     @Override
     public Usuario usuarioPorId(int usuarioId)
@@ -106,12 +106,12 @@ public class BuscadorDb extends BuscadorMemoria implements IBuscador {
         return this.usuarioDAO.find(usuarioId);
     }
 
-    @Override
-    public ItemAcervo itemPorId(int itemAcervoId)
-        throws ObjetoNaoEncontradoException {
-
-        return this.itemAcervoDAO.find(itemAcervoId);
-    }
+    //@Override
+    //public ItemAcervo itemPorId(int itemAcervoId)
+    //    throws ObjetoNaoEncontradoException {
+    //
+    //    return this.itemAcervoDAO.find(itemAcervoId);
+    //}
 
     /**
      * XXX Forçando carregamento EAGER da lista

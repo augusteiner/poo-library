@@ -47,7 +47,7 @@ public class LoginResource {
         String login = credenciais.getLogin();
         String senha = credenciais.getSenha();
 
-        Iterable<? extends UsuarioDTO> usuarios = self.dao.search(login);
+        Iterable<? extends UsuarioDTO> usuarios = self.getDAO().search(login);
 
         for (UsuarioDTO usuario : usuarios) {
 

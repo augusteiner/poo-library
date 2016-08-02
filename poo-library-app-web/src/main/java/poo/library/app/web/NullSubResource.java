@@ -40,10 +40,9 @@ import poo.library.util.ObjetoNaoEncontradoException;
  */
 public class NullSubResource<T> implements ISubResource<T> {
 
-    @OPTIONS
-    public Response httpOptions() {
+    public URI createdAt(int parentId, int id) {
 
-        return ok().allow("OPTIONS").build();
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -66,6 +65,12 @@ public class NullSubResource<T> implements ISubResource<T> {
         throw new NotAllowedException("OPTIONS");
     }
 
+    @OPTIONS
+    public Response httpOptions() {
+
+        return ok().allow("OPTIONS").build();
+    }
+
     @Override
     public void post(int parentId, T obj) throws ObjetoNaoEncontradoException {
 
@@ -77,10 +82,5 @@ public class NullSubResource<T> implements ISubResource<T> {
         throws ObjetoNaoEncontradoException {
 
         throw new NotAllowedException("OPTIONS");
-    }
-
-    public URI createdAt(int parentId, int id) {
-
-        throw new UnsupportedOperationException();
     }
 }

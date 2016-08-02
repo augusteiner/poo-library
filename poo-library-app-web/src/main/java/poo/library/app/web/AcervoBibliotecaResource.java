@@ -164,6 +164,11 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
         ItemAcervo item = buscador.itemPorId(id);
 
         this.converter(dto, item);
+
+        System.out.println(String.format(
+            "PUT: %s",
+
+            item.toString()));
     }
 
     private Biblioteca bibliotecaPorId(int bibliotecaId) throws ObjetoNaoEncontradoException {
@@ -183,7 +188,7 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
     private IBuscador buscador(int bibliotecaId)
         throws ObjetoNaoEncontradoException {
 
-        return buscador(this.bibliotecaPorId(bibliotecaId));
+        return this.buscador(this.bibliotecaPorId(bibliotecaId));
     }
 
     @Override

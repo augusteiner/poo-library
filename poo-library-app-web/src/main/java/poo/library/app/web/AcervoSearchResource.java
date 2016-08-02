@@ -51,7 +51,7 @@ public class AcervoSearchResource extends SearchResource {
 
             term));
 
-        Iterable<?> iter = self.dao.search(term);
+        Iterable<?> iter = self.getDAO().search(term);
 
         return ok().entity(iter).build();
     }

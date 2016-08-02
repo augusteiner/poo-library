@@ -28,6 +28,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -40,7 +41,7 @@ public class AcervoBibliotecaSearchResource {
     @GET
     @Path("/biblioteca/{parentId}/acervo")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Iterable<?> httpGet(@PathParam("parentId") int bibliotecaId) {
+    public Response httpGet(@PathParam("parentId") int bibliotecaId) {
 
         return null;
     }

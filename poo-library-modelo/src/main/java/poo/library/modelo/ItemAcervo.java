@@ -42,6 +42,7 @@ public abstract class ItemAcervo implements IItemAcervo {
 
     private String titulo;
     private String autor;
+    private String sinopse;
 
     private double precoLocacao;
 
@@ -59,6 +60,21 @@ public abstract class ItemAcervo implements IItemAcervo {
         this.categoria = categoria;
     }
 
+    public ItemAcervo(
+        String autor,
+        double precoLocacao,
+        int qteDisponivel,
+        int qteTotal,
+        int bibliotecaId) {
+
+        this.autor = autor;
+        this.precoLocacao = precoLocacao;
+        this.qteDisponivel = qteDisponivel;
+        this.qteTotal = qteTotal;
+
+        this.bibliotecaId = bibliotecaId;
+    }
+
     protected ItemAcervo(
         String titulo,
         String autor,
@@ -74,21 +90,6 @@ public abstract class ItemAcervo implements IItemAcervo {
             bibliotecaId);
 
         this.categoria = categoria;
-    }
-
-    public ItemAcervo(
-        String autor,
-        double precoLocacao,
-        int qteDisponivel,
-        int qteTotal,
-        int bibliotecaId) {
-
-        this.autor = autor;
-        this.precoLocacao = precoLocacao;
-        this.qteDisponivel = qteDisponivel;
-        this.qteTotal = qteTotal;
-
-        this.bibliotecaId = bibliotecaId;
     }
 
     @Override
@@ -156,6 +157,12 @@ public abstract class ItemAcervo implements IItemAcervo {
     public Collection<Reserva> getReservas() {
 
         return this.reservas;
+    }
+
+    @Override
+    public String getSinopse() {
+
+        return this.sinopse;
     }
 
     @Override
@@ -235,6 +242,11 @@ public abstract class ItemAcervo implements IItemAcervo {
     public void setReservas(Collection<Reserva> reservas) {
 
         this.reservas = reservas;
+    }
+
+    public void setSinopse(String sinopse) {
+
+        this.sinopse = sinopse;
     }
 
     public void setTitulo(String titulo) {

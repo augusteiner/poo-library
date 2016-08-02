@@ -206,6 +206,11 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
         }
     }
 
+    protected EntityManager getEm() {
+
+        return this.em;
+    }
+
     @Override
     public Class<T> getEntityClass() {
 
@@ -250,11 +255,6 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
         this.em.getTransaction().commit();
     }
 
-    public Iterable<T> search(String term) {
-
-        return Collections.emptyList();
-    }
-
     @Override
     public Iterable<T> search(Object term) {
 
@@ -264,8 +264,8 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
             return Collections.emptyList();
     }
 
-    protected EntityManager getEm() {
+    public Iterable<T> search(String term) {
 
-        return this.em;
+        return Collections.emptyList();
     }
 }

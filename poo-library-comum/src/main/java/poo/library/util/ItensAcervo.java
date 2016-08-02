@@ -33,14 +33,17 @@ public class ItensAcervo {
     public static String toString(IItemAcervo item) {
 
         return String.format(
-            "%s#%d - %s (R$ %s)",
+            "%s#%d - %s: %s (R$ %s) :: %s",
 
             item.getCategoria(),
 
             item.getId(),
 
+            item.getTitulo(),
             item.getAutor(),
 
-            item.getPrecoLocacao());
+            item.getPrecoLocacao(),
+
+            item.getSinopse());
     }
 }

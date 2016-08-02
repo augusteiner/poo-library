@@ -58,13 +58,50 @@ public abstract class GenericSubResource<T extends IIdentificavel>
 
     private ISubResource<T> behavior;
 
-    public GenericSubResource() { }
+    public GenericSubResource() {
+
+        this.initBehavior(this);
+    }
+
+    private void close() {
+
+        try {
+
+            this.getParentDAO().close();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            throw new ServerErrorException(
+                INTERNAL_SERVER_ERROR, e);
+        }
+    }
 
     @Override
     public URI createdAt(int parentId, int id) {
 
-        return super.createdAt(parentId, id);
+        throw new UnsupportedOperationException();
     }
+
+    protected void flush() {
+
+        try {
+
+            this.getParentDAO().flush();
+
+        } catch (FalhaOperacaoException e) {
+
+            e.printStackTrace();
+
+            throw new ServerErrorException(
+                INTERNAL_SERVER_ERROR, e);
+        }
+    }
+
+    protected abstract IConversor<T> getConversorDTO();
+
+    protected abstract IDAO<?> getParentDAO();
 
     @DELETE
     @Path("/{id}")
@@ -221,38 +258,4 @@ public abstract class GenericSubResource<T extends IIdentificavel>
 
         this.behavior = behavior;
     }
-
-    private void close() {
-
-        try {
-
-            this.getParentDAO().close();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-            throw new ServerErrorException(
-                INTERNAL_SERVER_ERROR, e);
-        }
-    }
-
-    protected void flush() {
-
-        try {
-
-            this.getParentDAO().flush();
-
-        } catch (FalhaOperacaoException e) {
-
-            e.printStackTrace();
-
-            throw new ServerErrorException(
-                INTERNAL_SERVER_ERROR, e);
-        }
-    }
-
-    protected abstract IConversor<T> getConversorDTO();
-
-    protected abstract IDAO<?> getParentDAO();
 }
