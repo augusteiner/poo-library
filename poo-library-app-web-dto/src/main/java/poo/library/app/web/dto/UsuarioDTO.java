@@ -50,7 +50,7 @@ public class UsuarioDTO implements IIdentificavel {
 
     public String getCpfFormatado() {
 
-        return Usuarios.formatarCpf(this.getCpf());
+        return Usuarios.formatarCPF(this.getCpf());
     }
 
     public String getEndereco() {

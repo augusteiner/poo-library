@@ -23,6 +23,8 @@
  */
 package poo.library.util;
 
+import static org.apache.commons.lang3.StringUtils.*;
+
 import poo.library.comum.IItemAcervo;
 
 /**
@@ -45,5 +47,13 @@ public class ItensAcervo {
             item.getPrecoLocacao(),
 
             item.getSinopse());
+    }
+
+    public static boolean match(IItemAcervo item, String termo) {
+
+        return containsIgnoreCase(item.getAutor(), termo) ||
+            containsIgnoreCase(item.getTitulo(), termo) ||
+            containsIgnoreCase(item.getCategoria().toString(), termo) ||
+            containsIgnoreCase(item.getSinopse(), termo);
     }
 }

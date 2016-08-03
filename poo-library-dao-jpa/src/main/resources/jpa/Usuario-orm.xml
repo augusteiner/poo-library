@@ -16,20 +16,24 @@
         <generated-value strategy="IDENTITY" />
       </id>
 
-      <basic name="nome" />
-      <basic name="login" />
-      <basic name="senha" />
+      <basic name="nome" access="FIELD" />
+      <basic name="login" access="FIELD" />
+      <basic name="senha" access="FIELD" />
+      <basic name="saldoDevedor" access="FIELD" />
 
-      <basic name="cpf" />
-      <basic name="endereco" />
+      <basic name="cpf" access="FIELD" />
+      <basic name="endereco" access="FIELD" />
+
+      <basic name="tipo" access="FIELD">
+        <column name="tipo" insertable="false" updatable="false" />
+        <enumerated>STRING</enumerated>
+      </basic>
 
       <one-to-many name="reservas" access="FIELD" fetch="LAZY" mapped-by="usuario">
       </one-to-many>
 
       <one-to-many name="locacoes" access="FIELD" fetch="LAZY" mapped-by="usuario">
       </one-to-many>
-
-      <transient name="tipo" />
 
       <!-- <transient name="reservas" /> -->
       <!-- <transient name="locacoes" /> -->

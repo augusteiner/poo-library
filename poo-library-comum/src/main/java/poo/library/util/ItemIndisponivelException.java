@@ -26,7 +26,7 @@ package poo.library.util;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class ItemIndisponivelException extends Exception {
+public class ItemIndisponivelException extends BibliotecaException {
 
     private static final long serialVersionUID = 4511627156029045962L;
 

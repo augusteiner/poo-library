@@ -171,7 +171,7 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
             item.toString()));
     }
 
-    private Biblioteca bibliotecaPorId(int bibliotecaId) throws ObjetoNaoEncontradoException {
+    protected Biblioteca bibliotecaPorId(int bibliotecaId) throws ObjetoNaoEncontradoException {
 
         return this.getParentDAO().find(bibliotecaId);
     }
@@ -185,7 +185,7 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
         return buscador;
     }
 
-    private IBuscador buscador(int bibliotecaId)
+    protected IBuscador buscador(int bibliotecaId)
         throws ObjetoNaoEncontradoException {
 
         return this.buscador(this.bibliotecaPorId(bibliotecaId));

@@ -21,75 +21,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.modelo;
+package poo.library.app.web;
 
-import poo.library.comum.ECategoriaItem;
-import poo.library.comum.ILivro;
+import static poo.library.app.web.util.Responses.*;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class Livro extends ItemAcervo implements ILivro {
+@Path(BibliotecaSearchResource.PATH)
+public class BibliotecaSearchResource {
 
-    private String isbn;
-    private Integer edicao;
+    public static final String PATH = "search/biblioteca";
+    public final BibliotecaResource self = new BibliotecaResource();
 
-    public Livro() {
+    @GET
+    public Response httpPost(@QueryParam("term") String term) {
 
-        super(ECategoriaItem.LIVRO);
-    }
+        Iterable<?> iter = self.getDAO().search(term);
 
-    public Livro(
-        String autor,
-        String titulo,
-        double precoAluguel,
-        int bibliotecaId) {
-
-        super(
-            titulo,
-            autor,
-            precoAluguel,
-            ECategoriaItem.LIVRO,
-            bibliotecaId);
-
-        this.edicao = 1;
-    }
-
-    @Override
-    public Integer getEdicao() {
-
-        return this.edicao;
-    }
-
-    @Override
-    public String getIsbn() {
-
-        return this.isbn;
-    }
-
-    public void setEdicao(Integer edicao) {
-
-        this.edicao = edicao;
-    }
-
-    public void setIsbn(String isbn) {
-
-        this.isbn = isbn;
-    }
-
-    @Override
-    public String toString() {
-
-        return String.format(
-            "%s#%d - %s, %s (R$ %s)",
-
-            this.getCategoria(),
-
-            this.getId(),
-
-            this.getTitulo(),
-            this.getAutor(),
-
-            this.getPrecoLocacao());
+        return ok().entity(iter).build();
     }
 }

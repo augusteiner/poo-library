@@ -23,10 +23,28 @@
  */
 package poo.library.util;
 
+import java.text.ParseException;
+
+import javax.swing.text.MaskFormatter;
+
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public interface IMapeador<I, O> extends IConversor<O> {
+class CPFFormatter extends MaskFormatter {
 
-    IConversor<I> inverso();
+    private static final long serialVersionUID = -5181943190057841460L;
+
+    CPFFormatter() {
+
+        this.setValueContainsLiteralCharacters(false);
+
+        try {
+
+            this.setMask(R.CPF_MASK);
+
+        } catch (ParseException e) {
+
+            e.printStackTrace();
+        }
+    }
 }

@@ -36,6 +36,8 @@ CREATE TABLE `usuario` (
   `login` VARCHAR(50) NOT NULL,
   `senha` VARCHAR(50) NOT NULL,
 
+  `saldoDevedor` DECIMAL(12, 4) NOT NULL DEFAULT 0,
+
   `cpf` CHAR(11) NOT NULL,
   `tipo` ENUM('COMUM', 'ADMIN') NOT NULL,
 

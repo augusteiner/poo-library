@@ -32,6 +32,7 @@ import java.util.Locale;
  */
 public class R {
 
+    public static final String CPF_MASK = "###.###.###-##";
     public static final Locale LOCALE_PT_BR = new Locale("pt", "BR");
     public static final Locale LOCALE_PADRAO = LOCALE_PT_BR;
 
@@ -46,10 +47,4 @@ public class R {
 
     public static final NumberFormat FORMATTER_MOEDA_PADRAO = NumberFormat.getCurrencyInstance(
         LOCALE_PADRAO);
-
-    public static final int PRIMO_RESERVA = 17;
-    public static final int PRIMO_RESERVA_MULT = 31;
-
-    public static final int PRIMO_LOCACAO = 19;
-    public static final int PRIMO_LOCACAO_MULT = 37;
 }

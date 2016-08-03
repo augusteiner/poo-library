@@ -23,6 +23,8 @@
  */
 package poo.library.util;
 
+import static org.apache.commons.lang3.StringUtils.*;
+
 import java.text.ParseException;
 
 import javax.swing.text.MaskFormatter;
@@ -34,30 +36,9 @@ import poo.library.comum.IUsuario;
  */
 public class Usuarios {
 
-    private static class CpfFormatter extends MaskFormatter {
+    private static final MaskFormatter cpfFormatter = new CPFFormatter();
 
-        private static final long serialVersionUID = -5181943190057841460L;
-
-        private CpfFormatter() {
-
-            this.setValueContainsLiteralCharacters(false);
-
-            try {
-
-                this.setMask(CPF_MASK);
-
-            } catch (ParseException e) {
-
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static final String CPF_MASK = "###.###.###-##";
-
-    private static final MaskFormatter cpfFormatter = new CpfFormatter();
-
-    public static String formatarCpf(String cpf) {
+    public static String formatarCPF(String cpf) {
 
         try {
 
@@ -78,8 +59,17 @@ public class Usuarios {
             usuario.getId(),
             usuario.getNome(),
 
-            formatarCpf(usuario.getCpf()),
+            formatarCPF(usuario.getCpf()),
 
             usuario.getEndereco());
+    }
+
+    public static boolean match(IUsuario usuario, String termo) {
+
+        return containsIgnoreCase(usuario.getNome(), termo) ||
+            containsIgnoreCase(usuario.getCpf(), termo) ||
+            containsIgnoreCase(usuario.getEndereco(), termo) ||
+            containsIgnoreCase(usuario.getLogin(), termo) ||
+            containsIgnoreCase(usuario.getTipo().toString(), termo);
     }
 }

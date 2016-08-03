@@ -23,6 +23,8 @@
  */
 package poo.library.util;
 
+import static org.apache.commons.lang3.StringUtils.*;
+
 import poo.library.comum.IBiblioteca;
 
 /**
@@ -38,5 +40,11 @@ public class Bibliotecas {
             biblioteca.getId(),
             biblioteca.getNome(),
             biblioteca.getMultaDiaria());
+    }
+
+    public static boolean match(IBiblioteca biblioteca, String term) {
+
+        return containsIgnoreCase(biblioteca.getNome(), term) ||
+            containsIgnoreCase(biblioteca.getEndereco(), term);
     }
 }

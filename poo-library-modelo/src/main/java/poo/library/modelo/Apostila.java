@@ -49,11 +49,4 @@ public class Apostila extends ItemAcervo implements IApostila {
             ECategoriaItem.APOSTILA,
             bibliotecaId);
     }
-
-    @Override
-    public boolean match(String term) {
-
-        return this.getTitulo().contains(term) ||
-            super.match(term);
-    }
 }

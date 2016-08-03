@@ -23,12 +23,21 @@
  */
 package poo.library.app.web;
 
+import static poo.library.util.Iterables.*;
+import static poo.library.app.web.util.Responses.*;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import poo.library.app.web.dto.ItemAcervoDTO;
+import poo.library.modelo.comum.IBuscador;
+import poo.library.util.IConversor;
+import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -37,12 +46,34 @@ import javax.ws.rs.core.Response;
 public class AcervoBibliotecaSearchResource {
 
     public static final String PATH = "search";
+    public static final IConversor<ItemAcervoDTO> CONVERSOR_DTO = AcervoBibliotecaResource.CONVERSOR_DTO;
+
+    private final AcervoBibliotecaResource self = new AcervoBibliotecaResource();
 
     @GET
     @Path("/biblioteca/{parentId}/acervo")
     @Produces({ MediaType.APPLICATION_JSON })
-    public Response httpGet(@PathParam("parentId") int bibliotecaId) {
+    public Response httpGet(
+        @PathParam("parentId") int bibliotecaId,
+        @QueryParam("term") String term) {
 
-        return null;
+        IBuscador buscador;
+
+        try {
+
+            buscador = self.buscador(bibliotecaId);
+
+        } catch (ObjetoNaoEncontradoException e) {
+
+            e.printStackTrace();
+
+            return notFound().entity(e).build();
+        }
+
+        Iterable<?> iter = convert(
+            buscador.itensPorTermo(term),
+            CONVERSOR_DTO);
+
+        return ok().entity(iter).build();
     }
 }

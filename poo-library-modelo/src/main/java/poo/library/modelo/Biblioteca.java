@@ -353,8 +353,7 @@ public class Biblioteca implements IBiblioteca {
     @Override
     public boolean match(String term) {
 
-        return this.getNome().contains(term) ||
-            this.getEndereco().contains(term);
+        return Bibliotecas.match(this, term);
     }
 
     @Override

@@ -36,6 +36,8 @@ public interface IUsuario extends IIdentificavel, IPessoaFisica, ISearcheable {
 
     String getSenha();
 
+    double getSaldoDevedor();
+
     // IItemAcervo escolherItemAcervo();
 
     ETipoUsuario getTipo();

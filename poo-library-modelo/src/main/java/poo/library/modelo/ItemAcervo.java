@@ -180,7 +180,7 @@ public abstract class ItemAcervo implements IItemAcervo {
     @Override
     public boolean match(String term) {
 
-        return this.getAutor().contains(term);
+        return ItensAcervo.match(this, term);
     }
 
     @Override

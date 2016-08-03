@@ -45,6 +45,8 @@ public class Usuario implements IUsuario {
     private String login;
     private String senha;
 
+    private double saldoDevedor;
+
     private String cpf;
     private String endereco;
 
@@ -141,15 +143,21 @@ public class Usuario implements IUsuario {
     }
 
     @Override
-    public String getSenha() {
-
-        return this.senha;
-    }
-
-    @Override
     public Collection<Reserva> getReservas() {
 
         return Collections.unmodifiableCollection(this.reservas);
+    }
+
+    @Override
+    public double getSaldoDevedor() {
+
+        return this.saldoDevedor;
+    }
+
+    @Override
+    public String getSenha() {
+
+        return this.senha;
     }
 
     @Override
@@ -183,9 +191,7 @@ public class Usuario implements IUsuario {
     @Override
     public boolean match(String termo) {
 
-        return this.getNome().contains(termo) ||
-            this.getCpf().contains(termo) ||
-            this.getEndereco().contains(termo);
+        return Usuarios.match(this, termo);
     }
 
     @Override
@@ -242,14 +248,19 @@ public class Usuario implements IUsuario {
         this.nome = nome;
     }
 
-    public void setSenha(String senha) {
-
-        this.senha = senha;
-    }
-
     public void setReservas(Collection<Reserva> reservas) {
 
         this.reservas = reservas;
+    }
+
+    public void setSaldoDevedor(double saldoDevedor) {
+
+        this.saldoDevedor = saldoDevedor;
+    }
+
+    public void setSenha(String senha) {
+
+        this.senha = senha;
     }
 
     @Override
