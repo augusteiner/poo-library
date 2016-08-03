@@ -27,17 +27,11 @@
     $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
   }]);
 
+  var routeProvider;
+
   app.config(['$routeProvider', function($routeProvider) {
 
-    $routeProvider
-      .when('/user', {
-        templateUrl: 'views/user/',
-        controller: 'UserCtrlr'
-      })
-      .when('/admin', {
-        templateUrl: 'views/admin/',
-        controller: 'AdminCtrlr'
-      })
+    routeProvider = $routeProvider
       .when('/login', {
         templateUrl: 'views/login/'
       })
@@ -96,6 +90,16 @@
     };
 
     $scope.login = function() {
+
+      routeProvider
+        .when('/user', {
+          templateUrl: 'views/user/',
+          controller: 'UserCtrlr'
+        })
+        .when('/admin', {
+          templateUrl: 'views/admin/',
+          controller: 'AdminCtrlr'
+        });
 
       $scope.user = {};
 
