@@ -9,7 +9,7 @@
 
     var __PREFIX_PATH = 'api';
     var PATH = __PREFIX_PATH + '/' + REL_PATH;
-    // console.log('Novo ctrlr de CRUD: ' + CTRLR_PREFIX + ' @ ' + ROOT_PATH);
+    //console.log('Novo ctrlr de CRUD: ' + CTRLR_PREFIX + ' @ ' + ROOT_PATH);
 
     if (TPL_ROOT_PATH == null)
       TPL_ROOT_PATH = ROOT_PATH;
@@ -28,14 +28,14 @@
 
     app.controller(CTRLR_PREFIX, function($scope, $routeParams, $location, $resource) {
 
-      console.log(CTRLR_PREFIX);
+      //console.log(CTRLR_PREFIX);
 
       var self = this;
       var errorHandler = function(response) {
 
-        console.log(response);
+        //console.log(response);
 
-        if (response.data && 
+        if (response.data &&
             response.data.message) {
 
           alert(['OPS!', response.data.message].join('\n\n'));
@@ -69,15 +69,15 @@
         }
       });
 
-      console.log($rest);
+      //console.log($rest);
 
-      console.log('Init of ' + CTRLR_PREFIX + ' @ ' + ROOT_PATH);
+      //console.log('Init of ' + CTRLR_PREFIX + ' @ ' + ROOT_PATH);
 
       $scope.rootPath = ROOT_PATH;
       $scope.params = $routeParams;
       $scope.url = $location.url();
 
-      console.log(ROOT_PATH);
+      //console.log(ROOT_PATH);
 
       $scope.data = {};
 
@@ -94,11 +94,11 @@
           { term: term },
           $scope.params);
 
-        console.log('Loading: ' + PATH);
+        //console.log('Loading: ' + PATH);
 
         $rest.search(params).$promise.then(function(r) {
 
-          console.log(r);
+          //console.log(r);
 
           $scope.itens = r;
         });
@@ -115,7 +115,7 @@
 
         if (paramId > 0) {
 
-          console.log("Getting resource", $scope.params);
+          //console.log("Getting resource", $scope.params);
 
           $rest.get($scope.params).$promise.then(function(r) {
 
@@ -146,9 +146,9 @@
         var data = $scope.data;
         var $promise;
 
-        console.log(PATH);
-        console.log(data);
-        console.log($.extend({}, data, $scope.params));
+        //console.log(PATH);
+        //console.log(data);
+        //console.log($.extend({}, data, $scope.params));
 
         if (data.id > 0) {
 
@@ -169,7 +169,7 @@
 
       $scope.load = function() {
 
-        console.log('Loading: ' + PATH);
+        //console.log('Loading: ' + PATH);
 
         $rest.query($scope.params).$promise.then(function(r) {
 
