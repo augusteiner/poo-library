@@ -49,12 +49,24 @@
             <li class="divider"></li>
             <li>
               <a href="#/user/{{user.credentials.id}}/settings">
-                <span class="glyphicon glyphicon-cog"></span> Configurações</a>
+                <span>
+                  <span class="glyphicon glyphicon-cog"></span> Configurações
+                </span>
+                <span>
+                 <small>Alt + Shift + S</small>
+                </span>
+              </a>
             </li>
             <li class="divider"></li>
             <li>
-              <a href="#/logout" ng-click="logout()">
-                <span class="glyphicon glyphicon-log-out"></span> Sair</a>
+              <a href="#/logout" ng-click="logout()" accesskey="e" class="clearfix">
+                <span>
+                  <span class="glyphicon glyphicon-log-out"></span> Sair
+                </span>
+                <span style="float: right;">
+                 <small>Alt + Shift + E</small>
+                </span>
+              </a>
             </li>
           </ul>
         </li>
