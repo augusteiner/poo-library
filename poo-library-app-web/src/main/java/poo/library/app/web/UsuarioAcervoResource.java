@@ -23,62 +23,9 @@
  */
 package poo.library.app.web;
 
-import static poo.library.app.web.util.DAOFactory.*;
-import static poo.library.app.web.util.Responses.*;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
-
-import poo.library.app.web.dto.ItemAcervoDTO;
-import poo.library.dao.comum.DAOFactory;
-import poo.library.dao.comum.IDAO;
-import poo.library.modelo.ItemAcervo;
-import poo.library.util.ObjetoNaoEncontradoException;
-
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Path(AcervoResource.PATH)
-public class AcervoResource {
+public class UsuarioAcervoResource {
 
-    protected static final String PATH = "acervo";
-
-    private IDAO<ItemAcervoDTO> dao;
-
-    public AcervoResource() {
-
-        this(DAOFactory.novoDAO(ItemAcervo.class));
-    }
-
-    public AcervoResource(IDAO<ItemAcervo> dao) {
-
-        this.dao = novoDAO(dao, ItemAcervoDTO.class);
-    }
-
-    protected IDAO<ItemAcervoDTO> getDAO() {
-
-        return this.dao;
-    }
-
-    @GET
-    @Path("/{id}")
-    public Response httpGet(@PathParam("id") int id) {
-
-        ItemAcervoDTO dto;
-
-        try {
-
-            dto = this.dao.find(id);
-
-        } catch (ObjetoNaoEncontradoException e) {
-
-            e.printStackTrace();
-
-            return notFound().entity(e).build();
-        }
-
-        return ok().entity(dto).build();
-    }
 }
