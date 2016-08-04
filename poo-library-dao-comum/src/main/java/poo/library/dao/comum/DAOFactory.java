@@ -23,6 +23,8 @@
  */
 package poo.library.dao.comum;
 
+import poo.library.util.FalhaOperacaoException;
+
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
@@ -35,12 +37,14 @@ public class DAOFactory {
         getSingleton().impl.close();
     }
 
-    public static void connect() {
+    public static void connect()
+        throws FalhaOperacaoException {
 
         getSingleton().impl.connect();
     }
 
-    public static void connectPooled() {
+    public static void connectPooled()
+        throws FalhaOperacaoException {
 
         getSingleton().impl.connectPooled();
     }

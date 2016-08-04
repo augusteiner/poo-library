@@ -23,6 +23,8 @@
  */
 package poo.library.dao.comum;
 
+import poo.library.util.FalhaOperacaoException;
+
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
@@ -30,9 +32,11 @@ public interface IDAOFactory {
 
     void close();
 
-    void connect();
+    void connect()
+        throws FalhaOperacaoException;
 
-    void connectPooled();
+    void connectPooled()
+        throws FalhaOperacaoException;
 
     <T> IDAO<T> novoDAO(Class<T> cls);
 }

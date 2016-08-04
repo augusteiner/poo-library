@@ -40,7 +40,8 @@ import poo.library.util.FalhaOperacaoException;
  */
 public class App {
 
-    public static void configure() throws ConfiguracaoException {
+    public static void configure()
+        throws ConfiguracaoException {
 
         poo.library.Configuration.configure(new String[] {
             "--factories.dao",
@@ -49,8 +50,6 @@ public class App {
             //"poo.library.dao.jpa.DefaultConnectionDAOFactory"
             "poo.library.dao.jpa.MySqlConnectionDAOFactory"
         });
-
-        DAOFactory.connect();
     }
 
     public static void main(String[] args) throws Exception {
@@ -58,6 +57,7 @@ public class App {
         // System.err.close();
 
         configure();
+        DAOFactory.connect();
 
         try {
 
@@ -71,7 +71,8 @@ public class App {
         }
     }
 
-    private static void seed() throws FalhaOperacaoException {
+    private static void seed()
+        throws FalhaOperacaoException {
 
         Reflections r = new Reflections(
             App.class.getPackage().getName(),

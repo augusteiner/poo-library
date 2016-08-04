@@ -43,12 +43,15 @@ import poo.library.modelo.Biblioteca;
 import poo.library.modelo.Livro;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
+import poo.library.util.FalhaOperacaoException;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
  */
 public class App {
+
+    private final static IDAOFactory factory = new DefaultConnectionDAOFactory();
 
     private Biblioteca b1;
 
@@ -58,7 +61,10 @@ public class App {
     private Usuario u1;
     private Usuario u2;
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+        throws FalhaOperacaoException {
+
+        factory.connect();
 
         //testDAO();
 
@@ -66,9 +72,6 @@ public class App {
     }
 
     public static void testDAO() {
-
-        IDAOFactory factory = new DefaultConnectionDAOFactory();
-        factory.connect();
 
         IDAO<Usuario> usuarios = factory.novoDAO(Usuario.class);
 
@@ -94,7 +97,8 @@ public class App {
 
         EntityManagerFactory ef;
 
-        ef = Persistence.createEntityManagerFactory("poo.library.dao.jpa.default");
+        ef = Persistence.createEntityManagerFactory(
+            "poo.library.dao.jpa.default");
 
         try {
 
@@ -108,7 +112,8 @@ public class App {
         }
     }
 
-    private void seed(EntityManagerFactory ef) throws Exception {
+    private void seed(EntityManagerFactory ef)
+        throws Exception {
 
         EntityManager em = ef.createEntityManager();
 
