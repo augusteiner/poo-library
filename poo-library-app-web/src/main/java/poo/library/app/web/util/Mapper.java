@@ -23,10 +23,15 @@
  */
 package poo.library.app.web.util;
 
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
 import poo.library.util.IConversor;
+import poo.library.util.IMapeador;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
@@ -36,7 +41,7 @@ class Mapper<I, O> implements IConversor<O> {
     private Class<O> clsOut;
     private Class<I> clsIn;
 
-    private final ModelMapper mapper;
+    private final IMapeador mapper;
 
     public Mapper(Class<I> clsIn, Class<O> clsOut) {
 
@@ -46,13 +51,52 @@ class Mapper<I, O> implements IConversor<O> {
         this.mapper = this.newMapper();
     }
 
-    private ModelMapper newMapper() {
+    private IMapeador newMapper() {
+
+        return this.newOrikaMapper();
+    }
+
+    private IMapeador newOrikaMapper() {
+
+        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+        MapperFacade mapper = mapperFactory.getMapperFacade();
+
+        return new IMapeador() {
+
+            @Override
+            public <T> T map(Object input, Class<T> clsOut) {
+
+                return mapper.map(input, clsOut);
+            }
+
+            @Override
+            public <T> void map(Object input, T output) {
+
+                mapper.map(input, output);
+            }
+        };
+    }
+
+    private IMapeador newModelMapper() {
 
         ModelMapper mapper = new ModelMapper();
 
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        return mapper;
+        return new IMapeador() {
+
+            @Override
+            public <T> T map(Object input, Class<T> clsOut) {
+
+                return mapper.map(input, clsOut);
+            }
+
+            @Override
+            public <T> void map(Object input, T output) {
+
+                mapper.map(input, output);
+            }
+        };
     }
 
     protected O map(Object input) {
