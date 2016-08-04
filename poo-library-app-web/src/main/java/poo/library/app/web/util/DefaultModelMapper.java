@@ -23,68 +23,34 @@
  */
 package poo.library.app.web.util;
 
-import poo.library.util.IConversor;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
+
 import poo.library.util.IMapeador;
 
 /**
- * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-class Mapper<I, O> implements IConversor<O> {
+public class DefaultModelMapper implements IMapeador {
 
-    private Class<O> clsOut;
-    private Class<I> clsIn;
+    private final ModelMapper mapper;
 
-    private final IMapeador impl;
+    public DefaultModelMapper() {
 
-    public Mapper(Class<I> clsIn, Class<O> clsOut) {
+        this.mapper = new ModelMapper();
 
-        this.clsIn = clsIn;
-        this.clsOut = clsOut;
-
-        this.impl = novoMapeador();
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     @Override
-    public O converter(Object input) {
+    public <T> T map(Object input, Class<T> clsOut) {
 
-        O output = this.map(input);
-
-        //System.out.println(String.format(
-        //    "Mapeado INPUT: %s -> OUTPUT: %s",
-        //    input,
-        //    output));
-
-        return output;
+        return mapper.map(input, clsOut);
     }
 
     @Override
-    public void converter(Object input, O output) {
+    public <T> void map(Object input, T output) {
 
-        this.map(input, output);
-
-        //System.out.println(String.format(
-        //    "Mapeado INPUT: %s -> OUTPUT: %s",
-        //    input,
-        //    output));
-    }
-
-    public Mapper<O, I> inverso() {
-
-        return new Mapper<O, I>(clsOut, clsIn);
-    }
-
-    private static IMapeador novoMapeador() {
-
-        return new DefaultOrikaMapper();
-    }
-
-    protected O map(Object input) {
-
-        return this.impl.map(input, this.clsOut);
-    }
-
-    protected void map(Object input, O output) {
-
-        this.impl.map(input, output);
+        mapper.map(input, output);
     }
 }

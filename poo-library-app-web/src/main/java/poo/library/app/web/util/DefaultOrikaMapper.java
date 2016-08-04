@@ -23,68 +23,34 @@
  */
 package poo.library.app.web.util;
 
-import poo.library.util.IConversor;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
 import poo.library.util.IMapeador;
 
 /**
- * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
+ * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-class Mapper<I, O> implements IConversor<O> {
+public class DefaultOrikaMapper implements IMapeador {
 
-    private Class<O> clsOut;
-    private Class<I> clsIn;
+    private final MapperFacade mapper;
 
-    private final IMapeador impl;
+    public DefaultOrikaMapper() {
 
-    public Mapper(Class<I> clsIn, Class<O> clsOut) {
+        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        this.clsIn = clsIn;
-        this.clsOut = clsOut;
-
-        this.impl = novoMapeador();
+        this.mapper = mapperFactory.getMapperFacade();
     }
 
     @Override
-    public O converter(Object input) {
+    public <O> O map(Object input, Class<O> clsOut) {
 
-        O output = this.map(input);
-
-        //System.out.println(String.format(
-        //    "Mapeado INPUT: %s -> OUTPUT: %s",
-        //    input,
-        //    output));
-
-        return output;
+        return mapper.map(input, clsOut);
     }
 
     @Override
-    public void converter(Object input, O output) {
+    public <O> void map(Object input, O output) {
 
-        this.map(input, output);
-
-        //System.out.println(String.format(
-        //    "Mapeado INPUT: %s -> OUTPUT: %s",
-        //    input,
-        //    output));
-    }
-
-    public Mapper<O, I> inverso() {
-
-        return new Mapper<O, I>(clsOut, clsIn);
-    }
-
-    private static IMapeador novoMapeador() {
-
-        return new DefaultOrikaMapper();
-    }
-
-    protected O map(Object input) {
-
-        return this.impl.map(input, this.clsOut);
-    }
-
-    protected void map(Object input, O output) {
-
-        this.impl.map(input, output);
+        mapper.map(input, output);
     }
 }
