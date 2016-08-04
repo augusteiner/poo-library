@@ -23,6 +23,7 @@
  */
 package poo.library.app.web;
 
+import static javax.ws.rs.core.Response.Status.*;
 import static poo.library.app.web.util.Responses.*;
 
 import java.net.URI;
@@ -35,6 +36,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.ServerErrorException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -68,6 +70,21 @@ public abstract class GenericResource<T extends IIdentificavel> {
 
         this.path = path;
         this.dao = dao;
+    }
+
+    private void close() {
+
+        try {
+
+            this.dao.close();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            throw new ServerErrorException(
+                INTERNAL_SERVER_ERROR, e);
+        }
     }
 
     protected URI createdAt(int id)
@@ -107,6 +124,10 @@ public abstract class GenericResource<T extends IIdentificavel> {
         } catch (FalhaOperacaoException e) {
 
             return serverError().entity(e).build();
+
+        } finally {
+
+            this.close();
         }
 
         return noContent().build();
@@ -116,9 +137,16 @@ public abstract class GenericResource<T extends IIdentificavel> {
     @Produces({ MediaType.APPLICATION_JSON })
     public Response httpGet() {
 
-        Iterable<?> iter = this.dao.all();
+        try {
 
-        return ok().entity(iter).build();
+            Iterable<?> iter = this.dao.all();
+
+            return ok().entity(iter).build();
+
+        } finally {
+
+            this.close();
+        }
     }
 
     @GET
@@ -137,6 +165,10 @@ public abstract class GenericResource<T extends IIdentificavel> {
             e.printStackTrace();
 
             return notFound().entity(e).build();
+
+        } finally {
+
+            this.close();
         }
 
         System.out.println(String.format(
@@ -158,6 +190,10 @@ public abstract class GenericResource<T extends IIdentificavel> {
         } catch (FalhaOperacaoException e) {
 
             return serverError().entity(e).build();
+
+        } finally {
+
+            this.close();
         }
 
         URI createdUri = this.createdAt(obj.getId());
@@ -179,8 +215,13 @@ public abstract class GenericResource<T extends IIdentificavel> {
         } catch (FalhaOperacaoException e) {
 
             return serverError().entity(e).build();
+
+        } finally {
+
+            this.close();
         }
 
         return noContent().build();
     }
 }
+
