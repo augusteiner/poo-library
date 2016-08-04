@@ -41,6 +41,8 @@ import poo.library.modelo.Usuario;
  */
 public abstract class JpaDAOFactory implements IDAOFactory {
 
+    private static final ThreadLocal<EntityManager> threadLocal = new ThreadLocal<EntityManager>();
+
     private final String persistenceUnitName;
     private final Map<String, String> properties;
 
@@ -88,6 +90,22 @@ public abstract class JpaDAOFactory implements IDAOFactory {
         this.connect();
     }
 
+    // XXX Thanks to http://stackoverflow.com/questions/14888040/java-an-entitymanager-object-in-a-multithread-environment#answer-18698497
+    public static EntityManager getEntityManager(EntityManagerFactory factory) {
+
+        EntityManager em = threadLocal.get();
+
+        if (em == null ||
+            !em.isOpen()) {
+
+            em = factory.createEntityManager();
+
+            threadLocal.set(em);
+        }
+
+        return em;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public synchronized <T> IDAO<T> createNew(Class<T> cls) {
@@ -97,7 +115,7 @@ public abstract class JpaDAOFactory implements IDAOFactory {
 
         this.connectPooled();
 
-        em = this.factory.createEntityManager();
+        em = getEntityManager(this.factory);
 
         if (cls.isAssignableFrom(Usuario.class)) {
 
