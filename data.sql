@@ -4,8 +4,8 @@ INSERT INTO biblioteca (id, nome, endereco, multaDiaria, qteDiasValidadeReserva,
   (1, 'iBook Store - Lagoa Nova', 'Av. Bernardo Vieira, 666', 5.5500, 3, 14),
   (2, 'iBook Store - Alecrim', 'Av. Presidente Bandeira, 1201', 7.5500, 3, 14),
   (3, 'iBook Store - Ponta Negra', 'Av. Engenheiro Roberto Freire, 1002', 5.4500, 3, 14)
-ON DUPLICATE KEY UPDATE
-  id = VALUES(id);
+/*! ON DUPLICATE KEY UPDATE
+  id = VALUES(id) */;
 
 INSERT INTO item_acervo (id, bibliotecaId, categoria, titulo, autor, sinopse, edicao, isbn, qteTotal, qteDisponivel, precoLocacao) VALUES
   (1, 1, 'LIVRO', 'Use a cabeça! Java', 'NASCIMENTO, Capitão', 'Use a "cabeça" e comece a utilizar esta ótima linguagem de programação. Use a cabeça! utiliza uma linguagem informal porém nada retrograda para lhe ensinar todos os macetes desta linguagem de pogramação', NULL, NULL, 10, 10, 12.2500),
@@ -17,14 +17,14 @@ INSERT INTO item_acervo (id, bibliotecaId, categoria, titulo, autor, sinopse, ed
   (7, 2, 'LIVRO', 'Como dar nó em pingo d''água', 'OJUARA, João Sérgio de', 'Especialista na arte de dar nós ensina a você os segredos de como dar nós em coisas inimagináveis', NULL, NULL, 20, 20, 9.9500),
   (8, 3, 'LIVRO', 'Como ganhar na loteria, Vol. I', 'GRANA, José Muita', 'Neste best seller da indústria de livros você irá aprender como ganhar na loteria, o livro que todo mundo quer ter', NULL, NULL, 10, 10, 3.5500),
   (9, 3, 'LIVRO', 'Harry Potter e a Pedra Filosofal', 'ROWLING, J. K.', 'Na primeira obra de sucesso da escritora J. K. Rowling, ela apresenta Harry Potter um garoto magricela e que não tem a menor ideia do seu passado. Acompanhe Harry ao passo que ele é introduzido no mundo de magia e bruxaria na escola de Hogwarts', NULL, NULL, 10, 10, 3.5500)
-ON DUPLICATE KEY UPDATE
-  id = VALUES(id);
+/*! ON DUPLICATE KEY UPDATE
+  id = VALUES(id) */;
 
 INSERT INTO usuario (id, nome, login, senha, saldoDevedor, cpf, tipo, endereco, criadoEm, atualizadoEm) VALUES
   (1, 'José Silvério dos Reis', 'jose.silverio', '123456', 0.0000, '91203109283', 'COMUM', 'Av. da Integração, 77', '2016-07-31 19:29:58', NULL),
   (2, 'João Armando Gonçalves', 'joao.armando', '123456', 0.0000, '18279163491', 'COMUM', 'R. das Olimpíadas, 11', '2016-07-31 19:30:25', NULL),
   (3, 'Maria Auxiliadora dos Pobres', 'maria.pobre', '123456', 0.0000, '13249178932', 'COMUM', 'R. dos Pedintes, 121', '2016-07-31 19:31:29', NULL),
   (4, 'Administrador', 'admin', '123456', 0.0000, '91823619283', 'ADMIN', 'Av. dos Admins, 1', '2016-07-31 19:34:23', NULL)
-ON DUPLICATE KEY UPDATE
-  id = VALUES(id);
+/*! ON DUPLICATE KEY UPDATE
+  id = VALUES(id) */;
 
