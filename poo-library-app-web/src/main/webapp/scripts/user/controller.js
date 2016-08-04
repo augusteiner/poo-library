@@ -15,15 +15,15 @@
         templateUrl : 'views' + ROOT_PATH + '/',
         controller : CTRLR
       })
-      .when(ROOT_PATH + '/:userId/reserva', {
+      .when(ROOT_PATH + '/:id/reserva', {
         templateUrl : 'views' + ROOT_PATH + '/reserva/',
         controller : CTRLR
       })
-      .when(ROOT_PATH + '/:userId/locacao', {
+      .when(ROOT_PATH + '/:id/locacao', {
         templateUrl : 'views' + ROOT_PATH + '/locacao/',
         controller : CTRLR
       })
-      .when(ROOT_PATH + '/:userId/settings', {
+      .when(ROOT_PATH + '/:id/settings', {
         templateUrl : 'views' + ROOT_PATH + '/settings/',
         controller : CTRLR
       })

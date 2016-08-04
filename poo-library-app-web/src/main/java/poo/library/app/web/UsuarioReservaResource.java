@@ -49,20 +49,20 @@ import poo.library.util.ObjetoNaoEncontradoException;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Path(ReservaUsuarioResource.PATH)
-public class ReservaUsuarioResource extends GenericSubResource<ReservaDTO>
+@Path(UsuarioReservaResource.PATH)
+public class UsuarioReservaResource extends GenericSubResource<ReservaDTO>
     implements ISubResource<ReservaDTO> {
 
     public static final String PATH = "usuario/{parentId}/reserva";
 
     private final IDAO<Usuario> parentDAO;
 
-    public ReservaUsuarioResource() {
+    public UsuarioReservaResource() {
 
         this(DAOFactory.novoDAO(Usuario.class));
     }
 
-    public ReservaUsuarioResource(IDAO<Usuario> parentDAO) {
+    public UsuarioReservaResource(IDAO<Usuario> parentDAO) {
 
         this.parentDAO = parentDAO;
 

@@ -26,6 +26,6 @@ package poo.library.app.web;
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public abstract class RequisicaoUsuarioResource {
+public abstract class UsuarioRequisicaoResource {
 
 }

@@ -23,26 +23,35 @@
  */
 package poo.library.app.web;
 
+import static javax.ws.rs.core.Response.Status.*;
 import static poo.library.app.web.util.Conversores.*;
+import static poo.library.app.web.util.Responses.*;
 
+import java.net.URI;
 import java.util.Collection;
 
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Path;
+import javax.ws.rs.ServerErrorException;
+import javax.ws.rs.core.Response;
 
 import poo.library.app.web.dto.LocacaoDTO;
 import poo.library.app.web.util.ISubResource;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
+import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Locacao;
 import poo.library.modelo.Usuario;
+import poo.library.util.FalhaOperacaoException;
 import poo.library.util.IConversor;
+import poo.library.util.ItemIndisponivelException;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-@Path(LocacaoUsuarioResource.PATH)
-public class LocacaoUsuarioResource extends GenericSubResource<LocacaoDTO>
+@Path(UsuarioLocacaoResource.PATH)
+public class UsuarioLocacaoResource extends GenericSubResource<LocacaoDTO>
     implements ISubResource<LocacaoDTO> {
 
     public static final String PATH = "usuario/{parentId}/locacao";
@@ -50,12 +59,12 @@ public class LocacaoUsuarioResource extends GenericSubResource<LocacaoDTO>
 
     private final IDAO<Usuario> parentDAO;
 
-    public LocacaoUsuarioResource() {
+    public UsuarioLocacaoResource() {
 
         this(DAOFactory.novoDAO(Usuario.class));
     }
 
-    public LocacaoUsuarioResource(IDAO<Usuario> parentDAO) {
+    public UsuarioLocacaoResource(IDAO<Usuario> parentDAO) {
 
         this.parentDAO = parentDAO;
 
@@ -66,7 +75,19 @@ public class LocacaoUsuarioResource extends GenericSubResource<LocacaoDTO>
     public Collection<Locacao> get(int usuarioId)
         throws ObjetoNaoEncontradoException {
 
-        return getParentDAO().find(usuarioId).getLocacoes();
+        Usuario usuario = getParentDAO().find(usuarioId);
+
+        Collection<Locacao> list = usuario.getLocacoes();
+
+        for (Locacao l : list) {
+
+            System.out.println(String.format(
+                "ITEM DE ACERVO: %s",
+
+                l.getItemAcervo().toString()));
+        }
+
+        return list;
     }
 
     @Override
@@ -86,5 +107,57 @@ public class LocacaoUsuarioResource extends GenericSubResource<LocacaoDTO>
     protected IDAO<Usuario> getParentDAO() {
 
         return parentDAO;
+    }
+
+    @Override
+    public Response httpOptions() {
+
+        return ok().allow("GET", "POST").build();
+    }
+
+    @Override
+    public URI createdAt(int usuarioId, int id) {
+
+        return URI.create(String.format(
+            "locacao/%d",
+
+            id));
+    }
+
+    @Override
+    public void post(
+        int usuarioId,
+        LocacaoDTO obj)
+        throws ObjetoNaoEncontradoException {
+
+        int itemAcervoId = obj.getItemAcervoId();
+        IDAO<ItemAcervo> itemAcervoDAO = DAOFactory.novoDAO(ItemAcervo.class);
+
+        Usuario usuario = this.getParentDAO().find(usuarioId);
+        ItemAcervo item = itemAcervoDAO.find(itemAcervoId);
+
+        try {
+
+            item.getBiblioteca().locar(item, usuario);
+
+            this.getParentDAO().flush();
+
+        } catch (ItemIndisponivelException e) {
+
+            //e.printStackTrace();
+
+            throw new BadRequestException(
+                e.getMessage(),
+                badRequest().entity(e).build());
+
+        } catch (FalhaOperacaoException e) {
+
+            e.printStackTrace();
+
+            throw new ServerErrorException(
+                INTERNAL_SERVER_ERROR,
+                e);
+
+        }
     }
 }

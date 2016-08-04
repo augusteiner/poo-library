@@ -39,6 +39,9 @@
             response.data.message) {
 
           alert(['OPS!', response.data.message].join('\n\n'));
+        } else {
+
+          alert('ERRO!');
         }
       };
 
@@ -55,6 +58,8 @@
 
       $paramsWithId = angular.extend({}, $paramsWithId, $params);
 
+      //console.log(CTRLR_PREFIX, $paramsWithId, $routeParams, PATH);
+
       var $rest = $resource(PATH, null, {
         get: { method: 'GET', params: $paramsWithId, interceptor: $inter },
         update: { method: 'PUT', params: $paramsWithId, interceptor: $inter },
@@ -68,6 +73,8 @@
           isArray: true
         }
       });
+
+      $scope.$rest = $rest;
 
       //console.log($rest);
 
@@ -96,7 +103,7 @@
 
         //console.log('Loading: ' + PATH);
 
-        $rest.search(params).$promise.then(function(r) {
+        $rest.search(params, function(r) {
 
           //console.log(r);
 
@@ -117,7 +124,7 @@
 
           //console.log("Getting resource", $scope.params);
 
-          $rest.get($scope.params).$promise.then(function(r) {
+          $rest.get($scope.params, function(r) {
 
             //console.log(r);
 
@@ -135,7 +142,7 @@
             { id: paramId },
             $scope.params);
 
-        $rest.remove(params).$promise.then(function() {
+        $rest.remove(params, function() {
 
           $scope.load();
         });
@@ -144,7 +151,9 @@
       $scope.save = function(url) {
 
         var data = $scope.data;
-        var $promise;
+        var done = function(r) {
+          $scope.cancel(url);
+        };
 
         //console.log(PATH);
         //console.log(data);
@@ -152,26 +161,23 @@
 
         if (data.id > 0) {
 
-          $promise = $rest.update(data).$promise;
+          $promise = $rest.update(data, done);
   
         } else {
 
           data.id = 0;
 
-          $promise = $rest.save(data).$promise;
+          $promise = $rest.save(data, done);
         }
-
-        $promise.then(function(r) {
-
-          $scope.cancel(url);
-        });
       };
 
       $scope.load = function() {
 
         //console.log('Loading: ' + PATH);
 
-        $rest.query($scope.params).$promise.then(function(r) {
+        //console.log($scope.params);
+
+        $rest.query($scope.params, function(r) {
 
           $scope.itens = r;
         });

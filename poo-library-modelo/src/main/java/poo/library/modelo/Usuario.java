@@ -182,10 +182,10 @@ public class Usuario implements IUsuario {
             locacaoId));
     }
 
-    @Override
-    public void locar(IItemAcervo item) {
+    public void locar(ItemAcervo item) {
 
-        //
+        this.setSaldoDevedor(
+            this.getSaldoDevedor() + item.getPrecoLocacao());
     }
 
     @Override

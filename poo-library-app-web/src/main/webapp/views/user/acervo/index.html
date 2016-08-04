@@ -1,4 +1,4 @@
-<section ng-controller="AcervoUserCtrlr">
+<section ng-controller="AcervoUserCtrlr" ng-init="search.term = ''">
  <ol class="breadcrumb">
     <li>
       <a href="#/user">
@@ -53,8 +53,8 @@
           </a>
         </td>
         <td>
-          <div class="btn-group">
-            <a class="btn btn-sm btn-primary" href="javascript:void(0);" title="Alugar" ng-click="locar(item.id)">
+          <div class="btn-group" ng-controller="LocacaoUserCtrlr">
+            <a class="btn btn-sm btn-primary" href="javascript:void(0);" title="Alugar" ng-click="locar(user.credentials.id, item.id)">
               <span class="glyphicon glyphicon-shopping-cart"></span>
             </a>
             <a data-target="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -62,7 +62,7 @@
             </a>
             <ul class="dropdown-menu pull-right">
               <li>
-                <a href="#">
+                <a href="#" ng-click="reservar(user.credentials.id, data.id)">
                   <span class="glyphicon glyphicon-heart"></span> Reservar</a>
               </li>
               <li class="divider"></li>

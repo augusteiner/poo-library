@@ -42,8 +42,6 @@ public interface IUsuario extends IIdentificavel, IPessoaFisica, ISearcheable {
 
     ETipoUsuario getTipo();
 
-    void locar(IItemAcervo item);
-
     Iterable<? extends ILocacao> getLocacoes();
 
     Iterable<? extends IReserva> getReservas();

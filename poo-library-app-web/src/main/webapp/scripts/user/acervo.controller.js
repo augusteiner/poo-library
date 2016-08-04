@@ -4,6 +4,7 @@
   'use strict';
 
   var CTRLR = 'AcervoUserCtrlr';
+
   var PATH = 'acervo/:id';
   var ROOT_PATH = '/user/acervo';
 

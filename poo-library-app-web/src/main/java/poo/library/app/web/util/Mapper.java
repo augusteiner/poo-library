@@ -59,7 +59,7 @@ class Mapper<I, O> implements IConversor<O> {
     private IMapeador newOrikaMapper() {
 
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
-        MapperFacade mapper = mapperFactory.getMapperFacade();
+        final MapperFacade mapper = mapperFactory.getMapperFacade();
 
         return new IMapeador() {
 
@@ -79,7 +79,7 @@ class Mapper<I, O> implements IConversor<O> {
 
     private IMapeador newModelMapper() {
 
-        ModelMapper mapper = new ModelMapper();
+        final ModelMapper mapper = new ModelMapper();
 
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 

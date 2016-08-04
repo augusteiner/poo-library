@@ -1,9 +1,16 @@
 <div class="panel panel-primary" ng-controller="AcervoUserCtrlr" ng-init="edit(params.id)">
   <div class="panel-heading">
-    <h4>Detalhes do Item - {{data.titulo}}</h4>
+    <h4>{{data.titulo}}</h4>
   </div>
   <div class="panel-body">
+
     <dl class="dl-horizontal">
+      <dt>Sinopse</dt>
+      <dd>{{data.sinopse}}</dd>
+    </dl>
+
+    <dl class="dl-horizontal">
+
       <dt>Título</dt>
       <dd>{{data.titulo}}</dd>
 
@@ -13,21 +20,15 @@
       <dt>Aluguel</dt>
       <dd>R$ {{data.precoLocacao}}</dd>
     </dl>
-  
-    <fieldset>
-      <legend>
-        <small>
-          Sinopse</small>
-      </legend>
-      {{data.sinopse}}
-    </fieldset>
   </div>
-  <div class="panel-footer clearfix">
-    <div class="pull-right">
-      <a class="btn btn-sm btn-default" href="#{{rootPath}}">
-        <span></span> Voltar</a>
-      <a class="btn btn-sm btn-primary">
-        <span></span> Alugar</a>
+  <div class="panel-footer clearfix" ng-controller="LocacaoUserCtrlr">
+    <div class="btn-group pull-right">
+      <a class="btn btn-sm btn-default" href="#/user/acervo">
+        <span class="glyphicon glyphicon-chevron-left"></span> Voltar</a>
+      <a class="btn btn-sm btn-success" href="javascript:void(0);" ng-click="reservar(user.credentials.id, data.id)">
+        <span class="glyphicon glyphicon-heart"></span> Reservar</a>
+      <a class="btn btn-sm btn-primary" href="javascript:void(0);" ng-click="locar(user.credentials.id, data.id)">
+        <span class="glyphicon glyphicon-shopping-cart"></span> Alugar</a>
     </div>
   </div>
 </div>

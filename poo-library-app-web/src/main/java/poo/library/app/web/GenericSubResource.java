@@ -63,11 +63,11 @@ public abstract class GenericSubResource<T extends IIdentificavel>
         this.initBehavior(this);
     }
 
-    private void close() {
+    public static void closeDAO(IDAO<?> dao) {
 
         try {
 
-            this.getParentDAO().close();
+            dao.close();
 
         } catch (Exception e) {
 
@@ -76,6 +76,11 @@ public abstract class GenericSubResource<T extends IIdentificavel>
             throw new ServerErrorException(
                 INTERNAL_SERVER_ERROR, e);
         }
+    }
+
+    private void close() {
+
+        closeDAO(this.getParentDAO());
     }
 
     @Override

@@ -37,7 +37,12 @@ public class LocacaoDTO extends RequisicaoDTO {
     private Date devolverAte;
     private Date devolvidoEm;
 
-    public LocacaoDTO() { }
+    private ItemAcervoDTO itemAcervo;
+
+    public LocacaoDTO() {
+
+        this.itemAcervo = new ItemAcervoDTO();
+    }
 
     public String getDevolverAte() {
 
@@ -67,5 +72,10 @@ public class LocacaoDTO extends RequisicaoDTO {
     public void setPrecoCobrado(double precoCobrado) {
 
         this.precoCobrado = precoCobrado;
+    }
+
+    public ItemAcervoDTO getItemAcervo() {
+
+        return this.itemAcervo;
     }
 }

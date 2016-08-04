@@ -29,7 +29,7 @@
       progress.val(progress.val() + 1);
     };
 
-    $('.navbar-collapse a:not(.dropdown-toggle)').click(function(){
+    $(document).on('click', '.navbar-collapse a:not(.dropdown-toggle)', function(){
       $(".navbar-collapse").collapse('hide');
     });
 
