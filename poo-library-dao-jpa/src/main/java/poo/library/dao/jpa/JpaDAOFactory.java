@@ -106,6 +106,29 @@ public abstract class JpaDAOFactory implements IDAOFactory {
         return em;
     }
 
+    /**
+     * Cria novo DAO utilizando a unidade de persistência configurada nesta instância.
+     *
+     * <ul>
+     *   <li>
+     *     O método é <code>synchronized</code> para garantir que somente
+     *     uma <code>Thread</code> por vez execute-o até o fim.
+     *   </li>
+     *   <li>
+     *     O método utiliza-se de <code>ThreadLocal</code> para garantir a dispensa
+     *     de somente um <code>EntityManager</code> por <code>Thread</code>.
+     *   </li>
+     *   <li>
+     *     O método é anotado com <code>@SuppressWarnings("unchecked")</code>, pois
+     *     retorna DAOs específicos para <code>Usuario</code>, <code>ItemAcervo</code> e
+     *     <code>Biblioteca</code> causando assim um alerta de <em>type safety</em> devido
+     *     a uma possível imcompatiblidade de tipos.
+     *   </li>
+     * </ul>
+     *
+     * @see ThreadLocal
+     * @see IDAO
+     */
     @Override
     @SuppressWarnings("unchecked")
     public synchronized <T> IDAO<T> novoDAO(Class<T> cls) {
