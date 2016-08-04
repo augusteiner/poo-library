@@ -1,11 +1,13 @@
 
 (function(){
 
+  var uuid = require('node-uuid');
   var chai = require('chai');
   var chaiHttp = require('chai-http');
   var server = 'http://localhost:9090/api';
 
   var should = chai.should();
+  var _uuid = uuid.v4().split('-')[0];
 
   chai.use(chaiHttp);
 
@@ -14,6 +16,7 @@
     var ROOT_PATH = '/usuario';
 
     it('deve listar todos os usuários em ' + ROOT_PATH + ' GET', function(done) {
+
       chai.request(server)
         .get(ROOT_PATH)
         .end(function(err, res){
@@ -27,12 +30,13 @@
     });
 
     it('deve cadastrar usuário em ' + ROOT_PATH + ' POST', function(done) {
+
       chai.request(server)
         .post(ROOT_PATH)
         .send({
           'nome' : 'João Maria das Lurdes',
-          'login' : 'login-5a91a6e0',
-          'senha' : '5a91a6e0',
+          'login' : 'login' + _uuid,
+          'senha' : _uuid,
           'cpf' : '00569875487',
           'endereco' : 'Av. Salgado Filho, 1001',
           'tipo': 'COMUM'})
@@ -73,8 +77,8 @@
         .put(ROOT_PATH + '/' + entityId)
         .send({
           'id' : entityId,
-          'login' : 'login-5a91a6e0',
-          'senha' : '5a91a6e0',
+          'login' : 'login' + _uuid,
+          'senha' : _uuid,
           'nome' : 'João Maria das Lurdes II',
           'cpf' : '00569875487',
           'endereco' : 'Av. Salgado Filho, 1001',
@@ -90,6 +94,7 @@
     });
 
     it('deve deletar usuário em ' + ROOT_PATH + '/{usuarioId} DELETE', function(done) {
+
       chai.request(server)
         .delete(ROOT_PATH + '/' + entityId)
         .end(function(err, res){
@@ -104,6 +109,7 @@
   });
 
   describe('CRUD de Bibliotecas', function() {
+
     var entityId = null;
     var ROOT_PATH = '/biblioteca';
 
@@ -184,6 +190,7 @@
     });
 
     describe(':: Itens de Acervo', function() {
+
       var SUB_ROOT_PATH = '/biblioteca/{bibliotecaId}/acervo';
       var getRootPath = function() {
 
@@ -283,22 +290,38 @@
 
       });
 
-    it('deve deletar acervo em ' + SUB_ROOT_PATH + ' DELETE', function(done) {
+      it('deve deletar acervo em ' + SUB_ROOT_PATH + ' DELETE', function(done) {
 
-      chai.request(server)
-        .delete(getRootPath() + '/' + subEntityId)
-        .end(function(err, res){
+        chai.request(server)
+          .delete(getRootPath() + '/' + subEntityId)
+          .end(function(err, res){
 
-          if (err) throw err;
+            if (err) throw err;
 
-          res.should.have.status(204);
+            res.should.have.status(204);
 
-          done();
+            done();
+        });
+
       });
 
-    });
+      it('acervo deve ter sido deletado em ' + SUB_ROOT_PATH + ' DELETE', function(done) {
+
+        chai.request(server)
+          .get(getRootPath() + '/' + subEntityId)
+          .end(function(err, res){
+
+            if (err) throw err;
+
+            res.should.have.status(404);
+
+            done();
+        });
+
+      });
 
       it('deve deletar biblioteca em ' + ROOT_PATH + ' DELETE', function(done) {
+
         chai.request(server)
           .delete(ROOT_PATH + '/' + entityId)
           .end(function(err, res){
@@ -316,3 +339,4 @@
   });
 
 })();
+
