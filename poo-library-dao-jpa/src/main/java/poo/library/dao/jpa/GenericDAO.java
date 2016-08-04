@@ -67,19 +67,16 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
     @Override
     public void close() {
 
-        System.out.println(
-            String.format(
-                "FECHANDO O DAO GENÉRICO JPA %s",
-                this));
+        EntityManager em = this.em;
 
-        if (this.em != null) {
-
-            if (this.em.isOpen())
-                this.em.close();
+        if (em != null) {
 
             // this.em.getEntityManagerFactory().close();
 
             this.em = null;
+
+            if (em.isOpen())
+                em.close();
         }
     }
 
@@ -269,3 +266,4 @@ public class GenericDAO<T> implements IDAO<T>, AutoCloseable {
         return Collections.emptyList();
     }
 }
+
