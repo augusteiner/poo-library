@@ -37,7 +37,6 @@ import javax.ws.rs.core.Response;
 import poo.library.app.web.dto.ItemAcervoDTO;
 import poo.library.modelo.comum.IBuscador;
 import poo.library.util.IConversor;
-import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -57,18 +56,7 @@ public class AcervoBibliotecaSearchResource {
         @PathParam("parentId") int bibliotecaId,
         @QueryParam("term") String term) {
 
-        IBuscador buscador;
-
-        try {
-
-            buscador = self.buscador(bibliotecaId);
-
-        } catch (ObjetoNaoEncontradoException e) {
-
-            e.printStackTrace();
-
-            return notFound().entity(e).build();
-        }
+        IBuscador buscador = self.buscador(bibliotecaId);
 
         Iterable<?> iter = convert(
             buscador.itensPorTermo(term),

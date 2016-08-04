@@ -54,18 +54,12 @@ public class Biblioteca implements IBiblioteca {
 
     private IBuscador buscador;
 
-    private Collection<ItemAcervo> acervo;
+    private Collection<ItemAcervo> acervo = new LinkedList<ItemAcervo>();
 
-    private Collection<Reserva> reservas;
-    private Collection<Locacao> locacoes;
+    private Collection<Reserva> reservas = new LinkedList<Reserva>();
+    private Collection<Locacao> locacoes = new LinkedList<Locacao>();
 
-    public Biblioteca() {
-
-        this.acervo = new LinkedList<ItemAcervo>();
-
-        this.reservas = new LinkedList<Reserva>();
-        this.locacoes = new LinkedList<Locacao>();
-    }
+    public Biblioteca() { }
 
     public Biblioteca(String nome, double multaDiaria) {
 
@@ -335,16 +329,27 @@ public class Biblioteca implements IBiblioteca {
         biblioteca.buscador = buscador;
     }
 
-    public void removeAcervo(ItemAcervo item) throws ObjetoNaoEncontradoException {
+    public void removeAcervo(ItemAcervo item) {
 
         boolean removed = this.acervo.remove(item);
 
         if (!removed) {
 
-            throw new ObjetoNaoEncontradoException(String.format(
-                "Item de acervo #%d não encontrado",
+            System.out.println(String.format(
+                "ITENS DO ACERVO (lista: %s; size: %d):",
 
-                item.getId()));
+                this.acervo,
+                this.acervo.size()));
+
+            for (ItemAcervo i : this.acervo) {
+
+                System.out.println(i.toString());
+            }
+
+            //throw new ObjetoNaoEncontradoException(String.format(
+            //    "Item de acervo #%d não encontrado",
+            //
+            //    item.getId()));
         }
 
         item.setBiblioteca(null);

@@ -140,27 +140,12 @@ public class DAOConversor<I, O> implements IConversor<O>, IDAO<O> {
     @Override
     public void save(O entity) throws FalhaOperacaoException {
 
-        I obj = null;
-        IIdentificavel outputId = null;
-
-        if (entity instanceof IIdentificavel)
-            outputId = (IIdentificavel) entity;
-
-        if (outputId != null &&
-            outputId.getId() > 0) {
-
-            obj = this.dao.reference(outputId.getId());
-
-            this.conversorOut.converter(entity, obj);
-
-        } else {
-
-            obj = this.conversorOut.converter(entity);
-        }
+        I obj = this.conversorOut.converter(entity);
 
         this.dao.save(obj);
 
         this.conversorIn.converter(obj, entity);
+
     }
 
     @Override

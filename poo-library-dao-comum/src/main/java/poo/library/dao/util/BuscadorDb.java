@@ -28,6 +28,7 @@ import java.util.Collection;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
 import poo.library.dao.comum.IDAOFactory;
+import poo.library.modelo.Biblioteca;
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Locacao;
 import poo.library.modelo.Reserva;
@@ -54,8 +55,8 @@ public class BuscadorDb extends BuscadorMemoria implements IBuscador {
 
     private BuscadorDb(IDAOFactory factory) {
 
-        this.usuarioDAO = factory.createNew(Usuario.class);
         this.itemAcervoDAO = factory.createNew(ItemAcervo.class);
+        this.usuarioDAO = factory.createNew(Usuario.class);
 
         this.locacaoDAO = factory.createNew(Locacao.class);
         this.reservaDAO = factory.createNew(Reserva.class);
@@ -74,9 +75,35 @@ public class BuscadorDb extends BuscadorMemoria implements IBuscador {
     }
 
     @Override
-    public Collection<Reserva> reservasPorUsuario(Usuario usuario) {
+    public Biblioteca getBiblioteca() {
 
-        return usuario.getReservas();
+        return null;
+    }
+
+    @Override
+    public ItemAcervo itemPorId(int itemAcervoId)
+        throws ObjetoNaoEncontradoException {
+
+        return this.itemAcervoDAO.find(itemAcervoId);
+    }
+
+    @Override
+    public Collection<ItemAcervo> itens() {
+
+        return this.initialise(super.itens());
+    }
+
+    @Override
+    public Locacao locacaoPorId(int locacaoId)
+        throws ObjetoNaoEncontradoException {
+
+        return this.locacaoDAO.find(locacaoId);
+    }
+
+    @Override
+    public Collection<Locacao> locacoes() {
+
+        return this.initialise(super.locacoes());
     }
 
     @Override
@@ -85,19 +112,30 @@ public class BuscadorDb extends BuscadorMemoria implements IBuscador {
         return usuario.getLocacoes();
     }
 
-    //@Override
-    //public Locacao locacaoPorId(int locacaoId)
-    //    throws ObjetoNaoEncontradoException {
-    //
-    //    return this.locacaoDAO.find(locacaoId);
-    //}
+    @Override
+    public Reserva reservaPorId(int reservaId)
+        throws ObjetoNaoEncontradoException {
 
-    //@Override
-    //public Reserva reservaPorId(int reservaId)
-    //    throws ObjetoNaoEncontradoException {
-    //
-    //    return this.reservaDAO.find(reservaId);
-    //}
+        return this.reservaDAO.find(reservaId);
+    }
+
+    @Override
+    public Collection<Reserva> reservas() {
+
+        return this.initialise(super.reservas());
+    }
+
+    @Override
+    public Collection<Reserva> reservasPorUsuario(Usuario usuario) {
+
+        return usuario.getReservas();
+    }
+
+    @Override
+    public void setBiblioteca(Biblioteca biblioteca) {
+
+        //
+    }
 
     @Override
     public Usuario usuarioPorId(int usuarioId)
@@ -105,13 +143,6 @@ public class BuscadorDb extends BuscadorMemoria implements IBuscador {
 
         return this.usuarioDAO.find(usuarioId);
     }
-
-    //@Override
-    //public ItemAcervo itemPorId(int itemAcervoId)
-    //    throws ObjetoNaoEncontradoException {
-    //
-    //    return this.itemAcervoDAO.find(itemAcervoId);
-    //}
 
     /**
      * XXX Forçando carregamento EAGER da lista
@@ -133,23 +164,5 @@ public class BuscadorDb extends BuscadorMemoria implements IBuscador {
         list.size();
 
         return list;
-    }
-
-    @Override
-    public Collection<ItemAcervo> itens() {
-
-        return this.initialise(super.itens());
-    }
-
-    @Override
-    public Collection<Locacao> locacoes() {
-
-        return this.initialise(super.locacoes());
-    }
-
-    @Override
-    public Collection<Reserva> reservas() {
-
-        return this.initialise(super.reservas());
     }
 }

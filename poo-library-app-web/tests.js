@@ -31,6 +31,8 @@
         .post(ROOT_PATH)
         .send({
           'nome' : 'João Maria das Lurdes',
+          'login' : 'login-5a91a6e0',
+          'senha' : '5a91a6e0',
           'cpf' : '00569875487',
           'endereco' : 'Av. Salgado Filho, 1001',
           'tipo': 'COMUM'})
@@ -71,6 +73,8 @@
         .put(ROOT_PATH + '/' + entityId)
         .send({
           'id' : entityId,
+          'login' : 'login-5a91a6e0',
+          'senha' : '5a91a6e0',
           'nome' : 'João Maria das Lurdes II',
           'cpf' : '00569875487',
           'endereco' : 'Av. Salgado Filho, 1001',
@@ -212,6 +216,7 @@
           .send({
             'bibliotecaId': entityId,
             'titulo' : 'Use a cabeça! C#',
+            'sinopse' : 'Aprenda a usar esta excelente linguagem',
             'autor' : 'GONÇALVES, Eleonor Alves',
             'precoLocacao' : 12.55,
             'qteDisponivel' : 20,
@@ -260,7 +265,8 @@
           .send({
             'id' : subEntityId,
             'bibliotecaId': entityId,
-            'titulo' : 'Use a cabeça! C#',
+            'titulo' : 'Use a cabeça! C# Vol. I',
+            'sinopse' : 'Aprenda a usar esta excelente linguagem',
             'autor' : 'GONÇALVES, Eleonor Alves',
             'precoLocacao' : 12.55,
             'qteDisponivel' : 20,

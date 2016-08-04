@@ -217,9 +217,7 @@ public class BuscadorMemoria implements IBuscador {
 
         this.biblioteca = biblioteca;
 
-        this.setLocacoes(biblioteca.getLocacoes());
-        this.setReservas(biblioteca.getReservas());
-        this.setItensAcervo(biblioteca.getAcervo());
+        Biblioteca.exportarBuscador(biblioteca, this);
     }
 
     public void setItensAcervo(Collection<ItemAcervo> itens) {

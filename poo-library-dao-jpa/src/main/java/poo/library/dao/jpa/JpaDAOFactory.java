@@ -91,7 +91,7 @@ public abstract class JpaDAOFactory implements IDAOFactory {
     }
 
     // XXX Thanks to http://stackoverflow.com/questions/14888040/java-an-entitymanager-object-in-a-multithread-environment#answer-18698497
-    public static EntityManager getEntityManager(EntityManagerFactory factory) {
+    private static synchronized EntityManager getEntityManager(EntityManagerFactory factory) {
 
         EntityManager em = threadLocal.get();
 

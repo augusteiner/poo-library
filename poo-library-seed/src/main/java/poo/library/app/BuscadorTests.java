@@ -66,10 +66,11 @@ public class BuscadorTests {
 
         BuscadorTests tests = new BuscadorTests();
         IDAO<Biblioteca> dao = DAOFactory.novoDAO(Biblioteca.class);
+        Biblioteca biblioteca = dao.first();
 
         tests.buscador = new BuscadorDb();
 
-        Biblioteca.exportarBuscador(dao.first(), tests.buscador);
+        tests.buscador.setBiblioteca(biblioteca);
 
         tests.runTests();
     }

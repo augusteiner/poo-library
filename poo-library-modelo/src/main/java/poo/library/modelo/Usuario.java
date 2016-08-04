@@ -28,7 +28,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 import poo.library.comum.ETipoUsuario;
-import poo.library.comum.IItemAcervo;
 import poo.library.comum.IUsuario;
 import poo.library.util.ObjetoNaoEncontradoException;
 import poo.library.util.Usuarios;
@@ -63,13 +62,6 @@ public class Usuario implements IUsuario {
         this.locacoes = new LinkedList<Locacao>();
     }
 
-    protected Usuario(ETipoUsuario tipo) {
-
-        this();
-
-        this.tipo = tipo;
-    }
-
     public Usuario(
         String nome,
         String cpf) {
@@ -83,6 +75,13 @@ public class Usuario implements IUsuario {
         String endereco) {
 
         this(nome, cpf, endereco, ETipoUsuario.COMUM);
+    }
+
+    protected Usuario(ETipoUsuario tipo) {
+
+        this();
+
+        this.tipo = tipo;
     }
 
     protected Usuario(

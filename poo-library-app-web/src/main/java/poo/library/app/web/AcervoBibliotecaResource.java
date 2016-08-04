@@ -51,7 +51,6 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
     implements ISubResource<ItemAcervoDTO>, IConversor<ItemAcervo> {
 
     public static final String PATH = "biblioteca/{parentId}/acervo";
-
     public static final IConversor<ItemAcervoDTO> CONVERSOR_DTO = conversor(ItemAcervoDTO.class);
 
     private final IDAO<Biblioteca> parentDAO;
@@ -91,15 +90,22 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
 
         IBuscador buscador = buscador(bibliotecaId);
 
-        Biblioteca biblioteca = buscador.getBiblioteca();
         ItemAcervo item = (ItemAcervo) buscador.itemPorId(id);
 
+        if (item.getBibliotecaId() != bibliotecaId) {
+
+            throw new BadRequestException(new IllegalArgumentException(
+                "Id da biblioteca deve ser o mesmo que o do Item do Acervo"));
+        }
+
         System.out.println(String.format(
-            "Removendo item %s",
+            "REMOVENDO ITEM #%d DA BIBLIOTECA (itens: %d)",
 
-            item));
+            item.getId(),
 
-        biblioteca.removeAcervo(item);
+            item.getBiblioteca().getAcervo().size()));
+
+        item.getBiblioteca().removeAcervo(item);
     }
 
     @Override
@@ -127,7 +133,7 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
         if (bibliotecaId != itemAcervo.getBibliotecaId()) {
 
             throw new BadRequestException(new IllegalArgumentException(
-                "Id da biblioteca deve ser igual ao do item do acervo"));
+                "Id da biblioteca deve ser o mesmo que o do Item do Acervo"));
         }
 
         ItemAcervo item;
@@ -148,7 +154,17 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
             this.converter(itemAcervo, item);
         }
 
+        System.out.println("FLUSING ACERVO!!!");
+
         this.flush();
+
+        //Collection<?> list = item.getBiblioteca().getAcervo();
+        //
+        //System.out.println(String.format(
+        //    "LISTA APÓS FLUSH: (lista: %s; size: %d)",
+        //
+        //    list,
+        //    list.size()));
 
         this.getConversorDTO().converter(item, itemAcervo);
     }
@@ -160,15 +176,22 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
 
         ItemAcervoDTO dto) throws ObjetoNaoEncontradoException {
 
+        if (dto.getId() != id ||
+            dto.getBibliotecaId() != bibliotecaId) {
+
+            throw new BadRequestException(new IllegalArgumentException(
+                "Id da biblioteca deve ser o mesmo que o do Item do Acervo"));
+        }
+
         IBuscador buscador = buscador(bibliotecaId);
         ItemAcervo item = buscador.itemPorId(id);
 
         this.converter(dto, item);
 
-        System.out.println(String.format(
-            "PUT: %s",
-
-            item.toString()));
+        //System.out.println(String.format(
+        //    "PUT: %s",
+        //
+        //    item.toString()));
     }
 
     protected Biblioteca bibliotecaPorId(int bibliotecaId) throws ObjetoNaoEncontradoException {
@@ -176,30 +199,22 @@ public class AcervoBibliotecaResource extends GenericSubResource<ItemAcervoDTO>
         return this.getParentDAO().find(bibliotecaId);
     }
 
-    private IBuscador buscador(Biblioteca biblioteca) {
+    protected IBuscador buscador(int bibliotecaId) {
 
         IBuscador buscador = new BuscadorDb();
 
-        Biblioteca.exportarBuscador(biblioteca, buscador);
-
         return buscador;
-    }
-
-    protected IBuscador buscador(int bibliotecaId)
-        throws ObjetoNaoEncontradoException {
-
-        return this.buscador(this.bibliotecaPorId(bibliotecaId));
-    }
-
-    @Override
-    protected IDAO<Biblioteca> getParentDAO() {
-
-        return this.parentDAO;
     }
 
     @Override
     protected IConversor<ItemAcervoDTO> getConversorDTO() {
 
         return CONVERSOR_DTO;
+    }
+
+    @Override
+    protected IDAO<Biblioteca> getParentDAO() {
+
+        return this.parentDAO;
     }
 }
