@@ -55,11 +55,11 @@ public class BuscadorDb extends BuscadorMemoria implements IBuscador {
 
     private BuscadorDb(IDAOFactory factory) {
 
-        this.itemAcervoDAO = factory.createNew(ItemAcervo.class);
-        this.usuarioDAO = factory.createNew(Usuario.class);
+        this.itemAcervoDAO = factory.novoDAO(ItemAcervo.class);
+        this.usuarioDAO = factory.novoDAO(Usuario.class);
 
-        this.locacaoDAO = factory.createNew(Locacao.class);
-        this.reservaDAO = factory.createNew(Reserva.class);
+        this.locacaoDAO = factory.novoDAO(Locacao.class);
+        this.reservaDAO = factory.novoDAO(Reserva.class);
 
     }
 

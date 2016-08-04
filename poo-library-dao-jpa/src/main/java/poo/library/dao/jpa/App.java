@@ -70,7 +70,7 @@ public class App {
         IDAOFactory factory = new DefaultConnectionDAOFactory();
         factory.connect();
 
-        IDAO<Usuario> usuarios = factory.createNew(Usuario.class);
+        IDAO<Usuario> usuarios = factory.novoDAO(Usuario.class);
 
         try {
 

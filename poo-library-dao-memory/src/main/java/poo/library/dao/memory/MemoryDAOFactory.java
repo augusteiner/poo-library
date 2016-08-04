@@ -33,7 +33,7 @@ import poo.library.dao.comum.NullDAOFactory;
 public class MemoryDAOFactory extends NullDAOFactory implements IDAOFactory {
 
     @Override
-    public <T> IDAO<T> createNew(Class<T> cls) {
+    public <T> IDAO<T> novoDAO(Class<T> cls) {
 
         return new MemoryDAO<T>(cls);
     }

@@ -57,7 +57,7 @@ public class DAOFactory {
 
     public static <T> IDAO<T> novoDAO(Class<T> cls) {
 
-        return INSTANCE.impl.createNew(cls);
+        return INSTANCE.impl.novoDAO(cls);
     }
 
     public static void register(IDAOFactory factory) {

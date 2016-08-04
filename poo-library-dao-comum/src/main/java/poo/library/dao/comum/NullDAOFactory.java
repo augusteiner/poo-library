@@ -38,7 +38,7 @@ public class NullDAOFactory implements IDAOFactory {
     public void connectPooled() { }
 
     @Override
-    public <T> IDAO<T> createNew(Class<T> cls) {
+    public <T> IDAO<T> novoDAO(Class<T> cls) {
 
         return null;
     }

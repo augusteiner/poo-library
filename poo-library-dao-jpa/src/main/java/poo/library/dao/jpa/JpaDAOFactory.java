@@ -108,7 +108,7 @@ public abstract class JpaDAOFactory implements IDAOFactory {
 
     @Override
     @SuppressWarnings("unchecked")
-    public synchronized <T> IDAO<T> createNew(Class<T> cls) {
+    public synchronized <T> IDAO<T> novoDAO(Class<T> cls) {
 
         GenericDAO<?> dao;
         EntityManager em;

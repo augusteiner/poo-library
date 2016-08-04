@@ -109,7 +109,7 @@ public class ActiveJdbcDAOFactory implements IDAOFactory {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> IDAO<T> createNew(Class<T> cls) {
+    public <T> IDAO<T> novoDAO(Class<T> cls) {
 
         this.connectPooled();
 

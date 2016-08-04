@@ -34,5 +34,5 @@ public interface IDAOFactory {
 
     void connectPooled();
 
-    <T> IDAO<T> createNew(Class<T> cls);
+    <T> IDAO<T> novoDAO(Class<T> cls);
 }
