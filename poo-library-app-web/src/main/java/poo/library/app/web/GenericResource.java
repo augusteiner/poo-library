@@ -189,6 +189,8 @@ public abstract class GenericResource<T extends IIdentificavel> {
 
         } catch (FalhaOperacaoException e) {
 
+            e.printStackTrace();
+
             return serverError().entity(e).build();
 
         } finally {
@@ -213,6 +215,8 @@ public abstract class GenericResource<T extends IIdentificavel> {
             this.dao.save(obj);
 
         } catch (FalhaOperacaoException e) {
+
+            e.printStackTrace();
 
             return serverError().entity(e).build();
 

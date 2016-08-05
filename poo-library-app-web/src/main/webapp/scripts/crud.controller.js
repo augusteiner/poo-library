@@ -161,13 +161,13 @@
 
         if (data.id > 0) {
 
-          $promise = $rest.update(data, done);
-  
+          $rest.update(data, done);
+
         } else {
 
           data.id = 0;
 
-          $promise = $rest.save(data, done);
+          $rest.save(data, done);
         }
       };
 
