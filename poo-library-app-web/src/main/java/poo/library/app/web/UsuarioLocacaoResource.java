@@ -130,17 +130,20 @@ public class UsuarioLocacaoResource extends GenericSubResource<LocacaoDTO>
         LocacaoDTO obj)
         throws ObjetoNaoEncontradoException {
 
+        Locacao locacao;
         int itemAcervoId = obj.getItemAcervoId();
         IDAO<ItemAcervo> itemAcervoDAO = DAOFactory.novoDAO(ItemAcervo.class);
 
-        Usuario usuario = this.getParentDAO().find(usuarioId);
-        ItemAcervo item = itemAcervoDAO.find(itemAcervoId);
+        Usuario usuario = this.getParentDAO().reference(usuarioId);
+        ItemAcervo item = itemAcervoDAO.reference(itemAcervoId);
 
         try {
 
-            item.getBiblioteca().locar(item, usuario);
+            locacao = item.getBiblioteca().locar(item, usuario);
 
             this.getParentDAO().flush();
+
+            this.getConversorDTO().converter(locacao, obj);
 
         } catch (ItemIndisponivelException e) {
 
