@@ -32,5 +32,6 @@ public interface IMapeador {
 
     <O> void map(Object input, O output);
 
-    // <O> void map(Object input, O output, Class<O> outCls);
+    <O> void map(Object input, O output, Class<O> clsOut);
 }
+

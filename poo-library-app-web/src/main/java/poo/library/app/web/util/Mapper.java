@@ -85,6 +85,7 @@ class Mapper<I, O> implements IConversor<O> {
 
     protected void map(Object input, O output) {
 
-        this.impl.map(input, output);
+        // XXX Usando clsOut para ser explícito sobre a conversão
+        this.impl.map(input, output, this.clsOut);
     }
 }

@@ -26,6 +26,9 @@ package poo.library.app.web.util;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
+import ma.glasnost.orika.impl.generator.JavassistCompilerStrategy;
+import ma.glasnost.orika.metadata.TypeFactory;
+import ma.glasnost.orika.unenhance.HibernateUnenhanceStrategy;
 import poo.library.util.IMapeador;
 
 /**
@@ -37,7 +40,12 @@ public class DefaultOrikaMapper implements IMapeador {
 
     public DefaultOrikaMapper() {
 
-        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+        DefaultMapperFactory.Builder factoryBuilder = new DefaultMapperFactory.Builder();
+
+        factoryBuilder.compilerStrategy(new JavassistCompilerStrategy());
+        factoryBuilder.unenhanceStrategy(new HibernateUnenhanceStrategy());
+
+        MapperFactory mapperFactory = factoryBuilder.build();
 
         this.mapper = mapperFactory.getMapperFacade();
     }
@@ -45,12 +53,25 @@ public class DefaultOrikaMapper implements IMapeador {
     @Override
     public <O> O map(Object input, Class<O> clsOut) {
 
-        return mapper.map(input, clsOut);
+        return mapper.map(
+            input,
+            null,
+            TypeFactory.valueOf(clsOut));
     }
 
     @Override
     public <O> void map(Object input, O output) {
 
         mapper.map(input, output);
+    }
+
+    @Override
+    public <O> void map(Object input, O output, Class<O> clsOut) {
+
+        mapper.map(
+            input,
+            output,
+            null,
+            TypeFactory.valueOf(clsOut));
     }
 }

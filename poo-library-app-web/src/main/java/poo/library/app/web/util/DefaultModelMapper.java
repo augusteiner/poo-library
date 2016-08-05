@@ -53,4 +53,10 @@ public class DefaultModelMapper implements IMapeador {
 
         mapper.map(input, output);
     }
+
+    @Override
+    public <O> void map(Object input, O output, Class<O> clsOut) {
+
+        this.map(input, output);
+    }
 }
