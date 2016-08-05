@@ -1,4 +1,4 @@
-<div class="panel panel-primary" ng-controller="AcervoUserCtrlr" ng-init="edit(params.id)">
+<div class="panel panel-primary" ng-controller="AcervoUserCtrlr" ng-init="edit(params.id); __id = params.id;">
   <div class="panel-heading">
     <h4>{{data.titulo}}</h4>
   </div>
@@ -25,9 +25,9 @@
     <div class="btn-group pull-right">
       <a class="btn btn-sm btn-default" href="#/user/acervo">
         <span class="glyphicon glyphicon-chevron-left"></span> Voltar</a>
-      <a class="btn btn-sm btn-success" href="javascript:void(0);" ng-click="reservar(user.credentials.id, data.id)">
+      <a class="btn btn-sm btn-success" href="javascript:void(0);" ng-click="reservar(user.credentials.id, __id)">
         <span class="glyphicon glyphicon-heart"></span> Reservar</a>
-      <a class="btn btn-sm btn-primary" href="javascript:void(0);" ng-click="locar(user.credentials.id, data.id)">
+      <a class="btn btn-sm btn-primary" href="javascript:void(0);" ng-click="locar(user.credentials.id, __id)">
         <span class="glyphicon glyphicon-shopping-cart"></span> Alugar</a>
     </div>
   </div>
