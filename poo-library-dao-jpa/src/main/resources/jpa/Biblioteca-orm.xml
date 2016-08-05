@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
-  version="2.0">
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd" version="2.0">
   <entity class="poo.library.modelo.Biblioteca" access="FIELD" metadata-complete="true">
 
     <table name="biblioteca" />
@@ -13,12 +12,12 @@
         <generated-value strategy="IDENTITY" />
       </id>
 
-      <basic name="nome" />
-      <basic name="endereco" />
-      <basic name="multaDiaria" />
+      <basic name="nome" access="FIELD" />
+      <basic name="endereco" access="FIELD" />
+      <basic name="multaDiaria" access="FIELD" />
 
-      <basic name="qteDiasLocacao" />
-      <basic name="qteDiasValidadeReserva" />
+      <basic name="qteDiasLocacao" access="FIELD" />
+      <basic name="qteDiasValidadeReserva" access="FIELD" />
 
       <one-to-many name="acervo" access="FIELD" fetch="LAZY" mapped-by="biblioteca" orphan-removal="true">
         <cascade>

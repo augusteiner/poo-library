@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd" version="2.0">
-  <entity class="poo.library.modelo.Usuario" access="FIELD">
+  <entity class="poo.library.modelo.Usuario" access="FIELD" metadata-complete="true">
 
     <table name="usuario" />
 
@@ -29,10 +29,10 @@
         <enumerated>STRING</enumerated>
       </basic>
 
-      <one-to-many name="reservas" access="FIELD" fetch="LAZY" mapped-by="usuario">
+      <one-to-many name="reservas" fetch="LAZY" access="FIELD" mapped-by="usuario">
       </one-to-many>
 
-      <one-to-many name="locacoes" access="FIELD" fetch="LAZY" mapped-by="usuario">
+      <one-to-many name="locacoes" fetch="LAZY" access="FIELD" mapped-by="usuario">
       </one-to-many>
 
       <!-- <transient name="reservas" /> -->

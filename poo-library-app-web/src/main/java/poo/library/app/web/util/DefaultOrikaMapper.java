@@ -43,7 +43,7 @@ public class DefaultOrikaMapper implements IMapeador {
         DefaultMapperFactory.Builder factoryBuilder = new DefaultMapperFactory.Builder();
 
         factoryBuilder.compilerStrategy(new JavassistCompilerStrategy());
-        factoryBuilder.unenhanceStrategy(new HibernateUnenhanceStrategy());
+        // factoryBuilder.unenhanceStrategy(new HibernateUnenhanceStrategy());
 
         MapperFactory mapperFactory = factoryBuilder.build();
 
@@ -63,6 +63,8 @@ public class DefaultOrikaMapper implements IMapeador {
     public <O> void map(Object input, O output) {
 
         mapper.map(input, output);
+
+        throw new UnsupportedOperationException();
     }
 
     @Override

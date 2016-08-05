@@ -174,9 +174,10 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
+    @Deprecated
     public Iterable<Usuario> getUsuarios() {
 
-        return null;
+        return this.getBuscador().usuarios();
     }
 
     @Override
@@ -299,11 +300,6 @@ public class Biblioteca implements IBiblioteca {
     public void setQteDiasValidadeReserva(int qteDiasValidadeReserva) {
 
         this.qteDiasValidadeReserva = qteDiasValidadeReserva;
-    }
-
-    public void setReservas(Collection<Reserva> reservas) {
-
-        this.reservas = reservas;
     }
 
     @Override

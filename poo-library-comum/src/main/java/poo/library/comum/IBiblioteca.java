@@ -44,6 +44,7 @@ public interface IBiblioteca extends IIdentificavel, ISearcheable {
     Iterable<? extends ILocacao> getLocacoes();
     Iterable<? extends IReserva> getReservas();
 
+    @Deprecated
     Iterable<? extends IUsuario> getUsuarios();
 
     void setNome(String nome);
