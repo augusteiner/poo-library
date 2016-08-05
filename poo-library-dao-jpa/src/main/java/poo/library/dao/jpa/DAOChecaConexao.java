@@ -165,7 +165,7 @@ public class DAOChecaConexao<T> implements IDAO<T>, AutoCloseable {
     }
 
     @Override
-    public T reference(int id) {
+    public T reference(Object id) {
 
         try {
 

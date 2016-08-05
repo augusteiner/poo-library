@@ -51,7 +51,7 @@ public interface IDAO<T> extends AutoCloseable {
 
     Class<T> getEntityClass();
 
-    T reference(int id);
+    T reference(Object id);
 
     void save(T obj)
         throws FalhaOperacaoException;

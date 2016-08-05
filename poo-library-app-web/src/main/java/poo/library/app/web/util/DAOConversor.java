@@ -132,7 +132,7 @@ public class DAOConversor<I, O> implements IConversor<O>, IDAO<O> {
     }
 
     @Override
-    public O reference(int id) {
+    public O reference(Object id) {
 
         return this.converter(this.dao.reference(id));
     }

@@ -163,7 +163,7 @@ public class GenericDAO<T> {
         return Models.novaInstancia(entityType);
     }
 
-    public T reference(int id) {
+    public T reference(Object id) {
 
         try {
 

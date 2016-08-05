@@ -129,7 +129,7 @@ class MemoryDAO<T> implements IDAO<T> {
     }
 
     @Override
-    public T reference(int id) {
+    public T reference(Object id) {
 
         try {
 
