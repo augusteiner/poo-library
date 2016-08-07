@@ -27,6 +27,7 @@ import java.util.Date;
 
 import poo.library.comum.EStatusRequisicao;
 import poo.library.comum.IRequisicao;
+import poo.library.util.R;
 import poo.library.util.Requisicoes;
 
 /**
@@ -51,7 +52,7 @@ public abstract class Requisicao implements IRequisicao {
 
     public Requisicao() {
 
-        this.setRealizadaEm(new Date());
+        this.setRealizadaEm(R.CALENDAR_PADRAO.getTime());
 
         this.status = EStatusRequisicao.PADRAO;
     }

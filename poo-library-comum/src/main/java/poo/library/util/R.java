@@ -25,7 +25,9 @@ package poo.library.util;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.util.Calendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -47,4 +49,7 @@ public class R {
 
     public static final NumberFormat FORMATTER_MOEDA_PADRAO = NumberFormat.getCurrencyInstance(
         LOCALE_PADRAO);
+
+    public static final TimeZone TIMEZONE_PADRAO = TimeZone.getTimeZone("America/Fortaleza");
+    public static final Calendar CALENDAR_PADRAO = Calendar.getInstance(TIMEZONE_PADRAO, LOCALE_PADRAO);
 }
