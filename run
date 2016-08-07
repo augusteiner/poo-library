@@ -5,3 +5,5 @@ set -e
 mvn -Ptest jetty:run -pl *-web \
   -Dfactories.dao=poo.library.dao.jpa.MySqlConnectionDAOFactory
 
+# mvn -Ptest jetty:run -pl *-web \
+#   -Dfactories.dao=poo.library.dao.jpa.PostgreSqlConnectionDAOFactory
