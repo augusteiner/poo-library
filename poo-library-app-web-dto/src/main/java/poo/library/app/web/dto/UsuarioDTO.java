@@ -38,6 +38,8 @@ public class UsuarioDTO implements IIdentificavel {
     private String login;
     private String senha;
 
+    private double saldoDevedor;
+
     private String cpf;
     private String endereco;
 
@@ -64,9 +66,23 @@ public class UsuarioDTO implements IIdentificavel {
         return this.id;
     }
 
+    public String getLogin() {
+
+        return this.login;
+    }
+
     public String getNome() {
 
         return this.nome;
+    }
+
+    public double getSaldoDevedor() {
+        return saldoDevedor;
+    }
+
+    public String getSenha() {
+
+        return this.senha;
     }
 
     public ETipoUsuario getTipo() {
@@ -79,9 +95,8 @@ public class UsuarioDTO implements IIdentificavel {
         this.cpf = cpf;
     }
 
-    public void setCpfFormatado(String cpfFormatado) {
-
-    }
+    // TODO Avaliar necessidade
+    public void setCpfFormatado(String cpfFormatado) { }
 
     public void setEndereco(String endereco) {
 
@@ -93,33 +108,27 @@ public class UsuarioDTO implements IIdentificavel {
         this.id = id;
     }
 
-    public void setNome(String nome) {
-
-        this.nome = nome;
-    }
-
-    public void setTipo(ETipoUsuario tipo) {
-
-        this.tipo = tipo == null ? ETipoUsuario.PADRAO : tipo;
-    }
-
-    public String getLogin() {
-
-        return this.login;
-    }
-
     public void setLogin(String login) {
 
         this.login = login;
     }
 
-    public String getSenha() {
+    public void setNome(String nome) {
 
-        return this.senha;
+        this.nome = nome;
+    }
+
+    public void setSaldoDevedor(double saldoDevedor) {
+        this.saldoDevedor = saldoDevedor;
     }
 
     public void setSenha(String senha) {
 
         this.senha = senha;
+    }
+
+    public void setTipo(ETipoUsuario tipo) {
+
+        this.tipo = tipo == null ? ETipoUsuario.PADRAO : tipo;
     }
 }
