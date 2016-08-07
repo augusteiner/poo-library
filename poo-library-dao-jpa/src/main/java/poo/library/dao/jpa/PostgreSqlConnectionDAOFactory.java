@@ -44,13 +44,19 @@ public class PostgreSqlConnectionDAOFactory extends JpaDAOFactory
 
     private static Map<String, String> getProperties() {
 
+        String jdbcUrl;
         Map<String, String> properties = new Hashtable<String, String>();
+
+        jdbcUrl = System.getProperty("dao.jdbcUrl");
+
+        if (jdbcUrl == null)
+            return properties;
 
         URI uri = URI.create(System.getProperty("dao.jdbcUrl"));
 
         String[] userInfo = uri.getUserInfo().split(":");
 
-        String jdbcUrl = String.format(
+        jdbcUrl = String.format(
             "jdbc:%s://%s:%s%s",
 
             uri.getScheme(),
