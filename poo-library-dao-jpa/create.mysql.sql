@@ -110,7 +110,7 @@ CREATE TABLE `locacao` (
   `itemAcervoId` INT UNSIGNED NOT NULL,
   `bibliotecaId` INT UNSIGNED NOT NULL,
 
-  `status` ENUM('OK', 'CANCELADA', 'ENCERRADA') NOT NULL DEFAULT 'OK',
+  `status` ENUM('OK', 'CANCELADA', 'ENCERRADA', 'VENCIDA') NOT NULL DEFAULT 'OK',
 
   `precoCobrado` DECIMAL(12, 4) NOT NULL DEFAULT 0.0,
 
@@ -151,7 +151,7 @@ CREATE TABLE `reserva` (
   `itemAcervoId` INT UNSIGNED NOT NULL,
   `bibliotecaId` INT UNSIGNED NOT NULL,
 
-  `status` ENUM('OK', 'CANCELADA', 'ENCERRADA') NOT NULL DEFAULT 'OK',
+  `status` ENUM('OK', 'CANCELADA', 'ENCERRADA', 'VENCIDA') NOT NULL DEFAULT 'OK',
 
   `validaAte` DATE NOT NULL,
 

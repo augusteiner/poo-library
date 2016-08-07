@@ -23,6 +23,7 @@
  */
 package poo.library.app.web;
 
+import static poo.library.comum.EStatusRequisicao.*;
 import static javax.ws.rs.core.Response.Status.*;
 import static poo.library.app.web.util.Conversores.*;
 import static poo.library.app.web.util.Responses.*;
@@ -46,6 +47,7 @@ import poo.library.util.FalhaOperacaoException;
 import poo.library.util.IConversor;
 import poo.library.util.ItemIndisponivelException;
 import poo.library.util.ObjetoNaoEncontradoException;
+import poo.library.util.R;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -77,17 +79,21 @@ public class UsuarioLocacaoResource extends GenericSubResource<LocacaoDTO>
 
         Usuario usuario = getParentDAO().find(usuarioId);
 
-        Collection<Locacao> list = usuario.getLocacoes();
+        Collection<Locacao> locacoes = usuario.getLocacoes();
 
-        for (Locacao l : list) {
+        for (Locacao locacao : locacoes) {
 
             System.out.println(String.format(
                 "ITEM DE ACERVO: %s",
 
-                l.getItemAcervo().toString()));
+                locacao.getItemAcervo().toString()));
+
+            locacao.atualizarStatus(R.CALENDAR_PADRAO.getTime());
         }
 
-        return list;
+        this.flush();
+
+        return locacoes;
     }
 
     @Override
@@ -125,17 +131,53 @@ public class UsuarioLocacaoResource extends GenericSubResource<LocacaoDTO>
     }
 
     @Override
+    public void put(
+        int usuarioId,
+        int id,
+
+        LocacaoDTO locacaoDTO)
+            throws ObjetoNaoEncontradoException {
+
+        if (usuarioId != locacaoDTO.getUsuarioId()) {
+
+            throw new BadRequestException(new IllegalArgumentException(
+                "Id do usuário deve ser o mesmo que usuarioId da Locação"));
+        }
+
+        if (locacaoDTO.getStatus() == ENCERRADA) {
+
+            Usuario usuario = this.getParentDAO().find(usuarioId);
+
+            Locacao locacao = usuario.locacaoPorId(id);
+
+            locacao.getBiblioteca().devolver(locacao);
+        }
+    }
+
+    @Override
     public void post(
         int usuarioId,
-        LocacaoDTO obj)
+        LocacaoDTO locacaoDTO)
         throws ObjetoNaoEncontradoException {
 
+        if (usuarioId != locacaoDTO.getUsuarioId()) {
+
+            throw new BadRequestException(new IllegalArgumentException(
+                "Id do usuário deve ser o mesmo que usuarioId da Locação"));
+        }
+
+        if (locacaoDTO.getId() != 0) {
+
+            throw new BadRequestException(new IllegalArgumentException(
+                "Id da locação deve ser 0"));
+        }
+
         Locacao locacao;
-        int itemAcervoId = obj.getItemAcervoId();
+        int itemAcervoId = locacaoDTO.getItemAcervoId();
         IDAO<ItemAcervo> itemAcervoDAO = DAOFactory.novoDAO(ItemAcervo.class);
 
         Usuario usuario = this.getParentDAO().reference(usuarioId);
-        ItemAcervo item = itemAcervoDAO.reference(itemAcervoId);
+        ItemAcervo item = itemAcervoDAO.find(itemAcervoId);
 
         try {
 
@@ -143,7 +185,7 @@ public class UsuarioLocacaoResource extends GenericSubResource<LocacaoDTO>
 
             this.getParentDAO().flush();
 
-            this.getConversorDTO().converter(locacao, obj);
+            this.getConversorDTO().converter(locacao, locacaoDTO);
 
         } catch (ItemIndisponivelException e) {
 

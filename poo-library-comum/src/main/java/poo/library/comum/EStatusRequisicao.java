@@ -28,9 +28,15 @@ package poo.library.comum;
  */
 public enum EStatusRequisicao {
 
-    OK,
+    CANCELADA,
     ENCERRADA,
-    CANCELADA;
+    OK,
+    VENCIDA;
 
     public static final EStatusRequisicao PADRAO = OK;
+
+    public boolean isDefinitivo() {
+
+        return this != OK;
+    }
 }

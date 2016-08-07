@@ -82,6 +82,9 @@ public abstract class Requisicao implements IRequisicao {
     }
 
     @Override
+    public abstract void atualizarStatus(Date referencia);
+
+    @Override
     public boolean equals(Object other) {
 
         return Requisicoes.equals(

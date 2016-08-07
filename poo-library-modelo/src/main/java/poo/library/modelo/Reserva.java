@@ -25,6 +25,7 @@ package poo.library.modelo;
 
 import java.util.Date;
 
+import poo.library.comum.EStatusRequisicao;
 import poo.library.comum.IReserva;
 import poo.library.util.Dates;
 
@@ -58,6 +59,16 @@ public class Reserva extends Requisicao implements IReserva {
         super(itemAcervoId, usuarioId, bibliotecaId);
 
         this.validaAte = validaAte;
+    }
+
+    @Override
+    public void atualizarStatus(Date referencia) {
+
+        if (!this.getStatus().isDefinitivo() &&
+            this.getValidaAte().compareTo(referencia) < 0) {
+
+            this.setStatus(EStatusRequisicao.VENCIDA);
+        }
     }
 
     @Override

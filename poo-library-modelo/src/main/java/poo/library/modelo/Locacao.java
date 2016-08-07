@@ -25,6 +25,7 @@ package poo.library.modelo;
 
 import java.util.Date;
 
+import poo.library.comum.EStatusRequisicao;
 import poo.library.comum.ILocacao;
 import poo.library.util.R;
 
@@ -49,6 +50,16 @@ public class Locacao extends Requisicao implements ILocacao {
         super(item, usuario);
 
         this.init(devolverAte, item);
+    }
+
+    @Override
+    public void atualizarStatus(Date referencia) {
+
+        if (!this.getStatus().isDefinitivo() &&
+            this.getDevolverAte().compareTo(referencia) < 0) {
+
+            this.setStatus(EStatusRequisicao.VENCIDA);
+        }
     }
 
     @Override

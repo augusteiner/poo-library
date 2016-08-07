@@ -48,4 +48,6 @@ public interface IRequisicao extends IIdentificavel {
     void setItemAcervoId(int itemId);
     void setUsuarioId(int usuarioId);
     void setBibliotecaId(int bibliotecaId);
+
+    void atualizarStatus(Date referencia);
 }

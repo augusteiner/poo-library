@@ -23,6 +23,8 @@
  */
 package poo.library.comum;
 
+import java.util.Date;
+
 import poo.library.util.FalhaOperacaoException;
 import poo.library.util.ISearcheable;
 import poo.library.util.ItemIndisponivelException;
@@ -63,4 +65,7 @@ public interface IBiblioteca extends IIdentificavel, ISearcheable {
 
     IReserva reservar(int itemAcervoId, int usuarioId)
         throws ObjetoNaoEncontradoException, ItemIndisponivelException;
+
+    void atualizarReservas(Date referencia);
+    void atualizarLocacoes(Date referencia);
 }

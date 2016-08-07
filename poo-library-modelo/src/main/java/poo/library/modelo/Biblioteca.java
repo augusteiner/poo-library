@@ -70,6 +70,42 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
+    public void addAcervo(ItemAcervo item) {
+
+        item.setBiblioteca(this);
+
+        this.acervo.add(item);
+    }
+
+    @Override
+    public void atualizarLocacoes(Date referencia) {
+
+        this.atualizarLocacoes(referencia, this.getLocacoes());
+    }
+
+    public void atualizarLocacoes(Date referencia, Iterable<Locacao> locacoes) {
+
+        for (Locacao locacao : locacoes) {
+
+            locacao.atualizarStatus(referencia);
+        }
+    }
+
+    @Override
+    public void atualizarReservas(Date referencia) {
+
+        this.atualizarReservas(referencia, this.getReservas());
+    }
+
+    public void atualizarReservas(Date referencia, Iterable<Reserva> reservas) {
+
+        for (Reserva reserva : reservas) {
+
+            reserva.atualizarStatus(referencia);
+        }
+    }
+
+    @Override
     public Reserva cancelar(int reservaId)
         throws ObjetoNaoEncontradoException, FalhaOperacaoException {
 
@@ -87,10 +123,10 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public Locacao devolver(int usuarioId, int itemAcervoId)
-        throws ObjetoNaoEncontradoException, FalhaOperacaoException {
+    public Locacao devolver(int locacaoId)
+        throws ObjetoNaoEncontradoException {
 
-        Locacao locacao = this.getBuscador().ultimaLocacao(usuarioId, itemAcervoId);
+        Locacao locacao = this.getBuscador().locacaoPorId(locacaoId);
 
         this.devolver(locacao);
 
@@ -98,10 +134,10 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public Locacao devolver(int locacaoId)
-        throws ObjetoNaoEncontradoException {
+    public Locacao devolver(int usuarioId, int itemAcervoId)
+        throws ObjetoNaoEncontradoException, FalhaOperacaoException {
 
-        Locacao locacao = this.getBuscador().locacaoPorId(locacaoId);
+        Locacao locacao = this.getBuscador().ultimaLocacao(usuarioId, itemAcervoId);
 
         this.devolver(locacao);
 
@@ -224,6 +260,38 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
+    public boolean match(String term) {
+
+        return Bibliotecas.match(this, term);
+    }
+
+    public void removeAcervo(ItemAcervo item) {
+
+        boolean removed = this.acervo.remove(item);
+
+        if (!removed) {
+
+            System.out.println(String.format(
+                "ITENS DO ACERVO (lista: %s; size: %d):",
+
+                this.acervo,
+                this.acervo.size()));
+
+            for (ItemAcervo i : this.acervo) {
+
+                System.out.println(i.toString());
+            }
+
+            //throw new ObjetoNaoEncontradoException(String.format(
+            //    "Item de acervo #%d não encontrado",
+            //
+            //    item.getId()));
+        }
+
+        item.setBiblioteca(null);
+    }
+
+    @Override
     public Reserva reservar(int itemAcervoId, int usuarioId)
         throws ObjetoNaoEncontradoException, ItemIndisponivelException {
 
@@ -303,11 +371,9 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public void addAcervo(ItemAcervo item) {
+    public String toString() {
 
-        item.setBiblioteca(this);
-
-        this.acervo.add(item);
+        return Bibliotecas.toString(this);
     }
 
     public static void exportarBuscador(
@@ -323,43 +389,5 @@ public class Biblioteca implements IBiblioteca {
         buscador.setBiblioteca(biblioteca);
 
         biblioteca.buscador = buscador;
-    }
-
-    public void removeAcervo(ItemAcervo item) {
-
-        boolean removed = this.acervo.remove(item);
-
-        if (!removed) {
-
-            System.out.println(String.format(
-                "ITENS DO ACERVO (lista: %s; size: %d):",
-
-                this.acervo,
-                this.acervo.size()));
-
-            for (ItemAcervo i : this.acervo) {
-
-                System.out.println(i.toString());
-            }
-
-            //throw new ObjetoNaoEncontradoException(String.format(
-            //    "Item de acervo #%d não encontrado",
-            //
-            //    item.getId()));
-        }
-
-        item.setBiblioteca(null);
-    }
-
-    @Override
-    public boolean match(String term) {
-
-        return Bibliotecas.match(this, term);
-    }
-
-    @Override
-    public String toString() {
-
-        return Bibliotecas.toString(this);
     }
 }
