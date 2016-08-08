@@ -23,8 +23,6 @@
  */
 package poo.library.modelo;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -36,7 +34,9 @@ import poo.library.modelo.comum.IBuscador;
 import poo.library.util.Bibliotecas;
 import poo.library.util.FalhaOperacaoException;
 import poo.library.util.ItemIndisponivelException;
+import poo.library.util.Locacoes;
 import poo.library.util.ObjetoNaoEncontradoException;
+import poo.library.util.Requisicoes;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -123,29 +123,43 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public Locacao devolver(int locacaoId)
+    public Locacao devolver(int locacaoId, Date referencia)
         throws ObjetoNaoEncontradoException {
 
         Locacao locacao = this.getBuscador().locacaoPorId(locacaoId);
 
-        this.devolver(locacao);
+        this.devolver(locacao, referencia);
 
         return locacao;
     }
 
     @Override
-    public Locacao devolver(int usuarioId, int itemAcervoId)
+    public Locacao devolver(int usuarioId, int itemAcervoId, Date referencia)
         throws ObjetoNaoEncontradoException, FalhaOperacaoException {
 
         Locacao locacao = this.getBuscador().ultimaLocacao(usuarioId, itemAcervoId);
 
-        this.devolver(locacao);
+        this.devolver(locacao, referencia);
 
         return locacao;
     }
 
     @Override
-    public void devolver(Locacao locacao) {
+    public void devolver(Locacao locacao, Date referencia) {
+
+        locacao.atualizarStatus(referencia);
+
+        if (locacao.getStatus() == EStatusRequisicao.VENCIDA) {
+
+            Usuario usuario = locacao.getUsuario();
+            ItemAcervo itemAcervo = locacao.getItemAcervo();
+
+            double totalAPagar = Locacoes.totalAPagar(locacao, referencia);
+
+            usuario.setSaldoDevedor(usuario.getSaldoDevedor() + totalAPagar);
+            itemAcervo.setQteDisponivel(itemAcervo.getQteDisponivel() + 1);
+
+        }
 
         locacao.setStatus(EStatusRequisicao.ENCERRADA);
     }
@@ -217,14 +231,17 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public Locacao locar(int itemAcervoId, int usuarioId)
-        throws ObjetoNaoEncontradoException {
+    public Locacao locar(int itemAcervoId, int usuarioId, Date referencia)
+        throws ObjetoNaoEncontradoException, ItemIndisponivelException {
 
-        return null;
+        ItemAcervo itemAcervo = this.getBuscador().itemPorId(itemAcervoId);
+        Usuario usuario = this.getBuscador().usuarioPorId(usuarioId);
+
+        return this.locar(itemAcervo, usuario, referencia);
     }
 
     @Override
-    public Locacao locar(ItemAcervo item, Usuario usuario)
+    public Locacao locar(ItemAcervo item, Usuario usuario, Date referencia)
         throws ItemIndisponivelException {
 
         if (item.getQteDisponivel() > 0) {
@@ -234,11 +251,9 @@ public class Biblioteca implements IBiblioteca {
             item.locar(usuario);
             usuario.locar(item);
 
-            Instant dias = Instant.now().plus(
-                this.getQteDiasLocacao(),
-                ChronoUnit.DAYS);
-
-            Date devolverAte = Date.from(dias);
+            Date devolverAte = Requisicoes.adicionarDias(
+                referencia,
+                this.getQteDiasLocacao());
 
             Locacao locacao = new Locacao(
                 devolverAte,
@@ -292,7 +307,7 @@ public class Biblioteca implements IBiblioteca {
     }
 
     @Override
-    public Reserva reservar(int itemAcervoId, int usuarioId)
+    public Reserva reservar(int itemAcervoId, int usuarioId, Date referencia)
         throws ObjetoNaoEncontradoException, ItemIndisponivelException {
 
         IBuscador buscador = this.getBuscador();
@@ -301,11 +316,11 @@ public class Biblioteca implements IBiblioteca {
 
         Usuario usuario = buscador.usuarioPorId(usuarioId);
 
-        return this.reservar(itemAcervo, usuario);
+        return this.reservar(itemAcervo, usuario, referencia);
     }
 
     @Override
-    public Reserva reservar(ItemAcervo item, Usuario usuario)
+    public Reserva reservar(ItemAcervo item, Usuario usuario, Date referencia)
         throws ItemIndisponivelException {
 
         if (item.getQteDisponivel() > 0) {
@@ -315,11 +330,9 @@ public class Biblioteca implements IBiblioteca {
             item.reservar(usuario);
             // usuario.reservar(item);
 
-            Instant dias = Instant.now().plus(
-                this.getQteDiasValidadeReserva(),
-                ChronoUnit.DAYS);
-
-            Date validaAte = Date.from(dias);
+            Date validaAte = Requisicoes.adicionarDias(
+                referencia,
+                this.getQteDiasValidadeReserva());
 
             Reserva reserva = new Reserva(
                 validaAte,

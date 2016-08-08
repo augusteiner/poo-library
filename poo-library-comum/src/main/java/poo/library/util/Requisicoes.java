@@ -25,6 +25,10 @@ package poo.library.util;
 
 import static poo.library.util.R.*;
 
+import java.util.Date;
+
+import org.apache.commons.lang3.time.DateUtils;
+
 import poo.library.comum.IRequisicao;
 
 /**
@@ -52,5 +56,10 @@ public class Requisicoes {
             requisicaoId.getBibliotecaId(),
 
             FORMATTER_DATA_HORA_PADRAO.format(requisicaoId.getRealizadaEm()));
+    }
+
+    public static Date adicionarDias(Date referencia, int qteDias) {
+
+        return new Date(referencia.getTime() + DateUtils.MILLIS_PER_DAY * qteDias);
     }
 }

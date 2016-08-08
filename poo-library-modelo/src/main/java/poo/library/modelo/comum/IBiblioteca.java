@@ -23,6 +23,8 @@
  */
 package poo.library.modelo.comum;
 
+import java.util.Date;
+
 import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Locacao;
 import poo.library.modelo.Reserva;
@@ -39,12 +41,12 @@ public interface IBiblioteca extends poo.library.comum.IBiblioteca {
 
     void cancelar(Reserva reserva);
 
-    void devolver(Locacao locacao);
+    void devolver(Locacao locacao, Date referencia);
 
-    Locacao locar(ItemAcervo item, Usuario usuario)
+    Locacao locar(ItemAcervo item, Usuario usuario, Date referencia)
         throws ItemIndisponivelException, FalhaOperacaoException;
 
-    Reserva reservar(ItemAcervo item, Usuario usuario)
+    Reserva reservar(ItemAcervo item, Usuario usuario, Date referencia)
         throws ItemIndisponivelException, FalhaOperacaoException;
 
     // double calcularValorMultas(Date dia);

@@ -23,6 +23,11 @@
  */
 package poo.library.util;
 
+import static java.util.Calendar.*;
+import static java.util.TimeZone.*;
+import static java.text.NumberFormat.*;
+import static java.text.DateFormat.*;
+
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
@@ -38,18 +43,20 @@ public class R {
     public static final Locale LOCALE_PT_BR = new Locale("pt", "BR");
     public static final Locale LOCALE_PADRAO = LOCALE_PT_BR;
 
-    public static final DateFormat FORMATTER_DATA_HORA_PADRAO = DateFormat.getDateTimeInstance(
-        DateFormat.SHORT,
+    public static final DateFormat FORMATTER_DATA_HORA_PADRAO = getDateTimeInstance(
+            DateFormat.SHORT,
+            DateFormat.SHORT,
+            LOCALE_PADRAO);
+
+    public static final DateFormat FORMATTER_DATA_PADRAO = getDateInstance(
         DateFormat.SHORT,
         LOCALE_PADRAO);
 
-    public static final DateFormat FORMATTER_DATA_PADRAO = DateFormat.getDateInstance(
-        DateFormat.SHORT,
+    public static final NumberFormat FORMATTER_MOEDA_PADRAO = getCurrencyInstance(
         LOCALE_PADRAO);
 
-    public static final NumberFormat FORMATTER_MOEDA_PADRAO = NumberFormat.getCurrencyInstance(
+    public static final TimeZone TIMEZONE_PADRAO = getTimeZone("America/Fortaleza");
+    public static final Calendar CALENDAR_PADRAO = getInstance(
+        TIMEZONE_PADRAO,
         LOCALE_PADRAO);
-
-    public static final TimeZone TIMEZONE_PADRAO = TimeZone.getTimeZone("America/Fortaleza");
-    public static final Calendar CALENDAR_PADRAO = Calendar.getInstance(TIMEZONE_PADRAO, LOCALE_PADRAO);
 }

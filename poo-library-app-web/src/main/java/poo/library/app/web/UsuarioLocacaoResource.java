@@ -30,6 +30,7 @@ import static poo.library.app.web.util.Responses.*;
 
 import java.net.URI;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Path;
@@ -79,9 +80,9 @@ public class UsuarioLocacaoResource extends GenericSubResource<LocacaoDTO>
 
         Usuario usuario = getParentDAO().find(usuarioId);
 
-        Collection<Locacao> locacoes = usuario.getLocacoes();
+        Collection<Locacao> locacoes = new LinkedList<Locacao>();
 
-        for (Locacao locacao : locacoes) {
+        for (Locacao locacao : usuario.getLocacoes()) {
 
             System.out.println(String.format(
                 "ITEM DE ACERVO: %s",
@@ -89,6 +90,11 @@ public class UsuarioLocacaoResource extends GenericSubResource<LocacaoDTO>
                 locacao.getItemAcervo().toString()));
 
             locacao.atualizarStatus(R.CALENDAR_PADRAO.getTime());
+
+            if (locacao.getStatus().isTemporario()) {
+
+                locacoes.add(locacao);
+            }
         }
 
         this.flush();
@@ -138,6 +144,12 @@ public class UsuarioLocacaoResource extends GenericSubResource<LocacaoDTO>
         LocacaoDTO locacaoDTO)
             throws ObjetoNaoEncontradoException {
 
+        if (id != locacaoDTO.getId()) {
+
+            throw new BadRequestException(new IllegalArgumentException(
+                "Id do usuário deve ser o mesmo que usuarioId da Locação"));
+        }
+
         if (usuarioId != locacaoDTO.getUsuarioId()) {
 
             throw new BadRequestException(new IllegalArgumentException(
@@ -150,7 +162,16 @@ public class UsuarioLocacaoResource extends GenericSubResource<LocacaoDTO>
 
             Locacao locacao = usuario.locacaoPorId(id);
 
-            locacao.getBiblioteca().devolver(locacao);
+            locacao.getBiblioteca().devolver(locacao, R.CALENDAR_PADRAO.getTime());
+
+        } else {
+
+            Response response = badRequest()
+                .entity(
+                    new FalhaOperacaoException("Somente é possível devolver o item locado"))
+                .build();
+
+            throw new BadRequestException(response);
         }
     }
 
@@ -181,7 +202,7 @@ public class UsuarioLocacaoResource extends GenericSubResource<LocacaoDTO>
 
         try {
 
-            locacao = item.getBiblioteca().locar(item, usuario);
+            locacao = item.getBiblioteca().locar(item, usuario, R.CALENDAR_PADRAO.getTime());
 
             this.getParentDAO().flush();
 

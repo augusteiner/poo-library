@@ -8,7 +8,7 @@
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * furnished to do so, subject to the followiLocacoesng conditions:
  *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
@@ -34,6 +34,7 @@ import poo.library.modelo.Locacao;
 import poo.library.modelo.Usuario;
 import poo.library.util.FalhaOperacaoException;
 import poo.library.util.ItemIndisponivelException;
+import poo.library.util.R;
 
 /**
  * @author José Nascimento<joseaugustodearaujonascimento@gmail.com>
@@ -51,7 +52,7 @@ class LocacaoSeeder implements ISeeder<Locacao> {
 
         try {
 
-            this.l1 = b1.locar(i1, u1);
+            this.l1 = b1.locar(i1, u1, R.CALENDAR_PADRAO.getTime());
 
         } catch (ItemIndisponivelException e) {
 

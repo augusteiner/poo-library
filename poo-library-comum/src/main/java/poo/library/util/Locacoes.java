@@ -21,61 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.app.seeder;
+package poo.library.util;
 
-import java.util.Arrays;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.Date;
 
-import poo.library.app.util.ISeeder;
-import poo.library.app.util.Seeder;
-import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Biblioteca;
-import poo.library.modelo.ItemAcervo;
-import poo.library.modelo.Reserva;
-import poo.library.modelo.Usuario;
-import poo.library.util.FalhaOperacaoException;
-import poo.library.util.ItemIndisponivelException;
-import poo.library.util.R;
+import org.apache.commons.lang3.time.DateUtils;
+
+import poo.library.comum.ILocacao;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-class ReservaSeeder extends Seeder<Reserva> implements ISeeder<Reserva> {
+public class Locacoes {
 
-    private Reserva r1;
+    public static long diasAtraso(ILocacao locacao, Date referencia) {
 
-    public ReservaSeeder(
-        IDAO<Reserva> dao,
+        if (locacao.getDevolverAte().compareTo(referencia) < 0) {
 
-        Biblioteca b1,
-        ItemAcervo i1,
-        Usuario u1) {
+            long diff = locacao.getDevolverAte().getTime() - referencia.getTime();
 
-        super(dao);
+            return diff / DateUtils.MILLIS_PER_DAY;
 
-        try {
+        } else {
 
-            this.r1 = b1.reservar(i1, u1, R.CALENDAR_PADRAO.getTime());
-
-        } catch (ItemIndisponivelException e) {
-
-            e.printStackTrace();
+            return 0;
         }
     }
 
-    @Override
-    public List<Reserva> getList() {
+    public static double totalAPagar(ILocacao locacao, Date referencia) {
 
-        return Arrays.asList(r1);
-    }
+        BigDecimal diasAtraso = BigDecimal.valueOf(diasAtraso(locacao, referencia));
+        BigDecimal precoCobrado = BigDecimal.valueOf(locacao.getPrecoCobrado());
+        BigDecimal multa = BigDecimal.valueOf(locacao.getBiblioteca().getMultaDiaria());
 
-    @Override
-    public void seed() throws FalhaOperacaoException {
-
-        for (Reserva r : this.getList()) {
-
-            System.out.println(r);
-            // this.dao.save(r);
-        }
+        return multa.multiply(diasAtraso).add(precoCobrado).doubleValue();
     }
 }

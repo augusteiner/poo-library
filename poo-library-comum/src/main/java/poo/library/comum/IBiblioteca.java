@@ -55,15 +55,15 @@ public interface IBiblioteca extends IIdentificavel, ISearcheable {
     IReserva cancelar(int reservaId)
         throws ObjetoNaoEncontradoException, FalhaOperacaoException;
 
-    ILocacao devolver(int locacaoId)
+    ILocacao devolver(int locacaoId, Date referencia)
         throws ObjetoNaoEncontradoException, FalhaOperacaoException;
-    ILocacao devolver(int usuarioId, int itemAcervoId)
+    ILocacao devolver(int usuarioId, int itemAcervoId, Date referencia)
         throws ObjetoNaoEncontradoException, FalhaOperacaoException;
 
-    ILocacao locar(int itemAcervoId, int usuarioId)
+    ILocacao locar(int itemAcervoId, int usuarioId, Date referencia)
         throws ObjetoNaoEncontradoException, ItemIndisponivelException;
 
-    IReserva reservar(int itemAcervoId, int usuarioId)
+    IReserva reservar(int itemAcervoId, int usuarioId, Date referencia)
         throws ObjetoNaoEncontradoException, ItemIndisponivelException;
 
     void atualizarReservas(Date referencia);

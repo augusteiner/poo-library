@@ -27,6 +27,7 @@ import java.util.Date;
 
 import poo.library.comum.EStatusRequisicao;
 import poo.library.comum.ILocacao;
+import poo.library.util.Locacoes;
 import poo.library.util.R;
 
 /**
@@ -55,7 +56,7 @@ public class Locacao extends Requisicao implements ILocacao {
     @Override
     public void atualizarStatus(Date referencia) {
 
-        if (!this.getStatus().isDefinitivo() &&
+        if (this.getStatus().isTemporario() &&
             this.getDevolverAte().compareTo(referencia) < 0) {
 
             this.setStatus(EStatusRequisicao.VENCIDA);
@@ -117,5 +118,10 @@ public class Locacao extends Requisicao implements ILocacao {
             this.getPrecoCobrado(),
             this.getDevolverAte(),
             this.getDevolvidoEm());
+    }
+
+    public long getDiasAtraso(Date referencia) {
+
+        return Locacoes.diasAtraso(this, referencia);
     }
 }

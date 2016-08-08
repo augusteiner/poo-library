@@ -45,6 +45,7 @@ import poo.library.util.FalhaOperacaoException;
 import poo.library.util.IConversor;
 import poo.library.util.ItemIndisponivelException;
 import poo.library.util.ObjetoNaoEncontradoException;
+import poo.library.util.R;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -117,7 +118,9 @@ public class UsuarioReservaResource extends GenericSubResource<ReservaDTO>
 
             reserva = biblioteca.reservar(
                 dto.getItemAcervoId(),
-                dto.getUsuarioId());
+                dto.getUsuarioId(),
+
+                R.CALENDAR_PADRAO.getTime());
 
         } catch (ItemIndisponivelException e) {
 

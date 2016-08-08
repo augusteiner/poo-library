@@ -35,8 +35,13 @@ public enum EStatusRequisicao {
 
     public static final EStatusRequisicao PADRAO = OK;
 
+    public boolean isTemporario() {
+
+        return this == OK || this == VENCIDA;
+    }
+
     public boolean isDefinitivo() {
 
-        return this != OK;
+        return !this.isTemporario();
     }
 }
