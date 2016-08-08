@@ -64,28 +64,27 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-            <span class="glyphicon glyphicon-user"></span> Augusto
+            <span class="glyphicon glyphicon-user"></span> Admin
             <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li class="divider"></li>
+          <ul class="dropdown-menu" role="menu" style="min-width: 24rem;">
             <li>
-              <a href="#/user/{{user.credentials.id}}/settings">
-                <span>
-                  <span class="glyphicon glyphicon-cog"></span> Configurações
+              <a href="#/user/{{user.credentials.id}}/settings" accesskey="s">
+                <span class="badge pull-right">
+                 <small>Alt + Shift + S</small>
                 </span>
                 <span>
-                 <small>Alt + Shift + S</small>
+                  <span class="glyphicon glyphicon-cog"></span> Configurações
                 </span>
               </a>
             </li>
             <li class="divider"></li>
             <li>
-              <a href="#/logout" ng-click="logout()" accesskey="e" class="clearfix">
+              <a href="#/login" accesskey="e" ng-click="logout()">
+                <span class="badge pull-right">
+                 <small>Alt + Shift + E</small>
+                </span>
                 <span>
                   <span class="glyphicon glyphicon-log-out"></span> Sair
-                </span>
-                <span style="float: right;">
-                 <small>Alt + Shift + E</small>
                 </span>
               </a>
             </li>
