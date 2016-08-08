@@ -4,9 +4,9 @@
   'use strict';
 
   var CTRLR = 'ReservaUserCtrlr';
-  var PATH = 'usuario/usuarioId/reserva/:id';
+  var PATH = 'usuario/:usuarioId/reserva/:id';
   var PARENT_PATH = '/user/reserva';
-  var ROOT_PATH = PARENT_PATH + '/usuarioId/reserva';
+  var ROOT_PATH = PARENT_PATH + '/:usuarioId/reserva';
   var TPL_ROOT_PATH = 'views' + PARENT_PATH;
 
   var app = angular.module('biblioteca');

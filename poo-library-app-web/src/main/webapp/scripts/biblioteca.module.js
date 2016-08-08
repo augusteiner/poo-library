@@ -40,7 +40,7 @@
       });
   }]);
 
-  app.controller('MainCtrlr', function($route, $scope, $location) {
+  app.controller('MainCtrlr', function($route, $scope, $location, $resource) {
 
     $scope.settings = {
       theme : {

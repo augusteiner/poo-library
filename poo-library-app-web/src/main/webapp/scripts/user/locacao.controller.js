@@ -17,21 +17,36 @@
 
   app.controller(CTRLR, function($scope, $routeParams, $controller) {
 
-    console.log($scope);
-
     $controller(BASE_CTRLR, { $scope : $scope, $routeParams: { usuarioId: $scope.$parent.params.id } });
+    var $rest = $scope.$rest;
 
     $scope.locar = function(userId, acervoId) {
-
-      var $rest = $scope.$rest;
 
       var $promise = $rest.save({
         usuarioId: userId,
         itemAcervoId: acervoId });
 
-      // $rest.put();
     };
 
+    $scope.devolver = function(locacaoId) {
+
+      var mainCtrlr = $scope.$parent.$parent;
+
+      //console.log('Devolvendo locação #', locacaoId);
+
+      $rest.update({
+
+        usuarioId: mainCtrlr.user.credentials.id,
+        id: locacaoId,
+        status: 'ENCERRADA'
+
+      }, function() {
+
+        console.log('Devolvido com sucesso!');
+
+        $scope.load();
+      });
+    }
   });
 
   app.config(function($routeProvider) {
