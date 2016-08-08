@@ -7,31 +7,29 @@
       Unidades</li>
   </ol>
   <form ng-submit="find(search.term)">
-    <div class="btn-group pull-right">
-      <div class="input-group input-group-sm">
-        <a class="input-group-addon">
-          <span class="glyphicon glyphicon-search"></span>
+    <div class="input-group input-group-sm">
+      <a class="input-group-addon">
+        <span class="glyphicon glyphicon-search"></span>
+      </a>
+      <input class="form-control search search-user" type="search" placeholder="Buscar por Nome, Categoria" ng-model="search.term" autofocus>
+      <div class="input-group-btn">
+        <a class="btn btn-primary" href="#{{url}}/new">
+          <span class="glyphicon glyphicon-plus"></span> Nova
         </a>
-        <input class="form-control search search-user" type="search" placeholder="Buscar por Nome, Categoria" ng-model="search.term" autofocus>
-        <div class="input-group-btn">
-          <a class="btn btn-sm btn-primary" href="#{{url}}/new">
-            <span class="glyphicon glyphicon-plus"></span> Nova
-          </a>
-          <a data-target="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu pull-right">
-            <li>
-              <a class="" href="javascript:void(0);">
-                <span class="glyphicon glyphicon-remove"></span> Deletar
-              </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-              <a class="" href="javascript:void(0);">
-                Selecionar</a></li>
-          </ul>
-        </div>
+        <a data-target="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu pull-right">
+          <li>
+            <a class="" href="javascript:void(0);">
+              <span class="glyphicon glyphicon-remove"></span> Deletar
+            </a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a class="" href="javascript:void(0);">
+              Selecionar</a></li>
+        </ul>
       </div>
     </div>
   </form>
