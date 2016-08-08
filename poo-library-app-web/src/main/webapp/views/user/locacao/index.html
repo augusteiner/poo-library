@@ -28,14 +28,15 @@
     <tbody>
       <tr ng-repeat="locacao in itens">
         <td>
-          <a class="btn btn-disabled" href="javascript:void(0);">
-            <span class="glyphicon glyphicon-alert text-danger" title="em atraso" ng-if="locacao.status == 'VENCIDA'"></span>
-            <span class="glyphicon glyphicon-ok text-success" title="ok" ng-if="locacao.status == 'OK'"></span>
+          <a class="btn" href="javascript:void(0);">
+            <span class="glyphicon glyphicon-ok text-success" title="Encerrada" ng-if="locacao.status == 'ENCERRADA'"></span>
+            <span class="glyphicon glyphicon-alert text-danger" title="Em Atraso" ng-if="locacao.status == 'VENCIDA'"></span>
+            <span class="glyphicon glyphicon-info-sign text-info" title="Dentro do prazo" ng-if="locacao.status == 'OK'"></span>
           </a>
         </td>
         <td>
-          <a href="#{{url}}/{{locacao.id}}">
-            &#35;{{locacao.id}} - <strong>{{locacao.itemAcervo.titulo}}</strong>
+          <a href="#{{url}}/{{locacao.id}}" ng-disabled="locacao.status == 'ENCERRADA'">
+            &#35;{{locacao.id}} - <strong>{{locacao.itemAcervo.titulo}}</strong> ({{locacao.status}})
             <br>
             <small>
               {{locacao.itemAcervo.categoria}} :: <em>R$ {{locacao.itemAcervo.precoLocacao}}</em>
@@ -44,14 +45,13 @@
         </td>
         <td>
           <div class="btn-group">
-            <a class="btn btn-sm btn-primary" href="javascript:void(0);" title="Devolver" ng-click="devolver(locacao.id)">
+            <a class="btn btn-sm btn-primary" href="javascript:void(0);" title="Devolver" ng-click="devolver(locacao.id)" ng-disabled="locacao.status == 'ENCERRADA'">
               <span class="glyphicon glyphicon-usd"></span>
             </a>
             <a data-target="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu pull-right">
-              <li class="divider"></li>
               <li>
                 <a href="#">
                   <span class="glyphicon glyphicon-th-list"></span> Ver detalhes</a>
