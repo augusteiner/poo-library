@@ -60,16 +60,16 @@
             <a data-target="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="caret"></span>
             </a>
-            <ul class="dropdown-menu pull-right">
+            <ul class="dropdown-menu pull-right" ng-controller="ReservaUserCtrlr">
               <li>
-                <a href="#" ng-click="reservar(user.credentials.id, data.id)">
-                  <span class="glyphicon glyphicon-heart"></span> Reservar</a>
+                <a href="javascript:void(0);" ng-click="reservar(user.credentials.id, item.id)">
+                  <span class="glyphicon glyphicon-saved"></span> Reservar</a>
               </li>
-              <li class="divider"></li>
+              <!-- <li class="divider"></li>
               <li>
                 <a href="#">
                   <span class="glyphicon glyphicon-th-list"></span> Ver detalhes</a>
-              </li>
+              </li> -->
             </ul>
           </div>
         </td>

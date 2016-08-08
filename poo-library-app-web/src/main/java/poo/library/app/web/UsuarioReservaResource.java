@@ -38,7 +38,7 @@ import poo.library.app.web.util.ISubResource;
 import poo.library.comum.EStatusRequisicao;
 import poo.library.dao.comum.DAOFactory;
 import poo.library.dao.comum.IDAO;
-import poo.library.modelo.Biblioteca;
+import poo.library.modelo.ItemAcervo;
 import poo.library.modelo.Reserva;
 import poo.library.modelo.Usuario;
 import poo.library.util.FalhaOperacaoException;
@@ -46,6 +46,7 @@ import poo.library.util.IConversor;
 import poo.library.util.ItemIndisponivelException;
 import poo.library.util.ObjetoNaoEncontradoException;
 import poo.library.util.R;
+import poo.library.util.Reservas;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
@@ -86,7 +87,13 @@ public class UsuarioReservaResource extends GenericSubResource<ReservaDTO>
 
         Usuario usuario = this.usuarioPorId(usuarioId);
 
-        return usuario.getReservas();
+        Collection<Reserva> reservas = usuario.getReservas();
+
+        Reservas.atualizar(
+            usuario.getReservas(),
+            R.CALENDAR_PADRAO.getTime());
+
+        return reservas;
     }
 
     @Override
@@ -110,15 +117,16 @@ public class UsuarioReservaResource extends GenericSubResource<ReservaDTO>
                 "Não é permitida atualização de reservas");
         }
 
-        Biblioteca biblioteca = this.bibliotecaPorId(dto.getBibliotecaId());
+        Usuario usuario = this.usuarioPorId(usuarioId);
+        ItemAcervo itemAcervo = this.itemPorId(dto.getItemAcervoId());
 
         Reserva reserva = null;
 
         try {
 
-            reserva = biblioteca.reservar(
-                dto.getItemAcervoId(),
-                dto.getUsuarioId(),
+            reserva = itemAcervo.getBiblioteca().reservar(
+                itemAcervo,
+                usuario,
 
                 R.CALENDAR_PADRAO.getTime());
 
@@ -147,6 +155,14 @@ public class UsuarioReservaResource extends GenericSubResource<ReservaDTO>
         this.getConversorDTO().converter(reserva, dto);
     }
 
+    private ItemAcervo itemPorId(int itemAcervoId)
+        throws ObjetoNaoEncontradoException {
+
+        IDAO<ItemAcervo> itemAcervoDAO = DAOFactory.novoDAO(ItemAcervo.class);
+
+        return itemAcervoDAO.find(itemAcervoId);
+    }
+
     @Override
     public void put(
         int usuarioId,
@@ -160,12 +176,6 @@ public class UsuarioReservaResource extends GenericSubResource<ReservaDTO>
 
             usuario.cancelar(reservaId);
         }
-    }
-
-    private Biblioteca bibliotecaPorId(int bibliotecaId)
-        throws ObjetoNaoEncontradoException {
-
-        return DAOFactory.novoDAO(Biblioteca.class).find(bibliotecaId);
     }
 
     private Usuario usuarioPorId(int usuarioId)

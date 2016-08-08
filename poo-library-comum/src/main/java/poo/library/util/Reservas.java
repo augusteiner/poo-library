@@ -21,51 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package poo.library.app.web.dto;
+package poo.library.util;
 
+import java.util.Collection;
 import java.util.Date;
 
-import poo.library.util.Dates;
+import poo.library.comum.IReserva;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
-public class ReservaDTO extends RequisicaoDTO {
+public class Reservas {
 
-    private Date validaAte;
+    public static void atualizar(
+        Collection<? extends IReserva> reservas,
+        Date referencia) {
 
-    private ItemAcervoDTO itemAcervo;
+        for (IReserva reserva : reservas) {
 
-    public ReservaDTO() { }
+            System.out.println(String.format(
+                "Reserva (%s; item: %s)",
 
-    public ItemAcervoDTO getItemAcervo() {
+                reserva,
+                reserva.getItemAcervo()));
 
-        return this.itemAcervo;
-    }
-
-    public String getValidaAte() {
-
-        return Dates.format(this.validaAte);
-    }
-
-    public void setItemAcervo(ItemAcervoDTO itemAcervo) {
-
-        this.itemAcervo = itemAcervo;
-    }
-
-    public void setValidaAte(Date validaAte) {
-
-        this.validaAte = validaAte;
-    }
-
-    @Override
-    public String toString() {
-
-        return String.format(
-            "Reserva: %s; validade: %s",
-
-            super.toString(),
-
-            this.getValidaAte());
+            reserva.atualizarStatus(referencia);
+        }
     }
 }
