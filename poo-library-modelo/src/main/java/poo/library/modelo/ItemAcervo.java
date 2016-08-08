@@ -46,7 +46,8 @@ public abstract class ItemAcervo implements IItemAcervo {
 
     private double precoLocacao;
 
-    private int qteDisponivel;
+    private int qteReservada;
+    private int qteLocada;
     private int qteTotal;
 
     private ECategoriaItem categoria;
@@ -54,11 +55,6 @@ public abstract class ItemAcervo implements IItemAcervo {
     private Collection<Reserva> reservas;
 
     public ItemAcervo() { }
-
-    protected ItemAcervo(ECategoriaItem categoria) {
-
-        this.categoria = categoria;
-    }
 
     public ItemAcervo(
         String autor,
@@ -69,10 +65,14 @@ public abstract class ItemAcervo implements IItemAcervo {
 
         this.autor = autor;
         this.precoLocacao = precoLocacao;
-        this.qteDisponivel = qteDisponivel;
         this.qteTotal = qteTotal;
 
         this.bibliotecaId = bibliotecaId;
+    }
+
+    protected ItemAcervo(ECategoriaItem categoria) {
+
+        this.categoria = categoria;
     }
 
     protected ItemAcervo(
@@ -93,9 +93,9 @@ public abstract class ItemAcervo implements IItemAcervo {
     }
 
     @Override
-    public double devolver() {
+    public void devolver() {
 
-        return 0;
+        this.setQteLocada(this.getQteLocada() - 1);
     }
 
     @Override
@@ -144,7 +144,21 @@ public abstract class ItemAcervo implements IItemAcervo {
     @Override
     public int getQteDisponivel() {
 
-        return this.qteDisponivel;
+        return this.getQteTotal() -
+            this.getQteLocada() -
+            this.getQteReservada();
+    }
+
+    @Override
+    public int getQteLocada() {
+
+        return this.qteLocada;
+    }
+
+    @Override
+    public int getQteReservada() {
+
+        return this.qteReservada;
     }
 
     @Override
@@ -174,7 +188,7 @@ public abstract class ItemAcervo implements IItemAcervo {
     @Override
     public void locar(IUsuario usuario) {
 
-        //
+        this.setQteLocada(this.getQteLocada() + 1);
     }
 
     @Override
@@ -186,7 +200,7 @@ public abstract class ItemAcervo implements IItemAcervo {
     @Override
     public void reservar(IUsuario usuario) {
 
-        // this.setQteDisponivel(this.getQteDisponivel() - 1);
+        this.setQteReservada(this.getQteReservada() + 1);
     }
 
     @Override
@@ -227,13 +241,6 @@ public abstract class ItemAcervo implements IItemAcervo {
         this.precoLocacao = precoLocacao;
     }
 
-    @Override
-    public void setQteDisponivel(int qteDisponivel) {
-
-        this.qteDisponivel = qteDisponivel;
-    }
-
-    @Override
     public void setQteTotal(int qteTotal) {
 
         this.qteTotal = qteTotal;
@@ -258,5 +265,15 @@ public abstract class ItemAcervo implements IItemAcervo {
     public String toString() {
 
         return ItensAcervo.toString(this);
+    }
+
+    private void setQteLocada(int qteLocada) {
+
+        this.qteLocada = qteLocada;
+    }
+
+    private void setQteReservada(int qteReservada) {
+
+        this.qteReservada = qteReservada;
     }
 }

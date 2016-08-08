@@ -86,8 +86,10 @@ CREATE TABLE `item_acervo` (
   `isbn` VARCHAR(30) NULL DEFAULT NULL,
 
   `precoLocacao` DECIMAL(12, 4) NOT NULL,
+
+  `qteLocada` SMALLINT NOT NULL,
+  `qteReservada` SMALLINT NOT NULL,
   `qteTotal` INT UNSIGNED NOT NULL DEFAULT 0,
-  `qteDisponivel` INT UNSIGNED NOT NULL DEFAULT 0,
 
   PRIMARY KEY (`id`),
 

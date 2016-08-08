@@ -75,8 +75,9 @@ CREATE TABLE item_acervo (
   edicao INT NULL DEFAULT NULL,
   isbn VARCHAR(30) NULL DEFAULT NULL,
 
+  qteLocada SMALLINT NOT NULL,
+  qteReservada SMALLINT NOT NULL,
   qteTotal SMALLINT NOT NULL,
-  qteDisponivel SMALLINT NOT NULL,
 
   precoLocacao DECIMAL(12, 4) NOT NULL,
 

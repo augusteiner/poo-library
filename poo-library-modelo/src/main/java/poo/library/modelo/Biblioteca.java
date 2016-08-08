@@ -167,7 +167,8 @@ public class Biblioteca implements IBiblioteca {
             usuario.setSaldoDevedor(usuario.getSaldoDevedor() + totalAPagar);
 //        }
 
-        itemAcervo.setQteDisponivel(itemAcervo.getQteDisponivel() + 1);
+        itemAcervo.devolver();
+        // itemAcervo.setQteDisponivel(itemAcervo.getQteDisponivel() + 1);
 
         locacao.setStatus(EStatusRequisicao.ENCERRADA);
         locacao.setDevolvidoEm(referencia);
@@ -257,9 +258,6 @@ public class Biblioteca implements IBiblioteca {
 
             // item.setQteDisponivel(item.getQteDisponivel() - 1);
 
-            item.locar(usuario);
-            usuario.locar(item);
-
             Date devolverAte = Requisicoes.adicionarDias(
                 referencia,
                 this.getQteDiasLocacao());
@@ -272,7 +270,8 @@ public class Biblioteca implements IBiblioteca {
 
             this.locacoes.add(locacao);
 
-            item.setQteDisponivel(item.getQteDisponivel() - 1);
+            item.locar(usuario);
+            usuario.locar(item);
 
             return locacao;
 

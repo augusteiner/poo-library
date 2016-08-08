@@ -20,7 +20,9 @@
       <basic name="sinopse" access="FIELD" />
 
       <basic name="precoLocacao" access="FIELD" />
-      <basic name="qteDisponivel" access="FIELD" />
+
+      <basic name="qteLocada" access="FIELD" />
+      <basic name="qteReservada" access="FIELD" />
       <basic name="qteTotal" access="FIELD" />
 
       <basic name="bibliotecaId" access="FIELD">

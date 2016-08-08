@@ -49,13 +49,13 @@ class ItemAcervoSeeder implements ISeeder<ItemAcervo> {
     public ItemAcervoSeeder(Biblioteca b1) {
 
         i1 = new Livro("José A.", "POO - Introdução", 2.5, b1.getId());
-        i1.setQteDisponivel(1);
+        i1.setQteTotal(1);
 
         i2 = new Texto("Introdução ao Arduino", "João M.", 1.5, b1.getId());
-        i2.setQteDisponivel(1);
+        i2.setQteTotal(1);
 
         i3 = new Apostila("Maria J.", "Java & JBDC", 1.25, b1.getId());
-        i3.setQteDisponivel(1);
+        i3.setQteTotal(1);
 
         this.b1 = b1;
     }

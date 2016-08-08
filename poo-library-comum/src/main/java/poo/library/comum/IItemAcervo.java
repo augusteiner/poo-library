@@ -38,18 +38,18 @@ public interface IItemAcervo extends IIdentificavel, ILocalizado, ISearcheable {
 
     double getPrecoLocacao();
 
-    int getQteDisponivel();
+    int getQteLocada();
+    int getQteReservada();
     int getQteTotal();
-    //int getQteReservados();
+
+    int getQteDisponivel();
 
     Iterable<? extends IReserva> getReservas();
 
     void setAutor(String autor);
     void setPrecoLocacao(double custoEmprestimo);
-    void setQteDisponivel(int qteDisponivel);
-    void setQteTotal(int qteTotal);
 
     void locar(IUsuario usuario);
-    double devolver();
+    void devolver();
     void reservar(IUsuario usuario);
 }
