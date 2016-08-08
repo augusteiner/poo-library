@@ -147,21 +147,30 @@ public class Biblioteca implements IBiblioteca {
     @Override
     public void devolver(Locacao locacao, Date referencia) {
 
-        locacao.atualizarStatus(referencia);
+        Locacoes.atualizar(referencia, locacao);
 
-        if (locacao.getStatus() == EStatusRequisicao.VENCIDA) {
+        ItemAcervo itemAcervo = locacao.getItemAcervo();
+
+//        if (locacao.getStatus() == EStatusRequisicao.VENCIDA) {
 
             Usuario usuario = locacao.getUsuario();
-            ItemAcervo itemAcervo = locacao.getItemAcervo();
 
-            double totalAPagar = Locacoes.totalAPagar(locacao, referencia);
+            double totalAPagar = Locacoes.totalAPagar(
+                locacao,
+                referencia);
+
+            System.out.println(String.format(
+                "TOTAL A PAGAR: %.2f",
+
+                totalAPagar));
 
             usuario.setSaldoDevedor(usuario.getSaldoDevedor() + totalAPagar);
-            itemAcervo.setQteDisponivel(itemAcervo.getQteDisponivel() + 1);
+//        }
 
-        }
+        itemAcervo.setQteDisponivel(itemAcervo.getQteDisponivel() + 1);
 
         locacao.setStatus(EStatusRequisicao.ENCERRADA);
+        locacao.setDevolvidoEm(referencia);
     }
 
     @Override

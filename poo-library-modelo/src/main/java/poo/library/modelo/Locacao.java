@@ -40,6 +40,8 @@ public class Locacao extends Requisicao implements ILocacao {
     private Date devolverAte;
     private Date devolvidoEm;
 
+    private int diasAtraso;
+
     public Locacao() { }
 
     public Locacao(
@@ -76,15 +78,20 @@ public class Locacao extends Requisicao implements ILocacao {
     }
 
     @Override
+    public int getDiasAtraso() {
+
+        return this.diasAtraso;
+    }
+
+    public long getDiasAtraso(Date referencia) {
+
+        return Locacoes.diasAtraso(this, referencia);
+    }
+
+    @Override
     public double getPrecoCobrado() {
 
         return this.precoCobrado;
-    }
-
-    private void init(Date devolverAte, ItemAcervo item) {
-
-        this.devolverAte = devolverAte;
-        this.precoCobrado = item.getPrecoLocacao();
     }
 
     @Override
@@ -97,6 +104,12 @@ public class Locacao extends Requisicao implements ILocacao {
     public void setDevolvidoEm(Date devolvidoEm) {
 
         this.devolvidoEm = devolvidoEm;
+    }
+
+    @Override
+    public void setDiasAtraso(int diasAtraso) {
+
+        this.diasAtraso = diasAtraso;
     }
 
     @Override
@@ -120,8 +133,9 @@ public class Locacao extends Requisicao implements ILocacao {
             this.getDevolvidoEm());
     }
 
-    public long getDiasAtraso(Date referencia) {
+    private void init(Date devolverAte, ItemAcervo item) {
 
-        return Locacoes.diasAtraso(this, referencia);
+        this.devolverAte = devolverAte;
+        this.precoCobrado = item.getPrecoLocacao();
     }
 }

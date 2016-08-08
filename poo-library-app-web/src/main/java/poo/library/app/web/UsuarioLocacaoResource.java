@@ -23,6 +23,8 @@
  */
 package poo.library.app.web;
 
+import static poo.library.util.Locacoes.*;
+
 import static poo.library.comum.EStatusRequisicao.*;
 import static javax.ws.rs.core.Response.Status.*;
 import static poo.library.app.web.util.Conversores.*;
@@ -30,7 +32,7 @@ import static poo.library.app.web.util.Responses.*;
 
 import java.net.URI;
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.Date;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Path;
@@ -80,22 +82,9 @@ public class UsuarioLocacaoResource extends GenericSubResource<LocacaoDTO>
 
         Usuario usuario = getParentDAO().find(usuarioId);
 
-        Collection<Locacao> locacoes = new LinkedList<Locacao>();
+        Collection<Locacao> locacoes = usuario.getLocacoes();
 
-        for (Locacao locacao : usuario.getLocacoes()) {
-
-            System.out.println(String.format(
-                "ITEM DE ACERVO: %s",
-
-                locacao.getItemAcervo().toString()));
-
-            locacao.atualizarStatus(R.CALENDAR_PADRAO.getTime());
-
-            if (locacao.getStatus().isTemporario()) {
-
-                locacoes.add(locacao);
-            }
-        }
+        atualizar(locacoes, R.CALENDAR_PADRAO.getTime());
 
         this.flush();
 
@@ -162,7 +151,9 @@ public class UsuarioLocacaoResource extends GenericSubResource<LocacaoDTO>
 
             Locacao locacao = usuario.locacaoPorId(id);
 
-            locacao.getBiblioteca().devolver(locacao, R.CALENDAR_PADRAO.getTime());
+            locacao.getBiblioteca().devolver(
+                locacao,
+                R.CALENDAR_PADRAO.getTime());
 
         } else {
 

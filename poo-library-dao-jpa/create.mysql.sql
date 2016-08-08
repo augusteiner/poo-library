@@ -85,10 +85,9 @@ CREATE TABLE `item_acervo` (
   `edicao` INT NULL DEFAULT NULL,
   `isbn` VARCHAR(30) NULL DEFAULT NULL,
 
+  `precoLocacao` DECIMAL(12, 4) NOT NULL,
   `qteTotal` INT UNSIGNED NOT NULL DEFAULT 0,
   `qteDisponivel` INT UNSIGNED NOT NULL DEFAULT 0,
-
-  `precoLocacao` DECIMAL(12, 4) NOT NULL,
 
   PRIMARY KEY (`id`),
 
@@ -112,6 +111,7 @@ CREATE TABLE `locacao` (
 
   `status` ENUM('OK', 'CANCELADA', 'ENCERRADA', 'VENCIDA') NOT NULL DEFAULT 'OK',
 
+  `diasAtraso` INT UNSIGNED NOT NULL,
   `precoCobrado` DECIMAL(12, 4) NOT NULL DEFAULT 0.0,
 
   `devolvidoEm` TIMESTAMP NULL DEFAULT NULL,

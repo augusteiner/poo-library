@@ -32,9 +32,13 @@ public interface ILocacao extends IRequisicao {
 
     Date getDevolverAte();
     Date getDevolvidoEm();
+
+    int getDiasAtraso();
     double getPrecoCobrado();
 
     void setDevolverAte(Date devolverAte);
     void setDevolvidoEm(Date devolvidoEm);
+
+    void setDiasAtraso(int diasAtraso);
     void setPrecoCobrado(double preco);
 }

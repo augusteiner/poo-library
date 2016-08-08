@@ -23,7 +23,11 @@
  */
 package poo.library.util;
 
+import static java.math.BigDecimal.*;
+
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -35,11 +39,35 @@ import poo.library.comum.ILocacao;
  */
 public class Locacoes {
 
+    public static void atualizar(
+        Collection<? extends ILocacao> locacoes,
+        Date referencia) {
+
+        for (ILocacao locacao : locacoes) {
+
+            System.out.println(String.format(
+                "Locação (%s; item: %s)",
+
+                locacao,
+                locacao.getItemAcervo()));
+
+            locacao.atualizarStatus(R.CALENDAR_PADRAO.getTime());
+            locacao.setDiasAtraso((int) diasAtraso(locacao, referencia));
+        }
+    }
+
+    public static void atualizar(Date referencia, ILocacao... locacoes) {
+
+        atualizar(
+            Arrays.asList(locacoes),
+            referencia);
+    }
+
     public static long diasAtraso(ILocacao locacao, Date referencia) {
 
-        if (locacao.getDevolverAte().compareTo(referencia) < 0) {
+        if (referencia.compareTo(locacao.getDevolverAte()) > 0) {
 
-            long diff = locacao.getDevolverAte().getTime() - referencia.getTime();
+            long diff = referencia.getTime() - locacao.getDevolverAte().getTime();
 
             return diff / DateUtils.MILLIS_PER_DAY;
 
@@ -51,10 +79,20 @@ public class Locacoes {
 
     public static double totalAPagar(ILocacao locacao, Date referencia) {
 
-        BigDecimal diasAtraso = BigDecimal.valueOf(diasAtraso(locacao, referencia));
-        BigDecimal precoCobrado = BigDecimal.valueOf(locacao.getPrecoCobrado());
-        BigDecimal multa = BigDecimal.valueOf(locacao.getBiblioteca().getMultaDiaria());
+        BigDecimal diasAtraso = valueOf(locacao.getDiasAtraso());
+        BigDecimal precoCobrado = valueOf(locacao.getPrecoCobrado());
+        BigDecimal multa = valueOf(locacao.getBiblioteca().getMultaDiaria());
 
-        return multa.multiply(diasAtraso).add(precoCobrado).doubleValue();
+        BigDecimal totalAPagar = multa.multiply(diasAtraso);
+
+        System.out.println(String.format(
+            "Total a pagar R$ %.2f (atraso: %d dias; preço: %.2f; multa: %.2f)",
+
+            totalAPagar,
+            diasAtraso.intValue(),
+            precoCobrado,
+            multa));
+
+        return totalAPagar.doubleValue();
     }
 }

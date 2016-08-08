@@ -7,6 +7,7 @@
 
     <attributes>
 
+      <basic name="diasAtraso" access="FIELD" />
       <basic name="precoCobrado" access="FIELD" />
       <basic name="devolverAte" access="FIELD" />
       <basic name="devolvidoEm" access="FIELD" />

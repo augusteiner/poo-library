@@ -33,6 +33,7 @@
       </one-to-many>
 
       <one-to-many name="locacoes" fetch="LAZY" access="FIELD" mapped-by="usuario">
+        <order-by>realizadaEm DESC</order-by>
       </one-to-many>
 
       <!-- <transient name="reservas" /> -->

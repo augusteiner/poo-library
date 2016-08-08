@@ -101,6 +101,7 @@ CREATE TABLE locacao (
 
   status VARCHAR(10) NOT NULL DEFAULT 'OK',
 
+  diasAtraso INT NOT NULL,
   precoCobrado DECIMAL(12, 4) NOT NULL DEFAULT 0.0,
 
   devolvidoEm TIMESTAMP NULL DEFAULT NULL,

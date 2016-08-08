@@ -23,6 +23,7 @@
  */
 package poo.library.app.web;
 
+import static poo.library.util.Iterables.*;
 import static javax.ws.rs.core.Response.Status.*;
 import static poo.library.app.web.util.Responses.*;
 
@@ -46,7 +47,6 @@ import poo.library.comum.IIdentificavel;
 import poo.library.dao.comum.IDAO;
 import poo.library.util.FalhaOperacaoException;
 import poo.library.util.IConversor;
-import poo.library.util.Iterables;
 import poo.library.util.ObjetoNaoEncontradoException;
 
 /**
@@ -152,7 +152,7 @@ public abstract class GenericSubResource<T extends IIdentificavel>
                 list.getClass(),
                 list.size()));
 
-            return Iterables.convert(
+            return convert(
                 list,
                 this.getConversorDTO());
 

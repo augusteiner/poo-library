@@ -23,12 +23,26 @@
  */
 package poo.library.util;
 
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  * @author José Nascimento <joseaugustodearaujonascimento@gmail.com>
  */
 public class Iterables {
+
+    public static <T> Collection<T> asList(Iterable<T> iterable) {
+
+        Collection<T> list = new LinkedList<T>();
+
+        for (T item : iterable) {
+
+            list.add(item);
+        }
+
+        return list;
+    }
 
     public static <I, O> Iterable<O> convert(
         final Iterable<I> iterable,
